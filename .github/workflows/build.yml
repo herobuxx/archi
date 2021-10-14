@@ -13,7 +13,7 @@ jobs:
         uses: edlanglois/pkgbuild-action@v1.1.7
         with:
           makepkgArgs: "--skippgpcheck"
-          pkgdir: "app/slimjet"
+          pkgdir: "slimjet"
       - uses: ncipollo/release-action@v1.8.10
         with:
           allowUpdates: true
