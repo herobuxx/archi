@@ -14,8 +14,10 @@ jobs:
         with:
           makepkgArgs: "--skippgpcheck"
           pkgdir: "slimjet"
-      - uses: ncipollo/release-action@v1.8.10
+      - uses: elgohr/Github-Release-Action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         with:
-          allowUpdates: true
-          tag: "app"
-          token: ${{ secrets.GITHUB_TOKEN }}
+          args: bruh
+
+
