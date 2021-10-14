@@ -14,10 +14,13 @@ jobs:
         with:
           makepkgArgs: "--skippgpcheck"
           pkgdir: "slimjet"
-      - uses: elgohr/Github-Release-Action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+      - uses: ncipollo/release-action@v1.8.10
         with:
-          args: bruh
+          allowUpdates: true
+          tag: "kernel"
+          replacesArtifacts: "true"
+          removeArtifacts: "true"
+          artifacts: "./*/*.zst"
+          token: ${{ secrets.GITHUB_TOKEN }}
 
 
