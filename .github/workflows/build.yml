@@ -1,0 +1,22 @@
+name: Github Action Build PKGBUILD
+on:
+  push:
+  workflow_dispatch:
+jobs:
+
+  build_slimjet:
+    runs-on: ubuntu-latest
+    steps:
+      - name: build slimjet for arch
+        uses: actions/checkout@v2.3.4
+      - id: makepkg
+        uses: edlanglois/pkgbuild-action@v1.1.7
+        with:
+          makepkgArgs: "--skippgpcheck"
+          pkgdir: "app/slimjet"
+      - uses: ncipollo/release-action@v1.8.10
+        with:
+          allowUpdates: true
+          tag: "app"
+          artifacts: "slimjet/./*/*.zst"
+          token: ${{ secrets.GITHUB_TOKEN }}
