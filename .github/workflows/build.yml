@@ -15,7 +15,6 @@ jobs:
           pkgdir: "slimjet"
       - uses: ncipollo/release-action@v1.8.10
         with:
-          allowUpdates: true
           tag: "kernel"
           replacesArtifacts: true
           removeArtifacts: true

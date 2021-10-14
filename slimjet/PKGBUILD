@@ -1,5 +1,6 @@
 # Maintainer: JPratama7 <josepratama080@gmail.com
 # Original Maintainer: dalto <dalto[at]fastmail.com>
+
 pkgname=slimjet
 pkgver=32.0.2.0
 pkgrel=2
