@@ -18,8 +18,8 @@ jobs:
         with:
           allowUpdates: true
           tag: "kernel"
-          replacesArtifacts: "true"
-          removeArtifacts: "true"
+          replacesArtifacts: true
+          removeArtifacts: true
           artifacts: "./*/*.zst"
           token: ${{ secrets.GITHUB_TOKEN }}
 
