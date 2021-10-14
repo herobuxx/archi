@@ -18,5 +18,4 @@ jobs:
         with:
           allowUpdates: true
           tag: "app"
-          artifacts: "slimjet/"
           token: ${{ secrets.GITHUB_TOKEN }}
