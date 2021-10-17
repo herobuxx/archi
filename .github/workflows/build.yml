@@ -12,8 +12,10 @@ jobs:
       - id: makepkg
         uses: JPratama7/arch-pkgbuild-builder@main
         with:
-          makepkgArgs: "--skippgpcheck"
-          pkgdir: "slimjet"
+          # makepkgArgs: "--skippgpcheck"
+          # pkgdir: "slimjet"
+          target: "pkgbuild"
+          pkgname: "slimjet"
       - uses: ncipollo/release-action@v1.8.10
         with:
           tag: "kernel"
