@@ -14,6 +14,37 @@ jobs:
       - name: run git commit
         uses: stefanzweifel/git-auto-commit-action@v4
 
+  clone_repo_spotify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: clone aur
+        run: |
+          git clone https://aur.archlinux.org/spotify-adblock-git.git
+      - run: cd slimjet
+      - name: run git commit
+        uses: stefanzweifel/git-auto-commit-action@v4
+
+
+  build_spotify_adblock_git:
+    needs: [clone_repo_spotify]
+    runs-on: ubuntu-latest
+    steps:
+      - name: build spotify-adblock-git for arch
+        uses: actions/checkout@v2.3.4
+      - id: makepkg
+        uses: JPratama7/pkgbuild-action@master
+        with:
+          makepkgArgs: "--skippgpcheck"
+          pkgdir: "spotify-adblock-git"
+          aurDeps: "spotify"
+
+      - uses: ncipollo/release-action@v1.8.10
+        with:
+          allowUpdates: true
+          tag: "latest"
+          artifacts: "./*/*.zst"
+          token: ${{ secrets.GITHUB_TOKEN }}
+
   build_slimjet:
     needs: [clone_repo_aur]
     runs-on: ubuntu-latest
