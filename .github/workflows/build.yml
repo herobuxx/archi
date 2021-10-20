@@ -17,9 +17,7 @@ jobs:
       - run: ls -al
       - name: clone aur
         run: |
-          git submodule add https://aur.archlinux.org/slimjet.git
-          git submodule add https://aur.archlinux.org/spotify-adblock-git.git
-          git submodule update
+          git submodule update --init
       - name: update file and push to remote
         run: |
           echo "Test push commit to the remote in the workflow" >> test.txt
