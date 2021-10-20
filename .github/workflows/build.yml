@@ -28,6 +28,7 @@ jobs:
         with:
           source_file: 'slimjet-32.0.2.0-2-x86_64.pkg.tar.zst'
           destination_repo: 'JPratama7/test-binary'
+          destination_branch: 'master'
           user_email: 'josepratama080@gmail.com'
           user_name: 'JPratama7'
           commit_message: 'A custom message for the commit'
