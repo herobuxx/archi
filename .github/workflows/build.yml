@@ -4,7 +4,18 @@ on:
   workflow_dispatch:
 jobs:
   
+  clone_repo_aur:
+    runs-on: ubuntu-latest
+    steps:
+      - name: clone aur
+        run: |
+          git clone https://aur.archlinux.org/slimjet.git
+      - run: cd slimjet
+      - name: run git commit
+        uses: stefanzweifel/git-auto-commit-action@v4
+
   build_slimjet:
+    needs: [clone_repo_aur]
     runs-on: ubuntu-latest
     steps:
       - name: build slimjet for arch
@@ -22,15 +33,5 @@ jobs:
           allowUpdates: true
           artifacts: "./*/*.zst"
           token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: dmnemec/copy_file_to_another_repo_action@main
-        env:
-          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
-        with:
-          source_file: 'slimjet/slimjet-*-x86_64.pkg.tar.zst'
-          destination_repo: 'JPratama7/test-binary'
-          destination_branch: 'master'
-          user_email: 'josepratama080@gmail.com'
-          user_name: 'JPratama7'
-          commit_message: 'A custom message for the commit'
 
 
