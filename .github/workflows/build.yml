@@ -23,6 +23,8 @@ jobs:
         run: |
           git submodule add https://aur.archlinux.org/slimjet.git
           git submodule add https://aur.archlinux.org/spotify-adblock-git.git
+          git submodule init
+          git submodule update
           # ls -lR | more
           # find -mindepth 1 -name ".git" -type d -exec rm -r "{}" \;
           # ls -al
