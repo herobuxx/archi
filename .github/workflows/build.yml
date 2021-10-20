@@ -13,16 +13,13 @@ jobs:
           shopt -u dotglob
           rm -rf *
           shopt -s dotglob
+          ls -al
       - run: ls -al
       - name: clone aur
         run: |
           git submodule add https://aur.archlinux.org/slimjet.git
           git submodule add https://aur.archlinux.org/spotify-adblock-git.git
-          git submodule init
           git submodule update
-          # ls -lR | more
-          # find -mindepth 1 -name ".git" -type d -exec rm -r "{}" \;
-          # ls -al
       - name: update file and push to remote
         run: |
           echo "Test push commit to the remote in the workflow" >> test.txt
