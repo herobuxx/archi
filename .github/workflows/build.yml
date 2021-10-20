@@ -27,8 +27,7 @@ jobs:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
           source_file: '.*.*.zst'
-          destination_repo: 'JPratama7/test-cicd'
-          destination_folder: 'binary'
+          destination_repo: 'JPratama7/test-binary'
           user_email: 'josepratama080@gmail.com'
           user_name: 'JPratama7'
           commit_message: 'A custom message for the commit'
