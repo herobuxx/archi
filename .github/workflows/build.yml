@@ -17,6 +17,7 @@ jobs:
   clone_repo_spotify:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2.3.4
       - name: clone aur
         run: |
           git clone https://aur.archlinux.org/spotify-adblock-git.git
