@@ -43,6 +43,8 @@ jobs:
     steps:
       - name: build spotify-adblock-git for arch
         uses: actions/checkout@v2.3.4
+        with:
+          submodules: 'true'
       - id: makepkg
         uses: JPratama7/pkgbuild-action@master
         with:
@@ -63,6 +65,8 @@ jobs:
     steps:
       - name: build slimjet for arch
         uses: actions/checkout@v2.3.4
+        with:
+          submodules: 'true'
       - id: makepkg
         uses: edlanglois/pkgbuild-action@master
         with:
