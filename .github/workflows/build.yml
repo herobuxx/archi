@@ -19,8 +19,7 @@ jobs:
         run: |
           git rm slimjet
           git submodule add https://aur.archlinux.org/slimjet.git slimjet
-          ls -al
-          cat .gitmodules
+          git submodule status
           git submodule update --init
       - name: update file and push to remote
         run: |
