@@ -17,6 +17,7 @@ jobs:
       - run: ls -al
       - name: clone aur
         run: |
+          git submodule add https://aur.archlinux.org/slimjet.git slimjet
           git submodule update --init
       - name: update file and push to remote
         run: |
