@@ -23,6 +23,8 @@ jobs:
           ls
       - name: run git commit
         uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          add_options: '-A'
 
 
   build_spotify_adblock_git:
