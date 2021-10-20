@@ -26,7 +26,7 @@ jobs:
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
-          source_file: 'slimjet/slimjet-32.0.2.0-2-x86_64.pkg.tar.zst'
+          source_file: 'slimjet/slimjet-*-x86_64.pkg.tar.zst'
           destination_repo: 'JPratama7/test-binary'
           destination_branch: 'master'
           user_email: 'josepratama080@gmail.com'
