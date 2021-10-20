@@ -11,7 +11,7 @@ jobs:
       - run: ls -al
       - run: |
           shopt -u dotglob
-          rm *
+          rm -r *
           shopt -s dotglob
       - run: ls -al
       - name: clone aur
