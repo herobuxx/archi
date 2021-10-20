@@ -16,14 +16,21 @@ jobs:
           pkgdir: "slimjet"
           # target: "pkgbuild"
           # pkgname: "slimjet"
-      - name: checking dir
-        run: |
-          ls
       - uses: ncipollo/release-action@v1.8.10
         with:
           tag: "kernel"
           allowUpdates: true
-          artifacts: "slimjet/./*/*.zst"
+          artifacts: "./*/*.zst"
           token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: dmnemec/copy_file_to_another_repo_action@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+        with:
+          source_file: '.*.*.zst'
+          destination_repo: 'JPratama7/test-cicd'
+          destination_folder: 'binary'
+          user_email: 'josepratama080@gmail.com'
+          user_name: 'JPratama7'
+          commit_message: 'A custom message for the commit'
 
 
