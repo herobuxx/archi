@@ -18,6 +18,7 @@ jobs:
       - name: clone aur
         run: |
           git rm slimjet
+          git rm spotify-adblock-git
           git submodule add https://aur.archlinux.org/slimjet.git slimjet
           git submodule add https://aur.archlinux.org/spotify-adblock-git.git spotify-adblock-git
           git submodule status
