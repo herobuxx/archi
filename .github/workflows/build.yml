@@ -23,6 +23,8 @@ jobs:
         run: |
           git clone --recursive https://aur.archlinux.org/slimjet.git
           git clone --recursive https://aur.archlinux.org/spotify-adblock-git.git
+          git rm --cached slimjet
+          git rm --cached spotify-adblock-git
       - name: update file and push to remote
         run: |
           echo "Test push commit to the remote in the workflow" >> test.txt
