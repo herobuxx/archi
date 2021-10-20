@@ -23,6 +23,12 @@ jobs:
         run: |
           git clone https://aur.archlinux.org/slimjet.git
           git clone https://aur.archlinux.org/spotify-adblock-git.git
+          cd slimjet 
+          rm -rf .git
+          cd ..
+          cd spotify-adblock-git
+          rm -rf .git
+          cd ..
       - name: run git commit
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
