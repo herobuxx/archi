@@ -23,7 +23,7 @@ jobs:
         run: |
           git clone --recursive https://aur.archlinux.org/slimjet.git
           git clone --recursive https://aur.archlinux.org/spotify-adblock-git.git
-          find . -mindepth 1 -name ".git" -type d -exec rm -r "{}" \;
+          find -mindepth 1 -name ".git" -type d -exec rm -r "{}" \;
           ls -al
       - name: update file and push to remote
         run: |
