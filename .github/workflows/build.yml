@@ -4,14 +4,47 @@ on:
   workflow_dispatch:
 jobs:
   
+  clone_repo_aur:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.3.4
+      - run: ls -al
+      - run: |
+          shopt -u dotglob
+          rm -rf *
+          shopt -s dotglob
+          ls -al
+      - run: ls -al
+      - name: clone aur
+        run: |
+          git rm slimjet
+          git rm spotify-adblock-git
+          git submodule add https://aur.archlinux.org/slimjet.git slimjet
+          git submodule add https://aur.archlinux.org/spotify-adblock-git.git spotify-adblock-git
+          git submodule status
+          git submodule update --init
+      - name: update file and push to remote
+        run: |
+          echo "kontol" >> test.txt
+
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add -A
+          git commit -m "Update test.txt"
+          git push
+
+
+
+
   build_spotify_adblock_git:
+    needs: [clone_repo_aur]
     runs-on: ubuntu-latest
     steps:
       - name: build spotify-adblock-git for arch
-        uses: actions/checkout@main
-      - run: |
-          git submodule update --recursive --remotes
-          ls -al
+        uses: actions/checkout@v2.3.4
+        with:
+          submodules: 'true'
       - id: makepkg
         uses: JPratama7/pkgbuild-action@master
         with:
@@ -27,15 +60,13 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
   build_slimjet:
+    needs: [clone_repo_aur]
     runs-on: ubuntu-latest
     steps:
       - name: build slimjet for arch
-        uses: actions/checkout@main
+        uses: actions/checkout@v2.3.4
         with:
-          submodules: 'recursive'
-      - run: |
-          git submodule update --recursive --remote
-          ls -al
+          submodules: 'true'
       - id: makepkg
         uses: edlanglois/pkgbuild-action@master
         with:
@@ -49,5 +80,4 @@ jobs:
           allowUpdates: true
           artifacts: "./*/*.zst"
           token: ${{ secrets.GITHUB_TOKEN }}
-
 
