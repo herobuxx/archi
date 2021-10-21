@@ -11,10 +11,19 @@ jobs:
       - run: ls -al
       - name: clone aur
         run: |
-          rm -r slimjet
-          rm -r spotify-adblock-git
-          ls -al
-          > .gitmodules
+          # deinit all submodules from .gitmodules
+          git submodule deinit .
+
+          # remove all submodules (`git rm`) from .gitmodules
+          git submodule | cut -c43- | while read -r line; do (git rm "$line"); done
+
+          # delete all submodule sections from .git/config (`git config --local --remove-section`) by fetching those from .git/config
+          git config --local -l | grep submodule | sed -e 's/^\(submodule\.[^.]*\)\(.*\)/\1/g' | while read -r line; do (git config --local --remove-section "$line"); done
+
+          # manually remove leftovers
+          rm .gitmodules
+          rm -rf .git/modules
+
           git submodule add https://aur.archlinux.org/slimjet.git slimjet
           git submodule add https://aur.archlinux.org/spotify-adblock-git.git spotify-adblock-git
           git submodule update --init
