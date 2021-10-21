@@ -9,10 +9,9 @@ jobs:
     steps:
       - name: build spotify-adblock-git for arch
         uses: actions/checkout@main
-        with:
-          submodules: 'recursive'
       - run: |
-          git submodule update --init 
+          git submodule status
+          git submodule update --init
           ls -al
       - id: makepkg
         uses: JPratama7/pkgbuild-action@master
