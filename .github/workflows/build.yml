@@ -8,22 +8,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.3.4
-      - run: |
-          ls -al
-          shopt -s dotglob
-          git rm -r '*'
-          shopt -u dotglob
-          # removing submodules to avoid conflict
-
-          rm -f .gitmodules
-          ls -al
+      # - run: |
+      #     ls -al
+      #     shopt -s dotglob
+      #     git rm -r '*'
+      #     shopt -u dotglob
+      #     # removing submodules to avoid conflict
       - run: ls -al
       - name: clone aur
         run: |
-          git submodule init
           git submodule add https://aur.archlinux.org/slimjet.git slimjet
           git submodule add https://aur.archlinux.org/spotify-adblock-git.git spotify-adblock-git
-          git submodule status
           git submodule update --init
       - name: update file and push to remote
         run: |
