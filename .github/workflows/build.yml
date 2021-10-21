@@ -21,7 +21,6 @@ jobs:
           git config --local -l | grep submodule | sed -e 's/^\(submodule\.[^.]*\)\(.*\)/\1/g' | while read -r line; do (git config --local --remove-section "$line"); done
 
           # manually remove leftovers
-          rm .gitmodules
           rm -rf .git/modules
 
           git submodule add https://aur.archlinux.org/slimjet.git slimjet
