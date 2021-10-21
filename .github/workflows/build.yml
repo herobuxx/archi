@@ -11,7 +11,7 @@ jobs:
       - run: |
           ls -al
           shopt -s dotglob
-          git rm *
+          git rm -r '*'
           shopt -u dotglob
           # removing submodules to avoid conflict
 
