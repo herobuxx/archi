@@ -4,33 +4,7 @@ on:
   workflow_dispatch:
 jobs:
   
-  clone_repo_aur:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2.3.4
-      - run: ls -al
-      - name: clone aur
-        run: |
-          git rm slimjet
-          git rm spotify-adblock-git
-          git submodule add https://aur.archlinux.org/slimjet.git slimjet
-          git submodule add https://aur.archlinux.org/spotify-adblock-git.git spotify-adblock-git
-          git submodule status
-          git submodule update --init
-      - name: update file and push to remote
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git add -A
-          git commit -m "Update test.txt"
-          git push --force
-
-
-
-
   build_spotify_adblock_git:
-    needs: [clone_repo_aur]
     runs-on: ubuntu-latest
     steps:
       - name: build spotify-adblock-git for arch
@@ -52,7 +26,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
   build_slimjet:
-    needs: [clone_repo_aur]
     runs-on: ubuntu-latest
     steps:
       - name: build slimjet for arch
