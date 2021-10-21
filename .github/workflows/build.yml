@@ -10,7 +10,7 @@ jobs:
       - name: build spotify-adblock-git for arch
         uses: actions/checkout@main
       - run: |
-          git pull --recurse-submodules
+          git submodule update --recursive --remotes
           ls -al
       - id: makepkg
         uses: JPratama7/pkgbuild-action@master
@@ -34,7 +34,7 @@ jobs:
         with:
           submodules: 'recursive'
       - run: |
-          git pull --recurse-submodules
+          git submodule update --recursive --remote
           ls -al
       - id: makepkg
         uses: edlanglois/pkgbuild-action@master
