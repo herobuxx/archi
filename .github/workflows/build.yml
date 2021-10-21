@@ -17,6 +17,10 @@ jobs:
       - run: ls -al
       - name: clone aur
         run: |
+          shopt -s dotglob
+          rm -r */
+          shopt -u dotglob
+          ls -al
           git submodule add https://aur.archlinux.org/slimjet.git slimjet
           git submodule add https://aur.archlinux.org/spotify-adblock-git.git spotify-adblock-git
           git submodule update --init
