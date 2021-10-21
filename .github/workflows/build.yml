@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: build spotify-adblock-git for arch
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@main
         with:
           submodules: 'recursive'
       - run: ls -al
@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: build slimjet for arch
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@main
         with:
           submodules: 'recursive'
       - run: ls -al
