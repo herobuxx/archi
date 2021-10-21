@@ -11,8 +11,7 @@ jobs:
         uses: actions/checkout@main
         with:
           submodules: 'recursive'
-      -run: | 
-        git submodule update --init 
+      -run: git submodule update --init 
       - run: ls -al
       - id: makepkg
         uses: JPratama7/pkgbuild-action@master
