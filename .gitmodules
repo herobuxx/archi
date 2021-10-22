@@ -4,3 +4,6 @@
 [submodule "spotify-adblock-git"]
 	path = spotify-adblock-git
 	url = https://aur.archlinux.org/spotify-adblock-git.git
+[submodule "xampp"]
+	path = xampp
+	url = https://aur.archlinux.org/xampp.git
