@@ -57,6 +57,7 @@ jobs:
         with:
           makepkgArgs: "--skippgpcheck"
           pkgdir: "xampp"
+          aurDeps: true
           # target: "pkgbuild"
           # pkgname: "slimjet"
       - uses: ncipollo/release-action@v1.8.10
