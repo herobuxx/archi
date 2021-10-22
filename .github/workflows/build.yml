@@ -54,13 +54,10 @@ jobs:
           submodules: 'true'
       - run: ls -al
       - id: makepkg
-        uses: JPratama7/pkgbuild-action@master
+        uses: 2m/arch-pkgbuild-builder@v1.16
         with:
-#           makepkgArgs: "--skippgpcheck"
-#           pkgdir: "xampp"
-#           aurDeps: true
-          target: "pkgbuild"
-          pkgname: "xampp"
+          target: 'pkgbuild'
+          pkgname: 'xampp'
       - uses: ncipollo/release-action@v1.8.10
         with:
           tag: "kernel"
