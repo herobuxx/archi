@@ -54,7 +54,7 @@ jobs:
           submodules: 'true'
       - run: ls -al
       - id: makepkg
-        uses: 2m/arch-pkgbuild-builder@v1.16
+        uses: JPratama7/arch-pkgbuild-builder@master
         with:
           target: 'pkgbuild'
           pkgname: 'xampp'
