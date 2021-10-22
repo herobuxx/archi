@@ -1,0 +1,14 @@
+name: Remove sub module
+on:
+  workflow_dispatch:
+jobs:
+  remove_submodules:
+    runs-on: ubuntu-latest
+    steps:
+      - name: build spotify-adblock-git for arch
+        uses: actions/checkout@v2.3.5
+      - run: |
+          git rm linux-xanmod
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Removing submodules
