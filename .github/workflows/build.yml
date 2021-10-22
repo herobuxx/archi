@@ -55,11 +55,11 @@ jobs:
       - id: makepkg
         uses: JPratama7/pkgbuild-action@master
         with:
-          makepkgArgs: "--skippgpcheck"
-          pkgdir: "xampp"
-          aurDeps: true
-          # target: "pkgbuild"
-          # pkgname: "slimjet"
+#           makepkgArgs: "--skippgpcheck"
+#           pkgdir: "xampp"
+#           aurDeps: true
+          target: "pkgbuild"
+          pkgname: "xampp"
       - uses: ncipollo/release-action@v1.8.10
         with:
           tag: "kernel"
