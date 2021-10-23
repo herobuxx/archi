@@ -10,11 +10,13 @@ jobs:
         with:
           submodules: 'true'
       - id: makepkg
-        uses: JPratama7/pkgbuild-action@master
+        uses: JPratama7/arch-pkgbuild-builder@master
         with:
-          makepkgArgs: "--skippgpcheck"
-          pkgdir: "spotify-adblock-git"
-          aurDeps: true
+          target: 'pkgbuild'
+          pkgname: 'spotify-adblock-git'
+#           makepkgArgs: "--skippgpcheck"
+#           pkgdir: "spotify-adblock-git"
+#           aurDeps: true
 
       - uses: ncipollo/release-action@v1.8.10
         with:
