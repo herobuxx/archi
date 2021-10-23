@@ -10,6 +10,7 @@ jobs:
       - run: |
           ls -al
           # git rm xampp
+          sed '/build_xampp/q' .github/workflows/build.yml
           sed -n '/build_xampp/q;p' .github/workflows/build.yml
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
