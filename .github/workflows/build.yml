@@ -1,7 +1,8 @@
-name: Github Action Build PKGBUILD
+name: Builder
 on:
   workflow_dispatch:
-jobs:  
+jobs:
+
   build_spotify_adblock_git:
     runs-on: ubuntu-latest
     steps:
@@ -17,10 +18,17 @@ jobs:
           makepkgArgs: "--skippgpcheck"
           pkgdir: "spotify-adblock-git"
           aurDeps: true
-          
+
       - uses: ncipollo/release-action@v1.8.10
         with:
           allowUpdates: true
           tag: "latest"
-          artifacts: "*/*.sig", "*/*.zst"
+          artifacts: "*.zst"
           token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: ncipollo/release-action@v1.8.10
+        with:
+          allowUpdates: true
+          tag: "latest"
+          artifacts: "*.sig"
+          token: ${{ secrets.GITHUB_TOKEN }}
+
