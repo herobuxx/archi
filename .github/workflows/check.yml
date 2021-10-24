@@ -1,0 +1,18 @@
+name: Test
+on:
+  workflow_dispatch:
+jobs:  
+  build_spotify_adblock_git:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          pws
+          ls -al
+      - id: makepkg
+        uses: JPratama7/arch-pkgbuild-builder@main
+        with:
+          target: 'pkgbuild'
+          pkgname: 'spotify-adblock-git'
+#           makepkgArgs: "--skippgpcheck"
+#           pkgdir: "spotify-adblock-git"
+#           aurDeps: true
