@@ -11,7 +11,7 @@ jobs:
         with:
           submodules: 'true'
       - id: makepkg
-        uses: JPratama7/arch-pkgbuild-builder@main
+        uses: JPratama7/pkgbuild-action@master
         with:
           makepkgArgs: "--skippgpcheck"
           pkgdir: "spotify-adblock-git"
