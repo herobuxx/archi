@@ -54,7 +54,7 @@ jobs:
         with:
           submodules: 'true'
       - id: makepkg
-        uses: JPratama7/pkgbuild-action@main
+        uses: JPratama7/pkgbuild-action@master
         with:
           target: 'pkgbuild'
           pkgname: 'xampp'
