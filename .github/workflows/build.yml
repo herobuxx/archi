@@ -2,49 +2,49 @@ name: Github Action Build PKGBUILD
 on:
   workflow_dispatch:
 jobs:  
-  build_spotify_adblock_git:
-    runs-on: ubuntu-latest
-    steps:
-      - name: build spotify-adblock-git for arch
-        uses: actions/checkout@v2.3.5
-        with:
-          submodules: 'true'
-      - id: makepkg
-        uses: JPratama7/arch-pkgbuild-builder@main
-        with:
-          target: 'pkgbuild'
-          pkgname: 'spotify-adblock-git'
+#   build_spotify_adblock_git:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: build spotify-adblock-git for arch
+#         uses: actions/checkout@v2.3.5
+#         with:
+#           submodules: 'true'
+#       - id: makepkg
+#         uses: JPratama7/arch-pkgbuild-builder@main
+#         with:
+#           target: 'pkgbuild'
+#           pkgname: 'spotify-adblock-git'
+# #           makepkgArgs: "--skippgpcheck"
+# #           pkgdir: "spotify-adblock-git"
+# #           aurDeps: true
+
+#       - uses: ncipollo/release-action@v1.8.10
+#         with:
+#           allowUpdates: true
+#           tag: "latest"
+#           artifacts: "./*/*.zst"
+#           token: ${{ secrets.GITHUB_TOKEN }}
+
+#   build_slimjet:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: build slimjet for arch
+#         uses: actions/checkout@v2.3.5
+#         with:
+#           submodules: 'true'
+#       - id: makepkg
+#         uses: JPratama7/pkgbuild-action@master
+#         with:
 #           makepkgArgs: "--skippgpcheck"
-#           pkgdir: "spotify-adblock-git"
-#           aurDeps: true
-
-      - uses: ncipollo/release-action@v1.8.10
-        with:
-          allowUpdates: true
-          tag: "latest"
-          artifacts: "./*/*.zst"
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-  build_slimjet:
-    runs-on: ubuntu-latest
-    steps:
-      - name: build slimjet for arch
-        uses: actions/checkout@v2.3.5
-        with:
-          submodules: 'true'
-      - id: makepkg
-        uses: JPratama7/pkgbuild-action@master
-        with:
-          makepkgArgs: "--skippgpcheck"
-          pkgdir: "slimjet"
-          # target: "pkgbuild"
-          # pkgname: "slimjet"
-      - uses: ncipollo/release-action@v1.8.10
-        with:
-          tag: "kernel"
-          allowUpdates: true
-          artifacts: "./*/*.zst"
-          token: ${{ secrets.GITHUB_TOKEN }}
+#           pkgdir: "slimjet"
+#           # target: "pkgbuild"
+#           # pkgname: "slimjet"
+#       - uses: ncipollo/release-action@v1.8.10
+#         with:
+#           tag: "kernel"
+#           allowUpdates: true
+#           artifacts: "./*/*.zst"
+#           token: ${{ secrets.GITHUB_TOKEN }}
 
   build_xampp:
     runs-on: ubuntu-latest
@@ -55,7 +55,7 @@ jobs:
           submodules: 'true'
       - run: ls -al
       - id: makepkg
-        uses: JPratama7/arch-pkgbuild-builder@main
+        uses: JPratama7/pkgbuild-action@main
         with:
           target: 'pkgbuild'
           pkgname: 'xampp'
