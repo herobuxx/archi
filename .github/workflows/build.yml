@@ -12,7 +12,7 @@ jobs:
       - id: makepkg
         uses: JPratama7/pkgbuild-action@master
         with:
-          pkgdir: 'pkgbuild'
+          pkgdir: 'xampp'
           aurDeps: true
           makepkgArgs: '--skippgpcheck'
       - uses: ncipollo/release-action@v1.8.10
