@@ -2,25 +2,22 @@ name: Github Action Build PKGBUILD
 on:
   workflow_dispatch:
 jobs:  
-  build_xampp:
+  build_spotify_adblock_git:
     runs-on: ubuntu-latest
     steps:
-      - name: build slimjet for arch
+      - name: build spotify-adblock-git for arch
         uses: actions/checkout@v2.3.5
         with:
           submodules: 'true'
       - id: makepkg
-        uses: JPratama7/pkgbuild-action@master
+        uses: JPratama7/arch-pkgbuild-builder@main
         with:
-          pkgdir: 'xampp'
+          target: 'pkgbuild'
+          pkgname: 'spotify-adblock-git'
+          makepkgArgs: "--skippgpcheck"
+          pkgdir: "spotify-adblock-git"
           aurDeps: true
-          makepkgArgs: '--skippgpcheck'
-      - uses: ncipollo/release-action@v1.8.10
-        with:
-          allowUpdates: true
-          tag: "latest"
-          artifacts: "./*/*.zst.sig"
-          token: ${{ secrets.GITHUB_TOKEN }}
+
       - uses: ncipollo/release-action@v1.8.10
         with:
           allowUpdates: true
