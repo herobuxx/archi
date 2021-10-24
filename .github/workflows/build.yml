@@ -10,6 +10,11 @@ jobs:
         uses: actions/checkout@v2.3.5
         with:
           submodules: 'true'
+      - run: |
+          gpg --keyserver keyserver.ubuntu.com --recv-keys 1881DA082F2B2431BA8B114C32D9F3AE8367F196
+
+          pacman-key --keyserver keyserver.ubuntu.com -r 1881DA082F2B2431BA8B114C32D9F3AE8367F196
+          
       - id: makepkg
         uses: JPratama7/pkgbuild-action@mine
         with:
