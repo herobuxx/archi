@@ -15,11 +15,17 @@ jobs:
           pkgdir: 'xampp'
           makepkgArgs: '--skippgpcheck'
 
-      - uses: softprops/action-gh-release@master
+      - uses: ncipollo/release-action@v1.8.10
         with:
-          files: |
-            *.zst
-          tag_name: latest
+          allowUpdates: true
+          tag: "latest"
+          artifacts: "*.zst"
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: ncipollo/release-action@v1.8.10
+        with:
+          allowUpdates: true
+          tag: "latest"
+          artifacts: "*.sig"
           token: ${{ secrets.GITHUB_TOKEN }}
 
   build_spotify_adblock_git:
@@ -38,11 +44,17 @@ jobs:
           pkgdir: "spotify-adblock-git"
           aurDeps: true
 
-      - uses: softprops/action-gh-release@master
+      - uses: ncipollo/release-action@v1.8.10
         with:
-          files: |
-            *.zst
-          tag_name: latest
+          allowUpdates: true
+          tag: "latest"
+          artifacts: "*.zst"
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: ncipollo/release-action@v1.8.10
+        with:
+          allowUpdates: true
+          tag: "latest"
+          artifacts: "*.sig"
           token: ${{ secrets.GITHUB_TOKEN }}
 
   build_slimjet:
@@ -59,9 +71,16 @@ jobs:
           pkgdir: "slimjet"
           # target: "pkgbuild"
           # pkgname: "slimjet"
-      - uses: softprops/action-gh-release@master
+
+      - uses: ncipollo/release-action@v1.8.10
         with:
-          files: |
-            *.zst
-          tag_name: latest
+          allowUpdates: true
+          tag: "latest"
+          artifacts: "*.zst"
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: ncipollo/release-action@v1.8.10
+        with:
+          allowUpdates: true
+          tag: "latest"
+          artifacts: "*.sig"
           token: ${{ secrets.GITHUB_TOKEN }}
