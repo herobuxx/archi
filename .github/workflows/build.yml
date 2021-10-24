@@ -11,7 +11,7 @@ jobs:
         with:
           submodules: 'true'
       - id: makepkg
-        uses: JPratama7/pkgbuild-action@master
+        uses: JPratama7/pkgbuild-action@mine
         with:
           makepkgArgs: "--skippgpcheck --sign --key ${{ secrets.GPG }}"
           pkgdir: "spotify-adblock-git"
