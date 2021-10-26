@@ -5,6 +5,7 @@ jobs:
 
   build_spotify_adblock_git:
     runs-on: ubuntu-latest
+    container: archlinux:latest
     steps:
       - name: build spotify-adblock-git for arch
         uses: actions/checkout@v2.3.5
@@ -17,6 +18,8 @@ jobs:
           pkgdir: "spotify-adblock-git"
       - run: ls -lR
       - run: |
+          pacman -Syu
+          export GPG_TTY=$(tty)
           gpg --batch --gen-key <<EOF
           Key-Type: 1
           Key-Length: 2048
