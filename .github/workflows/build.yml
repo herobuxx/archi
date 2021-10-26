@@ -13,7 +13,7 @@ jobs:
       - id: makepkg
         uses: JPratama7/pkgbuild-action@master
         with:
-          makepkgArgs: "--skippgpcheck --sign"
+          makepkgArgs: "--skippgpcheck"
           pkgdir: "spotify-adblock-git"
       - run: ls -lR
       - run: |
