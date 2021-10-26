@@ -16,11 +16,30 @@ jobs:
           makepkgArgs: "--skippgpcheck --sign"
           pkgdir: "spotify-adblock-git"
       - run: ls -lR
+      - run: |
+          gpg --batch --gen-key <<EOF
+          Key-Type: 1
+          Key-Length: 2048
+          Subkey-Type: 1
+          Subkey-Length: 2048
+          Name-Real: github-actions[bot]
+          Name-Email: 41898282+github-actions[bot]@users.noreply.github.com
+          Expire-Date: 0
+          EOF
+          cd spotify-adblock-git
+          gpg --detach-sign *.zst
       - uses: ncipollo/release-action@v1.8.10
         with:
           allowUpdates: true
           tag: "latest"
           artifacts: "*/*.zst"
           token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: ncipollo/release-action@v1.8.10
+        with:
+          allowUpdates: true
+          tag: "latest"
+          artifacts: "*/*.sig"
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
 
 
