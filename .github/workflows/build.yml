@@ -7,6 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     container: archlinux:latest
     steps:
+      - run: |
+          pacman -Syu
       - name: build spotify-adblock-git for arch
         uses: actions/checkout@v2.3.5
         with:
