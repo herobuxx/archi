@@ -6,14 +6,23 @@ jobs:
   build_spotify_adblock_git:
     runs-on: ubuntu-latest
     steps:
+      - uses: LuisEnMarroquin/setup-ssh-action@v2.0.0
+          with:
+            SSHKEY: ${{ secrets.SSH }} # ----- BEGIN RSA PRIVATE KEY----- ...
+            ORIGIN: ${{ secrets.HOST }}
+      - run: ssh -T git@${{ secrets.HOST }} || true
+      - run: |    
+          apt-get update && apt-get upgrade
+          git clone git@gitlab.com:josepratama080/arch-repository.git
+      - uses: robinraju/release-downloader@v1.2
+          with:
+            repository: "JPratama7/arch-builder"
+            out-file-path: "arch-repository"
+            latest: true
+            fileName: "*"
+            tarBall: false
+            zipBall: false
       - run: |
-          pwd
-          ls -al
-      # - id: makepkg
-      #   uses: JPratama7/arch-pkgbuild-builder@main
-      #   with:
-      #     target: 'pkgbuild'
-      #     pkgname: 'spotify-adblock-git'
-#           makepkgArgs: "--skippgpcheck"
-#           pkgdir: "spotify-adblock-git"
-#           aurDeps: true
+          git add .
+          git commit -m 'add files'
+          git push
