@@ -7,11 +7,12 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
        
-      - uses: LuisEnMarroquin/setup-ssh-action@v2.0.0
-        with: 
-          ORIGIN: "${{ secrets.HOST }}"
-          SSHKEY: "${{ secrets.SSH }}"
-       
+      - uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH }}
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
+
+        
       - run: "ssh -T git@${{ secrets.HOST }} || true"
       
       - run: |
