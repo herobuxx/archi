@@ -2,27 +2,32 @@ name: Test
 on:
   push:
   workflow_dispatch:
-jobs:  
-  build_spotify_adblock_git:
+jobs: 
+  build_spotify_adblock_git: 
     runs-on: ubuntu-latest
-    steps:
+    steps: 
+       
       - uses: LuisEnMarroquin/setup-ssh-action@v2.0.0
-          with:
-            SSHKEY: ${{ secrets.SSH }} # ----- BEGIN RSA PRIVATE KEY----- ...
-            ORIGIN: ${{ secrets.HOST }}
-      - run: ssh -T git@${{ secrets.HOST }} || true
-      - run: |    
-          apt-get update && apt-get upgrade
-          git clone git@gitlab.com:josepratama080/arch-repository.git
-      - uses: robinraju/release-downloader@v1.2
-          with:
-            repository: "JPratama7/arch-builder"
-            out-file-path: "arch-repository"
-            latest: true
-            fileName: "*"
-            tarBall: false
-            zipBall: false
+        with: 
+          ORIGIN: "${{ secrets.HOST }}"
+          SSHKEY: "${{ secrets.SSH }}"
+       
+      - run: "ssh -T git@${{ secrets.HOST }} || true"
+      
       - run: |
-          git add .
-          git commit -m 'add files'
-          git push
+            apt-get update && apt-get upgrade
+            git clone git@gitlab.com:josepratama080/arch-repository.git
+       
+      - uses: robinraju/release-downloader@v1.2
+        with: 
+          fileName: "*"
+          latest: true
+          out-file-path: arch-repository
+          repository: JPratama7/arch-builder
+          tarBall: false
+          zipBall: false
+      - 
+        run: |
+            git add .
+            git commit -m 'add files'
+            git push
