@@ -8,7 +8,7 @@ jobs:
     container: archlinux:latest
     steps:
       - run: |
-          pacman -Syu
+          pacman -Syu --noconfirm --needed git
       - name: build spotify-adblock-git for arch
         uses: actions/checkout@v2.3.5
         with:
