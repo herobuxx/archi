@@ -10,7 +10,7 @@ jobs:
       - name: build spotify-adblock-git for arch
         uses: actions/checkout@v2.3.5
         with:
-          submodules: 'true'
+          submodules: true
           fetch-depth: '50'
       - id: makepkg
         uses: JPratama7/pkgbuild-action@master
