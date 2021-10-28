@@ -17,7 +17,6 @@ jobs:
             git clone git@gitlab.com:josepratama080/arch-repository.git
             cd arch-repository
             rm -r X86-64
-            rm *
       - run: ls -lR
       - run: |
             git config --global user.email "josepratama080@gmail.com"
