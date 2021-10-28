@@ -16,7 +16,7 @@ jobs:
       - run: |
             apt-get update && apt-get upgrade
             git clone git@gitlab.com:josepratama080/arch-repository.git
-       
+      - run: ls -lR
       - uses: robinraju/release-downloader@v1.2
         with: 
           fileName: "*"
@@ -27,6 +27,7 @@ jobs:
           zipBall: false
       - 
         run: |
+            cd arch-repository
             git add .
             git commit -m 'add files'
             git push
