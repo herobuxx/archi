@@ -15,8 +15,12 @@ jobs:
       
       - run: |
             apt-get update && apt-get upgrade
+            apt-get install git-lfs
             git clone git@gitlab.com:josepratama080/arch-repository.git
       - run: ls -lR
+      - run: |
+            git config --global user.email "josepratama080@gmail.com"
+            git config --global user.name "josepratama080"
       - uses: robinraju/release-downloader@v1.2
         with: 
           fileName: "*"
@@ -28,6 +32,8 @@ jobs:
       - 
         run: |
             cd arch-repository
+            git lfs install
+            git lfs track "*.zst"
             git add .
             git commit -m 'add files'
             git push
