@@ -10,9 +10,7 @@ jobs:
       - uses: shimataro/ssh-key-action@v2
         with:
           key: ${{ secrets.SSH }}
-          known_hosts: ${{ secrets.KNOWN_HOSTS }}
-
-        
+          known_hosts: ${{ secrets.KNOWN_HOST }}        
       - run: "ssh -T git@${{ secrets.HOST }} || true"
       
       - run: |
