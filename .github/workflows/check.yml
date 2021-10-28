@@ -14,7 +14,6 @@ jobs:
       - run: "ssh -T git@${{ secrets.HOST }} || true"
       
       - run: |
-            apt-get install git-lfs
             git clone git@gitlab.com:josepratama080/arch-repository.git
       - run: ls -lR
       - run: |
