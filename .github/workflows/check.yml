@@ -15,23 +15,25 @@ jobs:
       
       - run: |
             git clone git@gitlab.com:josepratama080/arch-repository.git
+            cd arch-repository
+            rm *
       - run: ls -lR
       - run: |
             git config --global user.email "josepratama080@gmail.com"
             git config --global user.name "josepratama080"
-      - uses: robinraju/release-downloader@v1.2
-        with: 
-          fileName: "*"
-          latest: true
-          out-file-path: arch-repository
-          repository: JPratama7/arch-builder
-          tarBall: false
-          zipBall: false
+#       - uses: robinraju/release-downloader@v1.2
+#         with: 
+#           fileName: "*"
+#           latest: true
+#           out-file-path: arch-repository
+#           repository: JPratama7/arch-builder
+#           tarBall: false
+#           zipBall: false
       - 
         run: |
             cd arch-repository
-            git lfs install
-            git lfs track "*.zst"
+            #git lfs install
+            #git lfs track "*.zst"
             git add .
             git commit -m 'add files'
             git push
