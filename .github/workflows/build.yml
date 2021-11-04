@@ -7,7 +7,15 @@ jobs:
     runs-on: ubuntu-latest
     container: archlinux:latest
     steps:
+      - uses: actions/checkout@v2.3.5
+        with:
+          repository: JPratama7/gpgkey
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: '/tmp'
       - run: |
+          pushd /tmp/gpgkey
+          gpg --import private.key
+          popd
           pacman -Syu --noconfirm --needed git
       - uses: actions/checkout@v2.3.5
         with:
@@ -20,15 +28,7 @@ jobs:
           makepkgArgs: "--skippgpcheck"
           pkgdir: "spotify-adblock-git"
       - run: ls -lR
-      - uses: actions/checkout@v2.3.5
-        with:
-          repository: JPratama7/gpgkey
-          token: ${{ secrets.GITHUB_TOKEN }}
-          path: '/tmp'
       - run: |
-          pushd /tmp/gpgkey
-          gpg --import private.key
-          popd
           cd spotify-adblock-git
           gpg --detach-sign *.zst
           ls -lR
