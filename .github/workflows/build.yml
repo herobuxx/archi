@@ -26,7 +26,7 @@ jobs:
       - run: ls -lR
       - run: |
           cd spotify-adblock-git
-          gpg --detach-sign *.zst
+          gpg --detach-sign --passphrase ${{ secrets.GPG_PASS }} */*.zst
           ls -lR
       - uses: ncipollo/release-action@v1.8.10
         with:
