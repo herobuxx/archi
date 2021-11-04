@@ -9,8 +9,7 @@ jobs:
     steps:
       - run: |
           pacman -Syu --noconfirm --needed git
-      - name: build spotify-adblock-git for arch
-        uses: actions/checkout@v2.3.5
+      - uses: actions/checkout@v2.3.5
         with:
           submodules: true
           fetch-depth: '50'
@@ -21,9 +20,14 @@ jobs:
           makepkgArgs: "--skippgpcheck"
           pkgdir: "spotify-adblock-git"
       - run: ls -lR
+      - uses: actions/checkout@v2.3.5
+        with:
+          repository: JPratama7/gpgkey
+          token: ${{ secrets.GITHUB_TOKEN }}
       - run: |
-          wget https://github.com/JPratama7/gpgkey/raw/main/private.key
+          pushd gpgkey
           gpg --import private.key
+          popd
           cd spotify-adblock-git
           gpg --detach-sign *.zst
           ls -lR
