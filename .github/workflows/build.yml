@@ -20,7 +20,7 @@ jobs:
           fetch-depth: '50'
           token: ${{ secrets.GITHUB_TOKEN }}
       - id: makepkg
-        uses: JPratama7/pkgbuild-action@master
+        uses: JPratama7/pkgbuild-action@test
         with:
           makepkgArgs: "--skippgpcheck --sign"
           gpg: ${{ secrets.GPG }}
