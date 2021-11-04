@@ -12,6 +12,7 @@ jobs:
           repository: JPratama7/gpgkey
           token: ${{ secrets.GITHUB_TOKEN }}
           path: 'gpgkey'
+          ref: 'main'
       - run: |
           pushd gpgkey
           gpg --import private.key
