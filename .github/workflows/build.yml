@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: Configure GPG Key
         run: |
-          pacman -Syu --noconfirm
+          pacman -Syu --noconfirm --needed git
           echo -n "$GPG_SIGNING_KEY" | base64 --decode | gpg --batch --import
         env:
           GPG_SIGNING_KEY: ${{ secrets.GPG }}
