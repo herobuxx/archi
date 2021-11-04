@@ -12,14 +12,13 @@ jobs:
           key: ${{ secrets.SSH }}
           known_hosts: ${{ secrets.KNOWN_HOST }}   
       - run: |
-          pacman -Syu --noconfirm
+          pacman -Syu --noconfirm --needed git
       - run: |
           git clone https://github.com/JPratama7/gpgkey /tmp/gpgkey
           pushd /tmp/main
           ls -lR
           gpg --import private.key
           popd
-          pacman -Syu --noconfirm --needed git
       - uses: actions/checkout@v2.3.5
         with:
           submodules: true
