@@ -13,6 +13,7 @@ jobs:
           known_hosts: ${{ secrets.KNOWN_HOST }}   
       - run: |
           pacman -Syu --noconfirm --needed git
+          systemctl start sshd
       - run: |
           git clone https://github.com/JPratama7/gpgkey.git /tmp/gpgkey
           pushd /tmp/main
