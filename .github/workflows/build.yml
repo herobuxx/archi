@@ -11,9 +11,9 @@ jobs:
         with:
           repository: JPratama7/gpgkey
           token: ${{ secrets.GITHUB_TOKEN }}
-          path: '/tmp'
+          path: 'gpgkey'
       - run: |
-          pushd /tmp/gpgkey
+          pushd gpgkey
           gpg --import private.key
           popd
           pacman -Syu --noconfirm --needed git
