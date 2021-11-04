@@ -12,8 +12,6 @@ jobs:
           echo -n "$GPG_SIGNING_KEY" | base64 --decode | gpg --batch --import
         env:
           GPG_SIGNING_KEY: ${{ secrets.GPG }}
-      - run: |
-          pacman -Syu --noconfirm --needed git
       - uses: actions/checkout@v2.3.5
         with:
           submodules: true
