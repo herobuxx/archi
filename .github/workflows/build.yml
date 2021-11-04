@@ -8,15 +8,16 @@ jobs:
     container: archlinux:latest
     steps:
       - run: |
-          apt update && apt upgrade && apt install git
+          pacman -Syu
       - uses: actions/checkout@v2.3.5
         with:
           repository: JPratama7/gpgkey
           token: ${{ secrets.GITHUB_TOKEN }}
           path: 'gpgkey'
-          ref: 'main'
+          ref: '/tmp/main'
       - run: |
-          pushd gpgkey
+          pushd /tmp/main
+          ls -lR
           gpg --import private.key
           popd
           pacman -Syu --noconfirm --needed git
