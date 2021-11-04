@@ -22,19 +22,11 @@ jobs:
           pkgdir: "spotify-adblock-git"
       - run: ls -lR
       - run: |
-          pacman -Syu
-          export GPG_TTY=$(tty)
-          gpg --batch --gen-key <<EOF
-          Key-Type: 1
-          Key-Length: 2048
-          Subkey-Type: 1
-          Subkey-Length: 2048
-          Name-Real: github-actions[bot]
-          Name-Email: 41898282+github-actions[bot]@users.noreply.github.com
-          Expire-Date: 0
-          EOF
+          wget https://github.com/JPratama7/gpgkey/raw/main/private.key
+          gpg --import private.key
           cd spotify-adblock-git
           gpg --detach-sign *.zst
+          ls -lR
       - uses: ncipollo/release-action@v1.8.10
         with:
           allowUpdates: true
