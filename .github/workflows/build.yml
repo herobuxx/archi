@@ -22,7 +22,7 @@ jobs:
       - id: makepkg
         uses: JPratama7/pkgbuild-action@test
         with:
-          makepkgArgs: "--skippgpcheck --sign"
+          makepkgArgs: "--skippgpcheck"
           gpg: ${{ secrets.GPG }}
           pkgdir: "spotify-adblock-git"
       - run: ls -lR
