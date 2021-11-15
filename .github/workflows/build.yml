@@ -9,8 +9,7 @@ jobs:
     steps:
       - name: Configure GPG Key
         run: |
-          pacman -Syu --noconfirm --needed git
-          echo -n "$GPG_SIGNING_KEY" | base64 --decode | gpg --batch --import
+          echo -n "$GPG_SIGNING_KEY" | base64 --decode | gpg --import
         env:
           GPG_SIGNING_KEY: ${{ secrets.GPG }}
       - uses: actions/checkout@v2.3.5
@@ -27,7 +26,7 @@ jobs:
       - run: ls -lR
       - run: |
           cd spotify-adblock-git
-          gpg --detach-sign --passphrase ${{ secrets.GPG_PASS }} */*.zst
+          gpg --detach-sign */*.zst
           ls -lR
       - uses: ncipollo/release-action@v1.8.10
         with:
