@@ -7,6 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     container: archlinux:latest
     steps:
+      - run: pacman -Syu
       - name: Configure GPG Key
         run: |
           echo -n "$GPG_SIGNING_KEY" | base64 --decode | gpg --import
