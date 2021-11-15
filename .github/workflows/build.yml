@@ -34,14 +34,14 @@ jobs:
         with:
           allowUpdates: true
           tag: "latest"
-          artifacts: "*/*.zst"
+          artifacts: "*/*.zst, */*.sig"
           token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: ncipollo/release-action@v1.8.10
-        with:
-          allowUpdates: true
-          tag: "latest"
-          artifacts: "*/*.sig"
-          token: ${{ secrets.GITHUB_TOKEN }}
+      # - uses: ncipollo/release-action@v1.8.10
+      #   with:
+      #     allowUpdates: true
+      #     tag: "latest"
+      #     artifacts: "*/*.sig"
+      #     token: ${{ secrets.GITHUB_TOKEN }}
       
 
 
