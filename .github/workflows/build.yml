@@ -22,7 +22,7 @@ jobs:
       - id: makepkg
         uses: JPratama7/pkgbuild-action@test
         with:
-          makepkgArgs: '--skippgpcheck --sign --key ${{ secrets.GPGID }}'
+          makepkgArgs: "--skippgpcheck"
           gpg: ${{ secrets.GPGID }}
           gpg_secret_key: ${{ secrets.GPG }}
           pkgdir: "spotify-adblock-git"
@@ -31,6 +31,11 @@ jobs:
           cd spotify-adblock-git
           gpg --detach-sign *.zst
           ls -lR
+      - run: |
+          repo-add arch-repository-jpratama7.db.tar.gz
+          repo-add arch-repository-jpratama7.db.tar.gz -s -v *.pkg.tar.zst
+          ls -lR
+
       - uses: ncipollo/release-action@v1.8.10
         with:
           allowUpdates: true
