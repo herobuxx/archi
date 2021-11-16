@@ -24,6 +24,7 @@ jobs:
         with:
           makepkgArgs: "--skippgpcheck --sign"
           gpg: ${{ secrets.GPGID }}
+          gpg_secret_key: ${{ secrets.GPG }}
           pkgdir: "spotify-adblock-git"
       - run: ls -lR
       - run: |
