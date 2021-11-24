@@ -23,7 +23,7 @@ jobs:
         uses: JPratama7/pkgbuild-action@test
         with:
           makepkgArgs: "--skippgpcheck"
-          pkgdir: "spotify-adblock-git"
+          pkgdir: "xampp"
       - run: ls -lR
       - run: |
           cd spotify-adblock-git
