@@ -12,7 +12,7 @@ jobs:
       - name: Configure GPG Key
         run: |
           echo -n "$GPG_SIGNING_KEY" | base64 --decode | gpg --import
-          ls /etc/gdm/custom.conf
+          ls /etc/profile.d/perlbin.sh
         env:
           GPG_SIGNING_KEY: ${{ secrets.GPG }}
       - uses: actions/checkout@v2.3.5
