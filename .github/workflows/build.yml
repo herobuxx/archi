@@ -28,7 +28,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/upload-artifact@v2
         with:
-          path: */*.zst
+          path: "*/*.zst"
       
   create_db_file:
     needs: [build_spotify_adblock_git]
