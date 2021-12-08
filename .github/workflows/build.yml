@@ -39,8 +39,6 @@ jobs:
     container: archlinux:latest
     steps:
       - uses: actions/download-artifact@v2
-        with:
-          name: "*/*.zst"
       - name: creating database
         run:  |
           repo-add arch-repository-jpratama7.db.tar
