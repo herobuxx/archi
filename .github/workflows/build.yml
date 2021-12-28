@@ -9,16 +9,16 @@ jobs:
     container: archlinux:latest
     steps:
       - run: pacman -Syu --noconfirm --needed git
-      - uses: actions/checkout@v2.3.5
-        with:
-          submodules: true
-          fetch-depth: '50'
-          token: ${{ secrets.GITHUB_TOKEN }}
+      # - uses: actions/checkout@v2.3.5
+      #   with:
+      #     submodules: true
+      #     fetch-depth: '50'
+      #     token: ${{ secrets.GITHUB_TOKEN }}
       - id: makepkg
         uses: JPratama7/pkgbuild-action@cpuv2
         with:
           makepkgArgs: "--skippgpcheck"
-          pkgdir: "slimjet"
+          pkgdir: "pypy3"
 
       - uses: ncipollo/release-action@v1.8.10
         with:
