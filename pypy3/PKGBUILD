@@ -2,6 +2,7 @@
 
 pkgname=pypy3
 pkgver=7.3.7
+_pyver=3.8
 pkgrel=1
 pkgdesc="A Python3 implementation written in Python, JIT enabled"
 url="https://pypy.org"
@@ -12,11 +13,11 @@ optdepends=('sqlite: sqlite module'
             'tk: tk module')
 options=(!buildflags)
 license=('MIT')
-source=("https://downloads.python.org/pypy/pypy3.7-v${pkgver}-src.zip")
+source=("https://downloads.python.org/pypy/pypy${_pyver}-v${pkgver}-src.zip")
 sha512sums=('ed1a40b921f47e75be33758da89db4ea87a5d58d0cfd1d44e655d036cc6004dbf6ea11b8f4bbe8686f8b8ce6d1796b6f3e0c3370f4a4812da0c2673ba18b98b4')
 
 build() {
-  cd pypy3.7-v${pkgver}-src/pypy/goal
+  cd pypy${_pyver}-v${pkgver}-src/pypy/goal
 
   pypy ../../rpython/bin/rpython -Ojit --shared targetpypystandalone
 
@@ -25,7 +26,7 @@ build() {
 }
 
 package() {
-  cd pypy3.7-v${pkgver}-src
+  cd pypy${_pyver}-v${pkgver}-src
 
   # Prepare installation
   pypy pypy/tool/release/package.py --archive-name pypy --targetdir .

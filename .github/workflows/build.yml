@@ -30,32 +30,32 @@ jobs:
         with:
           path: "*/*.zst"
       
-  create_db_file:
-    needs: [build_spotify_adblock_git]
-    runs-on: ubuntu-latest
-    container: archlinux:latest
-    steps:
-      - name: Download artifact
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          # Optional, GitHub token, a Personal Access Token with `public_repo` scope if needed
-          # Required, if artifact is from a different repo
-          # Required, if repo is private a Personal Access Token with `repo` scope is needed
-          github_token: ${{secrets.GITHUB_TOKEN}}
-          # Required, workflow file name or ID
-          workflow: build.yml
-          # Optional, defaults to current repo
-          repo: ${{github.repository}}
-      - name: creating database
-        run:  |
-          repo-add arch-repository-jpratama7.db.tar
-          repo-add arch-repository-jpratama7.db.tar *.pkg.tar.zst
-          ls
-      - uses: ncipollo/release-action@v1.8.10
-        with:
-          allowUpdates: true
-          replacesArtifacts: true
-          tag: "latest"
-          artifacts: "./arch-repository-jpratama7.*"
-          token: ${{ secrets.GITHUB_TOKEN }}
+  # create_db_file:
+  #   needs: [build_spotify_adblock_git]
+  #   runs-on: ubuntu-latest
+  #   container: archlinux:latest
+  #   steps:
+  #     - name: Download artifact
+  #       uses: dawidd6/action-download-artifact@v2
+  #       with:
+  #         # Optional, GitHub token, a Personal Access Token with `public_repo` scope if needed
+  #         # Required, if artifact is from a different repo
+  #         # Required, if repo is private a Personal Access Token with `repo` scope is needed
+  #         github_token: ${{secrets.GITHUB_TOKEN}}
+  #         # Required, workflow file name or ID
+  #         workflow: build.yml
+  #         # Optional, defaults to current repo
+  #         repo: ${{github.repository}}
+  #     - name: creating database
+  #       run:  |
+  #         repo-add arch-repository-jpratama7.db.tar
+  #         repo-add arch-repository-jpratama7.db.tar *.pkg.tar.zst
+  #         ls
+  #     - uses: ncipollo/release-action@v1.8.10
+  #       with:
+  #         allowUpdates: true
+  #         replacesArtifacts: true
+  #         tag: "latest"
+  #         artifacts: "./arch-repository-jpratama7.*"
+  #         token: ${{ secrets.GITHUB_TOKEN }}
 
