@@ -30,8 +30,8 @@ package() {
 
   # Prepare installation
   pypy pypy/tool/release/package.py --archive-name pypy --targetdir .
-  mkdir unpacked
-  tar xf pypy.tar.bz2 -C unpacked
+  mkdir unpacked && tar xf pypy.tar.bz2 -C unpacked
+  ls -lR
 
   # Install pypy
   cd unpacked
