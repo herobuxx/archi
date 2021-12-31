@@ -6,6 +6,23 @@
 
 shopt -s extglob
 
+####### COMPILER
+export CC=clang
+export CXX=clang++
+export LD=ld.lld
+export AR=llvm-ar
+export NM=llvm-nm
+export STRIP=llvm-strip
+export OBJCOPY=llvm-objcopy 
+export OBJDUMP=llvm-objdump 
+export READELF=llvm-readelf
+export HOSTCC=clang 
+export HOSTCXX=clang++ 
+export HOSTAR=llvm-ar
+export HOSTLD=ld.lld
+####################
+
+
 pkgbase=python
 pkgname=(python python-tests)
 pkgver=3.10.1
