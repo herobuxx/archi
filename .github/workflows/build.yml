@@ -15,7 +15,7 @@ jobs:
         #   fetch-depth: '50'
         #   token: ${{ secrets.GITHUB_TOKEN }}
       - id: makepkg
-        uses: edlanglois/pkgbuild-action@master
+        uses: JPratama7/pkgbuild-action@gcc
         with:
           makepkgArgs: "--skippgpcheck"
           pkgdir: "pypy3"
