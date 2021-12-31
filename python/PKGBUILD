@@ -65,6 +65,7 @@ build() {
   # Disable bundled pip & setuptools
   ./configure --prefix=/usr \
               --enable-shared \
+              --ax_cv_c_float_words_bigendian=yes \
               --with-computed-gotos \
               --enable-optimizations \
               --with-lto \
