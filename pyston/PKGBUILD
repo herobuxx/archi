@@ -6,12 +6,6 @@
 
 shopt -s extglob
 
-####### COMPILER
-export CC=clang
-export CXX=clang++
-####################
-
-
 pkgbase=pyston
 pkgname=(pyston)
 pkgver=2.3.1
