@@ -21,7 +21,7 @@ pkgdesc="A fork of CPython with additional optimizations for performance"
 arch=('x86_64')
 license=('custom')
 url="https://www.python.org/"
-depends=('glibc' 'db' 'gdbm' 'libffi' 'libnsl' 'libxcrypt' 'openssl' 'zlib' 'tcl' 'xz')
+depends=('bzip2' 'glibc' 'db' 'gdbm' 'libffi' 'libnsl' 'libxcrypt' 'openssl' 'zlib' 'tcl' 'xz' 'expat')
 makedepends=('tk' 'sqlite' 'bluez-libs' 'mpdecimal' 'llvm' 'gdb' 'xorg-server-xvfb' 'ttf-font' 'clang' 'llvm')
 source=("pyston.tar.gz::https://github.com/pyston/pyston/archive/refs/tags/pyston_2.3.1.tar.gz")
 sha512sums=('SKIP')
@@ -42,8 +42,8 @@ sha512sums=('SKIP')
 #   # Speed up LTO
 #   sed -i -e "s|-flto |-flto=4 |g" configure configure.ac
 
-#   # Ensure that we are using the system copy of various libraries (expat, libffi, and libmpdec),
-#   # rather than copies shipped in the tarball
+  # Ensure that we are using the system copy of various libraries (expat, libffi, and libmpdec),
+  # rather than copies shipped in the tarball
 #   rm -r Modules/expat
 #   rm -r Modules/_ctypes/{darwin,libffi}*
 #   rm -r Modules/_decimal/libmpdec
