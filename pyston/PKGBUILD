@@ -71,7 +71,7 @@ build() {
               --with-tzpath=/usr/share/zoneinf
 }
 
-_package() {
+package() {
   optdepends=('python-setuptools'
               'python-pip'
               'mpdecimal: for decimal'
