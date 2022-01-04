@@ -69,7 +69,9 @@ build() {
               --with-system-libmpdec \
               --enable-loadable-sqlite-extensions \
               --without-ensurepip \
-              --with-tzpath=/usr/share/zoneinf
+              --with-cxx-main=clang \
+              --with-memory-sanitizer \
+              --with-address-sanitizer
 }
 
 package() {
