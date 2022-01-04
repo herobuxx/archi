@@ -51,7 +51,7 @@ sha512sums=('SKIP')
 
 build() {
     ls -lR
-  cd pyston
+  cd pyston-pyston_2.3.1
 
   # PGO should be done with -O3
   CFLAGS="${CFLAGS/-O2/-O3}"
