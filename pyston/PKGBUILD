@@ -74,7 +74,7 @@ build() {
               --disable-ipv6
             
 # Obtain next free server number for xvfb-run; this even works in a chroot environment.t
-
+    make all EXTRA_CFLAGS="$CFLAGS"
 }
 
 package() {
