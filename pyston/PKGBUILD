@@ -1,0 +1,86 @@
+# Maintainer: Angel Velasquez <angvp@archlinux.org>
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Contributor: Stéphane Gaudreault <stephane@archlinux.org>
+# Contributor: Allan McRae <allan@archlinux.org>
+# Contributor: Jason Chu <jason@archlinux.org>
+
+shopt -s extglob
+
+####### COMPILER
+export CC=clang
+export CXX=clang++
+####################
+
+
+pkgbase=pyston
+pkgname=(pyston)
+pkgver=2.3.1
+pkgrel=1
+_pybasever=${pkgver%.*}
+pkgdesc="A fork of CPython with additional optimizations for performance"
+arch=('x86_64')
+license=('custom')
+url="https://www.python.org/"
+depends=('glibc' 'db' 'gdbm' 'libffi' 'libnsl' 'libxcrypt' 'openssl' 'zlib' 'tcl' 'xz')
+makedepends=('tk' 'sqlite' 'bluez-libs' 'mpdecimal' 'llvm' 'gdb' 'xorg-server-xvfb' 'ttf-font' 'clang' 'llvm')
+source=("pyston.tar.gz::https://github.com/pyston/pyston/archive/refs/tags/pyston_2.3.1.tar.gz")
+sha512sums=('SKIP')
+
+
+# prepare() {
+#   cd Python-${pkgver}
+
+#   # fixes crashes in sagemath - by arojas
+#   patch -Np1 -i ../934a24c641da5bc4bdb724e901adc20f9a5dff40.patch
+
+#   # FS#72979
+#   patch -Np1 -i ../cmp_interned_strings.patch
+
+#   # FS#23997
+#   sed -i -e "s|^#.* /usr/local/bin/python|#!/usr/bin/python|" Lib/cgi.py
+
+#   # Speed up LTO
+#   sed -i -e "s|-flto |-flto=4 |g" configure configure.ac
+
+#   # Ensure that we are using the system copy of various libraries (expat, libffi, and libmpdec),
+#   # rather than copies shipped in the tarball
+#   rm -r Modules/expat
+#   rm -r Modules/_ctypes/{darwin,libffi}*
+#   rm -r Modules/_decimal/libmpdec
+# }
+
+build() {
+  cd pyston
+
+  # PGO should be done with -O3
+  CFLAGS="${CFLAGS/-O2/-O3}"
+
+  # Disable bundled pip & setuptools
+  ./configure --prefix=/usr \
+              --enable-shared \
+              --with-computed-gotos \
+              --enable-optimizations \
+              --with-lto \
+              --enable-ipv6 \
+              --with-system-expat \
+              --with-dbmliborder=gdbm:ndbm \
+              --with-system-ffi \
+              --with-system-libmpdec \
+              --enable-loadable-sqlite-extensions \
+              --without-ensurepip \
+              --with-tzpath=/usr/share/zoneinf
+}
+
+_package() {
+  optdepends=('python-setuptools'
+              'python-pip'
+              'mpdecimal: for decimal'
+              'xz: for lzma'
+              'tk: for tkinter')
+  provides=('pyston')
+  replaces=('pyston')
+
+  cd pyston-${pkgver}
+
+  install -Dm644 "LICENSE" -t "$pkgdir/usr/share/licenses/pyston"
+}

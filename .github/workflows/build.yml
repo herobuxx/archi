@@ -44,7 +44,7 @@ jobs:
         uses: JPratama7/pkgbuild-action@master
         with:
           makepkgArgs: "--skippgpcheck CC=clang CXX=clang++"
-          pkgdir: "python"
+          pkgdir: "pyston"
 
       - uses: ncipollo/release-action@v1.8.10
         with:
