@@ -50,6 +50,7 @@ sha512sums=('SKIP')
 # }
 
 build() {
+    ls -lR
   cd pyston
 
   # PGO should be done with -O3
