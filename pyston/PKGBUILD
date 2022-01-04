@@ -56,7 +56,8 @@ build() {
   CFLAGS="${CFLAGS/-O2/-O3}"
 
   # Disable bundled pip & setuptools
-  ./configure --prefix=/usr \
+  ./configure --enable-configure \
+              --prefix=/usr \
               --enable-shared \
               --with-computed-gotos \
               --enable-optimizations \
@@ -74,7 +75,6 @@ build() {
             
 # Obtain next free server number for xvfb-run; this even works in a chroot environment.t
 
-  LC_CTYPE=en_US.UTF-8 xvfb-run -s "-screen 0 1920x1080x16 -ac +extension GLX" -a -n "$servernum" make EXTRA_CFLAGS="$CFLAGS"
 }
 
 package() {
@@ -86,7 +86,8 @@ package() {
   provides=('pyston')
   replaces=('pyston')
 
-  cd pyston-${pkgver}
+    ls
+  cd pyston-pyston_2.3.1
 
   install -Dm644 "LICENSE" -t "$pkgdir/usr/share/licenses/pyston"
 }
