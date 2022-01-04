@@ -22,7 +22,7 @@ arch=('x86_64')
 license=('custom')
 url="https://www.python.org/"
 depends=('bzip2' 'glibc' 'db' 'gdbm' 'libffi' 'libnsl' 'libxcrypt' 'openssl' 'zlib' 'tcl' 'xz' 'expat')
-makedepends=('tk' 'sqlite' 'bluez-libs' 'mpdecimal' 'llvm' 'gdb' 'xorg-server-xvfb' 'ttf-font' 'clang' 'llvm')
+makedepends=('tk' 'sqlite' 'bluez-libs' 'mpdecimal' 'gdb' 'xorg-server-xvfb' 'ttf-font')
 source=("pyston.tar.gz::https://github.com/pyston/pyston/archive/refs/tags/pyston_2.3.1.tar.gz")
 sha512sums=('SKIP')
 
@@ -68,7 +68,6 @@ build() {
               --with-system-libmpdec \
               --enable-loadable-sqlite-extensions \
               --without-ensurepip \
-              --with-cxx-main=clang \
               --disable-ipv6
             
 # Obtain next free server number for xvfb-run; this even works in a chroot environment.t

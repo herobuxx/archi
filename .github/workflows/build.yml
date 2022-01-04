@@ -43,7 +43,7 @@ jobs:
       - id: makepkg
         uses: JPratama7/pkgbuild-action@master
         with:
-          makepkgArgs: "--skippgpcheck CC=clang CXX=clang++"
+          makepkgArgs: "--skippgpcheck"
           pkgdir: "pyston"
 
       - uses: ncipollo/release-action@v1.8.10
