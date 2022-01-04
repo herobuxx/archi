@@ -69,7 +69,6 @@ build() {
               --enable-loadable-sqlite-extensions \
               --without-ensurepip \
               --with-cxx-main=clang \
-              --with-memory-sanitizer \
               --disable-ipv6
             
 # Obtain next free server number for xvfb-run; this even works in a chroot environment.t
