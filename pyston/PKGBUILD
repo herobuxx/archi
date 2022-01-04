@@ -62,7 +62,7 @@ build() {
               --with-computed-gotos \
               --enable-optimizations \
               --with-lto \
-              --enable-ipv6 \
+            #   --enable-ipv6 \
               --with-system-expat \
               --with-dbmliborder=gdbm:ndbm \
               --with-system-ffi \
