@@ -16,7 +16,7 @@ arch=('x86_64')
 license=('custom')
 url="https://www.python.org/"
 depends=('bzip2' 'glibc' 'db' 'gdbm' 'libffi' 'libnsl' 'libxcrypt' 'openssl' 'zlib' 'tcl' 'xz' 'expat')
-makedepends=('tk' 'sqlite' 'bluez-libs' 'mpdecimal' 'gdb' 'xorg-server-xvfb' 'ttf-font')
+makedepends=('tk' 'sqlite' 'bluez-libs' 'mpdecimal' 'gdb' 'xorg-server-xvfb' 'ttf-font' 'cmake' 'clang' 'llvm')
 source=("pyston.tar.gz::https://github.com/pyston/pyston/archive/refs/tags/pyston_2.3.1.tar.gz")
 sha512sums=('SKIP')
 
