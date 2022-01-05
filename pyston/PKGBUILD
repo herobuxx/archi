@@ -48,21 +48,6 @@ build() {
 
   # PGO should be done with -O3
   CFLAGS="${CFLAGS/-O2/-O3}"
-
-  # Disable bundled pip & setuptools
-  ./configure --enable-configure \
-              --prefix=/usr \
-              --enable-shared \
-              --with-computed-gotos \
-              --enable-optimizations \
-              --with-lto \
-              --with-system-expat \
-              --with-dbmliborder=gdbm:ndbm \
-              --with-system-ffi \
-              --with-system-libmpdec \
-              --enable-loadable-sqlite-extensions \
-              --without-ensurepip \
-              --disable-ipv6
             
 # Obtain next free server number for xvfb-run; this even works in a chroot environment.t
     make all EXTRA_CFLAGS="$CFLAGS"
