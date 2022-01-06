@@ -39,7 +39,7 @@ jobs:
       - run : | 
           git clone https://github.com/pyston/pyston.git
           cd pyston
-          git describe --long --tags
+          git describe --tags
           ls
         # with:
         #   submodules: true
