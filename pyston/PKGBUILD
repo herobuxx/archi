@@ -16,7 +16,7 @@ arch=('x86_64')
 license=('custom')
 url="https://www.python.org/"
 depends=('bzip2' 'glibc' 'db'  'libffi' 'libnsl' 'libxcrypt' 'zlib' 'tcl' 'xz' 'expat')
-makedepends=('base-devel' 'nginx' 'rust' 'tk' 'openssl' 'ninja' 'sqlite' 'gdb' 'luajit' 'zlib' 'python' 'python-virtualenv' 'cmake' 'clang' 'llvm' 'libjpeg-turbo' 'linux-tools' 'mpdecimal')
+makedepends=('nginx' 'rust' 'tk' 'openssl' 'ninja' 'sqlite' 'gdb' 'luajit' 'zlib' 'python' 'python-virtualenv' 'cmake' 'clang' 'llvm' 'libjpeg-turbo' 'mpdecimal')
 source=("git+https://github.com/pyston/pyston.git")
 sha512sums=('SKIP')
 
