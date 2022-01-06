@@ -36,20 +36,20 @@ jobs:
     steps:
       - run: pacman -Syu --noconfirm --needed git
       # - uses: actions/checkout@v2.3.5
-      - run : | 
-          git clone https://github.com/pyston/pyston.git
-          cd pyston
-          git describe --tags
-          ls
+      # - run : | 
+      #     git clone https://github.com/pyston/pyston.git
+      #     cd pyston
+      #     git describe --tags
+      #     ls
         # with:
         #   submodules: true
         #   fetch-depth: '50'
         #   token: ${{ secrets.GITHUB_TOKEN }}
-      # - id: makepkg
-      #   uses: JPratama7/pkgbuild-action@cpuv2
-      #   with:
-      #     makepkgArgs: "--skippgpcheck"
-      #     pkgdir: "pypy3"
+      - id: makepkg
+        uses: JPratama7/pkgbuild-action@cpuv2
+        with:
+          makepkgArgs: "--skippgpcheck"
+          pkgdir: "pyston"
 
       - uses: ncipollo/release-action@v1.8.10
         with:
