@@ -39,9 +39,7 @@ jobs:
       - run : | 
           git clone https://github.com/pyston/pyston.git
           cd pyston
-          git submodule update --init pyston/llvm pyston/bolt pyston/LuaJIT pyston/macrobenchmarks
-          pacman -S base-devel nginx rust tk openssl ninja sqlite gdb luajit zlib python python-virtualenv cmake clang llvm libjpeg-turbo linux-tools mpdecimal --noconfirm
-          make
+          git describe --long --tags
           ls
         # with:
         #   submodules: true
