@@ -19,7 +19,7 @@ sha512sums=('SKIP')
 build() {
   cd pypy${_pyver}-v${pkgver}-src/pypy/goal
 
-  pypy ../../rpython/bin/rpython -Ojit --shared --cc=clang targetpypystandalone
+  pypy ../../rpython/bin/rpython -Ojit --shared --cc=clang --lto targetpypystandalone
 
   # Compile binary modules
   PYTHONPATH=../.. ./pypy3-c ../../lib_pypy/pypy_tools/build_cffi_imports.py
