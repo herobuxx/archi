@@ -49,7 +49,7 @@ jobs:
         uses: JPratama7/pkgbuild-action@master
         with:
           makepkgArgs: "--skippgpcheck"
-          pkgdir: "pypy3"
+          pkgdir: "pyston"
 
       - uses: ncipollo/release-action@v1.8.10
         with:
