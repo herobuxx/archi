@@ -20,12 +20,6 @@ makedepends=('nginx' 'rust' 'tk' 'openssl' 'ninja' 'sqlite' 'gdb' 'luajit' 'zlib
 source=("git+https://github.com/pyston/pyston.git")
 sha512sums=('SKIP')
 
-pkgver() {
-	cd pyston
-	git describe --tags
-}
-
-
 prepare() {
   cd pyston
 
