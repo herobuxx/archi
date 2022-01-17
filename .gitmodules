@@ -7,3 +7,6 @@
 [submodule "xampp"]
 	path = xampp
 	url = https://aur.archlinux.org/xampp.git
+[submodule "makepkg-optimize-mold"]
+	path = makepkg-optimize-mold
+	url = https://aur.archlinux.org/makepkg-optimize-mold.git
