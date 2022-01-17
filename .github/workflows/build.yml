@@ -49,7 +49,7 @@ jobs:
         uses: JPratama7/pkgbuild-action@polly
         with:
           makepkgArgs: "--skippgpcheck"
-          pkgdir: "xanmod"
+          pkgdir: "makepkg-optimize-mold"
 
       - uses: ncipollo/release-action@v1.8.10
         with:
