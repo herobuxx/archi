@@ -38,6 +38,10 @@ jobs:
           pacman -Syu --noconfirm --needed git
           ls -lR
       - uses: actions/checkout@v2.3.5
+        with:
+          submodules: true
+          fetch-depth: '50'
+          token: ${{ secrets.GITHUB_TOKEN }}
       # - run : | 
       #     git clone https://github.com/pyston/pyston.git
       #     cd pyston
