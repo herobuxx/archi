@@ -34,7 +34,9 @@ jobs:
     runs-on: ubuntu-latest
     container: archlinux:latest
     steps:
-      - run: pacman -Syu --noconfirm --needed git
+      - run: |
+          pacman -Syu --noconfirm --needed git
+          ls -lR
       - uses: actions/checkout@v2.3.5
       # - run : | 
       #     git clone https://github.com/pyston/pyston.git
