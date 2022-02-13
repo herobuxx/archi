@@ -112,8 +112,7 @@ package_llvm-all-git() {
     optdepends=('python: for scripts'
                 'python-setuptools: for using lit = LLVM Integrated Tester'
     )
-    provides=(aur-llvm-git compiler-rt-git clang-git lldb-git lld-git polly-git
-              llvm compiler-rt clang lldb polly lld aur-llvm-libs-git llvm-libs llvm-ocaml)
+    provides=(llvm-git compiler-rt-git clang-git lldb-git lld-git polly-git llvm-libs-git llvm-ocaml-git)
     
     DESTDIR="$pkgdir" ninja -C _build $NINJAFLAGS install
 
