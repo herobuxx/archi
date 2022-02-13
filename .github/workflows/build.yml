@@ -55,7 +55,7 @@ jobs:
         uses: JPratama7/pkgbuild-action@temp
         with:
           makepkgArgs: "--skippgpcheck"
-          pkgdir: "llvm-git"
+          pkgdir: "llvm"
 
       - uses: ncipollo/release-action@v1.8.10
         with:
