@@ -15,7 +15,7 @@
 # Contributor: Tomas Wilhelmsson <tomas.wilhelmsson@gmail.com>
 
 
-pkgname=('llvm-git' 'llvm-libs-git' 'llvm-ocaml-git')
+pkgname=('llvm-all-git')
 pkgver=15.0.0_r414800.a4ed0c2f03e1
 pkgrel=1
 arch=('x86_64')
@@ -105,14 +105,17 @@ check() {
 
 package_llvm-git() {
     pkgdesc="LLVM development version. includes clang and many other tools"
-    depends=("llvm-libs-git=$pkgver-$pkgrel" 'perl')
+    depends=("llvm-libs-git=$pkgver-$pkgrel" 'perl'
+            'gcc-libs' 'zlib' 'libffi' 'libedit' 'ncurses' 'libxml2' 'z3' 'lua53'
+            "llvm-git=$pkgver-$pkgrel" "ocaml" 'ocaml-ctypes'
+    )
     optdepends=('python: for scripts'
                 'python-setuptools: for using lit = LLVM Integrated Tester'
     )
     provides=(aur-llvm-git compiler-rt-git clang-git lldb-git lld-git polly-git
-              llvm compiler-rt clang lldb polly lld )
+              llvm compiler-rt clang lldb polly lld aur-llvm-libs-git llvm-libs llvm-ocaml)
     # A package always provides itself, so there's no need to provide llvm-git
-    conflicts=('llvm' 'compiler-rt' 'clang' 'lldb' 'polly' 'lld')
+    conflicts=('llvm' 'compiler-rt' 'clang' 'lldb' 'polly' 'lld' 'llvm-ocaml' 'llvm-libs')
     
     DESTDIR="$pkgdir" ninja -C _build $NINJAFLAGS install
 
@@ -128,13 +131,10 @@ package_llvm-git() {
     rmdir "$pkgdir"/usr/libexec
     sed -i 's|libexec|lib/clang|' "$pkgdir"/usr/bin/scan-build
 
-    # The runtime libraries go into llvm-libs-git
-    mv -f "$pkgdir"/usr/lib/lib{LLVM,LTO,Remarks}*.so* "$srcdir"
-    mv -f "$pkgdir"/usr/lib/LLVMgold.so "$srcdir"
+    # https://bugs.archlinux.org/task/28479
+    install -d "$pkgdir"/usr/lib/bfd-plugins
+    ln -s ../LLVMgold.so "$pkgdir"/usr/lib/bfd-plugins/LLVMgold.so
 
-    # OCaml bindings go to a separate package
-    rm -rf "$srcdir"/ocaml.{lib,doc}
-    mv "$pkgdir"/usr/lib/ocaml "$srcdir"/ocaml.lib
 
     if [[ -d "${pkgdir}/usr/share/doc/LLVM/llvm/ocaml-html" && ! -d "${pkgdir}/usr/share/doc/llvm/ocaml-html" ]]
     then
@@ -167,44 +167,4 @@ package_llvm-git() {
     install -Dm644 lld/LICENSE.TXT "$pkgdir"/usr/share/licenses/$pkgname/lld-LICENSE
     install -Dm644 lldb/LICENSE.TXT "$pkgdir"/usr/share/licenses/$pkgname/lldb-LICENSE
     install -Dm644 polly/LICENSE.TXT "$pkgdir"/usr/share/licenses/$pkgname/polly-LICENSE
-}
-
-package_llvm-libs-git() {
-    pkgdesc="runtime libraries for llvm-git"
-    depends=('gcc-libs' 'zlib' 'libffi' 'libedit' 'ncurses' 'libxml2' 'z3' 'lua53')
-    provides=(aur-llvm-libs-git llvm-libs)
-    conflicts=('llvm-libs')
-
-    install -d "$pkgdir"/usr/lib
-    cp -P \
-        "$srcdir"/lib{LLVM,LTO,Remarks}*.so* \
-        "$srcdir"/LLVMgold.so \
-        "$pkgdir"/usr/lib/
-
-    # Symlink LLVMgold.so from /usr/lib/bfd-plugins
-    # https://bugs.archlinux.org/task/28479
-    install -d "$pkgdir"/usr/lib/bfd-plugins
-    ln -s ../LLVMgold.so "$pkgdir"/usr/lib/bfd-plugins/LLVMgold.so
-    
-    cd llvm-project/
-    install -Dm644 llvm/LICENSE.TXT "$pkgdir"/usr/share/licenses/$pkgname/llvm-LICENSE
-    install -Dm644 clang/LICENSE.TXT "$pkgdir"/usr/share/licenses/$pkgname/clang-LICENSE
-    install -Dm644 clang-tools-extra/LICENSE.TXT "$pkgdir"/usr/share/licenses/$pkgname/clang-tools-extra-LICENSE
-    install -Dm644 compiler-rt/LICENSE.TXT "$pkgdir"/usr/share/licenses/$pkgname/compiler-rt-LICENSE
-    install -Dm644 lld/LICENSE.TXT "$pkgdir"/usr/share/licenses/$pkgname/lld-LICENSE
-    install -Dm644 lldb/LICENSE.TXT "$pkgdir"/usr/share/licenses/$pkgname/lldb-LICENSE
-    install -Dm644 polly/LICENSE.TXT "$pkgdir"/usr/share/licenses/$pkgname/polly-LICENSE
-}
-
-package_llvm-ocaml-git() {
-    pkgdesc="OCaml bindings for LLVM"
-    depends=("llvm-git=$pkgver-$pkgrel" "ocaml" 'ocaml-ctypes')
-    conflicts=('llvm-ocaml')
-    provides=("llvm-ocaml")
-    
-    install -d "$pkgdir"/{usr/lib,usr/share/doc/$pkgname}
-    cp -a "$srcdir"/ocaml.lib "$pkgdir"/usr/lib/ocaml
-    cp -a "$srcdir"/ocaml.doc "$pkgdir"/usr/share/doc/$pkgname/html
-
-    install -Dm644 "$srcdir"/llvm-project/llvm/LICENSE.TXT  "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
