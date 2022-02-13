@@ -114,8 +114,6 @@ package_llvm-git() {
     )
     provides=(aur-llvm-git compiler-rt-git clang-git lldb-git lld-git polly-git
               llvm compiler-rt clang lldb polly lld aur-llvm-libs-git llvm-libs llvm-ocaml)
-    # A package always provides itself, so there's no need to provide llvm-git
-    conflicts=('llvm' 'compiler-rt' 'clang' 'lldb' 'polly' 'lld' 'llvm-ocaml' 'llvm-libs')
     
     DESTDIR="$pkgdir" ninja -C _build $NINJAFLAGS install
 
