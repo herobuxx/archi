@@ -42,9 +42,9 @@ options=('staticlibs')
 
 #answer for toolchain
 _use_clang_toolchain=y
-_skip_build_test=n
-_skip_documentation=n
-_skip_ocaml_go=n
+_skip_build_test=y
+_skip_documentation=y
+_skip_ocaml_go=y
 
 _extra_build_flags=""
 _build_documentation=0
