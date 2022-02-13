@@ -136,7 +136,7 @@ build() {
   done
 
   while true; do
-    case ${_use_build_test} in
+    case ${_skip_build_test} in
     [Yy] | "")
       echo -ne "\n\E[1;33mSkipping build test \E[0m"
 
