@@ -22,7 +22,7 @@ arch=('x86_64')
 license=('custom')
 url="https://www.python.org/"
 depends=('bzip2' 'expat' 'gdbm' 'libffi' 'libnsl' 'libxcrypt' 'openssl' 'zlib')
-makedepends=('tk' 'sqlite' 'bluez-libs' 'mpdecimal' 'gdb' 'xorg-server-xvfb' 'ttf-font' 'llvm+clang')
+makedepends=('tk' 'sqlite' 'bluez-libs' 'mpdecimal' 'gdb' 'xorg-server-xvfb' 'ttf-font' 'llvm+clang' 'libglvnd+clang')
 source=("https://www.python.org/ftp/python/${pkgver%rc*}/Python-${pkgver}.tar.xz"{,.asc}
         https://bugs.python.org/file50485/cmp_interned_strings.patch
         https://github.com/python/cpython/commit/934a24c641da5bc4bdb724e901adc20f9a5dff40.patch)
