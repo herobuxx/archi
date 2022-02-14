@@ -38,12 +38,6 @@ validpgpkeys=('0D96DF4D4110E5C43FBFB17F2D347EA6AA65421D'  # Ned Deily (Python re
 prepare() {
   cd Python-${pkgver}
 
-  # fixes crashes in sagemath - by arojas
-  patch -Np1 -i ../934a24c641da5bc4bdb724e901adc20f9a5dff40.patch
-
-  # FS#72979
-  patch -Np1 -i ../cmp_interned_strings.patch
-
   # FS#23997
   sed -i -e "s|^#.* /usr/local/bin/python|#!/usr/bin/python|" Lib/cgi.py
 
