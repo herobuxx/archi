@@ -9,6 +9,9 @@ shopt -s extglob
 ####### COMPILER
 export CC=clang
 export CXX=clang++
+export CFLAGS="-mllvm -polly -mllvm -polly-parallel \
+        -mllvm -polly-omp-backend=LLVM -mllvm -polly-num-threads=4 \
+        -mllvm -polly-vectorizer=stripmine"
 ####################
 
 
@@ -24,7 +27,10 @@ url="https://www.python.org/"
 depends=('bzip2' 'expat' 'gdbm' 'libffi' 'libnsl' 'libxcrypt' 'openssl' 'zlib')
 makedepends=('tk' 'sqlite' 'bluez-libs' 'mpdecimal' 'gdb' 'xorg-server-xvfb' 'ttf-font' 'llvm+clang' 'libglvnd+clang')
 source=("https://www.python.org/ftp/python/${pkgver%rc*}/Python-${pkgver}.tar.xz"{,.asc})
-sha512sums=('SKIP')
+sha512sums=('SKIP'
+            'SKIP'
+
+)
 validpgpkeys=('0D96DF4D4110E5C43FBFB17F2D347EA6AA65421D'  # Ned Deily (Python release signing key) <nad@python.org>
               'E3FF2839C048B25C084DEBE9B26995E310250568'  # Łukasz Langa (GPG langa.pl) <lukasz@langa.pl>
               'A035C8C19219BA821ECEA86B64E628F8D684696D') # Pablo Galindo Salgado <pablogsal@gmail.com>

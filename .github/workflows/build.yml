@@ -55,7 +55,7 @@ jobs:
         uses: JPratama7/pkgbuild-action@master
         with:
           makepkgArgs: "--skippgpcheck"
-          pkgdir: "llvm"
+          pkgdir: "python"
 
       - uses: ncipollo/release-action@v1.8.10
         with:
