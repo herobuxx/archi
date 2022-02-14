@@ -62,8 +62,6 @@ build() {
               --enable-shared \
               --with-computed-gotos \
               --enable-optimizations \
-              --without-gcc \
-              --with-cxx-main=clang \
               --with-lto \
               --enable-ipv6 \
               --with-system-expat \
