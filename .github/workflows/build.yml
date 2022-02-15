@@ -34,9 +34,9 @@ jobs:
     runs-on: ubuntu-latest
     container: archlinux:latest
     steps:
-      - run: |
-          pacman -Syu --noconfirm --needed git
-          cat /etc/makepkg.conf
+      # - run: |
+      #     pacman -Syu --noconfirm --needed git
+      #     cat /etc/makepkg.conf
       - uses: actions/checkout@v2.3.5
         with:
           submodules: true
@@ -52,10 +52,10 @@ jobs:
         #   fetch-depth: '50'
         #   token: ${{ secrets.GITHUB_TOKEN }}
       - id: makepkg
-        uses: JPratama7/pkgbuild-action@master
+        uses: JPratama7/pkgbuild-action@test-polly
         with:
           makepkgArgs: "--skippgpcheck"
-          pkgdir: "llvm"
+          pkgdir: "pypy3"
 
       - uses: ncipollo/release-action@v1.8.10
         with:
