@@ -52,7 +52,7 @@ jobs:
         #   fetch-depth: '50'
         #   token: ${{ secrets.GITHUB_TOKEN }}
       - id: makepkg
-        uses: JPratama7/pkgbuild-action@pipe-clang
+        uses: JPratama7/pkgbuild-action@pipe
         with:
           makepkgArgs: "--skippgpcheck"
           pkgdir: "llvm"
