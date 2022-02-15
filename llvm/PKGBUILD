@@ -41,7 +41,7 @@ sha256sums=('SKIP'
 options=('staticlibs')
 
 #answer for toolchain
-_use_clang_toolchain=n
+_use_clang_toolchain=y
 _skip_build_test=y
 _skip_documentation=y
 _skip_ocaml_go=n
