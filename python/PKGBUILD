@@ -6,6 +6,9 @@
 
 shopt -s extglob
 
+export CC=clang
+export CXX=clang++
+
 pkgbase=python
 pkgname=(python python-tests)
 pkgver=3.10.2
