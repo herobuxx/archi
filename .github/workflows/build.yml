@@ -51,7 +51,7 @@ jobs:
         uses: JPratama7/pkgbuild-action@test-polly
         with:
           makepkgArgs: "--skippgpcheck"
-          pkgdir: "pypy3"
+          pkgdir: "xanmod"
 
       - uses: ncipollo/release-action@v1.8.10
         with:
