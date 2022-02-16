@@ -2,7 +2,7 @@
 
 export CC=clang
 export CXX=clang++
-export pypy=pypy3
+alias pypy=pypy3
 
 pkgname=pypy38
 pkgver=7.3.7
