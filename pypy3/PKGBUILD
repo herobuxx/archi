@@ -2,7 +2,6 @@
 
 export CC=clang
 export CXX=clang++
-alias pypy=pypy3
 
 pkgname=pypy38
 pkgver=7.3.7
@@ -21,6 +20,7 @@ source=("https://downloads.python.org/pypy/pypy${_pyver}-v${pkgver}-src.zip")
 sha512sums=('SKIP')
 
 build() {
+  ln -s /usr/bin/pypy3 /usr/bin/pypy
   cd pypy${_pyver}-v${pkgver}-src/pypy/goal
 
   pypy ../../rpython/bin/rpython -Ojit --shared targetpypystandalone
