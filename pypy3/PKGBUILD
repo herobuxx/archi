@@ -1,8 +1,5 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@gmail.com>
 
-export CC=clang
-export CXX=clang++
-
 pkgname=pypy38
 pkgver=7.3.7
 _pyver=3.8
