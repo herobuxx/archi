@@ -6,15 +6,6 @@
 
 shopt -s extglob
 
-####### COMPILER
-export CC=clang
-export CXX=clang++
-export CFLAGS="-mllvm -polly -mllvm -polly-parallel \
-        -mllvm -polly-omp-backend=LLVM -mllvm -polly-num-threads=4 \
-        -mllvm -polly-vectorizer=stripmine"
-####################
-
-
 pkgbase=python
 pkgname=(python python-tests)
 pkgver=3.10.2
@@ -25,12 +16,10 @@ arch=('x86_64')
 license=('custom')
 url="https://www.python.org/"
 depends=('bzip2' 'expat' 'gdbm' 'libffi' 'libnsl' 'libxcrypt' 'openssl' 'zlib')
-makedepends=('tk' 'sqlite' 'bluez-libs' 'mpdecimal' 'gdb' 'xorg-server-xvfb' 'ttf-font' 'llvm+clang' 'libglvnd+clang')
+makedepends=('tk' 'sqlite' 'bluez-libs' 'mpdecimal' 'llvm' 'gdb' 'xorg-server-xvfb' 'ttf-font')
 source=("https://www.python.org/ftp/python/${pkgver%rc*}/Python-${pkgver}.tar.xz"{,.asc})
-sha512sums=('SKIP'
-            'SKIP'
-
-)
+sha512sums=('215a7159face84788fe547c1e2689b8d0ae510275157cf01636bef2902d0ff465f844eb0328c9f39fd1cd03a1d1736d4cf258992f2788e492a801a372032c08b'
+            'SKIP')
 validpgpkeys=('0D96DF4D4110E5C43FBFB17F2D347EA6AA65421D'  # Ned Deily (Python release signing key) <nad@python.org>
               'E3FF2839C048B25C084DEBE9B26995E310250568'  # Łukasz Langa (GPG langa.pl) <lukasz@langa.pl>
               'A035C8C19219BA821ECEA86B64E628F8D684696D') # Pablo Galindo Salgado <pablogsal@gmail.com>
@@ -55,7 +44,7 @@ build() {
   cd Python-${pkgver}
 
   # PGO should be done with -O3
-  CFLAGS="${CFLAGS/-O2/-O3}"
+  CFLAGS="${CFLAGS/-O2/-O3} -ffat-lto-objects -fuse-ld=lld"
 
   # Disable bundled pip & setuptools
   ./configure --prefix=/usr \
