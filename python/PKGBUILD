@@ -6,8 +6,8 @@
 
 shopt -s extglob
 
-export CC="clang -Xclang -load -Xclang LLVMPolly.so"
-export CXX="clang++ -Xclang -load -Xclang LLVMPolly.so"
+# export CC="clang -Xclang -load -Xclang LLVMPolly.so"
+# export CXX="clang++ -Xclang -load -Xclang LLVMPolly.so"
 
 pkgbase=python
 pkgname=(python python-tests)
