@@ -17,8 +17,8 @@ source=("https://downloads.python.org/pypy/pypy${_pyver}-v${pkgver}-src.zip")
 sha512sums=('SKIP')
 
 build() {
-  echo echo -e "\E[1;31m $CFLAGS \E[0m"
-  echo echo -e "\E[1;31m $CXXFLAGS \E[0m"
+  echo echo -e "\E[1;31m ${CFLAGS} \E[0m"
+  echo echo -e "\E[1;31m ${CXXFLAGS} \E[0m"
   cd pypy${_pyver}-v${pkgver}-src/pypy/goal
 
   pypy ../../rpython/bin/rpython -Ojit --shared --lto targetpypystandalone
