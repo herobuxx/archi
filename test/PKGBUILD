@@ -13,7 +13,7 @@ license=('MIT')
 source=()
 sha512sums=()
 
-echo ${nproc}
+echo $(nproc)
 
 build() {
 echo $
