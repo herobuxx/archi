@@ -16,9 +16,10 @@ sha512sums=()
 echo $(nproc)
 
 build() {
-echo $
+echo $(nproc)
 }
 
 package() {
+    echo $(nproc)
 }
 # vim: ts=2 sw=2 et:
