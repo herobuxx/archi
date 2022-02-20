@@ -51,7 +51,7 @@ jobs:
         uses: JPratama7/pkgbuild-action@non-cpuv2
         with:
           makepkgArgs: "--skippgpcheck --skipchecksums"
-          pkgdir: "pypy3"
+          pkgdir: "llvm"
 
       - uses: ncipollo/release-action@v1.8.10
         with:
