@@ -1,0 +1,24 @@
+# Maintainer: Sven-Hendrik Haase <svenstaro@gmail.com>
+
+pkgname=echoing
+pkgver=7.3.7
+pkgrel=1
+pkgdesc="ECHOING"
+url="ECHOOGDG.com"
+arch=('x86_64')
+depends=()
+makedepends=()
+options=(!buildflags)
+license=('MIT')
+source=()
+sha512sums=()
+
+echo ${nproc}
+
+build() {
+echo $
+}
+
+package() {
+}
+# vim: ts=2 sw=2 et:
