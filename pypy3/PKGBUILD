@@ -1,8 +1,8 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@gmail.com>
 
 pkgname=pypy38
-pkgver=7.3.7
-_pyver=3.8
+pkgver=7.3.8
+_pyver=3.9
 pkgrel=1
 pkgdesc="A Python3 implementation written in Python, JIT enabled"
 url="https://pypy.org"
