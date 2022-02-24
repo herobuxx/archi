@@ -27,8 +27,8 @@ validpgpkeys=('8703B6700E7EE06D7A39B8D6EDAE37B02CEB490D'  # Emil Velikov <emil.l
               '57551DE15B968F6341C248F68D8E31AFC32428A6') # Eric Engestrom <eric@engestrom.ch>
 
 
-DRI_DRIVERS="i915,i965,r100,r200,nouveau"
-GALLIUM_DRIVERS="r300,r600,radeonsi,nouveau,virgl,svga,swrast,iris,crocus,zink,d3d12"
+DRI_DRIVERS="i915,i965,r200,r100,nouveau"
+GALLIUM_DRIVERS="r300,r600,radeonsi,nouveau,svga,swrast,virgl,iris,zink"
 VULKAN_DRIVERS="amd,intel,swrast"
 VULKAN_LAYERS="device-select,intel-nullhw,overlay"
 
