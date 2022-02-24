@@ -1,6 +1,6 @@
-pkgname=mesa+clang
+pkgname=mesa-all
 pkgdesc="Mesa open-source implementation of the OpenGL specification"
-pkgver=21.3.6
+pkgver=21.3.7
 _pkgver=${pkgver//_/-}
 pkgrel=1
 arch=('x86_64')
@@ -14,27 +14,25 @@ provides=('mesa' "mesa=${pkgver}" 'opencl-mesa' 'vulkan-intel' 'vulkan-radeon' '
 conflicts=('mesa' 'opencl-mesa' 'vulkan-intel' 'vulkan-radeon' 'vulkan-mesa-layer' 'libva-mesa-driver' 'mesa-vdpau' 'vulkan-swrast')
 url="https://www.mesa3d.org"
 license=('custom')
-source=(
-  "https://archive.mesa3d.org/mesa-${_pkgver}.tar.xz"{,.sig}
-  'LICENSE'
-  'mesa-remove-swr.patch'
-)
+source=('https://mesa.freedesktop.org/archive/mesa-${pkgver}.tar.xz{,.sig}'
+        'LICENSE')
+sha512sums=('0991543e9435457fa4d077517408b3f197be32ed61a6c7ca34ddb3906eed208791f1a57227f74115f99df18e612efab1d2c6809b7cf426d273633b53d4aefc88'
+            'SKIP'
+            'f9f0d0ccf166fe6cb684478b6f1e1ab1f2850431c06aa041738563eb1808a004e52cdec823c103c9e180f03ffc083e95974d291353f0220fe52ae6d4897fecc7')
+validpgpkeys=('8703B6700E7EE06D7A39B8D6EDAE37B02CEB490D'  # Emil Velikov <emil.l.velikov@gmail.com>
+              '946D09B5E4C9845E63075FF1D961C596A7203456'  # Andres Gomez <tanty@igalia.com>
+              'E3E8F480C52ADD73B278EE78E1ECBE07D7D70895'  # Juan Antonio Suárez Romero (Igalia, S.L.) <jasuarez@igalia.com>
+              'A5CC9FEC93F2F837CB044912336909B6B25FADFA'  # Juan A. Suarez Romero <jasuarez@igalia.com>
+              '71C4B75620BC75708B4BDB254C95FAAB3EB073EC'  # Dylan Baker <dylan@pnwbakers.com>
+              '57551DE15B968F6341C248F68D8E31AFC32428A6') # Eric Engestrom <eric@engestrom.ch>
 
-sha256sums=('96bb761fd546e9aa41d025fcc025225c5668443839dae21e3731959beb096736'
-  'SKIP'
-  '7fdc119cf53c8ca65396ea73f6d10af641ba41ea1dd2bd44a824726e01c8b3f2'
-  'c7aadbec8859418503b97a4ff8080841772a93a6c881522e6ad035db2d43fb81')
 
-validpgpkeys=(
-  '57551DE15B968F6341C248F68D8E31AFC32428A6' # Keith Packard <keithp@keithp.com>
-  '71C4B75620BC75708B4BDB254C95FAAB3EB073EC' # Dylan Baker <dylan@pnwbakers.com>
-)
-
-GALLIUM_DRIVERS="r300,r600,radeonsi,nouveau,virgl,svga,swrast,iris,zink,crocus"
+DRI_DRIVERS="i915,i965,r100,r200,nouveau"
+GALLIUM_DRIVERS="r300,r600,radeonsi,nouveau,virgl,svga,swrast,iris,crocus,zink,d3d12"
 VULKAN_DRIVERS="amd,intel,swrast"
 VULKAN_LAYERS="device-select,intel-nullhw,overlay"
 
-_extra_lto_flag=""
+_extra_lto_flag="-D b_lto_mode=full"
 
 _patch() {
 
@@ -45,18 +43,10 @@ _patch() {
 
 prepare() {
 
-  if clang --version 2>/dev/null | grep -iq "clang\s*version\s*[0-9]" && ld.lld --version 2>/dev/null | grep -iq "LLD\s*[0-9]"; then
-    _extra_lto_flag='-D b_lto_mode=thin'
-  fi
-
   cd "${srcdir:?}/mesa-${_pkgver}" || (
     echo -e "\E[1;31mCan't cd to ${srcdir:?}/mesa-${pkgver} directory! Prepare Failed! \E[0m"
     exit 1
   )
-
-  # Remove SWR driver. SWR already removed from main branch.
-  rm -fr src/gallium/drivers/swr
-  _patch mesa-remove-swr.patch
 
 }
 
