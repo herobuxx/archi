@@ -48,10 +48,10 @@ jobs:
         #   fetch-depth: '50'
         #   token: ${{ secrets.GITHUB_TOKEN }}
       - id: makepkg
-        uses: JPratama7/pkgbuild-action@master
+        uses: JPratama7/pkgbuild-action@no-lto
         with:
           makepkgArgs: "--skippgpcheck --skipchecksums"
-          pkgdir: "pypy3"
+          pkgdir: "python"
 
       - uses: ncipollo/release-action@v1.8.10
         with:
