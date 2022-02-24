@@ -6,14 +6,6 @@
 
 shopt -s extglob
 
-export CC="clang -Xclang -load -Xclang LLVMPolly.so"
-export CXX="clang++ -Xclang -load -Xclang LLVMPolly.so"
-export CFLAGS="-march=x86-64-v2 -mtune=generic -O3 -pipe -fno-plt -fexceptions \
-        -Wp,-D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security \
-        -mllvm -polly -mllvm -polly-vectorizer=stripmine -fstack-clash-protection -fcf-protection"
-export CXXFLAGS="$CFLAGS -Wp,-D_GLIBCXX_ASSERTIONS"
-export LDFLAGS="-Wl,-O1 -Wl,-z,now -Wl,-z,relro -Wl,--as-needed -Wl,--no-copy-dt-needed-entries -Wl,--sort-common -Wl,--hash-style=gnu"
-
 pkgbase=python
 pkgname=(python python-tests)
 pkgver=3.10.2
@@ -24,7 +16,7 @@ arch=('x86_64')
 license=('custom')
 url="https://www.python.org/"
 depends=('bzip2' 'expat' 'gdbm' 'libffi' 'libnsl' 'libxcrypt' 'openssl' 'zlib')
-makedepends=('tk' 'sqlite' 'bluez-libs' 'mpdecimal' 'clang' 'llvm' 'polly' 'gdb' 'xorg-server-xvfb' 'ttf-font')
+makedepends=('tk' 'sqlite' 'bluez-libs' 'mpdecimal' 'llvm' 'gdb' 'xorg-server-xvfb' 'ttf-font')
 source=("https://www.python.org/ftp/python/${pkgver%rc*}/Python-${pkgver}.tar.xz"{,.asc})
 sha512sums=('215a7159face84788fe547c1e2689b8d0ae510275157cf01636bef2902d0ff465f844eb0328c9f39fd1cd03a1d1736d4cf258992f2788e492a801a372032c08b'
             'SKIP')
@@ -52,7 +44,7 @@ build() {
   cd Python-${pkgver}
 
   # PGO should be done with -O3
-  CFLAGS="${CFLAGS/-O2/-O3}"
+  CFLAGS="${CFLAGS/-O2/-O3} -ffat-lto-objects"
 
   # Disable bundled pip & setuptools
   ./configure --prefix=/usr \
