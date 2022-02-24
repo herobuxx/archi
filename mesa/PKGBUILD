@@ -32,7 +32,7 @@ GALLIUM_DRIVERS="r300,r600,radeonsi,nouveau,virgl,svga,swrast,iris,crocus,zink,d
 VULKAN_DRIVERS="amd,intel,swrast"
 VULKAN_LAYERS="device-select,intel-nullhw,overlay"
 
-_extra_lto_flag="-D b_lto_mode=full"
+_extra_lto_flag="-D b_lto_mode=thin"
 
 _patch() {
 
@@ -59,7 +59,7 @@ build() {
     --auto-features enabled \
     --wrap-mode nodownload \
     -D debug=false \
-    -D optimization=2 \
+    -D optimization=3 \
     -D b_ndebug=true \
     -D b_lto=true ${_extra_lto_flag} \
     -D b_pie=true \
