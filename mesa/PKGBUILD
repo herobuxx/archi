@@ -35,7 +35,7 @@ GALLIUM_DRIVERS="r300,r600,radeonsi,nouveau,svga,swrast,virgl,iris,zink"
 VULKAN_DRIVERS="amd,intel,swrast"
 VULKAN_LAYERS="device-select,intel-nullhw,overlay"
 
-_extra_lto_flag="-D b_lto_mode=thin"
+_extra_lto_flag="-D b_lto_mode=default"
 
 _patch() {
 
