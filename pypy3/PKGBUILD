@@ -1,6 +1,6 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@gmail.com>
 
-pkgname=pypy38
+pkgname=pypy39
 pkgver=7.3.8
 _pyver=3.9
 pkgrel=1
@@ -21,7 +21,10 @@ echo $CFLAGS
 build() {
   cd pypy${_pyver}-v${pkgver}-src/pypy/goal
 
-  pypy ../../rpython/bin/rpython -Ojit --shared --lto targetpypystandalone
+  # For some reason, PyPy wants to use their vendored dependencies when detecting linux.
+  # Weird, we'll patch it out.
+  sed -i "s/, 'linux', 'linux2'//" targetpypystandalone.py
+  pypy ../../rpython/bin/rpython -Ojit --shared --lto --translation-jit_profiler=oprofile targetpypystandalone
 
   # Compile binary modules
   PYTHONPATH=../.. ./pypy3-c ../../lib_pypy/pypy_tools/build_cffi_imports.py
@@ -32,17 +35,14 @@ package() {
 
   # Prepare installation
   pypy pypy/tool/release/package.py --archive-name pypy --targetdir .
-  mkdir unpacked && tar xf pypy.tar.bz2 -C unpacked
+  mkdir unpacked
+  tar xf pypy.tar.bz2 -C unpacked
 
   # Install pypy
-  cd unpacked
-  install -Dm755 pypy/bin/pypy3 "${pkgdir}"/opt/pypy3/bin/pypy3
-  install -Dm755 pypy/bin/libpypy3-c.so "${pkgdir}"/opt/pypy3/bin/libpypy3-c.so
-  cp -r pypy/include pypy/lib "${pkgdir}"/opt/pypy3
-  cd ..
+  mkdir -p "${pkgdir}"/usr/bin "${pkgdir}"/usr/lib "${pkgdir}"/opt/pypy3
+  cp -r unpacked/pypy/* "${pkgdir}"/opt/pypy3
 
   # Install symlinks
-  mkdir -p "${pkgdir}"/usr/bin "${pkgdir}"/usr/lib
   ln -s /opt/pypy3/bin/pypy3 "${pkgdir}"/usr/bin/pypy3
   ln -s /opt/pypy3/bin/libpypy3-c.so "${pkgdir}"/usr/lib/libpypy3-c.so
 
