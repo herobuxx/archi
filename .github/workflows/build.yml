@@ -39,8 +39,8 @@ jobs:
       #     cat /etc/makepkg.conf
       - uses: actions/checkout@v2.3.5
       - run: |
-          pacman -Syyu
-          pacman -S perl
+          pacman -Syyu --noconfirm
+          pacman -S perl --noconfirm
           sh zoom-system-qt/fetch-version.sh
       # - run : | 
       #     git clone https://github.com/pyston/pyston.git
