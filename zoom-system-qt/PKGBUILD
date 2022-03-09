@@ -29,7 +29,7 @@ optdepends=('qt5-webengine: SSO login support'
             'xcompmgr: extra compositor needed by some window managers for screen sharing'
             'pulseaudio-alsa: output sound via pulseaudio' )
 options=(!strip)
-source=("$pkgname-$pkgver-orig-$arch.pkg.tar.xz::$url/client/$pkgver/${_basename}_$arch.pkg.tar.xz")
+source=("$pkgname-$pkgver-orig-$arch.pkg.tar.xz::$url/client/latest/${_basename}_$arch.pkg.tar.xz")
 sha512sums=('c543a805130255bec1ad7fc7ccc6dd9a37711d73bd9f2fac62a57913210e1ea54a679ea4627c7166b2c6168e42d1b41f457fc2f6989f57296df4933b0e49f2a1')
 
 _syslib() {
