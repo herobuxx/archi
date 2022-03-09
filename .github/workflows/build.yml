@@ -40,7 +40,8 @@ jobs:
       - uses: actions/checkout@v2.3.5
       - run: |
           pacman -Syyu --noconfirm --needed perl
-          sh zoom-system-qt/fetch-version.sh
+          cd zoom-system-qt
+          sh fetch-version.sh
       # - run : | 
       #     git clone https://github.com/pyston/pyston.git
       #     cd pyston
