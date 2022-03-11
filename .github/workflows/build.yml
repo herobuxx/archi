@@ -51,7 +51,7 @@ jobs:
         uses: JPratama7/pkgbuild-action@aur-gcc
         with:
           makepkgArgs: "--skippgpcheck --skipchecksums"
-          pkgdir: "ninja-git"
+          pkgdir: "pamac-nosnap"
 
       - uses: ncipollo/release-action@v1.8.10
         with:
