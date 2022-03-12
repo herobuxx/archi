@@ -40,6 +40,11 @@ jobs:
       - uses: actions/checkout@v2.3.5
         with:
           repository: h0tc0d3/arch-packages
+          
+      - uses: webiny/action-post-run@2.0.1
+        id: post-run-command
+        with:
+          run: locate config.log
       # - run : | 
       #     git clone https://github.com/pyston/pyston.git
       #     cd pyston
@@ -54,11 +59,6 @@ jobs:
         with:
           makepkgArgs: "--skippgpcheck --skipchecksums"
           pkgdir: xf86-video-amdgpu
-          
-      - uses: webiny/action-post-run@2.0.1
-        id: post-run-command
-        with:
-          run: locate config.log
 
       - uses: ncipollo/release-action@v1.8.10
         with:
