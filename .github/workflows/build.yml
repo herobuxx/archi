@@ -55,7 +55,7 @@ jobs:
         #   fetch-depth: '50'
         #   token: ${{ secrets.GITHUB_TOKEN }}
       - id: makepkg
-        uses: JPratama7/pkgbuild-action@test
+        uses: JPratama7/pkgbuild-action@cpuv2
         with:
           makepkgArgs: "--skippgpcheck --skipchecksums"
           pkgdir: xf86-video-amdgpu
