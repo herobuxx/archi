@@ -54,7 +54,7 @@ jobs:
         #   fetch-depth: '50'
         #   token: ${{ secrets.GITHUB_TOKEN }}
       - id: makepkg
-        uses: JPratama7/pkgbuild-action@archclub
+        uses: JPratama7/pkgbuild-action@toolchain
         with:
           makepkgArgs: "--skippgpcheck --skipchecksums"
           pkgdir: ${{ matrix.build }}
