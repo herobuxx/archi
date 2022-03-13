@@ -33,7 +33,7 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [xf86-video-amdgpu]
+        build: [python]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
@@ -42,8 +42,8 @@ jobs:
       #     pacman -Syu --noconfirm --needed git
       #     cat /etc/makepkg.conf
       - uses: actions/checkout@v2.3.5
-        with:
-          repository: h0tc0d3/arch-packages
+        # with:
+        #   repository: h0tc0d3/arch-packages
         # with:
         #   repository: JPratama7/arch-builder
           
