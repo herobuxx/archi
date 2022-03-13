@@ -53,6 +53,8 @@ build() {
 
   fi
 
+  CFLAGS="${CFLAGS/-O2/-O3} -ffat-lto-objects"
+
   # Disable bundled pip & setuptools
   ./configure --prefix=/usr \
               --enable-shared \
