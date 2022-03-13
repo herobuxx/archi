@@ -33,7 +33,7 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [libva-vdpau-driver, libva, libvdpau, xf86-video-amdgpu]
+        build: [linux-xanmod, linux-xanmod-custom,linux-xanmod-edge,linux-xanmod-tt]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
@@ -43,7 +43,7 @@ jobs:
       #     cat /etc/makepkg.conf
       - uses: actions/checkout@v2.3.5
         with:
-          repository: h0tc0d3/arch-packages
+          repository: JPratama7/arch-builder
           
       # - uses: webiny/action-post-run@2.0.1
       #   id: post-run-command
@@ -59,7 +59,7 @@ jobs:
         #   fetch-depth: '50'
         #   token: ${{ secrets.GITHUB_TOKEN }}
       - id: makepkg
-        uses: JPratama7/pkgbuild-action@test
+        uses: JPratama7/pkgbuild-action@cpuv2
         with:
           makepkgArgs: "--skippgpcheck --skipchecksums"
           pkgdir:  ${{ matrix.build }}
