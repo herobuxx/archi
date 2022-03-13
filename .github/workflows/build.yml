@@ -33,7 +33,7 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [python]
+        build: [linux-xanmod]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
@@ -42,8 +42,10 @@ jobs:
       #     pacman -Syu --noconfirm --needed git
       #     cat /etc/makepkg.conf
       - uses: actions/checkout@v2.3.5
+        # with:
+        #   repository: h0tc0d3/arch-packages
         with:
-          repository: h0tc0d3/arch-packages
+          repository: JPratama7/arch-builder
           
       # - uses: webiny/action-post-run@2.0.1
       #   id: post-run-command
