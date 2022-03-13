@@ -53,7 +53,7 @@ build() {
 
   fi
 
-  CFLAGS="${CFLAGS/-O2/-O3} -ffat-lto-objects"
+  CFLAGS="${CFLAGS/-O2/-O3}"
 
   # Disable bundled pip & setuptools
   ./configure --prefix=/usr \
