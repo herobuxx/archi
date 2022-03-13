@@ -32,20 +32,12 @@ GALLIUM_DRIVERS="r300,r600,radeonsi,nouveau,virgl,svga,swrast,iris,zink,crocus"
 VULKAN_DRIVERS="amd,intel,swrast"
 VULKAN_LAYERS="device-select,intel-nullhw,overlay"
 
-_extra_lto_flag=""
+_extra_lto_flag="-D b_lto_mode=thin"
 
 _patch() {
 
   echo -e "\E[1;33m Apply patch: ${1}\E[0m"
   patch -p1 -i "${srcdir:?}/${1}"
-
-}
-
-prepare() {
-
-  if clang --version 2>/dev/null | grep -iq "clang\s*version\s*[0-9]" && ld.lld --version 2>/dev/null | grep -iq "LLD\s*[0-9]"; then
-    _extra_lto_flag='-D b_lto_mode=thin'
-  fi
 
 }
 
