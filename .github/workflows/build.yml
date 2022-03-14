@@ -33,7 +33,7 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [libinput]
+        build: [pamac-aur]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
@@ -41,9 +41,6 @@ jobs:
       # - run: |
       #     pacman -Syu --noconfirm --needed git
       #     cat /etc/makepkg.conf
-      - uses: actions/checkout@v2.3.5
-        with:
-          repository: h0tc0d3/arch-packages
         # with:
         #   repository: JPratama7/arch-builder
           
@@ -61,7 +58,7 @@ jobs:
         #   fetch-depth: '50'
         #   token: ${{ secrets.GITHUB_TOKEN }}
       - id: makepkg
-        uses: JPratama7/pkgbuild-action@cpuv2
+        uses: JPratama7/pkgbuild-action@aur-cpuv2
         with:
           makepkgArgs: "--skippgpcheck --skipchecksums"
           pkgdir:  ${{ matrix.build }}
