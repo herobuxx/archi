@@ -62,6 +62,7 @@ jobs:
       - id: makepkg
         uses: JPratama7/pkgbuild-action@cpuv2
         with:
+          namcapDisable: true
           makepkgArgs: "--skippgpcheck --skipchecksums"
           pkgdir:  ${{ matrix.build }}
 
