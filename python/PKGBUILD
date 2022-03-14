@@ -10,7 +10,7 @@ arch=('x86_64')
 license=('custom')
 url="https://www.python.org/"
 depends=('bzip2' 'expat' 'gdbm' 'libffi' 'libnsl' 'libxcrypt' 'openssl' 'zlib')
-makedepends=('tk' 'sqlite' 'bluez-libs' 'mpdecimal' 'llvm' 'gdb' 'ttf-font')
+makedepends=('tk' 'sqlite' 'bluez-libs' 'mpdecimal' 'gdb' 'ttf-font')
 source=("https://www.python.org/ftp/python/${pkgver%rc*}/Python-${pkgver}.tar.xz"{,.asc})
 sha256sums=('17de3ac7da9f2519aa9d64378c603a73a0e9ad58dffa8812e45160c086de64c7'
   'SKIP')
@@ -20,7 +20,7 @@ validpgpkeys=(
   'A035C8C19219BA821ECEA86B64E628F8D684696D' # Pablo Galindo Salgado <pablogsal@gmail.com>
 )
 
-_llvm=0
+_llvm=1
 
 prepare() {
 
@@ -37,10 +37,6 @@ prepare() {
   rm -r Modules/expat
   rm -r Modules/_ctypes/{darwin,libffi}*
   rm -r Modules/_decimal/libmpdec
-
-  if clang --version 2>/dev/null | grep -iq "clang\s*version\s*[0-9]" && ld.lld --version 2>/dev/null | grep -iq "LLD\s*[0-9]"; then
-    _llvm=1
-  fi
 
 }
 
