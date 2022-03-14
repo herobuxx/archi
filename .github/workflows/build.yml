@@ -40,8 +40,8 @@ jobs:
     steps:
       - name: Build packages for arch
         uses: actions/checkout@v2.4.0
-        with:
-          repository: h0tc0d3/arch-packages
+        # with:
+        #   repository: h0tc0d3/arch-packages
       # - run: |
       #     pacman -Syu --noconfirm --needed git
       #     cat /etc/makepkg.conf
