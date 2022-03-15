@@ -45,7 +45,7 @@ jobs:
         with:
           repository: JPratama7/arch-builder
       - run: |
-            sed -i 's/+clang//g' xf86-video-amdgpu/PKGBUILD
+            sed -i 's/+clang//g' slimjet/PKGBUILD
       #     pacman -Syu --noconfirm --needed git
       #     cat /etc/makepkg.conf
         # with:
