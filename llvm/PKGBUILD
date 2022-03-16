@@ -2,8 +2,8 @@
 
 pkgname=llvm-all
 pkgdesc="LLVM Toolchain with clang, clang-tools-extra, compiler-rt, openmp, polly, lldb, lld"
-pkgver=13.0.1
-pkgrel=16
+pkgver=14.0.0
+pkgrel=rc4
 arch=('x86_64')
 url="https://llvm.org/"
 license=('custom:Apache 2.0 with LLVM Exception')
@@ -13,7 +13,7 @@ conflicts=('llvm' 'llvm-libs' 'llvm-ocaml' 'clang' 'clang-analyzer' 'clang-tools
 depends=('libelf' 'libffi' 'libedit' 'libxml2' 'ncurses')
 _ocaml_ver=4.13.1
 makedepends=(
-  'git' 'ninja' 'cmake' 'llvm-all'
+  'git' 'ninja' 'cmake'
   "ocaml>=${_ocaml_ver}" 'ocaml-ctypes' 'ocaml-findlib'
   'python-setuptools' 'python-psutil' 'python-sphinx'
   'python-recommonmark'
@@ -21,13 +21,15 @@ makedepends=(
 makedepends_x86_64=('lib32-gcc-libs')
 _commit=75e33f71c2dae584b13a7d1186ae0a038ba98838
 source=(
-  "llvm-project::git+https://github.com/llvm/llvm-project.git#commit=${_commit}"
+  # "llvm-project::git+https://github.com/llvm/llvm-project.git#commit=${_commit}"
+  "llvm-project::git+https://github.com/llvm/llvm-project.git#tag=llvmorg-${pkgver}-${pkgrel}"
   'llvm-config.h'
   llvm-no-strict-aliasing-DwarfCompileUnit.patch
   llvm-disable-bswap-for-spir.patch
   llvm-fix-scan-build-py-executable-lookup-path.patch
   llvm-don-t-accept-nullptr-as-GEP-element-type.patch
   llvm-Hoist-LOAD-without-sinking-the-STORE.patch
+  https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/clang/trunk/strip-exception-specifications-in-CFI-type-names.patch
 )
 
 sha256sums=('SKIP'
@@ -36,17 +38,16 @@ sha256sums=('SKIP'
   'af163392fbc19d65d11ab4b1510a2eae39b417d6228023b3ba5395b138bb41f5'
   '578b960121c42b8db80566dcb51558409d04455b618cdd608e41b35ded36c13e'
   'a7e902a7612d0fdabe436a917468b043cc296bc89d8954bfc3126f737beb9ac4'
-  '531d1deb5d37f1f24b3936d88b2c9ed90e8670705d7251c130d924c2c4c05a12')
+  '531d1deb5d37f1f24b3936d88b2c9ed90e8670705d7251c130d924c2c4c05a12'
+  '3f4a2784a4c2b2df13e03beb0b66d5805c520f2b9f16ff76e0557daeb284c8fa')
 
 options=('staticlibs')
 
-#answer for toolchain
 _use_clang_toolchain=y
 _skip_build_test=y
 _skip_documentation=y
 _skip_ocaml_go=n
-
-_extra_build_flags="-DLLVM_ENABLE_LTO=Full"
+_extra_build_flags="-DLLVM_ENABLE_LTO=Thin -DCMAKE_SKIP_RPATH=ON"
 _build_documentation=0
 _build_tests=0
 _build_bindings=0
@@ -84,6 +85,8 @@ prepare() {
   # Performance optimization https://bugs.llvm.org/show_bug.cgi?id=51193
   _patch llvm-Hoist-LOAD-without-sinking-the-STORE.patch
 
+  _patch strip-exception-specifications-in-CFI-type-names.patch
+
   # Attempt to convert script to Python 3
   2to3 -wn --no-diffs \
     clang-tools-extra/clang-include-fixer/find-all-symbols/tool/run-find-all-symbols.py
@@ -97,10 +100,11 @@ build() {
     exit 1
   )
 
+  local yn=0
   while true; do
     case ${_use_clang_toolchain} in
     [Yy] | "")
-      echo -ne "\n\E[1;33mBuilding With Clang ToolChain \E[0m"
+      echo -ne "\n\E[1;33mBuilding with clang and llvm toolchain \E[0m"
       if clang --version 2>/dev/null | grep -iq "clang\s*version\s*[0-13]"; then
         export CC=clang
         export CXX=clang++
@@ -138,8 +142,7 @@ build() {
   while true; do
     case ${_skip_build_test} in
     [Yy] | "")
-      echo -ne "\n\E[1;33mSkipping build test \E[0m"
-
+      echo -ne "\n\E[1;33mSkipping build tests\E[0m"
       _build_tests=0
       _extra_build_flags="${_extra_build_flags} -DLLVM_BUILD_TESTS=OFF"
       break
@@ -156,8 +159,7 @@ build() {
   while true; do
     case ${_skip_documentation} in
     [Yy] | "")
-      echo -ne "\n\E[1;33mSkipping Docs \E[0m"
-
+      echo -ne "\n\E[1;33mSkipping build documentation\E[0m"
       _build_documentation=0
       _extra_build_flags="${_extra_build_flags} -DLLVM_BUILD_DOCS=OFF"
       break
@@ -174,8 +176,7 @@ build() {
   while true; do
     case ${_skip_ocaml_go} in
     [Yy] | "")
-      echo -ne "\n\E[1;33mSkipping build OCaml and Go bindings \E[0m"
-
+      echo -ne "\n\E[1;33mSkipping build OCaml and Go bindings\E[0m"
       _build_bindings=0
       _extra_build_flags="${_extra_build_flags} -DLLVM_ENABLE_BINDINGS=OFF"
       break
@@ -189,8 +190,6 @@ build() {
   done
 
   cmake -S llvm -B build -G Ninja \
-    -DCMAKE_C_FLAGS:STRING="-march=x86-64 -mtune=generic -O2 -pipe -fno-plt -fexceptions -Wp,-D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security -fstack-clash-protection -fcf-protection -mllvm -polly -mllvm -polly-omp-backend=LLVM -mllvm -polly-vectorizer=stripmine" \
-    -DCMAKE_CXX_FLAGS:STRING="-march=x86-64 -mtune=generic -O2 -pipe -fno-plt -fexceptions -Wp,-D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security -fstack-clash-protection -fcf-protection -mllvm -polly -mllvm -polly-omp-backend=LLVM -mllvm -polly-vectorizer=stripmine -Wp,-D_GLIBCXX_ASSERTIONS" \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLLVM_BINUTILS_INCDIR=/usr/include \
