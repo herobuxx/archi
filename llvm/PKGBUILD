@@ -76,9 +76,9 @@ prepare() {
   _patch llvm-fix-scan-build-py-executable-lookup-path.patch
   # Work around intermittent 'clang -O -g' crashes
   # https://bugs.llvm.org/show_bug.cgi?id=50611#c3
-  _patch llvm-no-strict-aliasing-DwarfCompileUnit.patch
+  # _patch llvm-no-strict-aliasing-DwarfCompileUnit.patch
   # Fix an ISPC build failure (https://github.com/ispc/ispc/issues/2189
-  _patch llvm-disable-bswap-for-spir.patch
+  # _patch llvm-disable-bswap-for-spir.patch
   # https://github.com/intel/intel-graphics-compiler/issues/204
   _rpatch llvm-don-t-accept-nullptr-as-GEP-element-type.patch
 
