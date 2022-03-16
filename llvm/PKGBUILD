@@ -83,7 +83,7 @@ prepare() {
   _rpatch llvm-don-t-accept-nullptr-as-GEP-element-type.patch
 
   # Performance optimization https://bugs.llvm.org/show_bug.cgi?id=51193
-  _patch llvm-Hoist-LOAD-without-sinking-the-STORE.patch
+  # _patch llvm-Hoist-LOAD-without-sinking-the-STORE.patch
 
   _patch strip-exception-specifications-in-CFI-type-names.patch
 
