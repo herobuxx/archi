@@ -73,7 +73,7 @@ prepare() {
     exit 1
   )
 
-  _patch llvm-fix-scan-build-py-executable-lookup-path.patch
+  # _patch llvm-fix-scan-build-py-executable-lookup-path.patch
   # Work around intermittent 'clang -O -g' crashes
   # https://bugs.llvm.org/show_bug.cgi?id=50611#c3
   # _patch llvm-no-strict-aliasing-DwarfCompileUnit.patch
