@@ -2,8 +2,8 @@
 
 pkgname=llvm-all
 pkgdesc="LLVM Toolchain with clang, clang-tools-extra, compiler-rt, openmp, polly, lldb, lld"
-pkgver=14.0.0
-pkgrel=1
+pkgver=13.0.1
+pkgrel=2
 arch=('x86_64')
 url="https://llvm.org/"
 license=('custom:Apache 2.0 with LLVM Exception')
@@ -21,8 +21,7 @@ makedepends=(
 makedepends_x86_64=('lib32-gcc-libs')
 _commit=75e33f71c2dae584b13a7d1186ae0a038ba98838
 source=(
-  # "llvm-project::git+https://github.com/llvm/llvm-project.git#commit=${_commit}"
-  "llvm-project::git+https://github.com/llvm/llvm-project.git#tag=llvmorg-${pkgver}-rc4"
+  "llvm-project::git+https://github.com/llvm/llvm-project.git#commit=${_commit}"
   'llvm-config.h'
   llvm-no-strict-aliasing-DwarfCompileUnit.patch
   llvm-disable-bswap-for-spir.patch
@@ -73,19 +72,19 @@ prepare() {
     exit 1
   )
 
-  # _patch llvm-fix-scan-build-py-executable-lookup-path.patch
+  _patch llvm-fix-scan-build-py-executable-lookup-path.patch
   # Work around intermittent 'clang -O -g' crashes
   # https://bugs.llvm.org/show_bug.cgi?id=50611#c3
-  # _patch llvm-no-strict-aliasing-DwarfCompileUnit.patch
+  _patch llvm-no-strict-aliasing-DwarfCompileUnit.patch
   # Fix an ISPC build failure (https://github.com/ispc/ispc/issues/2189
-  # _patch llvm-disable-bswap-for-spir.patch
+  _patch llvm-disable-bswap-for-spir.patch
   # https://github.com/intel/intel-graphics-compiler/issues/204
-  # _rpatch llvm-don-t-accept-nullptr-as-GEP-element-type.patch
+  _rpatch llvm-don-t-accept-nullptr-as-GEP-element-type.patch
 
   # Performance optimization https://bugs.llvm.org/show_bug.cgi?id=51193
-  # _patch llvm-Hoist-LOAD-without-sinking-the-STORE.patch
+  _patch llvm-Hoist-LOAD-without-sinking-the-STORE.patch
 
-  # _patch strip-exception-specifications-in-CFI-type-names.patch
+  _patch strip-exception-specifications-in-CFI-type-names.patch
 
   # Attempt to convert script to Python 3
   2to3 -wn --no-diffs \
