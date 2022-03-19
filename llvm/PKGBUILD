@@ -2,7 +2,7 @@
 
 pkgname=llvm-all
 pkgdesc="LLVM Toolchain with clang, clang-tools-extra, compiler-rt, openmp, polly, lldb, lld"
-pkgver=14.0.0-r4
+pkgver=14.0.0
 pkgrel=1
 arch=('x86_64')
 url="https://llvm.org/"
