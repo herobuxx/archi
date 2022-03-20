@@ -68,7 +68,8 @@ build() {
               --enable-loadable-sqlite-extensions \
               --without-ensurepip \
               --with-tzpath=/usr/share/zoneinfo
-
+              
+  unset CFLAGS
   # Obtain next free server number for xvfb-run; this even works in a chroot environment.
   export servernum=99
   while ! xvfb-run -a -n "$servernum" /bin/true 2>/dev/null; do servernum=$((servernum+1)); done
