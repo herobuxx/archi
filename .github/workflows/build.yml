@@ -67,7 +67,7 @@ jobs:
         uses: JPratama7/pkgbuild-action@toolchain
         with:
           namcapDisable: true
-          makepkgArgs: "--skippgpcheck --skipchecksums -d"
+          makepkgArgs: "--skippgpcheck --skipchecksums"
           pkgdir:  ${{ matrix.build }}
 
       - uses: ncipollo/release-action@v1.8.10

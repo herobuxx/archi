@@ -11,26 +11,27 @@ provides=('llvm' "llvm=${pkgver}" 'llvm-libs' 'llvm-ocaml' 'clang' "clang=${pkgv
 replaces=('llvm' 'llvm-libs' 'llvm-ocaml' 'clang' 'clang-analyzer' 'clang-tools-extra' 'openmp' 'polly' 'compiler-rt' 'lld' 'lldb')
 conflicts=('llvm' 'llvm-libs' 'llvm-ocaml' 'clang' 'clang-analyzer' 'clang-tools-extra' 'openmp' 'polly' 'compiler-rt' 'lld' 'lldb' 'llvm-git' 'llvm-libs-git' 'llvm-ocaml-git')
 depends=('libelf' 'libffi' 'libedit' 'libxml2' 'ncurses')
-_ocaml_ver=4.13.1
 makedepends=(
   'git' 'ninja' 'cmake'
-  "ocaml>=${_ocaml_ver}" 'ocaml-ctypes' 'ocaml-findlib'
+  "ocaml" 'ocaml-ctypes' 'ocaml-findlib'
   'python-setuptools' 'python-psutil' 'python-sphinx'
   'python-recommonmark'
 )
 makedepends_x86_64=('lib32-gcc-libs')
 _commit=75e33f71c2dae584b13a7d1186ae0a038ba98838
-source=(
-  # "llvm-project::git+https://github.com/llvm/llvm-project.git#commit=${_commit}"
-  "llvm-project::git+https://github.com/llvm/llvm-project.git#tag=llvmorg-14.0.0-rc4"
-  'llvm-config.h'
-  llvm-no-strict-aliasing-DwarfCompileUnit.patch
-  llvm-disable-bswap-for-spir.patch
-  llvm-fix-scan-build-py-executable-lookup-path.patch
-  llvm-don-t-accept-nullptr-as-GEP-element-type.patch
-  llvm-Hoist-LOAD-without-sinking-the-STORE.patch
-  https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/clang/trunk/strip-exception-specifications-in-CFI-type-names.patch
-)
+# source=(
+#   "llvm-project::git+https://github.com/llvm/llvm-project.git#commit=${_commit}"
+#   "llvm-project::git+https://github.com/llvm/llvm-project.git#tag=llvmorg-14.0.0-rc4"
+#   'llvm-config.h'
+#   llvm-no-strict-aliasing-DwarfCompileUnit.patch
+#   llvm-disable-bswap-for-spir.patch
+#   llvm-fix-scan-build-py-executable-lookup-path.patch
+#   llvm-don-t-accept-nullptr-as-GEP-element-type.patch
+#   llvm-Hoist-LOAD-without-sinking-the-STORE.patch
+#   https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/clang/trunk/strip-exception-specifications-in-CFI-type-names.patch
+# )
+source=("llvm-project::git+https://github.com/llvm/llvm-project.git"
+        "llvm-config.h")
 
 sha256sums=('SKIP'
   '597dc5968c695bbdbb0eac9e8eb5117fcd2773bc91edf5ec103ecffffab8bc48'
@@ -95,7 +96,7 @@ prepare() {
   # Fix an ISPC build failure (https://github.com/ispc/ispc/issues/2189
   # _patch llvm-disable-bswap-for-spir.patch
   # https://github.com/intel/intel-graphics-compiler/issues/204
-  _rpatch llvm-don-t-accept-nullptr-as-GEP-element-type.patch
+  # _rpatch llvm-don-t-accept-nullptr-as-GEP-element-type.patch
 
   # Performance optimization https://bugs.llvm.org/show_bug.cgi?id=51193
   # _patch llvm-Hoist-LOAD-without-sinking-the-STORE.patch
