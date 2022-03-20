@@ -33,7 +33,7 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [llvm]
+        build: [python]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
@@ -64,7 +64,7 @@ jobs:
         #   fetch-depth: '50'
         #   token: ${{ secrets.GITHUB_TOKEN }}
       - id: makepkg
-        uses: JPratama7/pkgbuild-action@toolchain
+        uses: JPratama7/pkgbuild-action@test
         with:
           namcapDisable: true
           makepkgArgs: "--skippgpcheck --skipchecksums"
