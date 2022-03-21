@@ -33,7 +33,7 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [xorg-server, xorg-xkbcomp,xorg-fonts-encodings]
+        build: [python]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
