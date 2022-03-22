@@ -66,7 +66,7 @@ jobs:
       # - run: |
       #     cd ${{ matrix.build }} && sed -i 's/+llvm/llvm-all/g' PKGBUILD
       - id: makepkg
-        uses: JPratama7/pkgbuild-action@cpuv2
+        uses: JPratama7/pkgbuild-action@test
         with:
           namcapDisable: true
           makepkgArgs: "--skippgpcheck --skipchecksums"
