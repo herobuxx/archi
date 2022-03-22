@@ -33,7 +33,7 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [python]
+        build: [llvm]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
@@ -65,12 +65,12 @@ jobs:
         #   token: ${{ secrets.GITHUB_TOKEN }}
       # - run: |
       #     cd ${{ matrix.build }} && sed -i 's/+llvm/llvm-all/g' PKGBUILD
-      - run: |
-          export CFLAGS="${CFLAGS/-O2/-O3}"
-          export CFLAGS="${CFLAGS/-march=x86-64/-march=x86-64-v2}"
-          export LDFLAGS="${LDFLAGS} -fuse-ld=lld"
+      # - run: |
+      #     export CFLAGS="${CFLAGS/-O2/-O3}"
+      #     export CFLAGS="${CFLAGS/-march=x86-64/-march=x86-64-v2}"
+      #     export LDFLAGS="${LDFLAGS} -fuse-ld=lld"
       - id: makepkg
-        uses: JPratama7/pkgbuild-action@test
+        uses: JPratama7/pkgbuild-action@experimental
         with:
           namcapDisable: true
           makepkgArgs: "--skippgpcheck --skipchecksums"
