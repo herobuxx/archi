@@ -1,4 +1,4 @@
-pkgname=llvm-all+polly
+pkgname=llvm-all+polly+more
 pkgdesc="LLVM Toolchain with clang, clang-tools-extra, compiler-rt, openmp, polly, lldb, lld"
 pkgver=14.0.0
 pkgrel=2
