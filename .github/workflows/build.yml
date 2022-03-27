@@ -44,9 +44,9 @@ jobs:
         #   repository: h0tc0d3/arch-packages
         # with:
         #   repository: JPratama7/arch-builder
-        with:
-          repository: archlinux/svntogit-packages
-          ref: packages/python
+        # with:
+        #   repository: archlinux/svntogit-packages
+        #   ref: packages/python
       # - run: 
       #     pacman -Syu --noconfirm --needed git
       #     cat /etc/makepkg.conf
