@@ -10,7 +10,7 @@ arch=('x86_64')
 license=('custom')
 url="https://www.python.org/"
 depends=('bzip2' 'expat' 'gdbm' 'libffi' 'libnsl' 'libxcrypt' 'openssl' 'zlib')
-makedepends=('tk' 'sqlite' 'bluez-libs' 'mpdecimal' 'llvm' 'gdb' 'ttf-font')
+makedepends=('tk' 'sqlite' 'bluez-libs' 'mpdecimal' 'llvm-all' 'gdb' 'ttf-font')
 source=("https://www.python.org/ftp/python/${pkgver%rc*}/Python-${pkgver}.tar.xz"{,.asc})
 sha256sums=('596c72de998dc39205bc4f70ef0dbf7edec740a306d09b49a9bd0a77806730dc'
   'SKIP')
