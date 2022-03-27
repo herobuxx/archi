@@ -33,7 +33,7 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [llvm]
+        build: [python]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
@@ -42,8 +42,11 @@ jobs:
         uses: actions/checkout@v2.4.0
         # with:
         #   repository: h0tc0d3/arch-packages
+        # with:
+        #   repository: JPratama7/arch-builder
         with:
-          repository: JPratama7/arch-builder
+          repository: archlinux/svntogit-packages
+          ref: packages/python
       # - run: 
       #     pacman -Syu --noconfirm --needed git
       #     cat /etc/makepkg.conf
