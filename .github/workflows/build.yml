@@ -72,12 +72,15 @@ jobs:
       #     export CFLAGS="${CFLAGS/-O2/-O3}"
       #     export CFLAGS="${CFLAGS/-march=x86-64/-march=x86-64-v2}"
       #     export LDFLAGS="${LDFLAGS} -fuse-ld=lld"
-      - id: makepkg
-        uses: JPratama7/pkgbuild-action@eary
-        with:
-          namcapDisable: true
-          makepkgArgs: "--skippgpcheck --skipchecksums"
-          pkgdir:  ${{ matrix.build }}
+      # - id: makepkg
+      #   uses: JPratama7/pkgbuild-action@eary
+      #   with:
+      #     namcapDisable: true
+      #     makepkgArgs: "--skippgpcheck --skipchecksums"
+      #     pkgdir:  ${{ matrix.build }}
+      uses: DuckSoft/build-aur-action@master
+      with:
+        repo-name: whatsdesk-git
 
       - uses: ncipollo/release-action@v1.8.10
         with:
