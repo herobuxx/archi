@@ -78,9 +78,9 @@ jobs:
       #     namcapDisable: true
       #     makepkgArgs: "--skippgpcheck --skipchecksums"
       #     pkgdir:  ${{ matrix.build }}
-      uses: DuckSoft/build-aur-action@master
-      with:
-        repo-name: whatsdesk-git
+      - uses: DuckSoft/build-aur-action@master
+        with:
+          repo-name: whatsdesk-git
 
       - uses: ncipollo/release-action@v1.8.10
         with:
