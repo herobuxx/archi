@@ -62,7 +62,7 @@ check() {
 
 package_llvm() {
   pkgdesc="Collection of modular and reusable compiler and toolchain technologies"
-  depends=('llvm-libs' 'perl')
+  depends=('perl')
 
   cd "$srcdir/llvm-$pkgver.src/build"
 
@@ -116,7 +116,7 @@ package_llvm-libs() {
 
 package_llvm-ocaml() {
   pkgdesc="OCaml bindings for LLVM"
-  depends=('llvm' "ocaml>=$_ocaml_ver" 'ocaml-ctypes')
+  depends=( "ocaml>=$_ocaml_ver" 'ocaml-ctypes')
 
   install -d "$pkgdir"/{usr/lib,usr/share/doc/$pkgname}
   cp -a "$srcdir/ocaml.lib" "$pkgdir/usr/lib/ocaml"
