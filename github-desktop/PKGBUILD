@@ -1,12 +1,13 @@
-# Maintainer: Caleb Maclennan <caleb@alerque.com>
+# Maintainer : JPratama7 <josepratama080@gmail.com>
+# Contributor: Caleb Maclennan <caleb@alerque.com>
 # Contributor: Ian MacKay <immackay0@gmail.com>
 # Contributor: Mikel Pintado <mikelaitornube2010@gmail.com>
 # Contributor: Jiawen Geng
 
 pkgname=github-desktop
-pkgver=2.9.9
-_gitname="release-$pkgver-linux2"
-pkgrel=2
+pkgver=2.9.0
+pkgrel=1
+_gitname="release-$pkgver-linux$pkgrel"
 pkgdesc='GUI for managing Git and GitHub'
 arch=(x86_64)
 url='https://desktop.github.com'
