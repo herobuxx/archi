@@ -76,7 +76,7 @@ jobs:
       #   run: |
       #     cd ${{ matrix.build }} && sed -i 's/+clang//g' PKGBUILD
       - id: makepkg
-        uses: JPratama7/pkgbuild-action@test
+        uses: JPratama7/pkgbuild-action@owkeh
         with:
           namcapDisable: true
           makepkgArgs: "--skippgpcheck --skipchecksums"
