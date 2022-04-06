@@ -33,7 +33,7 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [github-desktop]
+        build: [pamac-nosnap, libpamac-nosnap]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
@@ -76,11 +76,14 @@ jobs:
       #   run: |
       #     cd ${{ matrix.build }} && sed -i 's/+clang//g' PKGBUILD
       - id: makepkg
-        uses: JPratama7/pkgbuild-action@gcc
+        # uses: JPratama7/pkgbuild-action@gcc
+        # with:
+        #   namcapDisable: true
+        #   makepkgArgs: "--skippgpcheck --skipchecksums"
+        #   pkgdir:  ${{ matrix.build }}
+        uses: DuckSoft/build-aur-action@master
         with:
-          namcapDisable: true
-          makepkgArgs: "--skippgpcheck --skipchecksums"
-          pkgdir:  ${{ matrix.build }}
+          repo-name: ${{ matrix.build }}
       # - uses: DuckSoft/build-aur-action@master
       #   with:
       #     repo-name: whatsdesk-git
