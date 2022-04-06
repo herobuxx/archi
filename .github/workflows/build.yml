@@ -33,7 +33,7 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [thorium]
+        build: [libinput]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
@@ -44,9 +44,9 @@ jobs:
         #   repository: h0tc0d3/arch-packages
         # with:
         #   repository: JPratama7/arch-builder
-        # with:
-        #   repository: archlinux/svntogit-packages
-        #   ref: packages/python
+        with:
+          repository: archlinux/svntogit-packages
+          ref: packages/${{ matrix.build }}
       # - run: 
       #     pacman -Syu --noconfirm --needed git
       #     cat /etc/makepkg.conf
@@ -76,11 +76,16 @@ jobs:
       #   run: |
       #     cd ${{ matrix.build }} && sed -i 's/+clang//g' PKGBUILD
       - id: makepkg
+        # uses: JPratama7/pkgbuild-action@cpuv2
+        # with:
+        #   namcapDisable: true
+        #   makepkgArgs: "--skippgpcheck --skipchecksums"
+        #   pkgdir:  ${{ matrix.build }}
         uses: JPratama7/pkgbuild-action@cpuv2
         with:
           namcapDisable: true
           makepkgArgs: "--skippgpcheck --skipchecksums"
-          pkgdir:  ${{ matrix.build }}
+          pkgdir:  trunk
         # uses: DuckSoft/build-aur-action@master
         # with:
         #   repo-name: ${{ matrix.build }}
