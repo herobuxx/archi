@@ -28,7 +28,7 @@ prepare() {
   mkdir build
 }
 
-build() {
+bbuild() {
   cd "$srcdir/llvm-$pkgver.src/build"
 
   cmake .. -G Ninja \
@@ -47,11 +47,6 @@ build() {
     -DLLVM_ENABLE_DOXYGEN=OFF \
     -DSPHINX_WARNINGS_AS_ERRORS=OFF \
     -DLLVM_BINUTILS_INCDIR=/usr/include
-    -DLLVM_ENABLE_LTO=Thin
-    -DCMAKE_SKIP_RPATH=ON
-    -DLLVM_USE_LINKER=lld
-    -DCMAKE_C_COMPILER=clang
-    -DCMAKE_CXX_COMPILER=clang++
   ninja all ocaml_doc
 }
 
