@@ -75,12 +75,12 @@ jobs:
       # - name: remove +clang
       #   run: |
       #     cd ${{ matrix.build }} && sed -i 's/+clang//g' PKGBUILD
-      # - id: makepkg
-      #   uses: JPratama7/pkgbuild-action@neww
-      #   with:
-      #     namcapDisable: true
-      #     makepkgArgs: "--skippgpcheck --skipchecksums"
-      #     pkgdir:  ${{ matrix.build }}
+      - id: makepkg
+        uses: JPratama7/pkgbuild-action@ok2
+        with:
+          namcapDisable: true
+          makepkgArgs: "--skippgpcheck --skipchecksums"
+          pkgdir:  ${{ matrix.build }}
         # uses: JPratama7/pkgbuild-action@cpuv2
         # with:
         #   namcapDisable: true
@@ -89,9 +89,9 @@ jobs:
         # uses: DuckSoft/build-aur-action@master
         # with:
         #   repo-name: ${{ matrix.build }}
-      - uses: DuckSoft/build-aur-action@master
-        with:
-          repo-name: ${{ matrix.build }}
+      # - uses: DuckSoft/build-aur-action@master
+      #   with:
+      #     repo-name: ${{ matrix.build }}
       - uses: ncipollo/release-action@v1.8.10
         with:
           allowUpdates: true
