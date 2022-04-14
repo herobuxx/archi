@@ -33,7 +33,7 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [spotify-adblock-git]
+        build: [llvm-essential]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
@@ -76,7 +76,7 @@ jobs:
       #   run: |
       #     cd ${{ matrix.build }} && sed -i 's/+clang//g' PKGBUILD
       - id: makepkg
-        uses: JPratama7/pkgbuild-action@gcc
+        uses: JPratama7/pkgbuild-action@toolchain
         with:
           namcapDisable: true
           makepkgArgs: "--skippgpcheck --skipchecksums"
