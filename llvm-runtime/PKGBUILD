@@ -2,7 +2,7 @@
 # Contributor: Jan "heftig" Steffens <jan.steffens@gmail.com>
 
 pkgname=llvm
-pkgver=14.0.0
+pkgver=13.0.1
 pkgrel=4
 _ocaml_ver=4.13.1
 arch=('x86_64')
