@@ -1,0 +1,43 @@
+name: Toolchain
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build packages for arch
+        uses: actions/checkout@v2.4.0
+        with:
+          repository: JPratama7/arch-builder
+      - id: makepkg
+        uses: JPratama7/pkgbuild-action@test
+        with:
+          pkgdir: "llvm-all"
+          makepkgArgs: "--skippgpcheck"
+      - uses: actions/upload-artifact@v2
+        with:
+          path: "*/*.zst"
+  LLVM:
+    needs: bootstrap
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: "*.zst"
+      - name: Build packages for arch
+        uses: actions/checkout@v2.4.0
+        with:
+          repository: JPratama7/arch-builder
+      - id: makepkg
+        uses: JPratama7/pkgbuild-action@full
+        with:
+          pkgdir: "llvm-all"
+          makepkgArgs: "--skippgpcheck"
+      - name: Upload Artifact
+        uses: ncipollo/release-action@v1.9.0
+        with:
+          allowUpdates: true
+          tag: "latest"
+          artifacts: "./*/*.zst"
+          token: ${{ secrets.GITHUB_TOKEN }}
