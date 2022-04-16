@@ -23,8 +23,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v3
-        with:
-          name: "*.zst"
       - name: Build packages for arch
         uses: actions/checkout@v2.4.0
         with:
