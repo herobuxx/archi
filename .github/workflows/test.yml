@@ -11,31 +11,31 @@ jobs:
         with:
           repository: JPratama7/arch-builder
       - id: makepkg
-        uses: JPratama7/pkgbuild-action@test
+        uses: JPratama7/pkgbuild-action@toolchain
         with:
           pkgdir: "llvm-all"
           makepkgArgs: "--skippgpcheck"
       - uses: actions/upload-artifact@v2
         with:
           path: "*/*.zst"
-  LLVM:
-    needs: bootstrap
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/download-artifact@v3
-      - name: Build packages for arch
-        uses: actions/checkout@v2.4.0
-        with:
-          repository: JPratama7/arch-builder
-      - id: makepkg
-        uses: JPratama7/pkgbuild-action@full
-        with:
-          pkgdir: "llvm-all"
-          makepkgArgs: "--skippgpcheck"
-      - name: Upload Artifact
-        uses: ncipollo/release-action@v1.9.0
-        with:
-          allowUpdates: true
-          tag: "latest"
-          artifacts: "./*/*.zst"
-          token: ${{ secrets.GITHUB_TOKEN }}
+  # LLVM:
+  #   needs: bootstrap
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/download-artifact@v3
+  #     - name: Build packages for arch
+  #       uses: actions/checkout@v2.4.0
+  #       with:
+  #         repository: JPratama7/arch-builder
+  #     - id: makepkg
+  #       uses: JPratama7/pkgbuild-action@full
+  #       with:
+  #         pkgdir: "llvm-all"
+  #         makepkgArgs: "--skippgpcheck"
+  #     - name: Upload Artifact
+  #       uses: ncipollo/release-action@v1.9.0
+  #       with:
+  #         allowUpdates: true
+  #         tag: "latest"
+  #         artifacts: "./*/*.zst"
+  #         token: ${{ secrets.GITHUB_TOKEN }}
