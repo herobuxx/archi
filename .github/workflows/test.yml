@@ -8,16 +8,21 @@ jobs:
     steps:
       - name: Build packages for arch
         uses: actions/checkout@v2.4.0
+        # with:
+        #   repository: JPratama7/arch-builder
         with:
-          repository: JPratama7/arch-builder
+          repository: h0tc0d3/arch-packages
       - id: makepkg
         uses: JPratama7/pkgbuild-action@toolchain
         with:
-          pkgdir: "llvm-all"
+          pkgdir: "libva"
           makepkgArgs: "--skippgpcheck"
-      - uses: actions/upload-artifact@v2
+      - run: ls -al
+      - uses: ncipollo/release-action@v1.8.10
         with:
-          path: "*/*.zst"
+          allowUpdates: true
+          tag: "latest"
+          artifacts: "*/*.zst"
   # LLVM:
   #   needs: bootstrap
   #   runs-on: ubuntu-latest
