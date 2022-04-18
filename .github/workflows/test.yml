@@ -13,7 +13,7 @@ jobs:
         # with:
         #   repository: h0tc0d3/arch-packages
       - id: makepkg
-        uses: JPratama7/pkgbuild-action@toolchain
+        uses: JPratama7/pkgbuild-action@cpuv2
         with:
           pkgdir: "llvm-default"
           makepkgArgs: "--skippgpcheck"
