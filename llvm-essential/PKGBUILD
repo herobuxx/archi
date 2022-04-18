@@ -122,7 +122,7 @@ build() {
     -DLLVM_ENABLE_SPHINX=ON \
     -DLLVM_ENABLE_DOXYGEN=OFF \
     -DSPHINX_WARNINGS_AS_ERRORS=OFF \
-    -DLLVM_BINUTILS_INCDIR=/usr/include
+    -DLLVM_BINUTILS_INCDIR=/usr/include \
     -DLLVM_ENABLE_PROJECTS="libclc" \
     -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi" \
     "${_extra_build_flags[@]}"
