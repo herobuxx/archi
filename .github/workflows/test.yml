@@ -16,7 +16,7 @@ jobs:
         uses: JPratama7/pkgbuild-action@aur-gcc
         with:
           pkgdir: "whatsdesk-git"
-          makepkgArgs: "--skippgpcheck"
+          makepkgArgs: "--skippgpcheck --needed libxcrypt-compat"
       - run: ls -al
       - uses: ncipollo/release-action@v1.8.10
         with:
