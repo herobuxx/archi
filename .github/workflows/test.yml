@@ -15,7 +15,7 @@ jobs:
       - id: makepkg
         uses: JPratama7/pkgbuild-action@toolchain
         with:
-          pkgdir: "llvm-runtime"
+          pkgdir: "llvm-default"
           makepkgArgs: "--skippgpcheck"
       - run: ls -al
       - uses: ncipollo/release-action@v1.8.10
