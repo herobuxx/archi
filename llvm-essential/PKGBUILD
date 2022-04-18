@@ -1,7 +1,7 @@
 pkgname=llvm-essential
 pkgdesc="LLVM with libclc libcxx libcxxabi"
-pkgver=14.0.0
-pkgrel=3
+pkgver=13.0.1
+pkgrel=1
 arch=('x86_64')
 url="https://llvm.org/"
 license=('custom:Apache 2.0 with LLVM Exception')
