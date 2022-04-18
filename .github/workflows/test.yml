@@ -13,9 +13,9 @@ jobs:
         with:
           repository: h0tc0d3/arch-packages
       - id: makepkg
-        uses: JPratama7/pkgbuild-action@toolchain
+        uses: JPratama7/pkgbuild-action@aur-gcc
         with:
-          pkgdir: "libva"
+          pkgdir: "whatsdesk-git"
           makepkgArgs: "--skippgpcheck"
       - run: ls -al
       - uses: ncipollo/release-action@v1.8.10
