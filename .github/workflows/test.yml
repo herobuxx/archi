@@ -1,6 +1,6 @@
 name: Toolchain
 on:
-  push:
+  # push:
   workflow_dispatch:
 jobs:
   bootstrap:
