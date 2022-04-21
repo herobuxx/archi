@@ -105,7 +105,7 @@ package_python() {
     exit 1
   )
 
-  make DESTDIR="${pkgdir:?}" EXTRA_CFLAGS="${CFLAGS}" install
+  make DESTDIR="${pkgdir:?}"  install
 
   # Split tests
   rm -r "${pkgdir:?}/usr/lib/python${_pybasever}/"{test,ctypes/test,distutils/tests,idlelib/idle_test,lib2to3/tests,sqlite3/test,tkinter/test,unittest/test}
@@ -137,7 +137,7 @@ package_python-tests() {
     exit 1
   )
 
-  make DESTDIR="${pkgdir:?}" EXTRA_CFLAGS="${CFLAGS}" libinstall
+  make DESTDIR="${pkgdir:?}"  libinstall
 
   cd "${pkgdir:?}/usr/lib/python${_pybasever}/" &&
     rm -r !(test|ctypes|distutils|idlelib|lib2to3|sqlite3|tkinter|unittest)
