@@ -75,7 +75,7 @@ jobs:
       # - name: remove +clang
       #   run: |
       #     cd ${{ matrix.build }} && sed -i 's/+clang//g' PKGBUILD
-      -run: ls -al
+      - run: ls -al
       - id: makepkg
         uses: JPratama7/pkgbuild-action@toolchain
         with:
