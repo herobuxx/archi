@@ -102,6 +102,7 @@ export KBUILD_BUILD_USER=${KBUILD_BUILD_USER:-makepkg}
 export KBUILD_BUILD_TIMESTAMP=${KBUILD_BUILD_TIMESTAMP:-$(date -Ru${SOURCE_DATE_EPOCH:+d @$SOURCE_DATE_EPOCH})}
 
 prepare() {
+  ls -al
   cp config linux-${_major}/CONFIGS/xanmod/${_compiler}/config
   cd linux-${_major}
 
