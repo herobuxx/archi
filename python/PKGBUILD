@@ -86,7 +86,7 @@ check() {
 
 }
 
-package_python+clang() {
+package_python() {
 
   optdepends=(
     'python-setuptools'
@@ -127,7 +127,7 @@ package_python+clang() {
 
 }
 
-package_python-tests+clang() {
+package_python-tests() {
 
   pkgdesc="Regression tests packages for Python"
   depends=('python')
