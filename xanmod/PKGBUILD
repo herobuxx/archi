@@ -81,6 +81,7 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}uksm-patches-v2/0001-UKSM-for-5.17.patch"
         "${_lucjan}v4l2loopback-patches-v2/0001-v4l2loopback-patches.patch"
         "${_ptr}sched/0001-tt.patch"
+        "https://raw.githubusercontent.com/xanmod/linux/5.16.16-xanmod1/CONFIGS/xanmod/clang/config"
         )
         #"patch-${pkgver}-xanmod${xanmod}.xz::https://sourceforge.net/projects/xanmod/files/releases/stable/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz/download"
 
@@ -102,8 +103,7 @@ export KBUILD_BUILD_USER=${KBUILD_BUILD_USER:-makepkg}
 export KBUILD_BUILD_TIMESTAMP=${KBUILD_BUILD_TIMESTAMP:-$(date -Ru${SOURCE_DATE_EPOCH:+d @$SOURCE_DATE_EPOCH})}
 
 prepare() {
-  ls -al
-  cp config linux-${_major}/CONFIGS/xanmod/${_compiler}/config
+  cp config linux-${_major}/CONFIGS/xanmod/clang/config
   cd linux-${_major}
 
   # Apply Xanmod patch
