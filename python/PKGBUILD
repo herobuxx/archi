@@ -2,7 +2,7 @@ shopt -s extglob
 
 pkgbase=python
 pkgname=(python python-tests)
-pkgver=3.10.3
+pkgver=3.10.4
 pkgrel=1
 _pybasever=${pkgver%.*}
 pkgdesc="Next generation of the python high-level scripting language"
@@ -10,9 +10,9 @@ arch=('x86_64')
 license=('custom')
 url="https://www.python.org/"
 depends=('bzip2' 'expat' 'gdbm' 'libffi' 'libnsl' 'libxcrypt' 'openssl' 'zlib')
-makedepends=('tk' 'sqlite' 'bluez-libs' 'mpdecimal' 'llvm-all' 'gdb' 'ttf-font')
+makedepends=('tk' 'sqlite' 'bluez-libs' 'mpdecimal' 'llvm' 'gdb' 'ttf-font')
 source=("https://www.python.org/ftp/python/${pkgver%rc*}/Python-${pkgver}.tar.xz"{,.asc})
-sha256sums=('596c72de998dc39205bc4f70ef0dbf7edec740a306d09b49a9bd0a77806730dc'
+sha256sums=('80bf925f571da436b35210886cf79f6eb5fa5d6c571316b73568343451f77a19'
   'SKIP')
 validpgpkeys=(
   '0D96DF4D4110E5C43FBFB17F2D347EA6AA65421D' # Ned Deily (Python release signing key) <nad@python.org>
@@ -50,29 +50,25 @@ build() {
     echo -e "\E[1;31mCan't cd to ${srcdir}/Python-${pkgver} directory! Build Failed! \E[0m"
     exit 1
   )
-  CFLAGS="${CFLAGS}/02/03"
   LDFLAGS="${LDFLAGS} -fuse-ld=lld"
 
   # Disable bundled pip & setuptools
   ./configure --prefix=/usr \
-              --enable-shared \
-              --with-computed-gotos \
-              --enable-optimizations \
-              --with-lto \
-              --enable-ipv6 \
-              --with-system-expat \
-              --with-dbmliborder=gdbm:ndbm \
-              --with-system-ffi \
-              --with-system-libmpdec \
-              --enable-loadable-sqlite-extensions \
-              --without-ensurepip \
-              --with-tzpath=/usr/share/zoneinfo
+    --enable-shared \
+    --enable-ipv6 \
+    --enable-loadable-sqlite-extensions \
+    --enable-optimizations \
+    --with-lto \
+    --with-computed-gotos \
+    --with-system-expat \
+    --with-dbmliborder=gdbm:ndbm \
+    --with-system-ffi \
+    --with-system-libmpdec \
+    --without-ensurepip \
+    --with-tzpath=/usr/share/zoneinfo
 
-  unset CFLAGS
-  unset LDFLAGS
-
-  LC_CTYPE=en_US.UTF-8 make regen-all EXTRA_CFLAGS="${CFLAGS}"
-  LC_CTYPE=en_US.UTF-8 make EXTRA_CFLAGS="${CFLAGS}"
+  LC_CTYPE=en_US.UTF-8 make regen-all
+  LC_CTYPE=en_US.UTF-8 make
 
 }
 
@@ -92,7 +88,7 @@ check() {
 
 }
 
-package_python() {
+package_python+clang() {
 
   optdepends=(
     'python-setuptools'
@@ -133,7 +129,7 @@ package_python() {
 
 }
 
-package_python-tests() {
+package_python-tests+clang() {
 
   pkgdesc="Regression tests packages for Python"
   depends=('python')
