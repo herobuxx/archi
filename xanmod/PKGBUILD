@@ -29,7 +29,7 @@ use_tracers=y
 
 
 ## Choose between GCC and CLANG config (default is GCC)
-_compiler=gcc
+_compiler=clang
 
 
 # Compress modules with ZSTD (to save disk space)
@@ -130,6 +130,7 @@ prepare() {
   if [ "${_compiler}" = "clang" ]; then
     scripts/config --disable LTO_CLANG_FULL
     scripts/config --enable LTO_CLANG_THIN
+    scripts/config --disable CONFIG_LTO_NONE
     _LLVM=1
   fi
 
