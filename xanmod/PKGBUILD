@@ -28,9 +28,6 @@ license=(GPL2)
 makedepends=(
   bc cpio kmod libelf perl tar xz
 )
-if [ "${_compiler}" = "clang" ]; then
-  makedepends+=(llvm-all)
-fi
 options=('!strip')
 _srcname="linux-${pkgver}-xanmod${xanmod}"
 
