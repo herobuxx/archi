@@ -40,7 +40,6 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}zstd-dev-patches-v5/0001-zstd-dev-patches.patch"
         "${_lucjan}prjc-fixes-v7/0001-prjc-fixes.patch"
         "${_lucjan}zen-patches/0001-zen-patches.patch"
-        "${_lucjan}prjc-fixes-v7/0001-prjc-fixes.patch"
         "${_lucjan}zstd-patches/0001-zstd-patches.patch"
         "${_lucjan}uksm-speculative-patches-v2/0001-UKSM-for-5.17.patch"
         "${_lucjan}v4l2loopback-patches-v2/0001-v4l2loopback-patches.patch"
