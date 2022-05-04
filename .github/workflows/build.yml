@@ -33,7 +33,7 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [mpc-qt-git]
+        build: [dxvk]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
@@ -77,7 +77,7 @@ jobs:
       #     cd ${{ matrix.build }} && sed -i 's/+clang//g' PKGBUILD
       # - run: ls -alR
       - id: makepkg
-        uses: JPratama7/pkgbuild-action@toolchain
+        uses: JPratama7/pkgbuild-action@avx
         with:
           namcapDisable: true
           makepkgArgs: "--skippgpcheck --skipchecksums"
