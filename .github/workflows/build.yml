@@ -77,7 +77,7 @@ jobs:
       #     cd ${{ matrix.build }} && sed -i 's/+clang//g' PKGBUILD
       # - run: ls -alR
       - id: makepkg
-        uses: JPratama7/pkgbuild-action@cpuv2
+        uses: JPratama7/pkgbuild-action@avx
         with:
           namcapDisable: true
           makepkgArgs: "--skippgpcheck --skipchecksums --needed mingw-w64"
@@ -101,7 +101,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/upload-artifact@v2
         with:
-          path: "*/*.tar"
+          path: "*/*.tar.zst"
       
   # create_db_file:
   #   needs: [build_spotify_adblock_git]
