@@ -33,7 +33,7 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [whatsapp-for-linux]
+        build: [wfl]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
