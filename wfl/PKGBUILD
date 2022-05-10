@@ -14,8 +14,6 @@ source=("whatsapp-for-linux::git+https://github.com/eneshecan/whatsapp-for-linux
 md5sums=('7c30c7a56a0b8b8ad8049de85351e88c')
 
 build() {
-    ls
-    cd "$srcdir"
     cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr .
     make
 }
