@@ -19,5 +19,6 @@ build() {
 }
 
 package() {
+    ls -al
     make DESTDIR="$pkgdir/" install
 }
