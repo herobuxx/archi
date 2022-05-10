@@ -15,7 +15,7 @@ md5sums=('7c30c7a56a0b8b8ad8049de85351e88c')
 build() {
     ls -al
     cd "$srcdir"
-    cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr .
+    cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
     make
 }
 
