@@ -10,7 +10,7 @@ depends=('gtkmm3' 'webkit2gtk' 'libayatana-appindicator' 'gst-plugins-base' 'gst
 makedepends=('cmake')
 provides=('whatsapp-for-linux')
 conflicts=('whatsapp-for-linux')
-source=("whatsapp-for-linux::git+https://https://github.com/eneshecan/whatsapp-for-linux.git")
+source=("whatsapp-for-linux::git+https://github.com/eneshecan/whatsapp-for-linux.git")
 md5sums=('7c30c7a56a0b8b8ad8049de85351e88c')
 
 build() {
