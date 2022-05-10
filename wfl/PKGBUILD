@@ -9,11 +9,11 @@ depends=('gtkmm3' 'webkit2gtk' 'libayatana-appindicator' 'gst-plugins-base' 'gst
 makedepends=('cmake')
 provides=('whatsapp-for-linux')
 conflicts=('whatsapp-for-linux')
-source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
+source=("wfl::git+${url}.git")
 md5sums=('7c30c7a56a0b8b8ad8049de85351e88c')
 
 build() {
-    cd "$srcdir/$pkgname-$pkgver"
+    cd "$srcdir"
     cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr .
     make
 }
