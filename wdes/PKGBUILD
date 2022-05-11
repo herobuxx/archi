@@ -11,12 +11,12 @@ depends=('libxss'
          'nss'
          'libxtst'
          'libnotify'
-         'libappindicator-gtk3')
+         'libappindicator-gtk3'
+         'libxcrypt-compat'
+         'libxcrypt')
 makedepends=('git'
              'nodejs'
-             'npm'
-             'libxcrypt-compat'
-             'libxcrypt')
+             'npm')
 commit="ab03bbb75e2a675d65ed27e9383a7ef637c0ee54"
 source_x86_64=("whatsdesk-${pkgver}-${pkgrel}.tar::https://gitlab.com/zerkc/whatsdesk/-/archive/master/whatsdesk-master.tar?commit=$commit")
 sha256sums_x86_64=('94e4a61777631d0bea3a594a8a3aae37f2887337eec03a4bedc1ad8d347aa08a')
