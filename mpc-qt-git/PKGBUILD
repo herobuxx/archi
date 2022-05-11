@@ -23,7 +23,7 @@ pkgver() {
 
 build() {
   cd mpc-qt
-  qmake PREFIX=/usr mpc-qt.pro \
+  qmake-qt5 PREFIX=/usr mpc-qt.pro \
     QMAKE_C="${CC}" \
     QMAKE_CXX="${CXX}" \
     QMAKE_LINK="${CXX}" \
