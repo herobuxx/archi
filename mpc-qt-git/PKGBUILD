@@ -25,8 +25,8 @@ build() {
   cd mpc-qt
   qmake-qt5 PREFIX=/usr mpc-qt.pro \
     QMAKE_C="${$CC}" \
-    QMAKE_CXX="${$CXX}" \
-    QMAKE_LINK="${$CXX}" \
+    QMAKE_CXX="${CXX}" \
+    QMAKE_LINK="${CXX}" \
     QMAKE_CFLAGS_RELEASE="${CFLAGS}" \
     QMAKE_CXXFLAGS_RELEASE="${CXXFLAGS}" \
     QMAKE_LFLAGS_RELEASE="${LDFLAGS}" 
