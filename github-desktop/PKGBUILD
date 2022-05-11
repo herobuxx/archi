@@ -15,7 +15,7 @@ license=(MIT)
 depends=('gnome-keyring' 'libsecret' 'git' 'curl' 'libxss' 'nss' 'nspr' 'unzip')
 optdepends=('github-cli: CLI interface for GitHub'
             'hub: CLI interface for GitHub')
-makedepends=(nodejs
+makedepends=(nodejs=17.9.0
              npm
              python2
              xorg-server-xvfb
