@@ -24,12 +24,11 @@ pkgver() {
 build() {
   cd mpc-qt
   qmake-qt5 PREFIX=/usr mpc-qt.pro \
-    QMAKE_CFLAGS="" \
-    QMAKE_CXXFLAGS="" \
-    QMAKE_LFLAGS="" \
     QMAKE_CC="${CC}" \
     QMAKE_CXX="${CXX}" \
     QMAKE_LINK="${LD}" \
+    QMAKE_CFLAGS_RELEASE -= "-flto=2 -fno-fat-lto-objects" \
+    QMAKE_CXXFLAGS_RELEASE -= "-flto=2 -fno-fat-lto-objects" \
     QMAKE_CFLAGS_RELEASE="${CFLAGS}" \
     QMAKE_CXXFLAGS_RELEASE="${CXXFLAGS}" \
     QMAKE_LFLAGS_RELEASE="${LDFLAGS}" 
