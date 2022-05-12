@@ -6,7 +6,7 @@ pkgdesc='A clone of Media Player Classic reimplemented in Qt.'
 url='https://github.com/mpc-qt/mpc-qt'
 arch=('x86_64')
 license=('GPL2')
-depends=('mpv' 'qt5-x11extras')
+depends=('mpv' 'qt5-x11extras' 'libunwind')
 makedepends=('git' 'qt5-tools')
 optdepends=('libva-vdpau-driver: backend for Nvidia and AMD cards'
             'libva-intel-driver: backend for Intel cards'
@@ -24,16 +24,10 @@ pkgver() {
 build() {
   cd mpc-qt
   qmake-qt5 PREFIX=/usr mpc-qt.pro \
-    -unset QMAKE_CFLAGS \ 
-    -unset QMAKE_CFLAGS_RELEASE \ 
-    -unset QMAKE_CXXFLAGS \ 
-    -unset QMAKE_CXXFLAGS_RELEASE \ 
-    QMAKE_CC="${CC}" \
-    QMAKE_CXX="${CXX}" \
-    QMAKE_LINK="${CXX}" \
     QMAKE_CFLAGS_RELEASE="${CFLAGS}" \
     QMAKE_CXXFLAGS_RELEASE="${CXXFLAGS}" \
-    QMAKE_LFLAGS_RELEASE="${LDFLAGS}" 
+    QMAKE_LFLAGS_RELEASE="${LDFLAGS}" \
+    -spec linux-clang
   make
 }
 
