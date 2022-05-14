@@ -33,15 +33,15 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [jemalloc]
+        build: [test]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
     steps:
       - name: Build packages for arch
         uses: actions/checkout@v2.4.0
-        with:
-          repository: h0tc0d3/arch-packages
+        # with:
+        #   repository: h0tc0d3/arch-packages
         # with:
         #   repository: JPratama7/arch-builder
         # with:
