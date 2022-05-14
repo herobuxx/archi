@@ -50,12 +50,18 @@ build() {
     echo -e "\E[1;31mCan't cd to ${srcdir}/Python-${pkgver} directory! Build Failed! \E[0m"
     exit 1
   )
+
+  if [[ ${_llvm} -eq 1 ]]; then
+
+    LDFLAGS="${LDFLAGS} -fuse-ld=lld"
+
+  fi
+
   # Disable bundled pip & setuptools
   ./configure --prefix=/usr \
     --enable-shared \
     --enable-ipv6 \
     --enable-loadable-sqlite-extensions \
-    --enable-optimizations \
     --with-lto \
     --with-computed-gotos \
     --with-system-expat \
@@ -65,10 +71,8 @@ build() {
     --without-ensurepip \
     --with-tzpath=/usr/share/zoneinfo
 
-  unset CFLAGS
-  unset CXXFLAGS
-  LC_CTYPE=en_US.UTF-8 make regen-all
-  LC_CTYPE=en_US.UTF-8 make
+  LC_CTYPE=en_US.UTF-8 make regen-all EXTRA_CFLAGS="${CFLAGS}"
+  LC_CTYPE=en_US.UTF-8 make EXTRA_CFLAGS="${CFLAGS}"
 
 }
 
@@ -107,7 +111,7 @@ package_python() {
     exit 1
   )
 
-  make DESTDIR="${pkgdir:?}"  install
+  make DESTDIR="${pkgdir:?}" EXTRA_CFLAGS="${CFLAGS}" install
 
   # Split tests
   rm -r "${pkgdir:?}/usr/lib/python${_pybasever}/"{test,ctypes/test,distutils/tests,idlelib/idle_test,lib2to3/tests,sqlite3/test,tkinter/test,unittest/test}
@@ -139,7 +143,7 @@ package_python-tests() {
     exit 1
   )
 
-  make DESTDIR="${pkgdir:?}"  libinstall
+  make DESTDIR="${pkgdir:?}" EXTRA_CFLAGS="${CFLAGS}" libinstall
 
   cd "${pkgdir:?}/usr/lib/python${_pybasever}/" &&
     rm -r !(test|ctypes|distutils|idlelib|lib2to3|sqlite3|tkinter|unittest)
