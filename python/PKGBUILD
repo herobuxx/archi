@@ -71,6 +71,9 @@ build() {
     --without-ensurepip \
     --with-tzpath=/usr/share/zoneinfo
 
+  unset CFLAGS
+  unset CXXFLAGS
+
   LC_CTYPE=en_US.UTF-8 make regen-all
   LC_CTYPE=en_US.UTF-8 make
 
