@@ -33,7 +33,7 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [pulseaudio]
+        build: [amdvlk]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
