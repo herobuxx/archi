@@ -81,7 +81,7 @@ jobs:
       - name: Build Arch Linux package
         uses: FFY00/build-arch-package@v1
         with:
-          PKGBUILD: gtk4
+          PKGBUILD: ${{ matrix.build }}/PKGBUILD
       # - id: makepkg
         # uses: JPratama7/pkgbuild-action@avx
         # with:
