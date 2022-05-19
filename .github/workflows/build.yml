@@ -81,9 +81,9 @@ jobs:
       - id: makepkg
         uses: DuckSoft/build-aur-action@master
         with:
-          namcapDisable: true
-          makepkgArgs: "--skippgpcheck --skipchecksums"
-          pkgdir:  ${{ matrix.build }}
+          # namcapDisable: true
+          # makepkgArgs: "--skippgpcheck --skipchecksums"
+          repo-name:  ${{ matrix.build }}
         # uses: JPratama7/pkgbuild-action@tesss
         # with:
         #   namcapDisable: true
