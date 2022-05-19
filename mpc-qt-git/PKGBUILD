@@ -6,7 +6,7 @@ pkgdesc='A clone of Media Player Classic reimplemented in Qt.'
 url='https://github.com/mpc-qt/mpc-qt'
 arch=('x86_64')
 license=('GPL2')
-depends=('mpv' 'qt5-x11extras' 'libunwind')
+depends=('mpv' 'qt5-x11extras')
 makedepends=('git' 'qt5-tools')
 optdepends=('libva-vdpau-driver: backend for Nvidia and AMD cards'
             'libva-intel-driver: backend for Intel cards'
