@@ -78,16 +78,12 @@ jobs:
       #   run: |
       #     cd ${{ matrix.build }} && sed -i 's/+clang//g' PKGBUILD
       # - run: ls -alR
-      - name: Build Arch Linux package
-        uses: FFY00/build-arch-package@v1
+      - id: makepkg
+        uses: JPratama7/pkgbuild-action@avx
         with:
-          PKGBUILD: ${{ matrix.build }}/PKGBUILD
-      # - id: makepkg
-        # uses: JPratama7/pkgbuild-action@avx
-        # with:
-        #   namcapDisable: true
-        #   makepkgArgs: "--skippgpcheck --skipchecksums"
-        #   pkgdir:  ${{ matrix.build }}
+          namcapDisable: true
+          makepkgArgs: "--skippgpcheck --skipchecksums"
+          pkgdir:  ${{ matrix.build }}
         # uses: JPratama7/pkgbuild-action@tesss
         # with:
         #   namcapDisable: true
