@@ -79,11 +79,11 @@ jobs:
       #     cd ${{ matrix.build }} && sed -i 's/+clang//g' PKGBUILD
       # - run: ls -alR
       - id: makepkg
-        uses: DuckSoft/build-aur-action@master
+        uses: JPratama7/pkgbuild-action@a
         with:
-          # namcapDisable: true
-          # makepkgArgs: "--skippgpcheck --skipchecksums"
-          repo-name:  ${{ matrix.build }}
+          namcapDisable: true
+          makepkgArgs: "--skippgpcheck --skipchecksums"
+          pkgdir:  ${{ matrix.build }}
         # uses: JPratama7/pkgbuild-action@tesss
         # with:
         #   namcapDisable: true
