@@ -77,13 +77,16 @@ jobs:
       - name: remove +clang
         run: |
           cd ${{ matrix.build }} && sed -i 's/+clang//g' PKGBUILD
-      # - run: ls -alR
-      - id: makepkg
-        uses: JPratama7/pkgbuild-action@gtk
+      - uses: DuckSoft/build-aur-action@master
         with:
-          namcapDisable: true
-          makepkgArgs: "--skippgpcheck --skipchecksums"
-          pkgdir:  ${{ matrix.build }}
+          repo-name: gtk4-git
+      # - run: ls -alR
+      # - id: makepkg
+      #   uses: JPratama7/pkgbuild-action@gtk
+      #   with:
+      #     namcapDisable: true
+      #     makepkgArgs: "--skippgpcheck --skipchecksums"
+      #     pkgdir:  ${{ matrix.build }}
         # uses: JPratama7/pkgbuild-action@tesss
         # with:
         #   namcapDisable: true
