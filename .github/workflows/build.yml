@@ -33,7 +33,7 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [mpv]
+        build: [pulseaudio]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
@@ -98,7 +98,7 @@ jobs:
       - uses: ncipollo/release-action@v1.8.10
         with:
           allowUpdates: true
-          tag: "latest"
+          tag: "ok"
           artifacts: "*/*.zst"
           token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/upload-artifact@v2
