@@ -33,7 +33,7 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [mpc-qt-git]
+        build: [peazip-qt5]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
@@ -79,14 +79,11 @@ jobs:
       #     cd ${{ matrix.build }} && sed -i 's/+clang//g' PKGBUILD
       # - run: ls -alR
       - id: makepkg
-        uses: DuckSoft/build-aur-action@master
+        uses: JPratama7/pkgbuild-action@aur-cpuv2
         with:
-          repo-name: gtk3-git
-        # uses: JPratama7/pkgbuild-action@cpuv2
-        # with:
-        #   namcapDisable: true
-        #   makepkgArgs: "--skippgpcheck --skipchecksums"
-        #   pkgdir:  ${{ matrix.build }}
+          namcapDisable: true
+          makepkgArgs: "--skippgpcheck --skipchecksums"
+          pkgdir:  ${{ matrix.build }}
         # uses: JPratama7/pkgbuild-action@tesss
         # with:
         #   namcapDisable: true
