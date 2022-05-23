@@ -74,7 +74,7 @@ jobs:
       #     export CFLAGS="${CFLAGS/-O2/-O3}"
       #     export CFLAGS="${CFLAGS/-march=x86-64/-march=x86-64-v2}"
       #     export LDFLAGS="${LDFLAGS} -fuse-ld=lld"
-      # - name: remove +clang
+      - name: remove +clang
         run: |
           cd ${{ matrix.build }} && sed -i 's/+clang//g' PKGBUILD
       # - run: ls -alR
