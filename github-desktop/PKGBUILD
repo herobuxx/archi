@@ -6,7 +6,7 @@
 
 pkgname=github-desktop
 pkgver=3.0.0
-pkgrel=1
+pkgrel=2
 _gitname="release-$pkgver-linux$pkgrel"
 pkgdesc='GUI for managing Git and GitHub'
 arch=(x86_64)
@@ -15,11 +15,12 @@ license=(MIT)
 depends=('gnome-keyring' 'libsecret' 'git' 'curl' 'libxss' 'nss' 'nspr' 'unzip')
 optdepends=('github-cli: CLI interface for GitHub'
             'hub: CLI interface for GitHub')
-makedepends=(nodejs>=17.9.0
+makedepends=(nodejs
              npm
              python2
              xorg-server-xvfb
              yarn)
+
 DLAGENTS=("http::/usr/bin/git clone --branch $_gitname --single-branch %u")
 source=("$pkgname::git+https://github.com/shiftkey/desktop.git#tag=$_gitname"
         'git+https://github.com/github/gemoji.git'
