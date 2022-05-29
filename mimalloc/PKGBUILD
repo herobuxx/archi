@@ -17,7 +17,9 @@ pkgver() {
   cd "$_pkgname"
   printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
 }
+
 build() {
+  cd "$_pkgname"
     export CFLAGS="${CFLAGS} -flto=thin"
     export CXXFLAGS="${CXXFLAGS} -std=c++17 -flto=thin"
     export LDFLAGS="${LDFLAGS} -fuse-ld=lld"
