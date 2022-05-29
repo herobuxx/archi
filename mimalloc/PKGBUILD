@@ -19,7 +19,6 @@ pkgver() {
 }
 
 build() {
-  cd "$_pkgname"
   export CFLAGS="${CFLAGS} -flto=thin"
   export CXXFLAGS="${CXXFLAGS} -std=c++17 -flto=thin"
   export LDFLAGS="${LDFLAGS} -fuse-ld=lld"
