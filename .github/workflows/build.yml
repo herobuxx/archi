@@ -33,15 +33,15 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [gcc]
+        build: [mimalloc]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
     steps:
       - name: Clone
         uses: actions/checkout@v3
-        with:
-          repository: h0tc0d3/arch-packages
+        # with:
+        #   repository: h0tc0d3/arch-packages
         # with:
         #   repository: JPratama7/arch-builder
         # with:
