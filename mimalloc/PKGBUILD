@@ -20,9 +20,8 @@ pkgver() {
 
 build() {
   cd "$_pkgname"
-  export CFLAGS="${CFLAGS} -flto=thin"
-  export CXXFLAGS="${CXXFLAGS} -std=c++17 -flto=thin"
-  export LDFLAGS="${LDFLAGS} -fuse-ld=lld"
+  export CFLAGS="${CFLAGS} -flto=10"
+  export CXXFLAGS="${CXXFLAGS} -std=c++17 -flto=10"
   cmake \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DMI_BUILD_STATIC=OFF \
