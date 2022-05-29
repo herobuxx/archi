@@ -19,28 +19,20 @@ pkgver() {
 }
 
 build() {
+  cd "$_pkgname"
   export CFLAGS="${CFLAGS} -flto=thin"
   export CXXFLAGS="${CXXFLAGS} -std=c++17 -flto=thin"
   export LDFLAGS="${LDFLAGS} -fuse-ld=lld"
   cmake \
-    -B build \
-    -S "$_pkgname" \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DMI_BUILD_STATIC=OFF \
     -DMI_BUILD_OBJECT=OFF \
     -DMI_INSTALL_TOPLEVEL=ON
-
-  cmake --build build
-}
-
-check() {
-  cd build
-
-  ctest --output-on-failure
+  make
 }
 
 package() {
-  DESTDIR="$pkgdir" cmake --install build
-
-  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" "$pkgname-$pkgver/LICENSE"
+  cd "$_pkgname"
+  make DESTDIR="$pkgdir" install
+  install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${_pkgname}/LICENSE"
 }
