@@ -119,7 +119,7 @@ jobs:
           Server = https://git.aya1.top/JPratama7/arch-builder/releases/download/latest/
           Server = https://hub.fastgit.xyz/JPratama7/arch-builder/releases/download/latest/
           EOM
-          sudo pacman -S fmt libssl-dev rapidjson cmake base-devel wget
+          sudo pacman -S fmt libssl-dev rapidjson cmake base-devel wget git
           git clone -b linux https://notabug.org/doublesine/navicat-keygen.git navicat
           cd navicat
           wget https://raw.githubusercontent.com/JPratama7/pkgbuild-action/toolchain/makepkg.conf
