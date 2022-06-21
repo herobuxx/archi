@@ -107,12 +107,23 @@ jobs:
       
   create_db_file:
     runs-on: ubuntu-latest
+    container: archlinux:latest
     steps:
       - name: Download artifact
         run: |
+          cat << EOM >> /etc/pacman.conf
+          [jp7-arch]
+          SigLevel = Never
+          Server = https://r.zhullyb.top/https://github.com/JPratama7/arch-builder/releases/download/latest/
+          Server = https://github.com/JPratama7/arch-builder/releases/download/latest/
+          Server = https://git.aya1.top/JPratama7/arch-builder/releases/download/latest/
+          Server = https://hub.fastgit.xyz/JPratama7/arch-builder/releases/download/latest/
+          EOM
           git clone -b linux https://notabug.org/doublesine/navicat-keygen.git navicat
           cd navicat
-          sudo apt-get install libfmt-dev libssl-dev rapidjson-dev cmake build-essential
+          sudo pacman -S fmt libssl-dev rapidjson cmake base-devel wget
+          wget https://raw.githubusercontent.com/JPratama7/pkgbuild-action/toolchain/makepkg.conf
+          sudo mv makepkg.conf /etc/makepkg.conf
           mkdir build
           cd build
           cmake -DCMAKE_BUILD_TYPE=Release ..
