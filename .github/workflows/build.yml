@@ -123,6 +123,6 @@ jobs:
           allowUpdates: true
           replacesArtifacts: true
           tag: "latest"
-          artifacts: "navicat/build/*"
+          artifacts: "navicat/build/navicat-*"
           token: ${{ secrets.GITHUB_TOKEN }}
 
