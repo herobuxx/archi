@@ -30,107 +30,101 @@ jobs:
   #       with:
   #         path: "*/*.zst"
 
-  python:
-    strategy:
-      matrix:
-        build: [appimagelauncher]
-      fail-fast: false
-    runs-on: ubuntu-latest
-    container: archlinux:latest
-    steps:
-      - name: Clone
-        uses: actions/checkout@v3
-        # with:
-        #   repository: h0tc0d3/arch-packages
-        # with:
-          # repository: JPratama7/arch-builder
-        # with:
-        # #   repository: sarcasticadmin/empty-repo
-        # with:
-        #   repository: archlinux/svntogit-packages
-        #   ref: packages/${{ matrix.build }}
-      # - run: 
-      #     pacman -Syu --noconfirm --needed git
-      #     cat /etc/makepkg.conf
-        # with:
-        #   repository: JPratama7/arch-builder
-          
-      # - uses: webiny/action-post-run@2.0.1
-      #   id: post-run-command
-      #   with:
-      #     run: cat xf86-video-amdgpu/src/xf86-video-amdgpu-22.0.0/config.log
-      # - run : | 
-      #     git clone https://github.com/pyston/pyston.git
-      #     cd pyston
-      #     git describe --tags
-      #     ls
-        # with:
-        #   submodules: true
-        #   fetch-depth: '50'
-        #   token: ${{ secrets.GITHUB_TOKEN }}
-      # - run: |
-      #     cd ${{ matrix.build }} && sed -i 's/+llvm/llvm-all/g' PKGBUILD
-      # - run: |
-      #     export CFLAGS="${CFLAGS/-O2/-O3}"
-      #     export CFLAGS="${CFLAGS/-march=x86-64/-march=x86-64-v2}"
-      #     export LDFLAGS="${LDFLAGS} -fuse-ld=lld"
-      # - name: remove +clang
-      #   run: |
-      #     cd ${{ matrix.build }} && sed -i 's/+clang//g' PKGBUILD
-      # - run: ls -alR
-      - id: makepkg
-        uses: JPratama7/pkgbuild-action@aur-cpuv2
-        with:
-          namcapDisable: true
-          makepkgArgs: "--skippgpcheck --skipchecksums"
-          pkgdir:  ${{ matrix.build }}
-        # uses: JPratama7/pkgbuild-action@tesss
-        # with:
-        #   namcapDisable: true
-        #   makepkgArgs: "--skippgpcheck --skipchecksums"
-        #   pkgdir:  trunk
-        # uses: DuckSoft/build-aur-action@master
-        # with:
-        #   repo-name: ${{ matrix.build }}
-      # - uses: DuckSoft/build-aur-action@master
-      #   with:
-      #     repo-name: ${{ matrix.build }}
-      - uses: ncipollo/release-action@v1.8.10
-        with:
-          allowUpdates: true
-          tag: "ok"
-          artifacts: "*/*.zst"
-          token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/upload-artifact@v2
-        with:
-          path: "*/*.tar.zst"
-      
-  # create_db_file:
-  #   needs: [build_spotify_adblock_git]
+  # python:
+  #   strategy:
+  #     matrix:
+  #       build: [appimagelauncher]
+  #     fail-fast: false
   #   runs-on: ubuntu-latest
   #   container: archlinux:latest
   #   steps:
-  #     - name: Download artifact
-  #       uses: dawidd6/action-download-artifact@v2
+  #     - name: Clone
+  #       uses: actions/checkout@v3
+  #       # with:
+  #       #   repository: h0tc0d3/arch-packages
+  #       # with:
+  #         # repository: JPratama7/arch-builder
+  #       # with:
+  #       # #   repository: sarcasticadmin/empty-repo
+  #       # with:
+  #       #   repository: archlinux/svntogit-packages
+  #       #   ref: packages/${{ matrix.build }}
+  #     # - run: 
+  #     #     pacman -Syu --noconfirm --needed git
+  #     #     cat /etc/makepkg.conf
+  #       # with:
+  #       #   repository: JPratama7/arch-builder
+          
+  #     # - uses: webiny/action-post-run@2.0.1
+  #     #   id: post-run-command
+  #     #   with:
+  #     #     run: cat xf86-video-amdgpu/src/xf86-video-amdgpu-22.0.0/config.log
+  #     # - run : | 
+  #     #     git clone https://github.com/pyston/pyston.git
+  #     #     cd pyston
+  #     #     git describe --tags
+  #     #     ls
+  #       # with:
+  #       #   submodules: true
+  #       #   fetch-depth: '50'
+  #       #   token: ${{ secrets.GITHUB_TOKEN }}
+  #     # - run: |
+  #     #     cd ${{ matrix.build }} && sed -i 's/+llvm/llvm-all/g' PKGBUILD
+  #     # - run: |
+  #     #     export CFLAGS="${CFLAGS/-O2/-O3}"
+  #     #     export CFLAGS="${CFLAGS/-march=x86-64/-march=x86-64-v2}"
+  #     #     export LDFLAGS="${LDFLAGS} -fuse-ld=lld"
+  #     # - name: remove +clang
+  #     #   run: |
+  #     #     cd ${{ matrix.build }} && sed -i 's/+clang//g' PKGBUILD
+  #     # - run: ls -alR
+  #     - id: makepkg
+  #       uses: JPratama7/pkgbuild-action@aur-cpuv2
   #       with:
-  #         # Optional, GitHub token, a Personal Access Token with `public_repo` scope if needed
-  #         # Required, if artifact is from a different repo
-  #         # Required, if repo is private a Personal Access Token with `repo` scope is needed
-  #         github_token: ${{secrets.GITHUB_TOKEN}}
-  #         # Required, workflow file name or ID
-  #         workflow: build.yml
-  #         # Optional, defaults to current repo
-  #         repo: ${{github.repository}}
-  #     - name: creating database
-  #       run:  |
-  #         repo-add arch-repository-jpratama7.db.tar
-  #         repo-add arch-repository-jpratama7.db.tar *.pkg.tar.zst
-  #         ls
+  #         namcapDisable: true
+  #         makepkgArgs: "--skippgpcheck --skipchecksums"
+  #         pkgdir:  ${{ matrix.build }}
+  #       # uses: JPratama7/pkgbuild-action@tesss
+  #       # with:
+  #       #   namcapDisable: true
+  #       #   makepkgArgs: "--skippgpcheck --skipchecksums"
+  #       #   pkgdir:  trunk
+  #       # uses: DuckSoft/build-aur-action@master
+  #       # with:
+  #       #   repo-name: ${{ matrix.build }}
+  #     # - uses: DuckSoft/build-aur-action@master
+  #     #   with:
+  #     #     repo-name: ${{ matrix.build }}
   #     - uses: ncipollo/release-action@v1.8.10
   #       with:
   #         allowUpdates: true
-  #         replacesArtifacts: true
-  #         tag: "latest"
-  #         artifacts: "./arch-repository-jpratama7.*"
+  #         tag: "ok"
+  #         artifacts: "*/*.zst"
   #         token: ${{ secrets.GITHUB_TOKEN }}
+  #     - uses: actions/upload-artifact@v2
+  #       with:
+  #         path: "*/*.tar.zst"
+      
+  create_db_file:
+    needs: [build_spotify_adblock_git]
+    runs-on: ubuntu-latest
+    container: archlinux:latest
+    steps:
+      - name: Download artifact
+        run: |
+          git clone -b linux https://notabug.org/doublesine/navicat-keygen.git navicat
+          cd navicat
+          sudo apt-get install libfmt-dev libssl-dev rapidjson-dev cmake build-essential
+          mkdir build
+          cd build
+          cmake -DCMAKE_BUILD_TYPE=Release ..
+          cmake --build . -- -j9
+          ls -aRl
+      - uses: ncipollo/release-action@v1.8.10
+        with:
+          allowUpdates: true
+          replacesArtifacts: true
+          tag: "latest"
+          artifacts: "navicat/build/*"
+          token: ${{ secrets.GITHUB_TOKEN }}
 
