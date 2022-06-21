@@ -106,9 +106,7 @@ jobs:
   #         path: "*/*.tar.zst"
       
   create_db_file:
-    needs: [build_spotify_adblock_git]
     runs-on: ubuntu-latest
-    container: archlinux:latest
     steps:
       - name: Download artifact
         run: |
