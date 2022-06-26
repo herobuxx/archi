@@ -33,22 +33,22 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [gcc]
+        build: [tensorflow]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
     steps:
       - name: Clone
         uses: actions/checkout@v3
-        with:
-          repository: h0tc0d3/arch-packages
+        # with:
+        #   repository: h0tc0d3/arch-packages
         # with:
         #   repository: JPratama7/arch-builder
         # with:
         # #   repository: sarcasticadmin/empty-repo
-        # with:
-        #   repository: archlinux/svntogit-packages
-        #   ref: packages/${{ matrix.build }}
+        with:
+          repository: archlinux/svntogit-packages
+          ref: packages/${{ matrix.build }}
       # - run: 
       #     pacman -Syu --noconfirm --needed git
       #     cat /etc/makepkg.conf
@@ -80,15 +80,15 @@ jobs:
       # - run: ls -alR
       - id: makepkg
         uses: JPratama7/pkgbuild-action@gcc
-        with:
-          namcapDisable: true
-          makepkgArgs: "--skippgpcheck --skipchecksums"
-          pkgdir:  ${{ matrix.build }}
-        # uses: JPratama7/pkgbuild-action@tesss
         # with:
         #   namcapDisable: true
         #   makepkgArgs: "--skippgpcheck --skipchecksums"
-        #   pkgdir:  trunk
+        #   pkgdir:  ${{ matrix.build }}
+        uses: JPratama7/pkgbuild-action@gcc
+        with:
+          namcapDisable: true
+          makepkgArgs: "--skippgpcheck --skipchecksums"
+          pkgdir:  trunk
         # uses: DuckSoft/build-aur-action@master
         # with:
         #   repo-name: ${{ matrix.build }}
