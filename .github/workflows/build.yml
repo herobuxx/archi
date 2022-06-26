@@ -47,7 +47,7 @@ jobs:
         # with:
         # #   repository: sarcasticadmin/empty-repo
         with:
-          repository: archlinux/svntogit-packages
+          repository: archlinux/svntogit-community
           ref: packages/${{ matrix.build }}
       # - run: 
       #     pacman -Syu --noconfirm --needed git
