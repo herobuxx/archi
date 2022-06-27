@@ -1,0 +1,235 @@
+# Original Maintainer of Wine-git : Daniel Bermond <dbermond@archlinux.org>
+# Contributor: Sidney Crestani <sidneycrestani@archlinux.net>
+# Contributor: sxe <sxxe@gmx.de>
+# Edited / modified by: Neko-san <nekoNexus at protonmail dot ch>
+
+pkgname=wine
+_pkgver=7.11
+pkgver=${_pkgver/-/}
+pkgrel=2
+pkgdesc='A compatibility layer for running Windows programs'
+arch=('x86_64' 'x86_64_v3' 'znver2')
+url='https://www.winehq.org/'
+license=('LGPL')
+depends=(
+    'fontconfig'            'lib32-fontconfig'
+    'lcms2'                 'lib32-lcms2'
+    'libxml2'               'lib32-libxml2'
+    'libxcursor'            'lib32-libxcursor'
+    'libxrandr'             'lib32-libxrandr'
+    'libxdamage'            'lib32-libxdamage'
+    'libxi'                 'lib32-libxi'
+    'gettext'               'lib32-gettext'
+    'freetype2'             'lib32-freetype2'
+    'glu'                   'lib32-glu'
+    'libsm'                 'lib32-libsm'
+    'gcc-libs'              'lib32-gcc-libs'
+    'libpcap'               'lib32-libpcap'
+    'faudio'                'lib32-faudio'
+    'desktop-file-utils'
+)
+makedepends=('git' 'autoconf' 'bison' 'perl' 'fontforge' 'flex' 'mingw-w64-gcc' 'tar' 'clang' 'llvm' 'lld' 'lib32-llvm' 'lib32-clang'
+    'giflib'                'lib32-giflib'
+    'libpng'                'lib32-libpng'
+    'gnutls'                'lib32-gnutls'
+    'libxinerama'           'lib32-libxinerama'
+    'libxcomposite'         'lib32-libxcomposite'
+    'libxmu'                'lib32-libxmu'
+    'libxxf86vm'            'lib32-libxxf86vm'
+    'libldap'               'lib32-libldap'
+    'mpg123'                'lib32-mpg123'
+    'openal'                'lib32-openal'
+    'v4l-utils'             'lib32-v4l-utils'
+    'libpulse'              'lib32-libpulse'
+    'alsa-plugins'          'lib32-alsa-plugins'
+    'libjpeg-turbo'         'lib32-libjpeg-turbo'
+    'alsa-lib'              'lib32-alsa-lib'
+    'libxcomposite'         'lib32-libxcomposite'
+    'mesa'                  'lib32-mesa'
+    'libgl'                 'lib32-libgl'
+    'opencl-icd-loader'     'lib32-opencl-icd-loader'
+    'libxslt'               'lib32-libxslt'
+    'gst-plugins-base-libs' 'lib32-gst-plugins-base-libs'
+    'vulkan-icd-loader'     'lib32-vulkan-icd-loader'
+    'vkd3d'                 'lib32-vkd3d'
+    'sdl2'                  'lib32-sdl2'
+    'libcups'               'lib32-libcups'
+    'libgphoto2'            'valgrind'
+    'sane'
+    'gsm'
+    'cups'
+    'samba'
+    'dosbox'
+    'vulkan-headers'
+    'opencl-headers'
+)
+optdepends=(
+    'giflib'                'lib32-giflib'
+    'libpng'                'lib32-libpng'
+    'libldap'               'lib32-libldap'
+    'gnutls'                'lib32-gnutls'
+    'mpg123'                'lib32-mpg123'
+    'openal'                'lib32-openal'
+    'v4l-utils'             'lib32-v4l-utils'
+    'libpulse'              'lib32-libpulse'
+    'alsa-plugins'          'lib32-alsa-plugins'
+    'alsa-lib'              'lib32-alsa-lib'
+    'libjpeg-turbo'         'lib32-libjpeg-turbo'
+    'libxcomposite'         'lib32-libxcomposite'
+    'libxinerama'           'lib32-libxinerama'
+    'opencl-icd-loader'     'lib32-opencl-icd-loader'
+    'libxslt'               'lib32-libxslt'
+    'gst-plugins-base-libs' 'lib32-gst-plugins-base-libs'
+    'vulkan-icd-loader'     'lib32-vulkan-icd-loader'
+    'vkd3d'                 'lib32-vkd3d'
+    'sdl2'                  'lib32-sdl2'
+    'libgphoto2'
+    'sane'
+    'gsm'
+    'cups'
+    'samba'
+    'dosbox'
+)
+# LTO has to be disabled for at least 7.0-rc4 or else the build will fail
+options=('!strip' 'staticlibs' 'lto')
+install="${pkgname}.install"
+provides=("wine=${pkgver}" "bin32-wine=${pkgver}" "wine-wow64=${pkgver}")
+conflicts=('wine-git' 'bin32-wine' 'wine-wow64' 'wine-staging')
+replaces=('bin32-wine')
+source=("${pkgname}-${_pkgver}.tar.gz::https://github.com/wine-mirror/wine/archive/refs/tags/${pkgname}-${_pkgver}.tar.gz"
+        '30-win32-aliases.conf'
+        'wine-binfmt.conf')
+sha256sums=('SKIP'
+            'SKIP'
+            'SKIP')
+
+## Set these if a specific build type is desired    
+
+prepare() {
+    rm -rf build-{32,64}
+    mkdir -p build-{32,64}
+    if [ -d wine ]; then
+        rm -rf wine
+    fi
+    tar xvf ${pkgname}-${_pkgver}.tar.gz
+    mv ${pkgname}-${pkgname}-${_pkgver} wine
+    
+    # fix path of opencl headers
+    sed 's|OpenCL/opencl.h|CL/opencl.h|g' -i wine/configure*
+    
+    # fix openldap 2.5+ detection
+    sed 's/-lldap_r/-lldap/' -i wine/configure
+    
+    ## Apply the "Steam 'CrossOver' hack" to permit Windows Steam to render properly"
+    ## Grabbing from wine-tkg-git because it gets kept up to date here
+    ## UPDATE: IT DOESN'T WORK
+    #cd wine
+    #wget --output-document steam-crossover-hack-patch.diff "https://raw.githubusercontent.com/Frogging-Family/wine-tkg-git/master/wine-tkg-git/wine-tkg-patches/misc/steam.patch"
+    #patch -Np1 -i steam-crossover-hack-patch.diff
+    #rm steam-crossover-hack-patch.diff
+    #cd ..
+}
+
+## Leftover from wine-git PKGBUILD; commented out to prevent makepkg failure
+#pkgver() {
+#    git -C wine describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g;s/^wine.//;s/^v//;s/\.rc/rc/'
+#}
+
+build() {
+    ## workaround for FS#55128
+    ## https://bugs.archlinux.org/task/55128
+    ## https://bugs.winehq.org/show_bug.cgi?id=43530
+    
+    ## UPDATE: Bug was caused by Nvidia drivers below 415.XX - this fix is no longer necessary
+    #export CFLAGS="${CFLAGS/-fno-plt/}"
+    #export LDFLAGS="${LDFLAGS/,-z,now/}"
+    
+    ## Prevents packages (such as cuda) from interjecting their own packaged compiler(s) (for whatever reason[s] they do so) into our process, which should not use theirs
+    ## Credit goes to https://stackoverflow.com/a/370192
+    export PATH=$(echo ${PATH} | awk -v RS=: -v ORS=: '/cuda/ {next} {print}' | sed 's/:*$//')
+    
+    
+    ## Configure and use this if you want a build tuned to your CPU architecture - set this HERE if compiling with GCC
+    ## WARNING: USING THIS IMPROPERLY WILL CAUSE WINE NOT TO RUN ON YOUR MACHINE
+    #export CFLAGS+=" -march= -mtune="
+    
+    export CFLAGS+=" -std=gnu89"
+    export CFLAGS="${CFLAGS/-Wall/}"
+    
+    export CXXFLAGS="${CFLAGS}"
+    export CXXFLAGS="${CXXFLAGS} -Wp,-D_GLIBCXX_ASSERTIONS"
+    
+    export CROSSCFLAGS="${CFLAGS}"
+    export CROSSCXXFLAGS="${CXXFLAGS}"
+    export CROSSLDFLAGS="${LDFLAGS}"
+    export CPPFLAGS="-D_FORTIFY_SOURCE=2"
+    
+    # build wine 64-bit
+    # (according to the wine wiki, this 64-bit/32-bit building order is mandatory)
+    printf '%s\n' '  -> Building wine-64...'
+    cd build-64
+    ../wine/configure \
+        --prefix='/usr' \
+        --libdir='/usr/lib' \
+        --with-x \
+        --with-gstreamer \
+        --enable-win64
+    make
+    
+    ## Wine for i386 (32-bit) doesn't support the no-plt flag
+    export CFLAGS="${CFLAGS/-fno-plt/}"
+    export CXXFLAGS="${CXXFLAGS/-fno-plt/}"
+    export CROSSCFLAGS="${CFLAGS}"
+    export CROSSCXXFLAGS="${CXXFLAGS}"
+    
+    # build wine 32-bit
+    printf '%s\n' '  -> Building wine-32...'
+    cd "${srcdir}/build-32"
+    export PKG_CONFIG_PATH='/usr/lib32/pkgconfig'
+    ../wine/configure \
+        --prefix='/usr' \
+        --libdir='/usr/lib32' \
+        --with-x \
+        --with-gstreamer \
+        --with-wine64="${srcdir}/build-64"
+    make
+    
+}
+
+package() {
+    # package wine 32-bit
+    # (according to the wine wiki, this reverse 32-bit/64-bit packaging order is important)
+    printf '%s\n' '  -> Packaging wine-32...'
+    cd build-32
+    make prefix="${pkgdir}/usr" \
+         libdir="${pkgdir}/usr/lib32" \
+         dlldir="${pkgdir}/usr/lib32/wine" \
+         install
+    
+    # package wine 64-bit
+    printf '%s\n' '  -> Packaging wine-64...'
+    cd "${srcdir}/build-64"
+    make prefix="${pkgdir}/usr" \
+         libdir="${pkgdir}/usr/lib" \
+         dlldir="${pkgdir}/usr/lib/wine" \
+         install
+    
+    # font aliasing settings for win32 applications
+    install -d -m755 "${pkgdir}/usr/share/fontconfig/conf.default"
+    install -D -m644 "${srcdir}/30-win32-aliases.conf" -t "${pkgdir}/usr/share/fontconfig/conf.avail"
+    ln -s ../conf.avail/30-win32-aliases.conf "${pkgdir}/usr/share/fontconfig/conf.default/30-win32-aliases.conf"
+    
+    # wine binfmt
+    install -D -m644 "${srcdir}/wine-binfmt.conf" "${pkgdir}/usr/lib/binfmt.d/wine.conf"
+    
+    # strip native PE libraries
+    if [ "$CC" = 'clang' ] || [ "$CXX" = 'clang++' ]; then
+        i686-w64-mingw32-strip --strip-unneeded "${pkgdir}/usr/lib32/wine/i386-windows"/*.dll
+        x86_64-w64-mingw32-strip --strip-unneeded "${pkgdir}/usr/lib/wine/x86_64-windows"/*.dll
+        #llvm-strip --strip-unneeded "${pkgdir}/usr/lib32/wine/i386-windows"/*.dll
+        #llvm-strip --strip-unneeded "${pkgdir}/usr/lib/wine/x86_64-windows"/*.dll
+    else
+        strip --strip-unneeded "${pkgdir}/usr/lib32/wine/i386-windows"/*.dll
+        strip --strip-unneeded "${pkgdir}/usr/lib/wine/x86_64-windows"/*.dll
+    fi
+}
