@@ -92,7 +92,7 @@ optdepends=(
 )
 # LTO has to be disabled for at least 7.0-rc4 or else the build will fail
 options=('!strip' 'staticlibs' 'lto')
-install="${pkgname}.install"
+# install="${pkgname}.install"
 provides=("wine=${pkgver}" "bin32-wine=${pkgver}" "wine-wow64=${pkgver}")
 conflicts=('wine-git' 'bin32-wine' 'wine-wow64' 'wine-staging')
 replaces=('bin32-wine')
