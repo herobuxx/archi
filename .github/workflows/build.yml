@@ -33,7 +33,7 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [wine]
+        build: [linux-xanmod-custom]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
@@ -42,8 +42,8 @@ jobs:
         uses: actions/checkout@v3
         # with:
         #   repository: h0tc0d3/arch-packages
-        # with:
-        #   repository: JPratama7/arch-builder
+        with:
+          repository: JPratama7/arch-builder
         # with:
         # #   repository: sarcasticadmin/empty-repo
         # with:
@@ -79,7 +79,7 @@ jobs:
       #     cd ${{ matrix.build }} && sed -i 's/+clang//g' PKGBUILD
       # - run: ls -alR
       - id: makepkg
-        uses: JPratama7/pkgbuild-action@gcc
+        uses: JPratama7/pkgbuild-action@cpuv2
         with:
           namcapDisable: true
           makepkgArgs: "--skippgpcheck --skipchecksums"
