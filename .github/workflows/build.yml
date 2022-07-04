@@ -33,7 +33,7 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [pamac-aur]
+        build: [bru]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
@@ -89,7 +89,7 @@ jobs:
         #   namcapDisable: true
         #   makepkgArgs: "--skippgpcheck --skipchecksums"
         #   pkgdir:  trunk
-        uses: JPratama7/build-aur-action@testing
+        uses: JPratama7/build-aur-action@gcc
         with:
           repo-name: ${{ matrix.build }}
       # - uses: DuckSoft/build-aur-action@master
