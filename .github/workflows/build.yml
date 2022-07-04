@@ -89,7 +89,7 @@ jobs:
         #   namcapDisable: true
         #   makepkgArgs: "--skippgpcheck --skipchecksums"
         #   pkgdir:  trunk
-        uses: DuckSoft/build-aur-action@master
+        uses: JPratama7/build-aur-action@testing
         with:
           repo-name: ${{ matrix.build }}
       # - uses: DuckSoft/build-aur-action@master
