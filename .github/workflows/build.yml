@@ -33,7 +33,7 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [pamac-all]
+        build: [pamac-aur]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
