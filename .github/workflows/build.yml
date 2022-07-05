@@ -33,7 +33,7 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [mesa]
+        build: [llvm]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
