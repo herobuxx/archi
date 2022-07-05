@@ -79,16 +79,16 @@ jobs:
       #     cd ${{ matrix.build }} && sed -i 's/+clang//g' PKGBUILD
       # - run: ls -alR
       - id: makepkg
-        # uses: JPratama7/pkgbuild-action@gcc
-        # with:
-        #   namcapDisable: true
-        #   makepkgArgs: "--skippgpcheck --skipchecksums"
-        #   pkgdir:  ${{ matrix.build }}
         uses: JPratama7/pkgbuild-action@test-toolchain
         with:
           namcapDisable: true
           makepkgArgs: "--skippgpcheck --skipchecksums"
-          pkgdir:  trunk
+          pkgdir:  ${{ matrix.build }}
+        # uses: JPratama7/pkgbuild-action@test-toolchain
+        # with:
+        #   namcapDisable: true
+        #   makepkgArgs: "--skippgpcheck --skipchecksums"
+        #   pkgdir:  trunk
         # uses: JPratama7/build-aur-action@testing
         # with:
         #   repo-name: ${{ matrix.build }}
