@@ -33,7 +33,7 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [ffmpeg]
+        build: [linux-xanmod-custom]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
