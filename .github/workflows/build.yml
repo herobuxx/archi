@@ -33,7 +33,7 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [wayland, wayland-protocol]
+        build: [xorg-*]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
