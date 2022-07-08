@@ -13,7 +13,7 @@ conflicts=('d9vk-mingw-git' 'd9vk-bin' 'd9vk-winelib-git' "dxvk-bin" "dxvk-git" 
 options=(!strip !buildflags staticlibs)
 source=(
     "git+https://github.com/doitsujin/dxvk.git"
-    "dxvk-async.patch::https://raw.githubusercontent.com/Sporif/dxvk-async/master/dxvk-async-af418dc.patch"
+    "dxvk-async.patch::https://raw.githubusercontent.com/Sporif/dxvk-async/master/dxvk-async.patch"
 )
 sha256sums=("SKIP")
 
