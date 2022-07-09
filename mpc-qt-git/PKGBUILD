@@ -29,7 +29,7 @@ build() {
     QMAKE_LFLAGS="${LDFLAGS}" \
     QMAKE_CXX="$CXX" \
     QMAKE_CC="$CC" \
-    QMAKE_LINK="$CXX" \
+    QMAKE_LINK="$CXX" 
   make
 }
 
