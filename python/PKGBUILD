@@ -53,9 +53,9 @@ build() {
               --enable-loadable-sqlite-extensions \
               --without-ensurepip \
               --with-tzpath=/usr/share/zoneinfo
-  unset $LDFLAGS
-  unset $CFLAGS
-  unset $CXXFLAGS
+  unset LDFLAGS
+  unset CFLAGS
+  unset CXXFLAGS
   make EXTRA_CFLAGS="$CFLAGS"
 }
 
