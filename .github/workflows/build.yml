@@ -33,7 +33,7 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [xampp]
+        build: [mpc-qt-git]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
