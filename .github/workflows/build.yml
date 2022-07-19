@@ -33,7 +33,7 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [pamac-nosnap]
+        build: [gtk3, gtk4]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
@@ -46,9 +46,9 @@ jobs:
           # repository: JPratama7/arch-builder
         # with:
         # # #   repository: sarcasticadmin/empty-repo
-        # with:
-        #   repository: archlinux/svntogit-packages
-        #   ref: packages/${{ matrix.build }}
+        with:
+          repository: archlinux/svntogit-packages
+          ref: packages/${{ matrix.build }}
       # - run: 
       #     pacman -Syu --noconfirm --needed git
       #     cat /etc/makepkg.conf
@@ -79,16 +79,16 @@ jobs:
       #     cd ${{ matrix.build }} && sed -i 's/+clang//g' PKGBUILD
       # - run: ls -alR
       - id: makepkg
-        uses: JPratama7/pkgbuild-action@aur-clang
+        uses: JPratama7/pkgbuild-action@clang
         with:
           namcapDisable: true
           makepkgArgs: "--skippgpcheck --skipchecksums"
-          pkgdir:  ${{ matrix.build }}
+          # pkgdir:  ${{ matrix.build }}
         # uses: JPratama7/pkgbuild-action@test-toolchain
         # with:
         #   namcapDisable: true
         #   makepkgArgs: "--skippgpcheck --skipchecksums"
-          # pkgdir:  trunk
+          pkgdir:  trunk
         # uses: JPratama7/build-aur-action@testing
         # with:
         #   repo-name: ${{ matrix.build }}
