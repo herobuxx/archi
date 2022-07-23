@@ -33,7 +33,7 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [linux-xanmod-custom]
+        build: [ffmpeg]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
@@ -41,9 +41,9 @@ jobs:
       - name: Clone
         uses: actions/checkout@v3
         with:
-          # repository: h0tc0d3/arch-packages
+          repository: h0tc0d3/arch-packages
         # with:
-          repository: JPratama7/arch-builder
+          # repository: JPratama7/arch-builder
         # with:
         # # #   repository: sarcasticadmin/empty-repo
         # with:
