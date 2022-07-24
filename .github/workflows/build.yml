@@ -33,7 +33,7 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [aria2-git]
+        build: [llvm-all]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
@@ -41,9 +41,9 @@ jobs:
       - name: Clone
         uses: actions/checkout@v3
         with:
-          repository: h0tc0d3/arch-packages
+          # repository: h0tc0d3/arch-packages
         # with:
-          # repository: JPratama7/arch-builder
+          repository: JPratama7/arch-builder
         # with:
         # # #   repository: sarcasticadmin/empty-repo
         # with:
@@ -79,7 +79,7 @@ jobs:
       #     cd ${{ matrix.build }} && sed -i 's/+clang//g' PKGBUILD
       # - run: ls -alR
       - id: makepkg
-        uses: JPratama7/pkgbuild-action@aur-clang
+        uses: JPratama7/pkgbuild-action@test-toolchain
         with:
           namcapDisable: true
           makepkgArgs: "--skippgpcheck --skipchecksums"
