@@ -33,7 +33,7 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [llvm-all]
+        build: [pulseaudio]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
@@ -41,12 +41,9 @@ jobs:
       - name: Clone
         uses: actions/checkout@v3
         with:
-          # repository: h0tc0d3/arch-packages
-        # with:
-          repository: JPratama7/arch-builder
-        # with:
-        # # #   repository: sarcasticadmin/empty-repo
-        # with:
+          repository: h0tc0d3/arch-packages
+          # repository: JPratama7/arch-builder
+        #   repository: sarcasticadmin/empty-repo
         #   repository: archlinux/svntogit-packages
         #   ref: packages/${{ matrix.build }}
       # - run: 
@@ -79,7 +76,7 @@ jobs:
       #     cd ${{ matrix.build }} && sed -i 's/+clang//g' PKGBUILD
       # - run: ls -alR
       - id: makepkg
-        uses: JPratama7/pkgbuild-action@test-toolchain
+        uses: JPratama7/pkgbuild-action@ok
         with:
           namcapDisable: true
           makepkgArgs: "--skippgpcheck --skipchecksums"
