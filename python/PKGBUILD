@@ -46,7 +46,8 @@ build() {
   CFLAGS=-DOPENSSL_NO_SSL2 ./configure --prefix=/usr \
               --enable-shared \
               --with-threads \
-              --with-lto
+              --with-lto \
+              --enable-optimizations \
               --with-computed-gotos \
               --enable-ipv6 \
               --with-system-expat \
