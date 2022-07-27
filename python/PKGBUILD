@@ -20,7 +20,7 @@ source=(
 )
 sha256sums=('6f309077012040aa39fe8f0c61db8c0fa1c45136763299d375c9e5756f09cf57'
             'SKIP'
-            '8eb389be1babe03a0231001dc16dd2d69a3ea0fbf6b8c976a580787e7ff1594c')
+            'SKIP')
 validpgpkeys=('E3FF2839C048B25C084DEBE9B26995E310250568')
 provides=("python=$pkgver")
 
