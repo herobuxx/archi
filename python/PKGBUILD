@@ -1,29 +1,33 @@
 # Maintainer: Tobias Kunze <r@rixx.de>
 # Maintained at https://github.com/rixx/pkgbuilds, feel free to submit patches
 
-pkgname=python311
-pkgver=3.11.0b3
-pkgrel=1
-_pyver=3.11.0
-_pybasever=3.11
+pkgname=python38
+pkgver=3.8.13
+pkgrel=2
+_pybasever=3.8
 _pymajver=3
-pkgdesc="Major release 3.11 of the Python high-level programming language"
+pkgdesc="Major release 3.8 of the Python high-level programming language"
 arch=('i686' 'x86_64')
 license=('custom')
 url="https://www.python.org/"
-depends=('bzip2' 'expat' 'gdbm' 'libffi' 'libnsl' 'libxcrypt' 'openssl' 'zlib')
-makedepends=('bluez-libs' 'mpdecimal' 'gdb')
-optdepends=('sqlite' 'mpdecimal: for decimal' 'xz: for lzma' 'tk: for tkinter')
-source=(https://www.python.org/ftp/python/${_pyver}/Python-${pkgver}.tar.xz)
-sha256sums=('c9b99f5315ea30f8e9fcbce6807a3739e875480d29124e6d9940f6fabcb7c902')
-validpgpkeys=(
-    '0D96DF4D4110E5C43FBFB17F2D347EA6AA65421D'  # Ned Deily (Python release signing key) <nad@python.org>
-    'E3FF2839C048B25C084DEBE9B26995E310250568'  # Łukasz Langa (GPG langa.pl) <lukasz@langa.pl>
+depends=('expat' 'bzip2' 'gdbm' 'openssl' 'libffi' 'zlib')
+makedepends=('tk' 'sqlite' 'bluez-libs' 'mpdecimal')
+optdepends=('tk: for tkinter' 'sqlite')
+source=(
+    https://www.python.org/ftp/python/${pkgver}/Python-${pkgver}.tar.xz
+    https://www.python.org/ftp/python/${pkgver}/Python-${pkgver}.tar.xz.asc
+    mpdecimal-2.5.1.patch
 )
-provides=("python=$_pyver")
+sha256sums=('6f309077012040aa39fe8f0c61db8c0fa1c45136763299d375c9e5756f09cf57'
+            'SKIP'
+            '8eb389be1babe03a0231001dc16dd2d69a3ea0fbf6b8c976a580787e7ff1594c')
+validpgpkeys=('E3FF2839C048B25C084DEBE9B26995E310250568')
+provides=("python=$pkgver")
 
 prepare() {
   cd "${srcdir}/Python-${pkgver}"
+
+  patch -p1 -i "${srcdir}/mpdecimal-2.5.1.patch"
 
   # FS#23997
   sed -i -e "s|^#.* /usr/local/bin/python|#!/usr/bin/python|" Lib/cgi.py
@@ -39,33 +43,28 @@ prepare() {
 build() {
   cd "${srcdir}/Python-${pkgver}"
 
-  CFLAGS="${CFLAGS/-O2/} -fno-semantic-interposition"
-  ./configure --prefix=/usr \
+  CFLAGS=-DOPENSSL_NO_SSL2 ./configure --prefix=/usr \
               --enable-shared \
+              --with-threads \
+              --with-lto
               --with-computed-gotos \
-              --enable-optimizations \
-              --with-lto \
               --enable-ipv6 \
               --with-system-expat \
               --with-dbmliborder=gdbm:ndbm \
-              --with-system-ffi \
               --with-system-libmpdec \
               --enable-loadable-sqlite-extensions \
-              --without-ensurepip \
-              --with-tzpath=/usr/share/zoneinfo
-  unset LDFLAGS
+              --without-ensurepip
+
   unset CFLAGS
   unset CXXFLAGS
-  make EXTRA_CFLAGS="$CFLAGS"
+  unset LDFLAGS
+  make
 }
 
 package() {
   cd "${srcdir}/Python-${pkgver}"
   # altinstall: /usr/bin/pythonX.Y but not /usr/bin/python or /usr/bin/pythonX
   make DESTDIR="${pkgdir}" altinstall maninstall
-
-  # Split tests
-  rm -r "$pkgdir"/usr/lib/python*/{test,ctypes/test,distutils/tests,idlelib/idle_test,lib2to3/tests,tkinter/test,unittest/test}
 
   # Avoid conflicts with the main 'python' package.
   rm -f "${pkgdir}/usr/lib/libpython${_pymajver}.so"
