@@ -43,7 +43,8 @@ prepare() {
 build() {
   cd "${srcdir}/Python-${pkgver}"
 
-  CFLAGS=-DOPENSSL_NO_SSL2 ./configure --prefix=/usr \
+  CFLAGS="${CFLAGS/-O2/-O3} -DOPENSSL_NO_SSL2"
+  ./configure --prefix=/usr \
               --enable-shared \
               --with-threads \
               --with-lto \
@@ -59,7 +60,8 @@ build() {
   unset CFLAGS
   unset CXXFLAGS
   unset LDFLAGS
-  make
+  LC_CTYPE=en_US.UTF-8 make regen-all EXTRA_CFLAGS="${CFLAGS}"
+  LC_CTYPE=en_US.UTF-8 make EXTRA_CFLAGS="${CFLAGS}"
 }
 
 package() {
