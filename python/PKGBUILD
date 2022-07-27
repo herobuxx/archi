@@ -59,24 +59,23 @@ build() {
 
   fi
 
-  # Disable bundled pip & setuptools
+  CFLAGS="${CFLAGS/-O2/-O3} -fno-semantic-interposition"
   ./configure --prefix=/usr \
-    --enable-shared \
-    --enable-ipv6 \
-    --enable-loadable-sqlite-extensions \
-    --enable-optimizations \
-    --with-lto \
-    --with-computed-gotos \
-    --with-system-expat \
-    --with-dbmliborder=gdbm:ndbm \
-    --with-system-ffi \
-    --with-system-libmpdec \
-    --without-ensurepip \
-    --with-tzpath=/usr/share/zoneinfo
-
+              --enable-shared \
+              --with-computed-gotos \
+              --enable-optimizations \
+              --with-lto \
+              --enable-ipv6 \
+              --with-system-expat \
+              --with-dbmliborder=gdbm:ndbm \
+              --with-system-ffi \
+              --with-system-libmpdec \
+              --enable-loadable-sqlite-extensions \
+              --without-ensurepip \
+              --with-tzpath=/usr/share/zoneinfo
+  unset LDFLAGS
   unset CFLAGS
   unset CXXFLAGS
-  unset LDFLAGS
 
   LC_CTYPE=en_US.UTF-8 make regen-all EXTRA_CFLAGS="${CFLAGS}"
   LC_CTYPE=en_US.UTF-8 make EXTRA_CFLAGS="${CFLAGS}"
