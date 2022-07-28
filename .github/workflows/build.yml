@@ -33,8 +33,7 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [libva-vdpau-driver, libva, libvdpau, mesa, wayland, wayland-protocols, pipewire
-        ]
+        build: [rust]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
