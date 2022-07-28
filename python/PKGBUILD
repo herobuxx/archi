@@ -77,7 +77,6 @@ build() {
   unset CFLAGS
   unset CXXFLAGS
 
-  LC_CTYPE=en_US.UTF-8 make regen-all EXTRA_CFLAGS="${CFLAGS}"
   LC_CTYPE=en_US.UTF-8 make EXTRA_CFLAGS="${CFLAGS}"
 
 }
@@ -92,9 +91,9 @@ check() {
     exit 1
   )
 
-  LD_LIBRARY_PATH="${srcdir:?}/Python-${pkgver}":${LD_LIBRARY_PATH} \
-    LC_CTYPE=en_US.UTF-8 \
-    "${srcdir:?}/Python-${pkgver}/python" -m test.regrtest -v -uall -x test_socket -x test_tk -x test_zlib
+  LD_LIBRARY_PATH="${srcdir}/Python-${pkgver}":${LD_LIBRARY_PATH} \
+  LC_CTYPE=en_US.UTF-8 xvfb-run -s "-screen 0 1920x1080x16 -ac +extension GLX" -a -n "$servernum" \
+    "${srcdir}/Python-${pkgver}/python" -m test.regrtest -v -uall -x test_socket -x test_tk
 
 }
 
