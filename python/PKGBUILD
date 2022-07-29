@@ -43,16 +43,16 @@ build() {
 
   ./configure --prefix=/usr \
               --enable-shared \
-              --with-computed-gotos \
+              --with-threads \
               --with-lto \
+              --enable-optimizations \
+              --with-computed-gotos \
               --enable-ipv6 \
               --with-system-expat \
               --with-dbmliborder=gdbm:ndbm \
-              --with-system-ffi \
               --with-system-libmpdec \
               --enable-loadable-sqlite-extensions \
-              --without-ensurepip \
-              --with-tzpath=/usr/share/zoneinfo
+              --without-ensurepip
   unset CFLAGS
   unset CXXFLAGS
   unset LDFLAGS
