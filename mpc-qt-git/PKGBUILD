@@ -28,7 +28,8 @@ build() {
     QMAKE_CXXFLAGS_RELEASE="${CXXFLAGS}" \
     QMAKE_LFLAGS_RELEASE="${LDFLAGS}"\
     QMAKE_CC="clang" \
-    QMAKE_CXX="clang++"
+    QMAKE_CXX="clang++" \
+    QMAKE_CXX="clang++" \
   unset CFLAGS
   unset CXXFLAGS
   unset LDFLAGS
