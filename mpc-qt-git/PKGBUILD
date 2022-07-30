@@ -13,7 +13,7 @@ optdepends=('libva-vdpau-driver: backend for Nvidia and AMD cards'
             'udisks2: to detect available discs')
 provides=('mpc-qt')
 conflicts=('mpc-qt')
-source=("mpc-qt::git+${url}.git#tag=v22.02")
+source=("mpc-qt::git+${url}.git")
 sha256sums=('SKIP')
 
 pkgver() {
@@ -24,12 +24,11 @@ pkgver() {
 build() {
   cd mpc-qt
   qmake-qt5 PREFIX=/usr mpc-qt.pro \
-    QMAKE_CFLAGS="${CFLAGS}" \
-    QMAKE_CXXFLAGS="${CXXFLAGS}" \
-    QMAKE_LFLAGS="${LDFLAGS}" \
-    QMAKE_CXX="$CXX" \
-    QMAKE_CC="$CC" \
-    QMAKE_LINK="$CXX"
+    QMAKE_CFLAGS_RELEASE="${CFLAGS}" \
+    QMAKE_CXXFLAGS_RELEASE="${CXXFLAGS}" \
+    QMAKE_LFLAGS_RELEASE="${LDFLAGS}"\
+    QMAKE_CC="clang" \
+    QMAKE_CXX="clang++"
   unset CFLAGS
   unset CXXFLAGS
   unset LDFLAGS
