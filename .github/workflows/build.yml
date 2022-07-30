@@ -33,15 +33,15 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [gcc]
+        build: [mpc-qt-git]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
     steps:
       - name: Clone
         uses: actions/checkout@v3
-        with:
-          repository: h0tc0d3/arch-packages
+        # with:
+        #   repository: h0tc0d3/arch-packages
           # repository: JPratama7/arch-builder
         #   repository: sarcasticadmin/empty-repo
         #   repository: archlinux/svntogit-packages
@@ -76,7 +76,7 @@ jobs:
       #     cd ${{ matrix.build }} && sed -i 's/+clang//g' PKGBUILD
       # - run: ls -alR
       - id: makepkg
-        uses: JPratama7/pkgbuild-action@bootstrapgcc
+        uses: JPratama7/pkgbuild-action@clang
         with:
           namcapDisable: true
           makepkgArgs: "--skippgpcheck --skipchecksums"
