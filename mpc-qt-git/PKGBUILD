@@ -29,7 +29,7 @@ build() {
     QMAKE_LFLAGS_RELEASE="${LDFLAGS}"\
     QMAKE_CC="clang" \
     QMAKE_CXX="clang++" \
-    QMAKE_CXX="clang++" 
+    QMAKE_LINK="clang++" 
   unset CFLAGS
   unset CXXFLAGS
   unset LDFLAGS
