@@ -2,8 +2,8 @@
 
 shopt -s extglob
 
-pkgbase=python+clang
-pkgname=(python+clang python-tests+clang)
+pkgbase=python
+pkgname=(python python-tests)
 pkgver=3.10.5
 pkgrel=1
 _pybasever=${pkgver%.*}
