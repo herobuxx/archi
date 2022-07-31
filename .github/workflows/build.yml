@@ -53,7 +53,7 @@ jobs:
 ,libgpg-error
 ,libheif
 ,libice
-,,libidn
+,libidn
 ,libidn2
 ,libinput
 ,libjpeg-turbo
