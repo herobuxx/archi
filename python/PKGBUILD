@@ -1,40 +1,53 @@
-# Maintainer: Tobias Kunze <r@rixx.de>
-# Maintained at https://github.com/rixx/pkgbuilds, feel free to submit patches
 
-pkgname=python311
-pkgver=3.11.0b5
+
+shopt -s extglob
+
+pkgbase=python+clang
+pkgname=(python+clang python-tests+clang)
+pkgver=3.10.5
 pkgrel=1
-_pyver=3.11.0
-_pybasever=3.11
-_pymajver=3
-pkgdesc="Major release 3.11 of the Python high-level programming language"
-arch=('i686' 'x86_64')
+_pybasever=${pkgver%.*}
+pkgdesc="Next generation of the python high-level scripting language"
+arch=('x86_64')
 license=('custom')
 url="https://www.python.org/"
 depends=('bzip2' 'expat' 'gdbm' 'libffi' 'libnsl' 'libxcrypt' 'openssl' 'zlib')
-makedepends=('bluez-libs' 'mpdecimal' 'gdb')
-optdepends=('sqlite' 'mpdecimal: for decimal' 'xz: for lzma' 'tk: for tkinter')
-source=(https://www.python.org/ftp/python/${_pyver}/Python-${pkgver}.tar.xz)
-sha256sums=('3810bd22f7dc34a99c2a2eb4b85264a4df4f05ef59c4e0ccc2ea82ee9c491698')
-validpgpkeys=(
-    '0D96DF4D4110E5C43FBFB17F2D347EA6AA65421D'  # Ned Deily (Python release signing key) <nad@python.org>
-    'E3FF2839C048B25C084DEBE9B26995E310250568'  # Łukasz Langa (GPG langa.pl) <lukasz@langa.pl>
+makedepends=('tk' 'sqlite' 'bluez-libs' 'mpdecimal' 'llvm' 'gdb' 'ttf-font')
+source=(
+  "https://www.python.org/ftp/python/${pkgver%rc*}/Python-${pkgver}.tar.xz"{,.asc}
 )
-provides=("python=$_pyver")
+sha256sums=('8437efd5b106ef0a75aabfbf23d880625120a73a86a22ade4d2e2e68d7b74486'
+  'SKIP')
+validpgpkeys=(
+  '0D96DF4D4110E5C43FBFB17F2D347EA6AA65421D' # Ned Deily (Python release signing key) <nad@python.org>
+  'E3FF2839C048B25C084DEBE9B26995E310250568' # Łukasz Langa (GPG langa.pl) <lukasz@langa.pl>
+  'A035C8C19219BA821ECEA86B64E628F8D684696D' # Pablo Galindo Salgado <pablogsal@gmail.com>
+)
+
+_llvm=0
 
 prepare() {
-  cd "${srcdir}/Python-${pkgver}"
+
+  cd "${srcdir:?}/Python-${pkgver}" || (
+    echo -e "\E[1;31mCan't cd to ${srcdir}/Python-${pkgver} directory! Prepare Failed! \E[0m"
+    exit 1
+  )
 
   # FS#23997
   sed -i -e "s|^#.* /usr/local/bin/python|#!/usr/bin/python|" Lib/cgi.py
 
-  # Ensure that we are using the system copy of various libraries (expat, zlib and libffi),
+  # Ensure that we are using the system copy of various libraries (expat, libffi, and libmpdec),
   # rather than copies shipped in the tarball
-  rm -rf Modules/expat
-  rm -rf Modules/zlib
-  rm -rf Modules/_ctypes/{darwin,libffi}*
-  rm -rf Modules/_decimal/libmpdec
+  rm -r Modules/expat
+  rm -r Modules/_ctypes/{darwin,libffi}*
+  rm -r Modules/_decimal/libmpdec
+
+  if clang --version 2>/dev/null | grep -iq "clang\s*version\s*[0-9]" && ld.lld --version 2>/dev/null | grep -iq "LLD\s*[0-9]"; then
+    _llvm=1
+  fi
+
 }
+
 
 build() {
   cd "${srcdir}/Python-${pkgver}"
