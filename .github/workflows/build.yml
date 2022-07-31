@@ -33,7 +33,92 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [libinput]
+        build: [lib2geom,libaio,libarchive,libassuan
+,libavif
+,libbpf
+,libcap
+,libcap-ng
+,libclc
+,libdrm
+,libedit
+,libepoxy
+,libevent
+,libffi
+,libfm
+,libfm-qt
+,libfontenc
+,libgcrypt
+,libgit2
+,libglvnd
+,libgpg-error
+,libheif
+,libice
+,,libidn
+,libidn2
+,libinput
+,libjpeg-turbo
+,libnet
+,libnfs
+,libnl
+,libnotify
+,libnsl
+,libpciaccess
+,libplacebo
+,libpng
+,libqalculate
+,libreport
+,librsvg
+,libsamplerate
+,libsasl
+,libseccomp
+,libselinux
+,libsemanage
+,libsepol
+,libslirp
+,libsm
+,libtirpc
+,libtool
+,libtorrent-rasterbar
+,libunistring
+,libunwind
+,liburing
+,libusb
+,libuv
+,libva
+,libva-vdpau-driver
+,libvdpau
+,libwacom
+,libwebp
+,libx11
+,libxau
+,libxaw
+,libxcb
+,libxcomposite
+,libxcrypt
+,libxcursor
+,libxcvt
+,libxdamage
+,libxext
+,libxfixes
+,libxfont2
+,libxft
+,libxi
+,libxinerama
+,libxkbcommon
+,libxkbfile
+,libxml2
+,libxmu
+,libxpm
+,libxrandr
+,libxrender
+,libxres
+,libxshmfence
+,libxslt
+,libxt
+,libxtst
+,libxv
+,libxxf86vm
+]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
@@ -76,7 +161,7 @@ jobs:
           cd ${{ matrix.build }} && sed -i 's/+clang//g' PKGBUILD
       # - run: ls -alR
       - id: makepkg
-        uses: JPratama7/pkgbuild-action@testing
+        uses: JPratama7/pkgbuild-action@clang
         with:
           namcapDisable: true
           makepkgArgs: "--skippgpcheck --skipchecksums"
