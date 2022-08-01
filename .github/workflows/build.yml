@@ -33,45 +33,15 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [
-          libx11
-          ,libxau
-          ,libxaw
-          ,libxcb
-          ,libxcomposite
-          ,libxcrypt
-          ,libxcursor
-          ,libxcvt
-          ,libxdamage
-          ,libxext
-          ,libxfixes
-          ,libxfont2
-          ,libxft
-          ,libxi
-          ,libxinerama
-          ,libxkbcommon
-          ,libxkbfile
-          ,libxml2
-          ,libxmu
-          ,libxpm
-          ,libxrandr
-          ,libxrender
-          ,libxres
-          ,libxshmfence
-          ,libxslt
-          ,libxt
-          ,libxtst
-          ,libxv
-          ,libxxf86vm
-]
+        build: [mpc-qt-git]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
     steps:
       - name: Clone
         uses: actions/checkout@v3
-        with:
-          repository: h0tc0d3/arch-packages
+        # with:
+          # repository: h0tc0d3/arch-packages
           # repository: JPratama7/arch-builder
         #   repository: sarcasticadmin/empty-repo
         #   repository: archlinux/svntogit-packages
