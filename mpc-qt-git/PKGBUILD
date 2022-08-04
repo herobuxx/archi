@@ -24,9 +24,6 @@ pkgver() {
 build() {
   cd mpc-qt
   qmake-qt5 PREFIX=/usr mpc-qt.pro \
-    QMAKE_C="clang"\
-    QMAKE_CXX="clang++"\
-    QMAKE_LD="clang++"\
     QMAKE_CFLAGS_RELEASE="${CFLAGS}" \
     QMAKE_CXXFLAGS_RELEASE="${CXXFLAGS}" \
     QMAKE_LFLAGS_RELEASE="${LDFLAGS}"
