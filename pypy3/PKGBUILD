@@ -16,7 +16,6 @@ license=('MIT')
 source=("https://downloads.python.org/pypy/pypy${_pyver}-v${pkgver}-src.zip")
 sha512sums=('SKIP')
 
-echo $CFLAGS
 
 build() {
   cd pypy${_pyver}-v${pkgver}-src/pypy/goal
@@ -24,7 +23,7 @@ build() {
   # For some reason, PyPy wants to use their vendored dependencies when detecting linux.
   # Weird, we'll patch it out.
   sed -i "s/, 'linux', 'linux2'//" targetpypystandalone.py
-  pypy ../../rpython/bin/rpython -Ojit --shared -lto targetpypystandalone
+  pypy ../../rpython/bin/rpython -Ojit --shared --lto targetpypystandalone
 
   # Compile binary modules
   PYTHONPATH=../.. ./pypy3-c ../../lib_pypy/pypy_tools/build_cffi_imports.py
