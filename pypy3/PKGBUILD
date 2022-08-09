@@ -15,7 +15,7 @@ source=("https://downloads.python.org/pypy/pypy${_pyver}-v${pkgver}-src.zip")
 sha512sums=('SKIP')
 
 build() {
-  cd pypy3.8-v${pkgver}-src/pypy/goal
+  cd pypy${_pyver}-v${pkgver}-src/pypy/goal
 
   # For some reason, PyPy wants to use their vendored dependencies when detecting linux.
   # Weird, we'll patch it out.
