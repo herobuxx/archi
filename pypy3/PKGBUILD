@@ -1,6 +1,4 @@
-# Maintainer: Sven-Hendrik Haase <svenstaro@gmail.com>
-
-pkgname=pypy39
+pkgname=pypy3
 pkgver=7.3.9
 _pyver=3.9
 pkgrel=1
@@ -16,21 +14,20 @@ license=('MIT')
 source=("https://downloads.python.org/pypy/pypy${_pyver}-v${pkgver}-src.zip")
 sha512sums=('SKIP')
 
-
 build() {
-  cd pypy${_pyver}-v${pkgver}-src/pypy/goal
+  cd pypy3.8-v${pkgver}-src/pypy/goal
 
   # For some reason, PyPy wants to use their vendored dependencies when detecting linux.
   # Weird, we'll patch it out.
-  sed -i "s/, 'linux', 'linux2'//" targetpypystandalone.py
-  pypy ../../rpython/bin/rpython -Ojit --shared --verbose targetpypystandalone
+  # sed -i "s/, 'linux', 'linux2'//" targetpypystandalone.py
+  pypy ../../rpython/bin/rpython -Ojit --lto --shared targetpypystandalone
 
   # Compile binary modules
   PYTHONPATH=../.. ./pypy3-c ../../lib_pypy/pypy_tools/build_cffi_imports.py
 }
 
 package() {
-  cd pypy${_pyver}-v${pkgver}-src
+  cd pypy3.8-v${pkgver}-src
 
   # Prepare installation
   pypy pypy/tool/release/package.py --archive-name pypy --targetdir .
