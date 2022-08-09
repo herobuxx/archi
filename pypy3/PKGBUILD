@@ -27,7 +27,7 @@ build() {
 }
 
 package() {
-  cd pypy3.8-v${pkgver}-src
+  cd pypy${_pyver}-v${pkgver}-src
 
   # Prepare installation
   pypy pypy/tool/release/package.py --archive-name pypy --targetdir .
