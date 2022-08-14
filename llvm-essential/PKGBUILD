@@ -1,6 +1,6 @@
 pkgname=llvm-runtime
 pkgver=14.0.6
-pkgrel=1
+pkgrel=2
 _ocaml_ver=4.13.1
 arch=('x86_64')
 url="https://llvm.org/"
@@ -17,7 +17,7 @@ conflicts=('llvm' 'llvm-libs' 'llvm-ocaml'
   'libc++abi' 'libc++experimental')
 
 depends=('libelf' 'libffi' 'libedit' 'libxml2' 'ncurses')
-_ocaml_ver=4.13.1
+_ocaml_ver=4.14.0
 makedepends=(
   'git' 'ninja' 'cmake'
   "ocaml>=${_ocaml_ver}" 'ocaml-ctypes' 'ocaml-findlib'
@@ -57,6 +57,9 @@ prepare() {
     echo -e "\E[1;31mCan't cd to ${srcdir}/llvm-project directory! Prepare Failed! \E[0m"
     exit 1
   )
+
+  # Remove #include <linux/fs.h> to resolve fsconfig_command/mount_attr conflict with glibc 2.36
+  git cherry-pick -n 9cf13067cb5088626ba7ee1ec4c42ec59c7995a0
 
   # Attempt to convert script to Python 3
   2to3 -wn --no-diffs \
@@ -147,21 +150,21 @@ package() {
   install -Dm644 "${srcdir:?}/llvm-project/llvm/LICENSE.TXT" "${pkgdir:?}/usr/share/licenses/${pkgname}/llvm-LICENSE"
 
   # Fallback for llvm 13
-  _llvm_libs=(libLLVM-13.so libLTO.so.13 libRemarks.so.13 libclang.so.13.0.1 libclang-cpp.so.13)
-  for lib in "${_llvm_libs[@]}"; do
-    if [[ ! -e "${pkgdir:?}/usr/lib/${lib:?}" ]]; then
-      echo "- Copy ${lib:?}"
-      install -Dm644 "/usr/lib/${lib:?}" "${pkgdir:?}/usr/lib/${lib:?}"
-    else
-      echo "- ${lib:?} exist"
-    fi
-  done
+  # _llvm_libs=(libLLVM-13.so libLTO.so.13 libRemarks.so.13 libclang.so.13.0.1 libclang-cpp.so.13)
+  # for lib in "${_llvm_libs[@]}"; do
+  #   if [[ ! -e "${pkgdir:?}/usr/lib/${lib:?}" ]]; then
+  #     echo "- Copy ${lib:?}"
+  #     install -Dm644 "/usr/lib/${lib:?}" "${pkgdir:?}/usr/lib/${lib:?}"
+  #   else
+  #     echo "- ${lib:?} exist"
+  #   fi
+  # done
 
-  if [[ ! -e "${pkgdir:?}/usr/lib/libLLVM-13.0.1.so" ]]; then
-    echo "- Copy libLLVM-13.0.1.so"
-    ln -s /usr/lib/libLLVM-13.so "${pkgdir:?}/usr/lib/libLLVM-13.0.1.so"
-  else
-    echo "- libLLVM-13.0.1.so exist"
-  fi
+  # if [[ ! -e "${pkgdir:?}/usr/lib/libLLVM-13.0.1.so" ]]; then
+  #   echo "- Copy libLLVM-13.0.1.so"
+  #   ln -s /usr/lib/libLLVM-13.so "${pkgdir:?}/usr/lib/libLLVM-13.0.1.so"
+  # else
+  #   echo "- libLLVM-13.0.1.so exist"
+  # fi
 
 }
