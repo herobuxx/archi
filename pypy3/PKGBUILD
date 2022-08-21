@@ -25,7 +25,7 @@ build() {
   ls -al
 
   # Compile binary modules
-  PYTHONPATH=../.. ./pypy3-c ../../lib_pypy/pypy_tools/build_cffi_imports.py
+  PYTHONPATH=../.. ./pypy_${_pyver}-c ../../lib_pypy/pypy_tools/build_cffi_imports.py
 }
 
 package() {
