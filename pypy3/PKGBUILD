@@ -20,12 +20,10 @@ build() {
   # For some reason, PyPy wants to use their vendored dependencies when detecting linux.
   # Weird, we'll patch it out.
   sed -i "s/, 'linux', 'linux2'//" targetpypystandalone.py
-  pypy ../../rpython/bin/rpython -Ojit --shared targetpypystandalone
-
-  ls -al
+  pypy ../../rpython/bin/rpython -Ojit --shared --lto --make-job=1 targetpypystandalone
 
   # Compile binary modules
-  PYTHONPATH=../.. ./pypy_${_pyver}-c ../../lib_pypy/pypy_tools/build_cffi_imports.py
+  PYTHONPATH=../.. ./pypy${_pyver}-c ../../lib_pypy/pypy_tools/build_cffi_imports.py
 }
 
 package() {
