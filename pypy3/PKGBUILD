@@ -22,6 +22,8 @@ build() {
   sed -i "s/, 'linux', 'linux2'//" targetpypystandalone.py
   pypy ../../rpython/bin/rpython -Ojit --shared targetpypystandalone
 
+  ls -al
+
   # Compile binary modules
   PYTHONPATH=../.. ./pypy3-c ../../lib_pypy/pypy_tools/build_cffi_imports.py
 }
