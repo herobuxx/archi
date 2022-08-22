@@ -24,7 +24,7 @@ build() {
   echo $CXXFLAGS
   echo $LDFLAGS
 
-  pypy ../../rpython/bin/rpython -Ojit --shared --objspace-std-withprebuiltint targetpypystandalone
+  pypy ../../rpython/bin/rpython -Ojit --shared targetpypystandalone
 
   # Compile binary modules
   PYTHONPATH=../.. ./pypy${_pyver}-c ../../lib_pypy/pypy_tools/build_cffi_imports.py
