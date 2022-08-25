@@ -12,17 +12,17 @@ _compress_modules=y
 _localmodcfg=n
 _makenconfig=n
 
-pkgbase=linux-xanmod-beta
-_major=5.18
-pkgver=${_major}.11
+pkgbase=linux-xanmod-custom
+_major=5.19
+pkgver=${_major}.3
 _branch=5.x
 xanmod=1
-pkgrel=${xanmod}
+pkgrel=4
 pkgdesc='Linux Xanmod - Latest Mainline (EDGE) with Extra Patch'
 url="http://www.xanmod.org/"
 arch=(x86_64)
 _lucjan="https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/${_major}/"
-_ptr="https://raw.githubusercontent.com/ptr1337/kernel-patches/master/${_major}/"
+_cachy="https://raw.githubusercontent.com/CachyOS/kernel-patches/master/${_major}/"
 
 license=(GPL2)
 makedepends=(
@@ -37,22 +37,23 @@ _srcname="linux-${pkgver}-xanmod${xanmod}"
 source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar."{xz,sign}
         "https://github.com/xanmod/linux/releases/download/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz"
         choose-gcc-optimization.sh
-        "${_lucjan}lrng-patches-v14/0001-lrng-patches.patch"
-	"${_lucjan}damon-patches-v6/0001-damon-patches.patch"
-        "${_lucjan}speculative-lru-pf-patches/0001-spf-5.18-introduce-SPECULATIVE-PAGE-FAULT.patch"
+        "${_cachy}0001-cacULE.patch"
+        "${_lucjan}kbuild-patches-v7/0001-kbuild-patches.patch"
+        "${_lucjan}modules-patches-v2/0001-modules-patches.patch"
+        "${_lucjan}bitmap-patches-v2/0001-bitmap-5.19-merge-changes-from-dev-tree.patch"
+        "${_lucjan}fixes-miscellaneous-v8/0001-fixes-miscellaneous.patch"
+        "${_lucjan}lrng-patches-v3/0001-lrng-patches.patch"
+        "${_lucjan}damon-patches-v3/0001-damon-patches.patch"
+        "${_lucjan}bitmap-patches-next-v2/0001-bitmap-patches.patch"
+        "${_lucjan}folio-patches-v2/0001-folio-5.19-merge-changes-from-dev-tree.patch"
+        "${_lucjan}mm-patches/0001-mm-vmscan-fix-extreme-overreclaim-and-swap-floods.patch"
         "${_lucjan}ksm-patches-v2/0001-ksm-patches.patch"
-        "${_ptr}sched/0001-tt-5.18.patch"
-        "${_lucjan}zstd-patches/0001-zstd-patches.patch"
-        "${_lucjan}kbuild-patches-v8/0001-kbuild-5.18-merge-changes-from-dev-tree.patch"
-        "${_ptr}misc/0001-latency_nice.patch"
-        "${_lucjan}v4l2loopback-patches-v2/0001-media-v4l2-core-add-v4l2loopback.patch"
-        "${_lucjan}zram-patches/0001-zram-${_major}-introduce-ZRAM-entropy-calculation.patch"
-        "${_ptr}misc/0001-PCI-Allow-BAR-movement-during-boot-and-hotplug.patch"
-        "${_lucjan}highmem-patches-v3/0001-highmem-patches.patch"
-        "${_lucjan}uml-patches/0001-um-Add-missing-apply_returns.patch"
-        "${_lucjan}btrfs-patches-v15/0001-btrfs-patches.patch"
+        "${_lucjan}v4l2loopback-patches/0001-v4l2loopback-patches.patch"
+        "${_cachy}misc/0001-ck-hrtimer.patch"
+        "${_cachy}misc/0001-mm-remove-the-per-task-RSS-counter-cache.patch"
+        "${_lucjan}uml-patches/0001-Revert-um-Add-missing-apply_returns.patch"
         "https://raw.githubusercontent.com/zhmars/cjktty-patches/master/v${_branch}/cjktty-${_major}.patch"
-        # "https://raw.githubusercontent.com/xanmod/linux/5.16.16-xanmod1/CONFIGS/xanmod/clang/config"
+        "https://raw.githubusercontent.com/owl4ce/hikari-x86_64/hikari-x86_64/linux/.config_hikari"
         )
         #"patch-${pkgver}-xanmod${xanmod}.xz::https://sourceforge.net/projects/xanmod/files/releases/stable/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz/download"
 
@@ -77,7 +78,7 @@ prepare() {
   cd linux-${_major}
 
   # Apply Xanmod patch
-  patch -Np1 -F3 -i ../patch-${pkgver}-xanmod${xanmod}
+  patch -N -p1 -F3 -i ../patch-${pkgver}-xanmod${xanmod}
 
   msg2 "Setting version..."
   scripts/setlocalversion --save-scmversion
@@ -91,29 +92,34 @@ prepare() {
     src="${src##*/}"
     [[ $src = *.patch ]] || continue
     msg2 "Applying patch $src..."
-    patch -Np1 < "../$src"
+    patch -N -p1 -F3 < ../$src
   done
 
-#   Applying configuration
-  cp -vf CONFIGS/xanmod/gcc/config_x86-64-v2 .config
-#   cp -vf ../config .config
+  # Applying configuration
+  # cp -vf CONFIGS/xanmod/${_compiler}/config .config
+  cp -vf ../.config_hikari .config
+  # cp -vf ../config .config
+
   # enable LTO_CLANG_THIN
   if [ "${_compiler}" = "clang" ]; then
-    scripts/config --disable LTO_NONE \
-                   --enable LTO \
-                   --enable LTO_CLANG \
-                   --enable ARCH_SUPPORTS_LTO_CLANG \
-                   --enable ARCH_SUPPORTS_LTO_CLANG_THIN \
-                   --enable HAS_LTO_CLANG \
-                   --enable LTO_CLANG_THIN \
-                   --enable HAVE_GCC_PLUGINS
+    msg2 "Enabling LTO CLANG"
+    scripts/config --disable CONFIG_LTO_NONE \
+                   --enable CONFIG_LTO \
+                   --enable CONFIG_LTO_CLANG \
+                   --enable CONFIG_ARCH_SUPPORTS_LTO_CLANG \
+                   --enable CONFIG_ARCH_SUPPORTS_LTO_CLANG_THIN \
+                   --enable CONFIG_HAS_LTO_CLANG \
+                   --enable CONFIG_LTO_CLANG_THIN \
+                   --enable CONFIG_HAVE_GCC_PLUGINS
     _LLVM=1
   fi
 
   # CONFIG_STACK_VALIDATION gives better stack traces. Also is enabled in all official kernel packages by Archlinux team
+  msg2 "Enable STACK VALIDATION"
   scripts/config --enable CONFIG_STACK_VALIDATION
 
   # Enable IKCONFIG following Arch's philosophy
+  msg2 "Enable IKCONFIG"
   scripts/config --enable CONFIG_IKCONFIG \
                  --enable CONFIG_IKCONFIG_PROC
 
@@ -144,21 +150,19 @@ prepare() {
 
   # Compress modules by default (following Arch's kernel)
   if [ "$_compress_modules" = "y" ]; then
-    scripts/config --disable CONFIG_MODULE_COMPRESS_NONE \
-                   --enable CONFIG_MODULE_COMPRESS_ZSTD \
-                   --set-val CONFIG_MODULE_COMPRESS_ZSTD_LEVEL 19 \
+    msg2 "Compress Modules"
+    scripts/config --set-val CONFIG_MODULE_COMPRESS_ZSTD_LEVEL 19 \
                    --enable CONFIG_MODULE_COMPRESS_ZSTD_ULTRA \
-                   --set-val CONFIG_MODULE_COMPRESS_ZSTD_LEVEL_ULTRA 22
+                   --set-val CONFIG_MODULE_COMPRESS_ZSTD_LEVEL_ULTRA 22 \
+                   --set-val CONFIG_ZSTD_COMP_VAL 22
+    msg2 "Done Compress Modules"
   fi
 
+  msg2 "Set HOSTNAME"
+  scripts/config --set-val CONFIG_DEFAULT_HOSTNAME "XANMOD-X86_64-V2"
+
   msg2 "Enable v4l2loopback support"
-  scripts/config --enable V4L2_LOOPBACK
-
-  msg2 "Enable ZRAM_ENTROPY"
-	scripts/config --enable ZRAM_ENTROPY
-
-  msg2 "Enabling SPECULATIVE_PAGE_FAULT LRU..."
-  scripts/config --enable CONFIG_SPECULATIVE_PAGE_FAULT
+  scripts/config --enable CONFIG_V4L2_LOOPBACK
 
   msg2 "Enable WINE FASTSYNC"
   scripts/config --enable WINESYNC
@@ -167,9 +171,9 @@ prepare() {
   scripts/config --module IP_NF_TARGET_FULLCONENAT \
                  --module NETFILTER_XT_TARGET_FULLCONENAT
 
-  # msg2 "Enabling KBUILD_CFLAGS -O3..."
-  # scripts/config --disable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE \
-  #                --enable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE_O3
+  msg2 "Enabling KBUILD_CFLAGS -O3..."
+  scripts/config --disable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE \
+                 --enable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE_O3
 
   msg2 "Disabling TCP_CONG_CUBIC..."
   scripts/config --module CONFIG_TCP_CONG_CUBIC \
@@ -213,73 +217,73 @@ prepare() {
                  --enable CONFIG_NTFS3_FS_POSIX_ACL
 
   msg2 "Enabling Linux Random Number Generator ..."
-        scripts/config --disable CONFIG_RANDOM_DEFAULT_IMPL \
-                       --enable CONFIG_LRNG \
-                       --enable CONFIG_LRNG_SHA256 \
-                       --enable CONFIG_LRNG_COMMON_DEV_IF \
-                       --enable CONFIG_LRNG_DRNG_ATOMIC \
-                       --enable CONFIG_LRNG_SYSCTL \
-                       --enable CONFIG_LRNG_RANDOM_IF \
-                       --module CONFIG_LRNG_KCAPI_IF \
-                       --module CONFIG_LRNG_HWRAND_IF \
-                       --enable CONFIG_LRNG_DEV_IF \
-                       --enable CONFIG_LRNG_RUNTIME_ES_CONFIG \
-                       --enable CONFIG_LRNG_IRQ_DFLT_TIMER_ES \
-                       --disable CONFIG_LRNG_SCHED_DFLT_TIMER_ES \
-                       --enable CONFIG_LRNG_TIMER_COMMON \
-                       --disable CONFIG_LRNG_COLLECTION_SIZE_256 \
-                       --disable CONFIG_LRNG_COLLECTION_SIZE_512 \
-                       --enable CONFIG_LRNG_COLLECTION_SIZE_1024 \
-                       --disable CONFIG_LRNG_COLLECTION_SIZE_2048 \
-                       --disable CONFIG_LRNG_COLLECTION_SIZE_4096 \
-                       --disable CONFIG_LRNG_COLLECTION_SIZE_8192 \
-                       --set-val CONFIG_LRNG_COLLECTION_SIZE 1024 \
-                       --enable CONFIG_LRNG_HEALTH_TESTS \
-                       --set-val CONFIG_LRNG_RCT_CUTOFF 31 \
-                       --set-val CONFIG_LRNG_APT_CUTOFF 325 \
-                       --enable CONFIG_LRNG_IRQ \
-                       --enable CONFIG_LRNG_CONTINUOUS_COMPRESSION_ENABLED \
-                       --disable CONFIG_LRNG_CONTINUOUS_COMPRESSION_DISABLED \
-                       --enable CONFIG_LRNG_ENABLE_CONTINUOUS_COMPRESSION \
-                       --enable CONFIG_LRNG_SWITCHABLE_CONTINUOUS_COMPRESSION \
-                       --set-val CONFIG_LRNG_IRQ_ENTROPY_RATE 256 \
-                       --enable CONFIG_LRNG_JENT \
-                       --set-val CONFIG_LRNG_JENT_ENTROPY_RATE 16 \
-                       --enable CONFIG_LRNG_CPU \
-                       --set-val CONFIG_LRNG_CPU_FULL_ENT_MULTIPLIER 1 \
-                       --set-val CONFIG_LRNG_CPU_ENTROPY_RATE 8 \
-                       --enable CONFIG_LRNG_SCHED \
-                       --set-val CONFIG_LRNG_SCHED_ENTROPY_RATE 4294967295 \
-                       --enable CONFIG_LRNG_DRNG_CHACHA20 \
-                       --module CONFIG_LRNG_DRBG \
-                       --module CONFIG_LRNG_DRNG_KCAPI \
-                       --enable CONFIG_LRNG_SWITCH \
-                       --enable CONFIG_LRNG_SWITCH_HASH \
-                       --module CONFIG_LRNG_HASH_KCAPI \
-                       --enable CONFIG_LRNG_SWITCH_DRNG \
-                       --module CONFIG_LRNG_SWITCH_DRBG \
-                       --module CONFIG_LRNG_SWITCH_DRNG_KCAPI \
-                       --enable CONFIG_LRNG_DFLT_DRNG_CHACHA20 \
-                       --disable CONFIG_LRNG_DFLT_DRNG_DRBG \
-                       --disable CONFIG_LRNG_DFLT_DRNG_KCAPI \
-                       --enable CONFIG_LRNG_TESTING_MENU \
-                       --disable CONFIG_LRNG_RAW_HIRES_ENTROPY \
-                       --disable CONFIG_LRNG_RAW_JIFFIES_ENTROPY \
-                       --disable CONFIG_LRNG_RAW_IRQ_ENTROPY \
-                       --disable CONFIG_LRNG_RAW_RETIP_ENTROPY \
-                       --disable CONFIG_LRNG_RAW_REGS_ENTROPY \
-                       --disable CONFIG_LRNG_RAW_ARRAY \
-                       --disable CONFIG_LRNG_IRQ_PERF \
-                       --disable CONFIG_LRNG_RAW_SCHED_HIRES_ENTROPY \
-                       --disable CONFIG_LRNG_RAW_SCHED_PID_ENTROPY \
-                       --disable CONFIG_LRNG_RAW_SCHED_START_TIME_ENTROPY \
-                       --disable CONFIG_LRNG_RAW_SCHED_NVCSW_ENTROPY \
-                       --disable CONFIG_LRNG_SCHED_PERF \
-                       --disable CONFIG_LRNG_ACVT_HASH \
-                       --disable CONFIG_LRNG_RUNTIME_MAX_WO_RESEED_CONFIG \
-                       --disable CONFIG_LRNG_TEST_CPU_ES_COMPRESSION \
-                       --enable CONFIG_LRNG_SELFTEST \
-                       --disable CONFIG_LRNG_SELFTEST_PANIC \
+        scripts/config --disable RANDOM_DEFAULT_IMPL \
+                       --enable LRNG \
+                       --enable LRNG_SHA256 \
+                       --enable LRNG_COMMON_DEV_IF \
+                       --enable LRNG_DRNG_ATOMIC \
+                       --enable LRNG_SYSCTL \
+                       --enable LRNG_RANDOM_IF \
+                       --module LRNG_KCAPI_IF \
+                       --module LRNG_HWRAND_IF \
+                       --enable LRNG_DEV_IF \
+                       --enable LRNG_RUNTIME_ES_CONFIG \
+                       --enable LRNG_IRQ_DFLT_TIMER_ES \
+                       --disable LRNG_SCHED_DFLT_TIMER_ES \
+                       --enable LRNG_TIMER_COMMON \
+                       --disable LRNG_COLLECTION_SIZE_256 \
+                       --disable LRNG_COLLECTION_SIZE_512 \
+                       --enable LRNG_COLLECTION_SIZE_1024 \
+                       --disable LRNG_COLLECTION_SIZE_2048 \
+                       --disable LRNG_COLLECTION_SIZE_4096 \
+                       --disable LRNG_COLLECTION_SIZE_8192 \
+                       --set-val LRNG_COLLECTION_SIZE 1024 \
+                       --enable LRNG_HEALTH_TESTS \
+                       --set-val LRNG_RCT_CUTOFF 31 \
+                       --set-val LRNG_APT_CUTOFF 325 \
+                       --enable LRNG_IRQ \
+                       --enable LRNG_CONTINUOUS_COMPRESSION_ENABLED \
+                       --disable LRNG_CONTINUOUS_COMPRESSION_DISABLED \
+                       --enable LRNG_ENABLE_CONTINUOUS_COMPRESSION \
+                       --enable LRNG_SWITCHABLE_CONTINUOUS_COMPRESSION \
+                       --set-val LRNG_IRQ_ENTROPY_RATE 256 \
+                       --enable LRNG_JENT \
+                       --set-val LRNG_JENT_ENTROPY_RATE 16 \
+                       --enable LRNG_CPU \
+                       --set-val LRNG_CPU_FULL_ENT_MULTIPLIER 1 \
+                       --set-val LRNG_CPU_ENTROPY_RATE 8 \
+                       --enable LRNG_SCHED \
+                       --set-val LRNG_SCHED_ENTROPY_RATE 4294967295 \
+                       --enable LRNG_DRNG_CHACHA20 \
+                       --module LRNG_DRBG \
+                       --module LRNG_DRNG_KCAPI \
+                       --enable LRNG_SWITCH \
+                       --enable LRNG_SWITCH_HASH \
+                       --module LRNG_HASH_KCAPI \
+                       --enable LRNG_SWITCH_DRNG \
+                       --module LRNG_SWITCH_DRBG \
+                       --module LRNG_SWITCH_DRNG_KCAPI \
+                       --enable LRNG_DFLT_DRNG_CHACHA20 \
+                       --disable LRNG_DFLT_DRNG_DRBG \
+                       --disable LRNG_DFLT_DRNG_KCAPI \
+                       --enable LRNG_TESTING_MENU \
+                       --disable LRNG_RAW_HIRES_ENTROPY \
+                       --disable LRNG_RAW_JIFFIES_ENTROPY \
+                       --disable LRNG_RAW_IRQ_ENTROPY \
+                       --disable LRNG_RAW_RETIP_ENTROPY \
+                       --disable LRNG_RAW_REGS_ENTROPY \
+                       --disable LRNG_RAW_ARRAY \
+                       --disable LRNG_IRQ_PERF \
+                       --disable LRNG_RAW_SCHED_HIRES_ENTROPY \
+                       --disable LRNG_RAW_SCHED_PID_ENTROPY \
+                       --disable LRNG_RAW_SCHED_START_TIME_ENTROPY \
+                       --disable LRNG_RAW_SCHED_NVCSW_ENTROPY \
+                       --disable LRNG_SCHED_PERF \
+                       --disable LRNG_ACVT_HASH \
+                       --disable LRNG_RUNTIME_MAX_WO_RESEED_CONFIG \
+                       --disable LRNG_TEST_CPU_ES_COMPRESSION \
+                       --enable LRNG_SELFTEST \
+                       --disable LRNG_SELFTEST_PANIC
 
   # Disable CONFIG_GENERIC_CPU2 if we have choosen another microarchitecture
   # https://github.com/xanmod/linux/issues/240
