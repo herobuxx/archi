@@ -38,9 +38,9 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "https://github.com/xanmod/linux/releases/download/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz"
         choose-gcc-optimization.sh
         "${_cachy}sched/0001-tt.patch"
-        # "${_lucjan}kbuild-patches-v7/0001-kbuild-patches.patch"
-        # "${_lucjan}modules-patches-v2/0001-modules-patches.patch"
-        # "${_lucjan}bitmap-patches-v2/0001-bitmap-5.19-merge-changes-from-dev-tree.patch"
+        "${_lucjan}kbuild-patches-v7/0001-kbuild-patches.patch"
+        "${_lucjan}modules-patches-v2/0001-modules-patches.patch"
+        "${_lucjan}bitmap-patches-v2/0001-bitmap-5.19-merge-changes-from-dev-tree.patch"
         "${_lucjan}fixes-miscellaneous-v9/0001-fixes-miscellaneous.patch"
         "${_lucjan}lrng-patches-v3/0001-lrng-patches.patch"
         "${_lucjan}damon-cachyos-patches-v4/0001-damon-5.19-merge-changes-from-dev-tree.patch"
@@ -78,7 +78,8 @@ prepare() {
   cd linux-${_major}
 
   # Apply Xanmod patch
-  patch -N -p1 -F3 -i ../patch-${pkgver}-xanmod${xanmod}
+  msg2 "Apply xanmod patch"
+  patch -N -p1 -i ../patch-${pkgver}-xanmod${xanmod}
 
   msg2 "Setting version..."
   scripts/setlocalversion --save-scmversion
