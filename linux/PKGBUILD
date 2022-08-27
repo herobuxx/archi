@@ -79,8 +79,8 @@ prepare() {
   cd linux-${_major}
 
   # Apply Xanmod patch
-  msg2 "Apply xanmod patch"
-  patch -N -p1 -i ../patch-${pkgver}-xanmod${xanmod}
+  # msg2 "Apply xanmod patch"
+  # patch -N -p1 -i ../patch-${pkgver}-xanmod${xanmod}
 
   msg2 "Setting version..."
   scripts/setlocalversion --save-scmversion
