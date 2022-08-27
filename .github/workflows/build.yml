@@ -33,7 +33,7 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [linux]
+        build: [python]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
@@ -71,12 +71,12 @@ jobs:
       #     export CFLAGS="${CFLAGS/-O2/-O3}"
       #     export CFLAGS="${CFLAGS/-march=x86-64/-march=x86-64-v2}"
       #     export LDFLAGS="${LDFLAGS} -fuse-ld=lld"
-      # - name: remove +clang
-      #   run: |
-      #     cd ${{ matrix.build }} && sed -i 's/+clang//g' PKGBUILD
+      - name: remove +clang
+        run: |
+          cd ${{ matrix.build }} && sed -i 's/+clang//g' PKGBUILD
       # - run: ls -alR
       - id: makepkg
-        uses: JPratama7/pkgbuild-action@clang
+        uses: JPratama7/pkgbuild-action@clang-nolto
         with:
           namcapDisable: true
           makepkgArgs: "--skippgpcheck --skipchecksums"
