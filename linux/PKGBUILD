@@ -35,9 +35,9 @@ options=('!strip')
 _srcname="linux-${pkgver}-xanmod${xanmod}"
 
 source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar."{xz,sign}
-        "https://github.com/xanmod/linux/releases/download/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz"
+        # "https://github.com/xanmod/linux/releases/download/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz"
         choose-gcc-optimization.sh
-        "${_lucjan}bore-cachyos-patches-v3/0001-bore-5.19-introduce-BORE-Scheduler-with-CachyOS-patc.patch"
+        "${_cachy}sched/0001-tt.patch"
         "${_lucjan}kbuild-patches-v7/0001-kbuild-patches.patch"
         "${_lucjan}modules-patches-v2/0001-modules-patches.patch"
         "${_lucjan}bitmap-patches-v2/0001-bitmap-5.19-merge-changes-from-dev-tree.patch"
