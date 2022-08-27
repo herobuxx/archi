@@ -80,8 +80,8 @@ build() {
   unset CXXFLAGS
   unset LDFLAGS
 
-  LC_CTYPE=en_US.UTF-8 make regen-all EXTRA_CFLAGS="${CFLAGS}"
-  LC_CTYPE=en_US.UTF-8 make EXTRA_CFLAGS="${CFLAGS}"
+  LC_CTYPE=en_US.UTF-8 make regen-all EXTRA_CFLAGS="${CFLAGS}" LINKCC="${LD}"
+  LC_CTYPE=en_US.UTF-8 make EXTRA_CFLAGS="${CFLAGS}" LINKCC="${LD}"
 
 }
 
