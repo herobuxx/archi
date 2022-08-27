@@ -14,7 +14,7 @@ _makenconfig=n
 
 pkgbase=linux-xanmod-custom
 _major=5.19
-pkgver=${_major}.3
+pkgver=${_major}.4
 _branch=5.x
 xanmod=1
 pkgrel=4
@@ -44,7 +44,7 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}fixes-miscellaneous-v12/0001-fixes-miscellaneous.patch"
         "${_lucjan}lrng-patches-v3/0001-lrng-patches.patch"
         "${_lucjan}zstd-cachyos-patches/0001-kbuild-modules-5.19-allow-setting-zstd-compression-l.patch"
-        "${_lucjan}damon-cachyos-patches-v4/0001-damon-5.19-merge-changes-from-dev-tree.patch"
+        "${_lucjan}damon-cachyos-patches-v5/0001-damon-5.19-merge-changes-from-dev-tree.patch"
         "${_lucjan}bitmap-patches-next-v2/0001-bitmap-patches.patch"
         "${_lucjan}folio-patches-v2/0001-folio-5.19-merge-changes-from-dev-tree.patch"
         "${_lucjan}mm-patches/0001-mm-vmscan-fix-extreme-overreclaim-and-swap-floods.patch"
