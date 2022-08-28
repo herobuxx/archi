@@ -95,7 +95,7 @@ prepare() {
     [[ $src = *.patch ]] || continue
     msg2 "Applying patch $src..."
     # patch -Ntp1 -F2 < ../$src
-    # OUT="$(patch -Ntp1 -F2 < ../$src)" || echo "${OUT}" | grep "Skipping patch" -q || (echo "$OUT" && false);
+    OUT="$(patch -Ntp1 -F2 < ../$src)" || echo "${OUT}" | grep "Skipping patch" -q || (echo "$OUT" && false);
   done
 
   # Applying configuration
@@ -106,14 +106,15 @@ prepare() {
   # enable LTO_CLANG_THIN
   if [ "${_compiler}" = "clang" ]; then
     msg2 "Enabling LTO CLANG"
-    scripts/config --disable CONFIG_LTO_NONE \
-                   --enable CONFIG_LTO \
-                   --enable CONFIG_LTO_CLANG \
-                   --enable CONFIG_ARCH_SUPPORTS_LTO_CLANG \
-                   --enable CONFIG_ARCH_SUPPORTS_LTO_CLANG_THIN \
-                   --enable CONFIG_HAS_LTO_CLANG \
-                   --enable CONFIG_LTO_CLANG_THIN \
-                   --enable CONFIG_HAVE_GCC_PLUGINS
+        scripts/config  --enable LTO \
+                        --enable LTO_CLANG \
+                        --enable ARCH_SUPPORTS_LTO_CLANG \
+                        --enable ARCH_SUPPORTS_LTO_CLANG_THIN \
+                        --disable LTO_NONE \
+                        --enable HAS_LTO_CLANG \
+                        --disable LTO_CLANG_FULL \
+                        --enable LTO_CLANG_THIN \
+                        --enable HAVE_GCC_PLUGINS
     _LLVM=1
   fi
 
@@ -290,7 +291,7 @@ prepare() {
 
   # Disable CONFIG_GENERIC_CPU2 if we have choosen another microarchitecture
   # https://github.com/xanmod/linux/issues/240
-  [ "$_microarchitecture" = "0" ] || scripts/config --disable CONFIG_GENERIC_CPU2
+  [ "$_microarchitecture" = "0" ] || scripts/config --disable CONFIG_GENERIC_CPU3
   # Let's user choose microarchitecture optimization in GCC
   sh ${srcdir}/choose-gcc-optimization.sh $_microarchitecture
 
