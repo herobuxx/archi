@@ -342,7 +342,7 @@ prepare() {
 
 build() {
   cd linux-${_major}
-  $ldflags = "$(awk '{gsub(/\-Wl,/,"")}1' <<< $LDFLAGS)"
+  $ldflags = "$(echo $LDFLAGS | sed 's/-Wl,//g')"
   echo $ldflags
   make LLVM=$_LLVM LLVM_IAS=$_LLVM KCFLAGS="${_llvm} ${_polly}" LDFLAGS_MODULE="${ldflags}" all
 }
