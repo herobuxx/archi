@@ -342,7 +342,7 @@ prepare() {
 
 build() {
   cd linux-${_major}
-  ldflags="${LDFLAGS/-Wl,/}"
+  ldflags = echo $LDFLAGS | tr -d '-Wl,'
   echo $ldflags
   make LLVM=$_LLVM LLVM_IAS=$_LLVM KCFLAGS="${_llvm} ${_polly}" LDFLAGS_MODULE="${ldflags}" all
 }
