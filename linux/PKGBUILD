@@ -35,7 +35,7 @@ options=('!strip')
 _srcname="linux-${pkgver}-xanmod${xanmod}"
 
 source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar."{xz,sign}
-        # "https://github.com/xanmod/linux/releases/download/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz"
+        "https://github.com/xanmod/linux/releases/download/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz"
         choose-gcc-optimization.sh
         "${_cachy}sched/0001-tt.patch"
         "${_lucjan}kbuild-patches-v7/0001-kbuild-patches.patch"
@@ -51,7 +51,8 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}ksm-patches-v4/0001-ksm-patches.patch"
         "${_lucjan}v4l2loopback-patches/0001-v4l2loopback-patches.patch"
         "${_cachy}misc/0001-ck-hrtimer.patch"
-        # "${_cachy}misc/0001-mm-remove-the-per-task-RSS-counter-cache.patch"
+        "${_cachy}misc/sched-patches/0001-sched-cputime-Fix-the-bug-of-reading-time-backward-f.patch"
+        "${_cachy}misc/0001-mm-remove-the-per-task-RSS-counter-cache.patch"
         "${_lucjan}uml-patches/0001-Revert-um-Add-missing-apply_returns.patch"
         "https://raw.githubusercontent.com/zhmars/cjktty-patches/master/v${_branch}/cjktty-${_major}.patch"
         "https://raw.githubusercontent.com/owl4ce/hikari-x86_64/hikari-x86_64/linux/.config_hikari"
@@ -79,8 +80,8 @@ prepare() {
   cd linux-${_major}
 
   # Apply Xanmod patch
-  # msg2 "Apply xanmod patch"
-  # patch -N -p1 -i ../patch-${pkgver}-xanmod${xanmod}
+  msg2 "Apply xanmod patch"
+  patch -N -p1 -i ../patch-${pkgver}-xanmod${xanmod}
 
   msg2 "Setting version..."
   scripts/setlocalversion --save-scmversion
@@ -94,7 +95,8 @@ prepare() {
     src="${src##*/}"
     [[ $src = *.patch ]] || continue
     msg2 "Applying patch $src..."
-OUT="$(patch -p1 -F2 --forward < ../$src)" || echo "${OUT}" | grep "Skipping patch" -q || (echo "$OUT" && false);
+    patch -p1 -F2 --forward < ../$src
+    # OUT="$(patch -p1 -F2 --forward < ../$src)" || echo "${OUT}" | grep "Skipping patch" -q || (echo "$OUT" && false);
   done
 
   # Applying configuration
