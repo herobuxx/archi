@@ -49,7 +49,6 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}ksm-patches-v4/0001-ksm-patches.patch"
         "${_lucjan}v4l2loopback-patches/0001-v4l2loopback-patches.patch"
         "${_cachy}misc/0001-ck-hrtimer.patch"
-        "${_cachy}misc/sched-patches/0001-sched-cputime-Fix-the-bug-of-reading-time-backward-f.patch"
         "${_cachy}misc/0001-mm-remove-the-per-task-RSS-counter-cache.patch"
         "${_lucjan}uml-patches/0001-Revert-um-Add-missing-apply_returns.patch"
         "https://raw.githubusercontent.com/zhmars/cjktty-patches/master/v${_branch}/cjktty-${_major}.patch"
