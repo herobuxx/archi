@@ -39,7 +39,8 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         choose-gcc-optimization.sh
         "${_lucjan}prjc-cachyos-patches-v3/0001-PRJC-CachyOS-for-5.19.2-and-newer.patch"
         "${_lucjan}lrng-patches-v3/0001-lrng-patches.patch"
-        "${_lucjan}esdm-patches/0001-esdm-5.19-introduce-Entropy-Source-and-DRNG-Manager.patch"
+        "${_lucjan}bfq-paolo-patches/0001-bfq-paolo-patches.patch"
+        "${_lucjan}bfq-misc-patches/0001-bfq-misc-patches.patch"
         "${_cachy}0010-kbuild-module.patch"
         "${_lucjan}bitmap-patches-v2/0001-bitmap-5.19-merge-changes-from-dev-tree.patch"
         "${_lucjan}fixes-miscellaneous-v14/0001-fixes-miscellaneous.patch"
