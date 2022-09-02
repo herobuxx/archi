@@ -37,7 +37,7 @@ _srcname="linux-${pkgver}-xanmod${xanmod}"
 source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar."{xz,sign}
         "https://github.com/xanmod/linux/releases/download/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz"
         choose-gcc-optimization.sh
-        "${_lucjan}prjc-cachyos-patches-v3/0001-PRJC-CachyOS-for-5.19.2-and-newer.patch"
+        "${_cachy}sched/0001-cacULE.patch"
         "${_lucjan}lrng-patches-v3/0001-lrng-patches.patch"
         "${_lucjan}bfq-paolo-patches/0001-bfq-paolo-patches.patch"
         "${_lucjan}bfq-misc-patches/0001-bfq-misc-patches.patch"
