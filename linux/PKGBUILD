@@ -76,7 +76,6 @@ export KBUILD_BUILD_TIMESTAMP=${KBUILD_BUILD_TIMESTAMP:-$(date -Ru${SOURCE_DATE_
 prepare() {
   cd linux-${_major}
 
-  Apply Xanmod patch
   msg2 "Apply xanmod patch"
   patch -N -p1 -i ../patch-${pkgver}-xanmod${xanmod}
 
