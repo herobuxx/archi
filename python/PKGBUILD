@@ -82,8 +82,8 @@ build() {
 
   LLVM="${_llvm} ${_polly}"
 
-  LC_CTYPE=en_US.UTF-8 make regen-all EXTRA_CFLAGS="${LLVM}" LINKCC="${CXX}"
-  LC_CTYPE=en_US.UTF-8 make EXTRA_CFLAGS="${_llvm _polly}" LINKCC="${CXX}"
+  LC_CTYPE=en_US.UTF-8 make regen-all LINKCC="${CXX}"
+  LC_CTYPE=en_US.UTF-8 make LINKCC="${CXX}"
 
 }
 
