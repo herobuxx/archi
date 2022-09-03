@@ -35,7 +35,7 @@ options=('!strip')
 _srcname="linux-${pkgver}-xanmod${xanmod}"
 
 source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar."{xz,sign}
-        "https://github.com/xanmod/linux/releases/download/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz"
+        # "https://github.com/xanmod/linux/releases/download/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz"
         choose-gcc-optimization.sh
         "${_cachy}sched/0001-tt.patch"
         # "${_lucjan}lrng-patches-v3/0001-lrng-patches.patch"
@@ -79,7 +79,7 @@ prepare() {
   cd linux-${_major}
 
   msg2 "Apply xanmod patch"
-  patch -N -p1 -i ../patch-${pkgver}-xanmod${xanmod}
+  # patch -N -p1 -i ../patch-${pkgver}-xanmod${xanmod}
 
   msg2 "Setting version..."
   scripts/setlocalversion --save-scmversion
