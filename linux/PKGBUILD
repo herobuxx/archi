@@ -38,7 +38,7 @@ _srcname="linux-${pkgver}-xanmod${xanmod}"
 source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar."{xz,sign}
         "https://github.com/xanmod/linux/releases/download/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz"
         choose-gcc-optimization.sh
-        "${_cachy}0010-kbuild-module.patch"
+        "${_cachy}0010-kbuild.patch"
         "${_lucjan}bitmap-patches-v2/0001-bitmap-5.19-merge-changes-from-dev-tree.patch"
         "${_lucjan}fixes-miscellaneous-v16/0001-fixes-miscellaneous.patch"
         "${_lucjan}lrng-patches-v4/0001-lrng-patches.patch"
