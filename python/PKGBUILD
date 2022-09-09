@@ -47,6 +47,11 @@ prepare() {
 build() {
   cd "${srcdir}/Python-${pkgver}"
 
+
+  unset CFLAGS
+  unset CXXFLAGS
+  unset LDFLAGS
+
   EXTRA_CFLAGS="${_llvm} -DOPENSSL_NO_SSL2"
   ./configure --prefix=/usr \
               --enable-shared \
