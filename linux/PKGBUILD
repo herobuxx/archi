@@ -47,7 +47,6 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}folio-patches-v2/0001-folio-5.19-merge-changes-from-dev-tree.patch"
         "${_lucjan}mm-patches/0001-mm-vmscan-fix-extreme-overreclaim-and-swap-floods.patch"
         "${_lucjan}ksm-patches-v5/0001-ksm-patches.patch"
-        "${_lucjan}prjc-cachyos-patches-v3/0001-PRJC-CachyOS-for-5.19.2-and-newer.patch"
         "${_lucjan}bfq-paolo-patches/0001-bfq-paolo-patches.patch"
         "${_lucjan}bfq-misc-patches/0001-bfq-misc-patches.patch"
         "${_lucjan}v4l2loopback-patches/0001-v4l2loopback-patches.patch"
