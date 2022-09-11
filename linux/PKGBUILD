@@ -30,7 +30,7 @@ makedepends=(
   bc cpio kmod libelf perl tar xz
 )
 if [ "${_compiler}" = "clang" ]; then
-  makedepends+=(llvm-all)
+  makedepends+=(clang)
 fi
 options=('!strip')
 _srcname="linux-${pkgver}-xanmod${xanmod}"
