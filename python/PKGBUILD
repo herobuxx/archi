@@ -52,7 +52,7 @@ build() {
   unset CXXFLAGS
   unset LDFLAGS
 
-  EXTRA_CFLAGS="-DOPENSSL_NO_SSL2"
+  EXTRA_CFLAGS="${_flags} -DOPENSSL_NO_SSL2"
   ./configure --prefix=/usr \
               --enable-shared \
               --with-threads \
