@@ -142,7 +142,7 @@ prepare() {
     src="${src##*/}"
     [[ $src = *.patch ]] || continue
     msg2 "Applying patch $src..."
-    patch -Np1 < "../$src"
+    OUT="$(patch -N -p1 < ../$src)" || echo "${OUT}" | grep "Skipping patch" -q || (echo "$OUT" && false);
   done
 
   # Applying configuration
