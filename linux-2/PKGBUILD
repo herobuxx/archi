@@ -70,6 +70,8 @@ pkgrel=${xanmod}
 pkgdesc='Linux Xanmod - Latest Mainline (EDGE)'
 url="http://www.xanmod.org/"
 arch=(x86_64)
+_lucjan="https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/${_major}/"
+_cachy="https://raw.githubusercontent.com/CachyOS/kernel-patches/master/${_major}/"
 
 license=(GPL2)
 makedepends=(
