@@ -100,7 +100,7 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}bfq-misc-patches/0001-bfq-misc-patches.patch"
         "${_lucjan}v4l2loopback-patches/0001-v4l2loopback-patches.patch"
         #"${_cachy}misc/0001-ck-hrtimer.patch"
-        "${_cachy}misc/0001-Add-latency-nice-prio.patch"
+        # "${_cachy}misc/0001-Add-latency-nice-prio.patch"
         "${_cachy}misc/0001-mm-remove-the-per-task-RSS-counter-cache.patch"
         "${_lucjan}uml-patches/0001-Revert-um-Add-missing-apply_returns.patch"
         "${_lucjan}zstd-patches/0001-kbuild-5.19-allow-setting-zstd-compression-level-for.patch"
