@@ -3,67 +3,18 @@
 # Contributor: Torge Matthies <openglfreak at googlemail dot com>
 # Contributor: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
 
-##
-## The following variables can be customized at build time. Use env or export to change at your wish
-##
-##   Example: env _microarchitecture=98 use_numa=n use_tracers=n makepkg -sc
-##
-## Look inside 'choose-gcc-optimization.sh' to choose your microarchitecture
-## Valid numbers between: 0 to 99
-## Default is: 0 => generic
-## Good option if your package is for one machine: 98 (Intel native) or 99 (AMD native)
-if [ -z ${_microarchitecture+x} ]; then
-  _microarchitecture=92
-fi
 
-## Disable NUMA since most users do not have multiple processors. Breaks CUDA/NvEnc.
-## Archlinux and Xanmod enable it by default.
-## Set variable "use_numa" to: n to disable (possibly increase performance)
-##                             y to enable  (stock default)
-if [ -z ${use_numa+x} ]; then
-  use_numa=y
-fi
-
-## For performance you can disable FUNCTION_TRACER/GRAPH_TRACER. Limits debugging and analyzing of the kernel.
-## Stock Archlinux and Xanmod have this enabled. 
-## Set variable "use_tracers" to: n to disable (possibly increase performance)
-##                                y to enable  (stock default)
-if [ -z ${use_tracers+x} ]; then
-  use_tracers=y
-fi
-
-## Choose between GCC and CLANG config (default is GCC)
-if [ -z ${_compiler+x} ]; then
-  _compiler=gcc
-fi
-
-# Compress modules with ZSTD (to save disk space)
-if [ -z ${_compress_modules+x} ]; then
-  _compress_modules=y
-fi
-
-# Compile ONLY used modules to VASTLY reduce the number of modules built
-# and the build time.
-#
-# To keep track of which modules are needed for your specific system/hardware,
-# give module_db script a try: https://aur.archlinux.org/packages/modprobed-db
-# This PKGBUILD read the database kept if it exists
-#
-# More at this wiki page ---> https://wiki.archlinux.org/index.php/Modprobed-db
-if [ -z ${_localmodcfg} ]; then
-  _localmodcfg=n
-fi
-
-# Tweak kernel options prior to a build via nconfig
-if [ -z ${_makenconfig} ]; then
-  _makenconfig=n
-fi
-
-### IMPORTANT: Do no edit below this line unless you know what you're doing
+_microarchitecture=92
+use_numa=y
+use_tracers=y
+_compiler=gcc
+_compress_modules=y
+_localmodcfg=n
+_makenconfig=n
 
 pkgbase=linux-xanmod-custom
 _major=5.19
-pkgver=${_major}.8
+pkgver=${_major}.9
 _branch=5.x
 xanmod=1
 pkgrel=${xanmod}
@@ -87,7 +38,6 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "https://github.com/xanmod/linux/releases/download/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz"
         choose-gcc-optimization.sh
         "${_cachy}sched/0001-tt.patch"
-        # "${_lucjan}x86-patches/0001-x86-patches.patch"
         "${_lucjan}bitmap-patches-v2/0001-bitmap-5.19-merge-changes-from-dev-tree.patch"
         "${_lucjan}fixes-miscellaneous-v18/0001-fixes-miscellaneous.patch"
         "${_lucjan}lrng-patches-v4/0001-lrng-patches.patch"
@@ -100,7 +50,8 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}bfq-misc-patches/0001-bfq-misc-patches.patch"
         "${_lucjan}v4l2loopback-patches/0001-v4l2loopback-patches.patch"
         "${_lucjan}pf-fixes/0001-Bluetooth-fix-deadlock-for-RFCOMM-sk-state-change.patch"
-        #"${_cachy}misc/0001-ck-hrtimer.patch"
+        "${_lucjan}zram-entropy-cachyos-patches/0001-zram-5.19-introduce-ZRAM-entropy-calculation.patch"
+        "${_lucjan}vma-patches-all/0001-vma-patches.patch"
         # "${_cachy}misc/0001-Add-latency-nice-prio.patch"
         "${_cachy}misc/0001-mm-remove-the-per-task-RSS-counter-cache.patch"
         "${_lucjan}uml-patches/0001-Revert-um-Add-missing-apply_returns.patch"
@@ -129,7 +80,7 @@ export KBUILD_BUILD_TIMESTAMP=${KBUILD_BUILD_TIMESTAMP:-$(date -Ru${SOURCE_DATE_
 prepare() {
   cd linux-${_major}
 
-  # Apply Xanmod patch
+  msg2 "Apply Xanmod patch"
   patch -Np1 -i ../patch-${pkgver}-xanmod${xanmod}
 
   msg2 "Setting version..."
@@ -149,17 +100,27 @@ prepare() {
 
   # Applying configuration
   cp -vf CONFIGS/xanmod/${_compiler}/config_x86-64-v2 .config
+
   # enable LTO_CLANG_THIN
   if [ "${_compiler}" = "clang" ]; then
-    scripts/config --disable LTO_CLANG_FULL
-    scripts/config --enable LTO_CLANG_THIN
+    msg2 "Enabling LTO CLANG"
+    scripts/config --disable CONFIG_LTO_NONE \
+                   --enable CONFIG_LTO \
+                   --enable CONFIG_LTO_CLANG \
+                   --enable CONFIG_ARCH_SUPPORTS_LTO_CLANG \
+                   --enable CONFIG_ARCH_SUPPORTS_LTO_CLANG_THIN \
+                   --enable CONFIG_HAS_LTO_CLANG \
+                   --enable CONFIG_LTO_CLANG_THIN \
+                   --enable CONFIG_HAVE_GCC_PLUGINS
     _LLVM=1
   fi
 
   # CONFIG_STACK_VALIDATION gives better stack traces. Also is enabled in all official kernel packages by Archlinux team
+  msg2 "Enable STACK VALIDATION"
   scripts/config --enable CONFIG_STACK_VALIDATION
 
   # Enable IKCONFIG following Arch's philosophy
+  msg2 "Enable IKCONFIG"
   scripts/config --enable CONFIG_IKCONFIG \
                  --enable CONFIG_IKCONFIG_PROC
 
@@ -174,13 +135,162 @@ prepare() {
 
   if [ "$use_numa" = "n" ]; then
     msg2 "Disabling NUMA..."
-    scripts/config --disable CONFIG_NUMA
+    scripts/config --disable NUMA \
+                   --disable AMD_NUMA \
+                   --disable X86_64_ACPI_NUMA \
+                   --disable NODES_SPAN_OTHER_NODES \
+                   --disable NUMA_EMU \
+                   --disable NEED_MULTIPLE_NODES \
+                   --disable USE_PERCPU_NUMA_NODE_ID \
+                   --disable ACPI_NUMA \
+                   --disable ARCH_SUPPORTS_NUMA_BALANCING \
+                   --disable NODES_SHIFT \
+                   --undefine NODES_SHIFT \
+                   --disable NEED_MULTIPLE_NODES
   fi
 
   # Compress modules by default (following Arch's kernel)
   if [ "$_compress_modules" = "y" ]; then
-    scripts/config --enable CONFIG_MODULE_COMPRESS_ZSTD
+    msg2 "Compress Modules"
+    scripts/config --set-val CONFIG_MODULE_COMPRESS_ZSTD_LEVEL 19 \
+                   --enable CONFIG_MODULE_COMPRESS_ZSTD_ULTRA \
+                   --set-val CONFIG_MODULE_COMPRESS_ZSTD_LEVEL_ULTRA 22 \
+                   --set-val CONFIG_ZSTD_COMP_VAL 22
+    msg2 "Done Compress Modules"
   fi
+
+  msg2 "Set HOSTNAME"
+  scripts/config --set-val CONFIG_DEFAULT_HOSTNAME "XANMOD-X86_64-V2"
+
+  msg2 "Enable v4l2loopback support"
+  scripts/config --enable CONFIG_V4L2_LOOPBACK
+
+  msg2 "Enable WINE FASTSYNC"
+  scripts/config --enable WINESYNC
+
+  msg2 "Enabling FULLCONENAT..."
+  scripts/config --module IP_NF_TARGET_FULLCONENAT \
+                 --module NETFILTER_XT_TARGET_FULLCONENAT
+  
+
+  msg2 "ZRAM Entropy Calculation"
+  scripts/config  --enable ZRAM_ENTROPY \
+                  --enable ZRAM_ENTROPY_THRESHOLD
+  
+
+  # msg2 "Enabling KBUILD_CFLAGS -O3..."
+  # scripts/config --disable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE \
+  #                --enable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE_O3
+
+  msg2 "Disabling TCP_CONG_CUBIC..."
+  scripts/config --module CONFIG_TCP_CONG_CUBIC \
+                 --disable CONFIG_DEFAULT_CUBIC
+
+  msg2 "Enabling multigenerational LRU..."
+  scripts/config --enable CONFIG_ARCH_HAS_NONLEAF_PMD_YOUNG \
+                 --enable CONFIG_LRU_GEN \
+                 --enable CONFIG_LRU_GEN_ENABLED \
+                 --disable CONFIG_LRU_GEN_STATS
+
+  msg2 "Enabling DAMON Data Access Monitoring "
+  scripts/config --enable DAMON \
+                 --enable DAMON_VADDR \
+                 --enable DAMON_DBGFS \
+                 --enable DAMON_SYSFS \
+                 --enable DAMON_PADDR \
+                 --enable DAMON_RECLAIM \
+                 --enable DAMON_LRU_SORT
+
+  msg2 "Change zram zswap compression to ZSTD"
+  scripts/config --disable CONFIG_ZRAM_DEF_COMP_LZORLE \
+                 --enable CONFIG_ZRAM_DEF_COMP_ZSTD \
+                 --set-str CONFIG_ZRAM_DEF_COMP zstd \
+                 --disable CONFIG_ZSWAP_COMPRESSOR_DEFAULT_LZ4 \
+                 --enable CONFIG_ZSWAP_COMPRESSOR_DEFAULT_ZSTD \
+                 --set-str CONFIG_ZSWAP_COMPRESSOR_DEFAULT zstd
+
+  msg2 "Enable Anbox"
+  scripts/config --enable CONFIG_ASHMEM \
+                 --enable CONFIG_ANDROID \
+                 --enable CONFIG_ANDROID_BINDER_IPC \
+                 --enable CONFIG_ANDROID_BINDERFS \
+                 --enable CONFIG_ANDROID_BINDER_DEVICES="binder,hwbinder,vndbinder"
+
+  msg2 "Enable NTFS + NTFS3"
+  scripts/config --module CONFIG_NTFS_FS \
+                 --module CONFIG_NTFS3_FS \
+                 --enable CONFIG_NTFS3_64BIT_CLUSTER \
+                 --enable CONFIG_NTFS3_LZX_XPRESS \
+                 --enable CONFIG_NTFS3_FS_POSIX_ACL
+
+  msg2 "Enabling Linux Random Number Generator ..."
+        scripts/config --disable RANDOM_DEFAULT_IMPL \
+                       --enable LRNG \
+                       --enable LRNG_SHA256 \
+                       --enable LRNG_COMMON_DEV_IF \
+                       --enable LRNG_DRNG_ATOMIC \
+                       --enable LRNG_SYSCTL \
+                       --enable LRNG_RANDOM_IF \
+                       --module LRNG_KCAPI_IF \
+                       --module LRNG_HWRAND_IF \
+                       --enable LRNG_DEV_IF \
+                       --enable LRNG_RUNTIME_ES_CONFIG \
+                       --enable LRNG_IRQ_DFLT_TIMER_ES \
+                       --disable LRNG_SCHED_DFLT_TIMER_ES \
+                       --enable LRNG_TIMER_COMMON \
+                       --disable LRNG_COLLECTION_SIZE_256 \
+                       --disable LRNG_COLLECTION_SIZE_512 \
+                       --enable LRNG_COLLECTION_SIZE_1024 \
+                       --disable LRNG_COLLECTION_SIZE_2048 \
+                       --disable LRNG_COLLECTION_SIZE_4096 \
+                       --disable LRNG_COLLECTION_SIZE_8192 \
+                       --set-val LRNG_COLLECTION_SIZE 1024 \
+                       --enable LRNG_HEALTH_TESTS \
+                       --set-val LRNG_RCT_CUTOFF 31 \
+                       --set-val LRNG_APT_CUTOFF 325 \
+                       --enable LRNG_IRQ \
+                       --enable LRNG_CONTINUOUS_COMPRESSION_ENABLED \
+                       --disable LRNG_CONTINUOUS_COMPRESSION_DISABLED \
+                       --enable LRNG_ENABLE_CONTINUOUS_COMPRESSION \
+                       --enable LRNG_SWITCHABLE_CONTINUOUS_COMPRESSION \
+                       --set-val LRNG_IRQ_ENTROPY_RATE 256 \
+                       --enable LRNG_JENT \
+                       --set-val LRNG_JENT_ENTROPY_RATE 16 \
+                       --enable LRNG_CPU \
+                       --set-val LRNG_CPU_FULL_ENT_MULTIPLIER 1 \
+                       --set-val LRNG_CPU_ENTROPY_RATE 8 \
+                       --enable LRNG_SCHED \
+                       --set-val LRNG_SCHED_ENTROPY_RATE 4294967295 \
+                       --enable LRNG_DRNG_CHACHA20 \
+                       --module LRNG_DRBG \
+                       --module LRNG_DRNG_KCAPI \
+                       --enable LRNG_SWITCH \
+                       --enable LRNG_SWITCH_HASH \
+                       --module LRNG_HASH_KCAPI \
+                       --enable LRNG_SWITCH_DRNG \
+                       --module LRNG_SWITCH_DRBG \
+                       --module LRNG_SWITCH_DRNG_KCAPI \
+                       --enable LRNG_DFLT_DRNG_CHACHA20 \
+                       --disable LRNG_DFLT_DRNG_DRBG \
+                       --disable LRNG_DFLT_DRNG_KCAPI \
+                       --enable LRNG_TESTING_MENU \
+                       --disable LRNG_RAW_HIRES_ENTROPY \
+                       --disable LRNG_RAW_JIFFIES_ENTROPY \
+                       --disable LRNG_RAW_IRQ_ENTROPY \
+                       --disable LRNG_RAW_RETIP_ENTROPY \
+                       --disable LRNG_RAW_REGS_ENTROPY \
+                       --disable LRNG_RAW_ARRAY \
+                       --disable LRNG_IRQ_PERF \
+                       --disable LRNG_RAW_SCHED_HIRES_ENTROPY \
+                       --disable LRNG_RAW_SCHED_PID_ENTROPY \
+                       --disable LRNG_RAW_SCHED_START_TIME_ENTROPY \
+                       --disable LRNG_RAW_SCHED_NVCSW_ENTROPY \
+                       --disable LRNG_SCHED_PERF \
+                       --disable LRNG_ACVT_HASH \
+                       --disable LRNG_RUNTIME_MAX_WO_RESEED_CONFIG \
+                       --disable LRNG_TEST_CPU_ES_COMPRESSION \
+                       --enable LRNG_SELFTEST \
+                       --disable LRNG_SELFTEST_PANIC
 
   # Disable CONFIG_GENERIC_CPU2 if we have choosen another microarchitecture
   # https://github.com/xanmod/linux/issues/240
@@ -246,7 +356,8 @@ _package() {
   provides=(VIRTUALBOX-GUEST-MODULES
             WIREGUARD-MODULE
             KSMBD-MODULE
-            NTFS3-MODULE)
+            NTFS3-MODULE
+            V4L2LOOPBACK-MODULE)
 
   cd linux-${_major}
   local kernver="$(<version)"
