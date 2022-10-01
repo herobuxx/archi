@@ -36,7 +36,7 @@ prepare() {
 build() {
   cd "${srcdir}/Python-${pkgver}"
 
-  EXTRA_CFLAGS="$_polly $_llvm -fno-semantic-interposition"
+  EXTRA_CFLAGS=" $_llvm -mllvm -polly -fno-semantic-interposition"
   LD="$LDFLAGS"
   unset CFLAGS
   unset CXXFLAGS
