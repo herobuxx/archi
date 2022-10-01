@@ -36,11 +36,10 @@ prepare() {
 build() {
   cd "${srcdir}/Python-${pkgver}"
 
-  CFLAGS="${_polly} ${_llvm} -fno-semantic-interposition"
+  EXTRA_CFLAGS="$_polly $_llvm -fno-semantic-interposition"
 
   unset CFLAGS
   unset CXXFLAGS
-  unset LDFLAGS
 
   ./configure --prefix=/usr \
               --enable-shared \
@@ -55,8 +54,8 @@ build() {
               --enable-loadable-sqlite-extensions \
               --without-ensurepip
               
-  LC_CTYPE=en_US.UTF-8 make regen-all EXTRA_CFLAGS="${CFLAGS}"
-  LC_CTYPE=en_US.UTF-8 make EXTRA_CFLAGS="${CFLAGS}"
+  LC_CTYPE=en_US.UTF-8 make regen-all EXTRA_CFLAGS="${EXTRA_CFLAGS}"
+  LC_CTYPE=en_US.UTF-8 make EXTRA_CFLAGS="${EXTRA_CFLAGS}"
 }
 
 package() {
