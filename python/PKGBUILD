@@ -22,7 +22,7 @@ validpgpkeys=(
   'A035C8C19219BA821ECEA86B64E628F8D684696D' # Pablo Galindo Salgado <pablogsal@gmail.com>
 )
 
-_llvm=0
+llvm=0
 
 prepare() {
 
@@ -41,7 +41,7 @@ prepare() {
   rm -r Modules/_decimal/libmpdec
 
   if clang --version 2>/dev/null | grep -iq "clang\s*version\s*[0-9]" && ld.lld --version 2>/dev/null | grep -iq "LLD\s*[0-9]"; then
-    _llvm=1
+    llvm=1
   fi
 
 }
@@ -53,7 +53,7 @@ build() {
     exit 1
   )
 
-  if [[ ${_llvm} -eq 1 ]]; then
+  if [[ ${llvm} -eq 1 ]]; then
 
     LDFLAGS="${LDFLAGS} -fuse-ld=lld"
 
