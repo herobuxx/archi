@@ -59,7 +59,7 @@ build() {
 
   fi
 
-  EXTRA_CFLAGS = "$_llvm -mllvm -polly"
+  EXTRA_CFLAGS="$_llvm -mllvm -polly"
 
   unset CFLAGS
   unset CxxFLAGS
