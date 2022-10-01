@@ -37,7 +37,7 @@ build() {
   cd "${srcdir}/Python-${pkgver}"
 
   EXTRA_CFLAGS="$_polly $_llvm -fno-semantic-interposition"
-
+  LD="$LDFLAGS"
   unset CFLAGS
   unset CXXFLAGS
   unset LDFLAGS
@@ -56,7 +56,7 @@ build() {
               --without-ensurepip
               
   LC_CTYPE=en_US.UTF-8 make regen-all EXTRA_CFLAGS="${EXTRA_CFLAGS}"
-  LC_CTYPE=en_US.UTF-8 make EXTRA_CFLAGS="${EXTRA_CFLAGS}"
+  LC_CTYPE=en_US.UTF-8 make EXTRA_CFLAGS="${EXTRA_CFLAGS}" LDFLAGS="$LD"
 }
 
 package() {
