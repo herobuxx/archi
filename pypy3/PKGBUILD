@@ -25,7 +25,7 @@ build() {
   echo $CFLAGS
   unset LDFLAGS
 
-  pypy ../../rpython/bin/rpython -Ojit --lto --profopt --if-block-merge --translation-backendopt-stack_optimization --translation-backendopt-storesink
+  pypy ../../rpython/bin/rpython -Ojit --lto --profopt --make-jobs=1 --if-block-merge --translation-backendopt-stack_optimization --translation-backendopt-storesink
  --translation-backendopt-constfold --shared targetpypystandalone --objspace-std-withprebuiltint --hash=siphash24
 
   # Compile binary modules
