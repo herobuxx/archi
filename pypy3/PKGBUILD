@@ -21,6 +21,7 @@ build() {
   sed -i "s/, 'linux', 'linux2'//" targetpypystandalone.py
   
   export CFLAGS="$_default -mllvm -polly -flto=thin"
+  export LDFLAGS="-flto=thin $LDFLAGS"
 
   echo $CFLAGS
   # unset LDFLAGS
