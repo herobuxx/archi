@@ -38,7 +38,7 @@ build() {
               targetpypystandalone \
               --objspace-std-withprebuiltint \
               --hash=siphash24 \
-              --objspace-std-withliststrategies
+              --objspace-std-withliststrategies \
               --objspace-honor__builtins__
 
   # Compile binary modules
