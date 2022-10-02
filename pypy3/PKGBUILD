@@ -25,7 +25,8 @@ build() {
   echo $CFLAGS
   echo $LDFLAGS
 
-  pypy ../../rpython/bin/rpython -Ojit --lto --profopt --shared targetpypystandalone --objspace-std-withprebuiltint --hash=siphash24
+  pypy ../../rpython/bin/rpython -Ojit --lto --profopt --if-block-merge --clever-malloc-removal --translation-backendopt-stack_optimization --translation-backendopt-storesink
+ --translation-backendopt-constfold --shared targetpypystandalone --objspace-std-withprebuiltint --hash=siphash24
 
   # Compile binary modules
   PYTHONPATH=../.. ./pypy${_pyver}-c ../../lib_pypy/pypy_tools/build_cffi_imports.py
