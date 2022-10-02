@@ -20,7 +20,7 @@ build() {
   # Weird, we'll patch it out.
   sed -i "s/, 'linux', 'linux2'//" targetpypystandalone.py
   
-  export CFLAGS="$_llvm -mllvm -polly"
+  export CFLAGS="$_default -mllvm -polly"
 
   echo $CFLAGS
   unset LDFLAGS
