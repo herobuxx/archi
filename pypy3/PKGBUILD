@@ -20,7 +20,7 @@ build() {
   # Weird, we'll patch it out.
   sed -i "s/, 'linux', 'linux2'//" targetpypystandalone.py
   
-  export CFLAGS="$_default -mllvm -polly -flto=thin"
+  export CFLAGS="$_polly -flto=thin"
   export LDFLAGS="-flto=thin $LDFLAGS"
 
   echo $CFLAGS
