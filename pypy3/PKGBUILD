@@ -25,7 +25,7 @@ build() {
   echo $CFLAGS
   echo $LDFLAGS
 
-  pypy ../../rpython/bin/rpython -Ojit --profopt --lto --shared targetpypystandalone --objspace-std-withprebuiltint --hash=siphash24 --objspace-honor__builtins__
+  pypy ../../rpython/bin/rpython -Ojit --lto --shared targetpypystandalone --objspace-std-withprebuiltint --hash=siphash24 --objspace-honor__builtins__
 
   # Compile binary modules
   PYTHONPATH=../.. ./pypy${_pyver}-c ../../lib_pypy/pypy_tools/build_cffi_imports.py
