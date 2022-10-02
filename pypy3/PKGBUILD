@@ -27,8 +27,19 @@ build() {
   # unset LDFLAGS
   echo $LDFLAGS
 
-  pypy ../../rpython/bin/rpython -Ojit --profopt --if-block-merge --translation-backendopt-stack_optimization --translation-backendopt-storesink
- --translation-backendopt-constfold --shared targetpypystandalone --objspace-std-withprebuiltint --hash=siphash24
+  pypy ../../rpython/bin/rpython \
+              -Ojit \
+              --profopt \
+              --if-block-merge \
+              --translation-backendopt-stack_optimization \
+              --translation-backendopt-storesink \
+              --translation-backendopt-constfold \
+              --shared \
+              targetpypystandalone \
+              --objspace-std-withprebuiltint \
+              --hash=siphash24 \
+              --objspace-std-withliststrategies
+              --objspace-honor__builtins__
 
   # Compile binary modules
   PYTHONPATH=../.. ./pypy${_pyver}-c ../../lib_pypy/pypy_tools/build_cffi_imports.py
