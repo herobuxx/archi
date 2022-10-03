@@ -27,6 +27,8 @@ build() {
   # unset LDFLAGS
   echo $LDFLAGS
 
+  pwd
+
   pypy ../../rpython/bin/rpython \
               -Ojit \
               --profopt \
