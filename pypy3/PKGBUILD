@@ -20,7 +20,7 @@ build() {
   # Weird, we'll patch it out.
   sed -i "s/, 'linux', 'linux2'//" targetpypystandalone.py
   
-  export CFLAGS="$_polly -flto=thin"
+  export CFLAGS="$_polly $_default -flto=thin"
   export LDFLAGS="-flto=thin $LDFLAGS"
 
   echo $CFLAGS
@@ -30,6 +30,7 @@ build() {
   pypy ../../rpython/bin/rpython \
               -Ojit \
               --profopt \
+              --profoptargs="../../lib-python/2.7/test/regrtest.py --pgo -x test_asyncore test_gdb test_multiprocessing test_subprocess" \
               --if-block-merge \
               --translation-backendopt-stack_optimization \
               --translation-backendopt-storesink \
