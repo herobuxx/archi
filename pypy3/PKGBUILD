@@ -38,8 +38,7 @@ build() {
               targetpypystandalone \
               --objspace-std-withprebuiltint \
               --hash=siphash24 \
-              --objspace-std-withliststrategies \
-              --objspace-honor__builtins__
+              --objspace-std-withliststrategies
 
   # Compile binary modules
   PYTHONPATH=../.. ./pypy${_pyver}-c ../../lib_pypy/pypy_tools/build_cffi_imports.py
