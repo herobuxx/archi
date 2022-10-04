@@ -24,8 +24,13 @@ pkgver() {
 }
 
 prepare() {
-    cd "${srcdir}/dxvk/"
-    patch --forward --strip=1 --input="${srcdir}/dxvk-async.patch"
+    cd dxvk
+
+    git submodule init include/{native/directx,vulkan,spirv}
+    git config submodule.include/native/directx.url "$srcdir/mingw-directx-headers"
+    git config submodule.include/vulkan.url "$srcdir/Vulkan-Headers"
+    git config submodule.include/spirv.url "$srcdir/SPIRV-Headers"
+    git submodule update include/{native/directx,vulkan,spirv}
 }
 
 
@@ -35,8 +40,7 @@ build() {
         --prefix "/usr/share/dxvk/x64" \
         --bindir "" --libdir "" \
         --buildtype "release" \
-        --strip \
-        -D enable_tests=false
+        --strip
     ninja -C "build/x64"
 
     meson dxvk "build/x32" \
@@ -44,8 +48,7 @@ build() {
         --prefix "/usr/share/dxvk/x32" \
         --bindir "" --libdir "" \
         --buildtype "release" \
-        --strip \
-        -D enable_tests=false
+        --strip
     ninja -C "build/x32"
 }
 
