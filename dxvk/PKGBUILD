@@ -1,4 +1,4 @@
-pkgbase=dxvk-git
+gbase=dxvk-git
 pkgname=('dxvk-mingw-git')
 pkgver=1.10.1.r782.g36f523bb
 pkgrel=1
@@ -22,6 +22,7 @@ sha256sums=("SKIP"
 "SKIP"
 "SKIP")
 
+
 pkgver() {
     cd dxvk
     git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g;s/v//g'
@@ -36,7 +37,6 @@ prepare() {
     git config submodule.include/spirv.url "$srcdir/SPIRV-Headers"
     git submodule update include/{native/directx,vulkan,spirv}
 }
-
 
 build() {
     meson dxvk "build/x64" \
