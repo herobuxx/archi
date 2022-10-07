@@ -33,7 +33,7 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [github-desktop]
+        build: [linux-xanmod-custom]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
@@ -76,7 +76,7 @@ jobs:
       #     cd ${{ matrix.build }} && sed -i 's/+clang//g' PKGBUILD
       # - run: ls -alR
       - id: makepkg
-        uses: JPratama7/pkgbuild-action@aur-gcc
+        uses: JPratama7/pkgbuild-action@gcc
         with:
           namcapDisable: true
           makepkgArgs: "--skippgpcheck --skipchecksums"
