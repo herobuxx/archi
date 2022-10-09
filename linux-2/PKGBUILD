@@ -59,7 +59,7 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}sched-affinity-patches-all/0001-sched-affinity-patches.patch"
         # "${_lucjan}vma-cachyos-patches/0001-vma-6.0-per-VMA-locks-proposal.patch"
         "${_tkg}0002-mm-Support-soft-dirty-flag-read-with-reset.patch"
-        "${_tkg}0001-mm-Support-soft-dirty-flag-reset-for-VA-range.patch"
+        # "${_tkg}0001-mm-Support-soft-dirty-flag-reset-for-VA-range.patch"
         # "${_cachy}misc/0001-random-implement-getrandom-in-vDSO.patch"
         #"${_lucjan}bfq-misc-patches/0001-bfq-misc-patches.patch"
         #"${_lucjan}mm-patches/0001-mm-vmscan-fix-extreme-overreclaim-and-swap-floods.patch"
