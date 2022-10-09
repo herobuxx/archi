@@ -23,6 +23,7 @@ url="http://www.xanmod.org/"
 arch=(x86_64)
 _lucjan="https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/${_major}/"
 _cachy="https://raw.githubusercontent.com/CachyOS/kernel-patches/master/${_major}/"
+_tkg="https://raw.githubusercontent.com/Frogging-Family/linux-tkg/master/linux-tkg-patches/${_major}/"
 
 license=(GPL2)
 makedepends=(
@@ -56,6 +57,9 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}vmlinuz-cachyos-patches/0001-x86-Avoid-relocation-information-in-final-vmlinux.patch"
         "${_lucjan}mm-cleanup-cachyos-patches-all/0001-mm-cleanup-cachyos-patches.patch"
         "${_lucjan}sched-affinity-patches-all/0001-sched-affinity-patches.patch"
+        "${_lucjan}vma-cachyos-patches/0001-vma-6.0-per-VMA-locks-proposal.patch"
+        "${_tkg}0002-mm-Support-soft-dirty-flag-read-with-reset.patch"
+        "${_tkg}0001-mm-Support-soft-dirty-flag-reset-for-VA-range.patch"
         # "${_cachy}misc/0001-random-implement-getrandom-in-vDSO.patch"
         #"${_lucjan}bfq-misc-patches/0001-bfq-misc-patches.patch"
         #"${_lucjan}mm-patches/0001-mm-vmscan-fix-extreme-overreclaim-and-swap-floods.patch"
