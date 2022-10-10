@@ -57,8 +57,8 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}zram-entropy-cachyos-patches/0001-zram-6.0-introduce-ZRAM-entropy-calculation.patch"
         "${_lucjan}vmlinuz-cachyos-patches/0001-x86-Avoid-relocation-information-in-final-vmlinux.patch"
         "${_lucjan}mm-cleanup-cachyos-patches-all/0001-mm-cleanup-cachyos-patches.patch"
-        # "${_lucjan}zram-cachyos-patches-v2/0001-zram-cachyos-patches.patch"
-        # "${_lucjan}sched-affinity-patches/0001-sched-affinity-6.0-merge-changes-from-dev-tree.patch"
+        "${_lucjan}amd-pstate-epp-patches/0001-amd-pstate-eep-patches.patch"
+        "${_lucjan}zram-cachyos-patches/0001-zram-cachyos-patches.patch"
         # "${_lucjan}zen-patches/0001-zen-patches.patch"
         "${_tkg}0002-mm-Support-soft-dirty-flag-read-with-reset.patch"
         "${_lucjan}pm-patches/0001-pm-6.0-merge-changes-from-dev-tree.patch"
@@ -176,6 +176,9 @@ prepare() {
   msg2 "Set HOSTNAME"
   scripts/config --set-val CONFIG_DEFAULT_HOSTNAME "XANMOD-X86_64-V2"
 
+  msg2 "ZRAM Entropy Calculation"
+  scripts/config  --enable ZRAM_ENTROPY
+
   msg2 "Enable v4l2loopback support"
   scripts/config --enable CONFIG_V4L2_LOOPBACK
 
@@ -185,11 +188,6 @@ prepare() {
   msg2 "Enabling FULLCONENAT..."
   scripts/config --module IP_NF_TARGET_FULLCONENAT \
                  --module NETFILTER_XT_TARGET_FULLCONENAT
-  
-
-  msg2 "ZRAM Entropy Calculation"
-  scripts/config  --enable ZRAM_ENTROPY \
-                  --enable ZRAM_ENTROPY_THRESHOLD
   
 
   # msg2 "Enabling KBUILD_CFLAGS -O3..."
