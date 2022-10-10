@@ -38,7 +38,8 @@ _srcname="linux-${pkgver}-xanmod${xanmod}"
 source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar."{xz,sign}
         "https://github.com/xanmod/linux/releases/download/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz"
         choose-gcc-optimization.sh
-        # "${_cachy}sched/0001-tt.patch"
+        "https://raw.githubusercontent.com/hedmo/stuff/main/patches/xanmod-fair-revert.patch"
+        "${_cachy}sched/0001-tt.patch"
         # "https://github.com/CachyOS/cacule-cpu-scheduler/raw/master/patches/CacULE/v6.0/0001-cacULE-6.0.patch"
         # "${_cachy}sched/0001-bore.patch"
         "${_lucjan}bitmap-cachyos-patches/0001-bitmap-6.0-merge-changes-from-dev-tree.patch"
