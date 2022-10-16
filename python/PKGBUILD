@@ -55,7 +55,7 @@ build() {
 
   if [[ ${llvm} -eq 1 ]]; then
 
-    EXTRA_LDFLAGS="${LDFLAGS} -fuse-ld=lld"
+    EXTRA_LDFLAGS="${LDFLAGS}"
 
   fi
 
