@@ -59,14 +59,15 @@ build() {
 
   fi
 
-  EXTRA_CFLAGS=""
+  EXTRA_CFLAGS="${CFLAGS/-O2/} -fno-semantic-interposition/"
 
   unset CFLAGS
-  unset CxxFLAGS
+  unset CXXFLAGS
   unset LDFLAGS
 
   # Disable bundled pip & setuptools
-  ./configure --prefix=/usr \
+  ./configure \ 
+    --prefix=/usr \
     --enable-shared \
     --enable-ipv6 \
     --enable-loadable-sqlite-extensions \
