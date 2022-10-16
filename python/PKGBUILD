@@ -59,7 +59,7 @@ build() {
 
   fi
 
-  EXTRA_CFLAGS="${CFLAGS/-O2/-O3} -fno-semantic-interposition"
+  EXTRA_CFLAGS="$_llvm $_polly -fno-semantic-interposition"
 
   unset CFLAGS
   unset CXXFLAGS
@@ -80,6 +80,10 @@ build() {
     --with-system-libmpdec \
     --without-ensurepip \
     --with-tzpath=/usr/share/zoneinfo
+
+  unset CFLAGS
+  unset CXXFLAGS
+  unset LDFLAGS
 
   LC_CTYPE=en_US.UTF-8 make regen-all EXTRA_CFLAGS="${EXTRA_CFLAGS}" LDFLAGS="${EXTRA_LDFLAGS}"
   LC_CTYPE=en_US.UTF-8 make EXTRA_CFLAGS="${EXTRA_CFLAGS}"
