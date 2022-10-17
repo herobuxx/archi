@@ -61,7 +61,6 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}pm-patches/0001-pm-6.0-merge-changes-from-dev-tree.patch"
         "${_lucjan}arch-fixes/0001-arch-fixes.patch"
         "${_lucjan}compiler-patches/0001-Remove-Intel-compiler-support.patch"
-        "${_lucjan}nest-latency-cachyos-patches-v2/0001-cachy-6.0-introduce-NEST-Scheduler-with-latency-NICE.patch"
         "${_lucjan}cpufreq-cachyos-patches/0001-cpufreq-cachyos-patches.patch"
         "https://raw.githubusercontent.com/zhmars/cjktty-patches/master/v${_branch}/cjktty-${_major}.patch"
         )
