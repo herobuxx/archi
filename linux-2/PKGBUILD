@@ -42,7 +42,7 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         choose-gcc-optimization.sh
         "https://raw.githubusercontent.com/hedmo/stuff/main/patches/xanmod-fair-revert.patch"
         "${_cachy}sched/0001-tt.patch"
-        "${_cachy}misc/0001-rt.patch"
+        # "${_cachy}misc/0001-rt.patch"
         "${_lucjan}bitmap-cachyos-patches/0001-bitmap-6.0-merge-changes-from-dev-tree.patch"
         "${_lucjan}kbuild-patches-v4-all/0001-kbuild-patches.patch"
         "${_lucjan}kbuild-cachyos-patches/0001-kbuild-cachyos-patches.patch"
