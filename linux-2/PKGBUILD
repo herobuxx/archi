@@ -46,7 +46,6 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}fixes-miscellaneous-v7/0001-fixes-miscellaneous.patch"
         "${_lucjan}lrng-cachyos-patches-v11/0001-lrng-cachyos-patches.patch"
         "${_lucjan}damon-cachyos-patches-v2/0001-damon-6.0-merge-changes-from-dev-tree.patch"
-        "${_cachy}misc/0001-Add-latency-priority-for-CFS-class.patch"
         "${_lucjan}folio-cachyos-patches-all/0001-folio-cachyos-patches.patch"
         "${_lucjan}ksm-maple-patches-v2/0001-ksm-maple-patches.patch"
         "${_lucjan}bfq-cachyos-patches-v3/0001-bfq-cachyos-patches.patch"
