@@ -65,7 +65,7 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}tar-patches/0001-package-add-tar-development-package-for-3rd-party-mo.patch"
         "${_lucjan}btrfs-cachyos-patches-v5/0001-btrfs-cachyos-patches.patch"
         "${_lucjan}nest-latency-cachyos-patches-v3/0001-cachy-6.0-introduce-NEST-Scheduler-with-latency-NICE.patch"
-        "${_lucjan}pm-patches/0001-pm-6.0-merge-changes-from-dev-tree.patch"
+        # "${_lucjan}pm-patches/0001-pm-6.0-merge-changes-from-dev-tree.patch"
         "ck-hrtimer-$_commit.tar.gz::https://github.com/graysky2/linux-patches/archive/$_commit_ck.tar.gz"
 
         "https://raw.githubusercontent.com/zhmars/cjktty-patches/master/v${_branch}/cjktty-${_major}.patch"
