@@ -14,7 +14,7 @@ _makenconfig=n
 
 pkgbase=linux-xanmod-custom
 _major=6.0
-pkgver=${_major}.0
+pkgver=${_major}.5
 _branch=6.x
 xanmod=1
 pkgrel=${xanmod}
@@ -35,33 +35,35 @@ fi
 options=('!strip')
 _srcname="linux-${pkgver}-xanmod${xanmod}"
 
-
 source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar."{xz,sign}
         "https://github.com/xanmod/linux/releases/download/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz"
         choose-gcc-optimization.sh
         "https://raw.githubusercontent.com/hedmo/stuff/main/patches/xanmod-fair-revert.patch"
         "${_cachy}sched/0001-tt.patch"
         "${_lucjan}bitmap-cachyos-patches/0001-bitmap-6.0-merge-changes-from-dev-tree.patch"
+        "${_lucjan}kbuild-patches-v4-all/0001-kbuild-patches.patch"
         "${_lucjan}kbuild-cachyos-patches/0001-kbuild-cachyos-patches.patch"
-        "${_lucjan}fixes-miscellaneous-v2/0001-fixes-miscellaneous.patch"
-        "${_lucjan}lrng-cachyos-patches-v10/0001-lrng-cachyos-patches.patch"
-        "${_lucjan}damon-cachyos-patches/0001-damon-6.0-merge-changes-from-dev-tree.patch"
+        "${_lucjan}fixes-miscellaneous-v7/0001-fixes-miscellaneous.patch"
+        "${_lucjan}lrng-cachyos-patches-v11/0001-lrng-cachyos-patches.patch"
+        "${_lucjan}damon-cachyos-patches-v2/0001-damon-6.0-merge-changes-from-dev-tree.patch"
         "${_cachy}misc/0001-Add-latency-priority-for-CFS-class.patch"
         "${_lucjan}folio-cachyos-patches-all/0001-folio-cachyos-patches.patch"
-        "${_lucjan}ksm-maple-patches/0001-ksm-maple-patches.patch"
-        "${_lucjan}bfq-cachyos-patches-v2/0001-bfq-cachyos-patches.patch"
+        "${_lucjan}ksm-maple-patches-v2/0001-ksm-maple-patches.patch"
+        "${_lucjan}bfq-cachyos-patches-v3/0001-bfq-cachyos-patches.patch"
         "${_lucjan}kallsyms-cachyos-patches/0001-kallsyms-cachyos-patches.patch"
         "${_lucjan}v4l2loopback-cachyos-patches/0001-media-introduce-v4l2loopback.patch"
-        "${_lucjan}pf-fixes/0001-mm-huge_memory-don-t-clear-active-swapcache-entry-fr.patch"
+        "${_lucjan}pf-fixes-v2/0001-pf-fixes.patch"
         "${_lucjan}zram-entropy-cachyos-patches/0001-zram-6.0-introduce-ZRAM-entropy-calculation.patch"
         "${_lucjan}vmlinuz-cachyos-patches/0001-x86-Avoid-relocation-information-in-final-vmlinux.patch"
         "${_lucjan}mm-cleanup-cachyos-patches-all/0001-mm-cleanup-cachyos-patches.patch"
         "${_lucjan}amd-pstate-epp-patches-v2/0001-amd-pstate-epp-patches.patch"
         "${_tkg}0002-mm-Support-soft-dirty-flag-read-with-reset.patch"
         "${_lucjan}pm-patches/0001-pm-6.0-merge-changes-from-dev-tree.patch"
-        "${_lucjan}arch-fixes/0001-arch-fixes.patch"
         "${_lucjan}compiler-patches/0001-Remove-Intel-compiler-support.patch"
-        "${_lucjan}cpufreq-cachyos-patches/0001-cpufreq-cachyos-patches.patch"
+        "${_lucjan}tar-patches/0001-package-add-tar-development-package-for-3rd-party-mo.patch"
+        "${_lucjan}btrfs-cachyos-patches-v5/0001-btrfs-cachyos-patches.patch"
+        "${_lucjan}nest-latency-cachyos-patches-v3/0001-cachy-6.0-introduce-NEST-Scheduler-with-latency-NICE.patch"
+        "${_lucjan}pm-patches/0001-pm-6.0-merge-changes-from-dev-tree.patch"
         "https://raw.githubusercontent.com/zhmars/cjktty-patches/master/v${_branch}/cjktty-${_major}.patch"
         )
         #"patch-${pkgver}-xanmod${xanmod}.xz::https://sourceforge.net/projects/xanmod/files/releases/stable/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz/download"
@@ -105,7 +107,8 @@ prepare() {
   done
 
   # Applying configuration
-  cp -vf CONFIGS/xanmod/${_compiler}/config_x86-64-v2 .config
+  # cp -vf CONFIGS/xanmod/${_compiler}/config_x86-64-v2 .config
+  cp -vf CONFIGS/xanmod/gcc/config_x86-64-v2 .config
 
   # enable LTO_CLANG_THIN
   if [ "${_compiler}" = "clang" ]; then
@@ -327,20 +330,20 @@ prepare() {
   if [ "$_localmodcfg" = "y" ]; then
     if [ -f $HOME/.config/modprobed.db ]; then
       msg2 "Running Steven Rostedt's make localmodconfig now"
-      make LLVM=$_LLVM LLVM_IAS=$_LLVM LSMOD=$HOME/.config/modprobed.db localmodconfig
+      make ${_compiler_flags} LSMOD=$HOME/.config/modprobed.db localmodconfig
     else
       msg2 "No modprobed.db data found"
       exit 1
     fi
   fi
 
-  make LLVM=$_LLVM LLVM_IAS=$_LLVM olddefconfig
+  make ${_compiler_flags} olddefconfig
 
   make -s kernelrelease > version
   msg2 "Prepared %s version %s" "$pkgbase" "$(<version)"
 
   if [ "$_makenconfig" = "y" ]; then
-    make LLVM=$_LLVM LLVM_IAS=$_LLVM nconfig
+    make ${_compiler_flags} nconfig
   fi
 
   # save configuration for later reuse
