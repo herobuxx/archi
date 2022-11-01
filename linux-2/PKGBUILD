@@ -106,7 +106,7 @@ prepare() {
     src="${src##*/}"
     [[ $src = *.patch ]] || continue
     msg2 "Applying patch $src..."
-    patch -N -p1 -F3 < ../$src
+    patch -N -p1 -r-< ../$src
   done
 
   # Applying configuration
