@@ -33,7 +33,7 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [mesa]
+        build: [slimjet]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
@@ -76,7 +76,7 @@ jobs:
           cd ${{ matrix.build }} && sed -i 's/+clang//g' PKGBUILD
       # - run: ls -alR
       - id: makepkg
-        uses: JPratama7/pkgbuild-action@clang
+        uses: JPratama7/pkgbuild-action@aur-clang
         with:
           namcapDisable: true
           makepkgArgs: "--skippgpcheck --skipchecksums"
