@@ -14,11 +14,11 @@ _makenconfig=n
 
 pkgbase=linux-xanmod-custom
 _major=6.0
-pkgver=${_major}.6
+pkgver=${_major}.9
 _branch=6.x
 xanmod=1
 pkgrel=${xanmod}
-pkgdesc='Linux Xanmod - Latest Mainline (EDGE)'
+pkgdesc='Linux Xanmod - Latest Mainline with Custom Patches'
 url="http://www.xanmod.org/"
 arch=(x86_64)
 _lucjan="https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/${_major}/"
@@ -42,7 +42,6 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         choose-gcc-optimization.sh
         "https://raw.githubusercontent.com/hedmo/stuff/main/patches/xanmod-fair-revert.patch"
         "${_cachy}sched/0001-tt.patch"
-        # "${_cachy}misc/0001-rt.patch"
         "${_lucjan}bitmap-cachyos-patches/0001-bitmap-6.0-merge-changes-from-dev-tree.patch"
         "${_lucjan}kbuild-patches-v5-all/0001-kbuild-patches.patch"
         "${_lucjan}kbuild-cachyos-patches/0001-kbuild-cachyos-patches.patch"
@@ -51,22 +50,20 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}damon-cachyos-patches-v2/0001-damon-6.0-merge-changes-from-dev-tree.patch"
         "${_lucjan}folio-cachyos-patches-all/0001-folio-cachyos-patches.patch"
         "${_lucjan}ksm-maple-patches-v2/0001-ksm-maple-patches.patch"
-        "${_lucjan}bfq-cachyos-patches-v4/0001-bfq-cachyos-patches.patch"
+        "${_lucjan}bfq-cachyos-patches-v9/0001-bfq-cachyos-patches.patch"
         "${_lucjan}kallsyms-cachyos-patches/0001-kallsyms-cachyos-patches.patch"
-        "${_lucjan}v4l2loopback-cachyos-patches/0001-media-introduce-v4l2loopback.patch"
+        "${_lucjan}v4l2loopback-cachyos-patches-v2/0001-v4l2loopback-cachyos-patches.patch"
         "${_lucjan}pf-fixes-v2/0001-pf-fixes.patch"
         "${_lucjan}zram-entropy-cachyos-patches/0001-zram-6.0-introduce-ZRAM-entropy-calculation.patch"
         "${_lucjan}vmlinuz-cachyos-patches/0001-x86-Avoid-relocation-information-in-final-vmlinux.patch"
         "${_lucjan}mm-cleanup-cachyos-patches-all/0001-mm-cleanup-cachyos-patches.patch"
-        # "${_lucjan}amd-pstate-epp-patches-v2/0001-amd-pstate-epp-patches.patch"
         "${_tkg}0002-mm-Support-soft-dirty-flag-read-with-reset.patch"
         "${_lucjan}compiler-patches/0001-Remove-Intel-compiler-support.patch"
         "${_lucjan}tar-patches/0001-package-add-tar-development-package-for-3rd-party-mo.patch"
-        "${_lucjan}btrfs-cachyos-patches-v5/0001-btrfs-cachyos-patches.patch"
-        # "${_lucjan}nest-latency-cachyos-patches-v3/0001-cachy-6.0-introduce-NEST-Scheduler-with-latency-NICE.patch"
-        # "${_lucjan}pm-patches/0001-pm-6.0-merge-changes-from-dev-tree.patch"
+        "${_lucjan}btrfs-cachyos-patches-v8/0001-btrfs-cachyos-patches.patch"
+        "${_lucjan}objtool-patches/0001-objtool-Optimize-elf_dirty_reloc_sym.patch"
         "ck-hrtimer-$_commit.tar.gz::https://github.com/graysky2/linux-patches/archive/$_commit_ck.tar.gz"
-
+        "${_lucjan}zblock-patches-v2/0001-mm-add-zblock-new-allocator-for-use-via-zpool-API.patch"
         "https://raw.githubusercontent.com/zhmars/cjktty-patches/master/v${_branch}/cjktty-${_major}.patch"
         )
         #"patch-${pkgver}-xanmod${xanmod}.xz::https://sourceforge.net/projects/xanmod/files/releases/stable/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz/download"
@@ -106,7 +103,7 @@ prepare() {
     src="${src##*/}"
     [[ $src = *.patch ]] || continue
     msg2 "Applying patch $src..."
-    patch -N -p1 -r - < ../$src
+    patch -N -p1 -F3 < ../$src
   done
 
   # Applying configuration
