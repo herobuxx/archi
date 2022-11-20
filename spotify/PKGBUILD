@@ -25,8 +25,8 @@ options=('!strip')
 # http://repository.spotify.com/dists/testing/Release
 # http://repository.spotify.com/dists/testing/non-free/binary-amd64/Packages
 # http://repository.spotify.com/dists/testing/Release.gpg
-source=('spotify.protocol'
-        'LICENSE'
+source=('spotify.protocol::https://aur.archlinux.org/cgit/aur.git/plain/spotify.protocol?h=spotify-edge'
+        'LICENSE::https://aur.archlinux.org/cgit/aur.git/plain/LICENSE?h=spotify-edge'
         # "${pkgname}-${pkgver}-x86_64.deb::http://repository.spotify.com/pool/non-free/s/spotify-client/spotify-client_${pkgver}.${_commit}_amd64.deb"
         "${pkgname}-${pkgver}-x86_64.deb::https://github.com/ThePoorPilot/Unofficial-Spotify/releases/download/${pkgver}.${_commit}/spotify-unofficial_${pkgver}.${_commit}_amd64.deb"
         )
