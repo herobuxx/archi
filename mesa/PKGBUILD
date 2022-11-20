@@ -1,6 +1,6 @@
 pkgname=mesa
 pkgdesc="Mesa open-source implementation of the OpenGL specification"
-pkgver=22.2.3
+pkgver=22.2.4
 _pkgver=${pkgver//_/-}
 pkgrel=2
 arch=('x86_64')
@@ -100,7 +100,10 @@ build() {
     -D osmesa=true \
     -D shared-glapi=enabled \
     -D microsoft-clc=disabled \
-    -D valgrind=disabled
+    -D opengl=true \
+    -D zstd=auto \
+    -D valgrind=disabled \
+    --strip --buildtype release
 
   meson compile -C build
 
