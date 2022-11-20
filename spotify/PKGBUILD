@@ -36,8 +36,10 @@ sha512sums=('999abe46766a4101e27477f5c9f69394a4bb5c097e2e048ec2c6cb93dfa1743eb43
             )
 
 package() {
-    ls -al
     cd "${srcdir}"
+
+    ls -al
+
 
     tar -xzf data.tar.xz -C "${pkgdir}"
 
