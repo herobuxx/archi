@@ -40,8 +40,8 @@ package() {
     cd "${srcdir}"
 
     ls -al
-    
-    tar -xzf data.tar.xz -C "${pkgdir}"
+
+    tar -xf data.tar.xz -C "${pkgdir}"
 
     # Enable spotify to open URLs from the webapp
     sed -i 's/^Exec=.*/Exec=spotify --uri=%U/' "${pkgdir}"/usr/share/spotify/spotify.desktop
