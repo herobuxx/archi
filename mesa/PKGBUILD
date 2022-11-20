@@ -105,10 +105,10 @@ build() {
     -D opengl=true \
     -D zstd=auto \
     -D valgrind=disabled \
-    -D c_args=$CFLAGS \
-    -D c_link_args=$LDFLAGS \
-    -D cpp_args=$CXXFLAGS \
-    -D cpp_link_args=$LDFLAGS \
+    -D c_args="$CFLAGS" \
+    -D c_link_args="$LDFLAGS" \
+    -D cpp_args="$CXXFLAGS" \
+    -D cpp_link_args="$LDFLAGS" \
     --strip
 
   meson compile -C build
