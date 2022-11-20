@@ -105,7 +105,7 @@ build() {
     -D opengl=true \
     -D zstd=auto \
     -D valgrind=disabled \
-    --strip --buildtype release
+    --strip
 
   meson compile -C build
 
