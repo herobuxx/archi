@@ -101,7 +101,7 @@ provides=(
 conflicts=('ffmpeg')
 _svt_hevc_ver='b62f72e752243cee4104cfb41dc7ee409d3ac3e9'
 _svt_vp9_ver='d9ef3cc13159143b9afc776c04f67cdfa6284046'
-_commit=1326fe9d4c85cca1ee774b072ef4fa337694f2e7
+_commit=a6e26053c21362bb882932f3cfd1f1dfa2551f1d
 source=(
   "git+http://git.ffmpeg.org/ffmpeg.git#commit=${_commit}"
   "040-ffmpeg-add-av_stream_get_first_dts-for-chromium.patch::https://aur.archlinux.org/cgit/aur.git/plain/040-ffmpeg-add-av_stream_get_first_dts-for-chromium.patch?h=ffmpeg-amd-full"
@@ -133,6 +133,8 @@ prepare() {
     echo -e "\E[1;31mCan't cd to ${srcdir:?}/ffmpeg directory! Prepare Failed! \E[0m"
     exit 1
   )
+
+ rm -f "ffmpeg-${pkgver}/libavcodec/"libsvt_{hevc,vp9}.c
 
   local src
   for src in "${source[@]}"; do
