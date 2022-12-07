@@ -45,6 +45,7 @@ prepare() {
 build() {
 	cd "$pkgname"
 	xvfb-run yarn install
+	xvfb-run npm audit fix --force
 	xvfb-run yarn build:prod
 }
 
