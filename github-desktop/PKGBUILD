@@ -15,10 +15,11 @@ license=(MIT)
 depends=('gnome-keyring' 'libsecret' 'git' 'curl' 'libxss' 'nss' 'nspr' 'unzip')
 optdepends=('github-cli: CLI interface for GitHub'
             'hub: CLI interface for GitHub')
-makedepends=(nodejs-lts-gallium=16.13.0
+makedepends=(nodejs-lts-gallium
              npm
              python2
              xorg-server-xvfb
+			 openssl
              yarn)
 DLAGENTS=("http::/usr/bin/git clone --branch $_gitname --single-branch %u")
 source=("$pkgname::git+https://github.com/shiftkey/desktop.git#tag=$_gitname"
