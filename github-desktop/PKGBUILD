@@ -5,9 +5,9 @@
 # Contributor: Jiawen Geng
 
 pkgname=github-desktop
-pkgver=3.1.2
-pkgrel=2
-_gitname="release-$pkgver-linux$pkgrel"
+pkgver=3.1.1
+_gitname="release-$pkgver-linux1"
+pkgrel=1
 pkgdesc='GUI for managing Git and GitHub'
 arch=(x86_64)
 url='https://desktop.github.com'
@@ -15,12 +15,11 @@ license=(MIT)
 depends=('gnome-keyring' 'libsecret' 'git' 'curl' 'libxss' 'nss' 'nspr' 'unzip')
 optdepends=('github-cli: CLI interface for GitHub'
             'hub: CLI interface for GitHub')
-makedepends=(nodejs
+makedepends=(nodejs-lts-gallium
              npm
              python2
              xorg-server-xvfb
              yarn)
-
 DLAGENTS=("http::/usr/bin/git clone --branch $_gitname --single-branch %u")
 source=("$pkgname::git+https://github.com/shiftkey/desktop.git#tag=$_gitname"
         'git+https://github.com/github/gemoji.git'
