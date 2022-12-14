@@ -10,6 +10,11 @@ makedepends=('python-mako' 'xorgproto'
   
 makedepends+=('rust' 'rust-bindgen' 'spirv-tools' 'spirv-llvm-translator') # rusticl dependencies
 
+DLAGENTS=(
+  'http::/usr/bin/wget -q --show-progress -t 3 --waitretry=3 -O %o %u'
+  'https::/usr/bin/wget -q --show-progress -t 3 --waitretry=3 -O %o %u'
+)
+
 depends=('libdrm' 'libxxf86vm' 'libxdamage' 'libxshmfence' 'libelf' 'systemd' 'systemd-libs'
   'libomxil-bellagio' 'libunwind' 'libglvnd' 'wayland' 'lm_sensors' 'libclc' 'vulkan-icd-loader' 'zstd' 'expat')
 optdepends=('opengl-man-pages: for the OpenGL API man pages')
