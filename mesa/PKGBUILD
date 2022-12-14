@@ -7,6 +7,9 @@ arch=('x86_64')
 makedepends=('python-mako' 'xorgproto'
   'libxml2' 'libx11' 'libvdpau' 'libva' 'elfutils' 'libxrandr'
   'wayland-protocols' 'meson' 'ninja' 'glslang' 'libclc')
+  
+makedepends+=('rust' 'rust-bindgen' 'spirv-tools' 'spirv-llvm-translator') # rusticl dependencies
+
 depends=('libdrm' 'libxxf86vm' 'libxdamage' 'libxshmfence' 'libelf' 'systemd' 'systemd-libs'
   'libomxil-bellagio' 'libunwind' 'libglvnd' 'wayland' 'lm_sensors' 'libclc' 'vulkan-icd-loader' 'zstd' 'expat')
 optdepends=('opengl-man-pages: for the OpenGL API man pages')
@@ -65,11 +68,6 @@ prepare() {
 
 build() {
 
-  # xvmc toggle for legacy trees
-  if ( cd "$srcdir/$_mesa_srcdir" && ! git merge-base --is-ancestor 8cc766d8f7eac26b7c029a2fac1bdfdba4776c29 HEAD ); then
-    _xvmc="-D gallium-xvmc=disabled"
-  fi
-
   meson setup mesa-${_pkgver} build-clang \
     --prefix /usr \
     --libexecdir lib \
@@ -95,7 +93,8 @@ build() {
     -D gallium-va=enabled \
     -D gallium-vdpau=enabled \
     -D gallium-xa=enabled \
-    $_xvmc \
+	  -D gallium-rusticl=true \
+    -D rust_std=2021 \
     -D gbm=enabled \
     -D gles1=disabled \
     -D gles2=enabled \
