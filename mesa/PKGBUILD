@@ -67,7 +67,7 @@ build() {
 
   # xvmc toggle for legacy trees
   if ( cd "$srcdir/$_mesa_srcdir" && ! git merge-base --is-ancestor 8cc766d8f7eac26b7c029a2fac1bdfdba4776c29 HEAD ); then
-    _xvmc="-D gallium-xvmc=${_disabled_}"
+    _xvmc="-D gallium-xvmc=disabled"
   fi
 
   meson setup mesa-${_pkgver} build-clang \
