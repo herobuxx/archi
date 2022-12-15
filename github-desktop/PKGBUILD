@@ -19,7 +19,6 @@ makedepends=(nodejs-lts-gallium
              npm
              python2
              xorg-server-xvfb
-			 openssl-1.1
              yarn)
 DLAGENTS=("http::/usr/bin/git clone --branch $_gitname --single-branch %u")
 source=("$pkgname::git+https://github.com/shiftkey/desktop.git#tag=$_gitname"
@@ -45,7 +44,6 @@ prepare() {
 build() {
 	cd "$pkgname"
 	xvfb-run yarn install
-	xvfb-run npm audit fix --force
 	xvfb-run yarn build:prod
 }
 
