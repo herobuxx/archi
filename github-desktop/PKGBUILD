@@ -60,3 +60,4 @@ package() {
 	install -Dm0644 "256x256.png" "$pkgdir/usr/share/icons/hicolor/256x256/apps/$pkgname.png"
 	printf "#!/bin/sh\n\n/opt/$pkgname/github-desktop \"\$@\"\n" |
 		install -Dm0755 /dev/stdin "$pkgdir/usr/bin/$pkgname"
+}
