@@ -76,12 +76,12 @@ jobs:
       #     cd ${{ matrix.build }} && sed -i 's/+clang//g' PKGBUILD
       # - run: ls -alR
       - id: makepkg
-        uses: JPratama7/pkgbuild-action@aur-gcc
+        uses: JPratama7/pkgbuild-action@test-aur
         with:
           namcapDisable: true
           makepkgArgs: "--skippgpcheck --skipchecksums"
           pkgdir:  ${{ matrix.build }}
-          # cleanchroot: "true"
+          cleanchroot: "true"
         # uses: JPratama7/pkgbuild-action@test-toolchain
         # with:
         #   namcapDisable: true
