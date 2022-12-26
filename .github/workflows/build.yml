@@ -81,7 +81,7 @@ jobs:
           namcapDisable: true
           makepkgArgs: "--skippgpcheck --skipchecksums"
           pkgdir:  ${{ matrix.build }}
-          cleanchroot: "true"
+          # cleanchroot: "true"
         # uses: JPratama7/pkgbuild-action@test-toolchain
         # with:
         #   namcapDisable: true
