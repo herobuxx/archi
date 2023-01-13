@@ -45,7 +45,7 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}kbuild-patches-v2-all/0001-kbuild-patches.patch"
         "${_lucjan}kbuild-cachyos-patches-v2/0001-kbuild-cachyos-patches.patch"
         "${_lucjan}fixes-miscellaneous-v22/0001-fixes-miscellaneous.patch"
-        "${_lucjan}lrng-cachyos-patches-v10/0001-lrng-cachyos-patches.patch"
+        "${_lucjan}lrng-cachyos-patches-v9/0001-lrng-cachyos-patches.patch"
         "${_lucjan}folios-cachyos-patches-v4/0001-folio-6.1-merge-changes-from-dev-tree.patch"
         "${_lucjan}ksm-cleanup-patches/0001-ksm-6.1-break_ksm-cleanups-and-fixes.patch"
         "${_lucjan}bfq-cachyos-patches-v9/0001-bfq-cachyos-patches.patch"
