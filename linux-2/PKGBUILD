@@ -58,7 +58,7 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}pagepool-patches-v2/0001-page-pool-6.1-Split-netmem-from-struct-page.patch"
         "${_lucjan}zsmalloc-patches-v3/0001-zsmalloc-6.1-make-zspage-chain-size-configurable.patch"
         ##### Misc Patch
-        "${_lucjan}ext4-patches-v4-all/0001-ext4-patches.patch"
+        # "${_lucjan}ext4-patches-v4-all/0001-ext4-patches.patch"
         "${_lucjan}xfs-patches-v2/0001-xfs-6.1-merge-changes-from-dev-tree.patch"
         "${_lucjan}crypto-patches/0001-crypto-x86-ghash-cleanups.patch"
         "${_tkg}0002-mm-Support-soft-dirty-flag-read-with-reset.patch"
