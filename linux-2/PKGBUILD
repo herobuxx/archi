@@ -14,7 +14,7 @@ _makenconfig=n
 
 pkgbase=linux-xanmod-custom
 _major=6.1
-pkgver=${_major}.5
+pkgver=${_major}.7
 _branch=6.x
 xanmod=1
 pkgrel=${xanmod}
@@ -44,7 +44,7 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}bitmap-patches/0001-bitmap-6.1-merge-changes-from-dev-tree.patch"
         "${_lucjan}kbuild-patches-v2-all/0001-kbuild-patches.patch"
         "${_lucjan}kbuild-cachyos-patches-v2/0001-kbuild-cachyos-patches.patch"
-        "${_lucjan}fixes-miscellaneous-v22/0001-fixes-miscellaneous.patch"
+        "${_lucjan}fixes-miscellaneous-v28/0001-fixes-miscellaneous.patch"
         "${_lucjan}lrng-cachyos-patches-v9/0001-lrng-cachyos-patches.patch"
         "${_lucjan}folios-cachyos-patches-v4/0001-folio-6.1-merge-changes-from-dev-tree.patch"
         "${_lucjan}ksm-cleanup-patches/0001-ksm-6.1-break_ksm-cleanups-and-fixes.patch"
@@ -57,7 +57,7 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}vmlinuz-cachyos-patches/0001-x86-Avoid-relocation-information-in-final-vmlinux.patch"
         "${_lucjan}mm-kconfig-patches/0001-mm-kconfig-6.1-Introduce-CONFIG_SLUB_TINY-and-deprec.patch"
         "${_lucjan}pagepool-patches-v2/0001-page-pool-6.1-Split-netmem-from-struct-page.patch"
-        "${_lucjan}zsmalloc-patches-v3/0001-zsmalloc-6.1-make-zspage-chain-size-configurable.patch"
+        "${_lucjan}zsmalloc-patches-v4/0001-zsmalloc-6.1-make-zspage-chain-size-configurable.patch"
         "${_lucjan}zstd-cachyos-patches-v2-all/0001-zstd-cachyos-patches.patch"
         ##### Misc Patch
         # "${_lucjan}ext4-patches-v4/0001-ext4-6.1-merge-changes-from-dev-tree.patch"
@@ -66,7 +66,7 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_tkg}0002-mm-Support-soft-dirty-flag-read-with-reset.patch"
         "${_lucjan}zstd-modules-cachyos-patches/0001-zstd-modules-cachyos-patches.patch"
         "${_lucjan}tar-patches/0001-package-add-tar-development-package-for-3rd-party-mo.patch"
-        "${_lucjan}btrfs-cachyos-patches-v5/0001-btrfs-cachyos-patches.patch"
+        "${_lucjan}btrfs-cachyos-patches-v6/0001-btrfs-cachyos-patches.patch"
         "${_lucjan}lto-patches/0001-lto-patches.patch"
         "${_lucjan}zswap-patches/0001-zswap-6.1-Implement-writeback-for-zsmalloc.patch"
         "ck-hrtimer-$_commit.tar.gz::https://github.com/graysky2/linux-patches/archive/$_commit_ck.tar.gz"
