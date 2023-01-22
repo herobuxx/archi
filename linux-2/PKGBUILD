@@ -52,7 +52,7 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}kallsyms-cachyos-patches/0001-kallsyms-6.1-merge-changes-from-dev-tree.patch"
         "${_lucjan}v4l2loopback-patches/0001-media-v4l2-core-add-v4l2loopback.patch"
         "${_lucjan}vdso-patches-v3/0001-vdso-6.1-merge-changes-from-dev-tree.patch"
-        "${_lucjan}uksmd-vdso-cachyos-patches-all/0001-uksmd-vdso-cachyos-patches.patch"
+        # "${_lucjan}uksmd-vdso-cachyos-patches-all/0001-uksmd-vdso-cachyos-patches.patch"
         "${_lucjan}zram-cachyos-patches-v2/0001-zram-cachyos-patches.patch"
         "${_lucjan}vmlinuz-cachyos-patches/0001-x86-Avoid-relocation-information-in-final-vmlinux.patch"
         "${_lucjan}mm-kconfig-patches/0001-mm-kconfig-6.1-Introduce-CONFIG_SLUB_TINY-and-deprec.patch"
