@@ -109,7 +109,10 @@ prepare() {
     src="${src##*/}"
     [[ $src = *.patch ]] || continue
     msg2 "Applying patch $src..."
-    patch -Np1 -F 2 < "../$src"
+    # patch -Np1 -F 2 < "../$src"
+    patch --strip=1 --unified --backup --forward --directory=<somewhere> --input="../$src"; \
+    retCode=$$?; \
+    [[ $$retCode -gt 1 ]] && exit $$retCode;
   done
 
   # Applying configuration
