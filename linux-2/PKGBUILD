@@ -119,15 +119,15 @@ prepare() {
   if [ "${_compiler}" = "clang" ]; then
     msg2 "Enabling LTO CLANG"
     scripts/config \
-            --enable LTO \
-            --enable LTO_CLANG \
-            --enable ARCH_SUPPORTS_LTO_CLANG \
-            --enable ARCH_SUPPORTS_LTO_CLANG_THIN \
-            --disable LTO_NONE \
-            --enable HAS_LTO_CLANG \
-            --disable LTO_CLANG_FULL \
-            --enable LTO_CLANG_THIN \
-            --enable HAVE_GCC_PLUGINS
+        --enable LTO \
+        --enable LTO_CLANG \
+        --enable ARCH_SUPPORTS_LTO_CLANG \
+        --enable ARCH_SUPPORTS_LTO_CLANG_THIN \
+        --disable LTO_NONE \
+        --enable HAS_LTO_CLANG \
+        --disable LTO_CLANG_FULL \
+        --enable LTO_CLANG_THIN \
+        --enable HAVE_GCC_PLUGINS
     _LLVM=1
   fi
 
@@ -311,7 +311,7 @@ prepare() {
 
   # Disable CONFIG_GENERIC_CPU2 if we have choosen another microarchitecture
   # https://github.com/xanmod/linux/issues/240
-  [ "$_microarchitecture" = "0" ] || scripts/config --disable CONFIG_GENERIC_CPU2
+  [ "$_microarchitecture" = "0" ] || scripts/config --disable CONFIG_GENERIC_CPU3
   # Let's user choose microarchitecture optimization in GCC
   sh ${srcdir}/choose-gcc-optimization.sh $_microarchitecture
 
