@@ -33,9 +33,7 @@ jobs:
   python:
     strategy:
       matrix:
-        build: [
-          whatsapp-for-linux, geany-git, tor-browser, wget2-git,
-          appimagelauncher, resp-app, earlyoom-git, slimjet
+        build: [resp-app, slimjet,joplin,mpc-qt-git
           ]
       fail-fast: false
     runs-on: ubuntu-latest
