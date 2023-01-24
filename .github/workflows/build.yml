@@ -35,7 +35,8 @@ jobs:
       matrix:
         build: [
           whatsapp-for-linux, geany-git, tor-browser, wget2-git,
-          appimagelauncher, earlyoom-git, slimjet]
+          appimagelauncher, earlyoom-git, slimjet
+          ]
       fail-fast: false
     runs-on: ubuntu-latest
     container: archlinux:latest
@@ -45,7 +46,7 @@ jobs:
         with:
           # repository: h0tc0d3/arch-packages
           # repository: JPratama7/arch-builder
-          # repository: sarcasticadmin/empty-repo
+          repository: sarcasticadmin/empty-repo
         #   repository: archlinux/svntogit-packages
         #   ref: packages/${{ matrix.build }}
       # - run: 
