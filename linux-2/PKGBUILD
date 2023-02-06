@@ -65,7 +65,6 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}crypto-patches/0001-crypto-x86-ghash-cleanups.patch"
         "${_lucjan}zstd-cachyos-patches-v2-all/0001-zstd-cachyos-patches.patch"
         "${_tkg}0002-mm-Support-soft-dirty-flag-read-with-reset.patch"
-        "${_lucjan}zstd-cachyos-patches-v2-all/0001-zstd-cachyos-patches.patch"
         "${_lucjan}tar-patches/0001-package-add-tar-development-package-for-3rd-party-mo.patch"
         "${_lucjan}btrfs-cachyos-patches-v8/0001-btrfs-cachyos-patches.patch"
         "${_lucjan}lto-patches/0001-lto-patches.patch"
