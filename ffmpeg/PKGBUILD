@@ -113,7 +113,7 @@ source=("https://ffmpeg.org/releases/ffmpeg-${pkgver}.tar.xz"{,.asc}
         '040-ffmpeg-add-av_stream_get_first_dts-for-chromium.patch'::"https://aur.archlinux.org/cgit/aur.git/plain/040-ffmpeg-add-av_stream_get_first_dts-for-chromium.patch?h=ffmpeg-amd-full"
         '060-ffmpeg-fix-segfault-with-avisynthplus.patch'::"https://aur.archlinux.org/cgit/aur.git/plain/060-ffmpeg-fix-segfault-with-avisynthplus.patch?h=ffmpeg-amd-full"
         '070-ffmpeg-fix-v4l2-memory-leak.patch'::'https://git.ffmpeg.org/gitweb/ffmpeg.git/patch/30aa0c3f4873a92c5e3da8ba8cf030de56bf4cf7'
-        'LICENSE')
+        )
 b2sums=('SKIP'
         '555274228e09a233d92beb365d413ff5c718a782008075552cafb2130a3783cf976b51dfe4513c15777fb6e8397a34122d475080f2c4483e8feea5c0d878e6de')
 validpgpkeys=(DD1EC9E8DE085C629B3E1846B18E8928B3948D64) # Michael Niedermayer <michael@niedermayer.cc>
