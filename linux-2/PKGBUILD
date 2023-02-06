@@ -59,7 +59,7 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}vmlinuz-cachyos-patches/0001-x86-Avoid-relocation-information-in-final-vmlinux.patch"
         "${_lucjan}mm-kconfig-patches/0001-mm-kconfig-6.1-Introduce-CONFIG_SLUB_TINY-and-deprec.patch"
         # "${_lucjan}modules-patches-v3-all/0001-modules-patches.patch"
-        "${_lucjan}sched-cachyos-patches-v10-all/0001-sched-cachyos-patches.patch"
+        # "${_lucjan}sched-cachyos-patches-v10-all/0001-sched-cachyos-patches.patch"
         ##### Misc Patch
         "${_lucjan}um-patches/0001-um-Support-LTO.patch"
         "${_lucjan}crypto-patches/0001-crypto-x86-ghash-cleanups.patch"
