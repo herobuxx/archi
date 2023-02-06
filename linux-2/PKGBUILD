@@ -60,8 +60,6 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}mm-kconfig-patches/0001-mm-kconfig-6.1-Introduce-CONFIG_SLUB_TINY-and-deprec.patch"
         ##### Misc Patch
         "${_lucjan}um-patches/0001-um-Support-LTO.patch"
-        "${_lucjan}ext4-patches/0001-ext4-6.1-merge-changes-from-dev-tree.patch"
-        "${_lucjan}xfs-patches-v2/0001-xfs-6.1-merge-changes-from-dev-tree.patch"
         "${_lucjan}crypto-patches/0001-crypto-x86-ghash-cleanups.patch"
         "${_lucjan}zstd-cachyos-patches-v2-all/0001-zstd-cachyos-patches.patch"
         "${_tkg}0002-mm-Support-soft-dirty-flag-read-with-reset.patch"
