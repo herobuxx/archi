@@ -82,10 +82,10 @@ makedepends=(
   vulkan-headers
 )
 optdepends=(
-  'avisynthplus: AviSynthPlus support'
-  'intel-media-sdk: Intel QuickSync support'
-  'ladspa: LADSPA filters'
-  'nvidia-utils: Nvidia NVDEC/NVENC support'
+  'avisynthplus': 'AviSynthPlus support'
+  'intel-media-sdk': 'Intel QuickSync support'
+  'ladspa': 'LADSPA filters'
+  'nvidia-utils': 'Nvidia NVDEC/NVENC support'
 )
 provides=(
   'ffmpeg' "ffmpeg=${epoch}:${pkgver}"
