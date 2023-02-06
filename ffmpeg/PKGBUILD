@@ -84,7 +84,7 @@ optdepends=(
   intel-media-sdk: 'Intel QuickSync support'
   ladspa: 'LADSPA filters'
   nvidia-utils: 'Nvidia NVDEC/NVENC support'
-)
+) 
 provides=(
   ffmpeg "ffmpeg=${epoch}:${pkgver}"
   libavcodec.so
