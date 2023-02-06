@@ -14,7 +14,7 @@ _makenconfig=n
 
 pkgbase=linux-xanmod-custom
 _major=6.1
-pkgver=${_major}.8
+pkgver=${_major}.9
 _branch=6.x
 xanmod=1
 pkgrel=${xanmod}
@@ -64,10 +64,11 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}ext4-patches/0001-ext4-6.1-merge-changes-from-dev-tree.patch"
         "${_lucjan}xfs-patches-v2/0001-xfs-6.1-merge-changes-from-dev-tree.patch"
         "${_lucjan}crypto-patches/0001-crypto-x86-ghash-cleanups.patch"
+        "${_lucjan}zstd-cachyos-patches-v2-all/0001-zstd-cachyos-patches.patch"
         "${_tkg}0002-mm-Support-soft-dirty-flag-read-with-reset.patch"
         "${_lucjan}zstd-modules-cachyos-patches/0001-zstd-modules-cachyos-patches.patch"
         "${_lucjan}tar-patches/0001-package-add-tar-development-package-for-3rd-party-mo.patch"
-        "${_lucjan}btrfs-cachyos-patches-v4/0001-btrfs-cachyos-patches.patch"
+        "${_lucjan}btrfs-cachyos-patches-v8/0001-btrfs-cachyos-patches.patch"
         "${_lucjan}lto-patches/0001-lto-patches.patch"
         "${_lucjan}zswap-patches/0001-zswap-6.1-Implement-writeback-for-zsmalloc.patch"
         "ck-hrtimer-$_commit.tar.gz::https://github.com/graysky2/linux-patches/archive/$_commit_ck.tar.gz"
