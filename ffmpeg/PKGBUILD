@@ -128,13 +128,8 @@ prepare() {
     patch -d "ffmpeg-${pkgver}" -Np1 -i "${srcdir}/070-ffmpeg-fix-v4l2-memory-leak.patch"
 }
 
-pkgver() {
-  cd ffmpeg
-  git describe --tags | sed 's/^n//'
-}
-
 build() {
-  cd ffmpeg
+  cd "ffmpeg-${pkgver}"
   ./configure \
     --prefix=/usr \
     --disable-debug \
