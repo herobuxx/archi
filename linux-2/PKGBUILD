@@ -49,7 +49,7 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}pagepool-patches-v2-all/0001-pagepool-patches.patch"
         # "${_lucjan}drm-patches-v2/0001-drm-6.1-Add-HDR-patches.patch"
         # "${_lucjan}kvx-patches-all/0001-kvx-patches.patch"
-        "${_lucjan}bfq-cachyos-patches-v11/0001-bfq-cachyos-patches.patch"
+        # "${_lucjan}bfq-cachyos-patches-v11/0001-bfq-cachyos-patches.patch"
         "${_lucjan}ksm-cleanup-patches/0001-ksm-6.1-break_ksm-cleanups-and-fixes.patch"
         "${_lucjan}kallsyms-cachyos-patches/0001-kallsyms-6.1-merge-changes-from-dev-tree.patch"
         "${_lucjan}v4l2loopback-patches/0001-media-v4l2-core-add-v4l2loopback.patch"
