@@ -47,7 +47,6 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}lrng-cachyos-patches-v9/0001-lrng-cachyos-patches.patch"
         "${_lucjan}folios-cachyos-patches-v4/0001-folio-6.1-merge-changes-from-dev-tree.patch"
         "${_lucjan}mm-dmapool-patches-v2-all/0001-mm-dmapool-patches.patch"
-        "${_lucjan}cachyos-net-patches/0001-Add-a-sysctl-to-skip-tcp-collapse-processing-when-th.patch"
         "${_lucjan}drm-patches-v2/0001-drm-6.1-Add-HDR-patches.patch"
         "${_lucjan}kvx-patches-all/0001-kvx-patches.patch"
         "${_lucjan}bfq-cachyos-patches-v11/0001-bfq-cachyos-patches.patch"
