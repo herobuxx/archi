@@ -34,7 +34,7 @@ jobs:
     strategy:
       matrix:
         build: [
-          mpc-qt
+          linux-2
           ]
       fail-fast: false
     runs-on: ubuntu-latest
