@@ -59,7 +59,6 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_cachy}misc/0001-mm-add-zblock-new-allocator-for-use-via-zpool-API.patch"
         "${_lucjan}vmlinuz-cachyos-patches/0001-x86-Avoid-relocation-information-in-final-vmlinux.patch"
         "${_lucjan}mm-kconfig-patches/0001-mm-kconfig-6.1-Introduce-CONFIG_SLUB_TINY-and-deprec.patch"
-        "${_lucjan}fixes-miscellaneous-v43/0001-fixes-miscellaneous.patch"
         "${_lucjan}um-patches/0001-um-Support-LTO.patch"
         "${_lucjan}zstd-cachyos-patches-v2-all/0001-zstd-cachyos-patches.patch"
         "${_tkg}0002-mm-Support-soft-dirty-flag-read-with-reset.patch"
