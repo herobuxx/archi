@@ -1,6 +1,6 @@
 pkgname=mesa
 pkgdesc="Mesa open-source implementation of the OpenGL specification"
-pkgver=22.3.0
+pkgver=23.0.0
 _pkgver=${pkgver//_/-}
 pkgrel=1
 arch=('x86_64')
@@ -24,9 +24,9 @@ url="https://www.mesa3d.org"
 license=('custom')
 source=(
   "https://archive.mesa3d.org/mesa-${_pkgver}.tar.xz"{,.sig}
-  "https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/mesa/trunk/0001-anv-force-MEDIA_INTERFACE_DESCRIPTOR_LOAD-reemit-aft.patch"
-  "https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/mesa/trunk/0002-intel-fs-always-mask-the-bottom-bits-of-the-sampler-.patch"
-  "https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/mesa/trunk/0003-d3d12-Don-t-crash-when-libd3d12.so-can-t-be-found.patch"
+  "https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/mesa/repos/extra-x86_64/0001-anv-force-MEDIA_INTERFACE_DESCRIPTOR_LOAD-reemit-aft.patch"
+  "https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/mesa/trunk/0003-Revert-iris-Avoid-abort-if-kernel-can-t-allocate-mem.patch"
+  "https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/mesa/trunk/0002-iris-Retry-DRM_IOCTL_I915_GEM_EXECBUFFER2-on-ENOMEM.patch"
   'LICENSE'
 )
 
@@ -115,6 +115,7 @@ build() {
     -D opengl=true \
     -D zstd=auto \
     -D valgrind=disabled \
+    -D video-codecs=vc1dec,h264dec,h264enc,h265dec,h265enc \
     -D c_args="$CFLAGS" \
     -D c_link_args="$LDFLAGS" \
     -D cpp_args="$CXXFLAGS" \
