@@ -60,28 +60,15 @@ prepare() {
     _extra_lto_flag='-D b_lto_mode=thin'
   fi
 
-  # local src
-  # for src in "${source[@]}"; do
-  #   src="${src%%::*}"
-  #   src="${src##*/}"
-  #   [[ $src = *.patch ]] || continue
-  #   msg2 "Applying patch $src..."
-  #   _patch $src
-  # done
-  
-  # patch -Np1 -i ../0001-anv-force-MEDIA_INTERFACE_DESCRIPTOR_LOAD-reemit-aft.patch
-  # patch -Np1 -i ../0002-iris-Retry-DRM_IOCTL_I915_GEM_EXECBUFFER2-on-ENOMEM.patch
-  # patch -Np1 -i ../0003-Revert-iris-Avoid-abort-if-kernel-can-t-allocate-mem.patch
+  local src
+  for src in "${source[@]}"; do
+    src="${src%%::*}"
+    src="${src##*/}"
+    [[ $src = *.patch ]] || continue
+    msg2 "Applying patch $src..."
+    _patch $src
+  done
 
-  # https://gitlab.freedesktop.org/mesa/mesa/-/issues/7111
-  # https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/17247
-  # https://github.com/HansKristian-Work/vkd3d-proton/issues/1200
-  patch -Np1 -i ../0001-anv-force-MEDIA_INTERFACE_DESCRIPTOR_LOAD-reemit-aft.patch
-
-  # https://gitlab.freedesktop.org/drm/intel/-/issues/6851
-  # https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/20449
-  patch -Np1 -i ../0002-iris-Retry-DRM_IOCTL_I915_GEM_EXECBUFFER2-on-ENOMEM.patch
-  patch -Np1 -i ../0003-Revert-iris-Avoid-abort-if-kernel-can-t-allocate-mem.patch
 }
 
 build() {
