@@ -47,7 +47,6 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}drm-patches/0001-drm-6.2-Add-HDR-patches.patch"
         "${_lucjan}bfq-cachyos-patches/0001-bfq-cachyos-patches.patch"
         "${_lucjan}ksm-patches/0001-ksm-patches.patch"
-        "${_cachy}0011-mm-kvm-lockless-accessed-bit-harvest.patch"
         "${_lucjan}cpuidle-patches-all/0001-cpuidle-patches.patch"
         "${_lucjan}codetags-patches-all/0001-codetags-patches.patch"
         "${_lucjan}zsmalloc-patches-v2/0001-zsmalloc-6.2-merge-changes-from-dev-tree.patch"
