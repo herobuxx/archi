@@ -58,7 +58,7 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}clang-patches-all/0001-clang-patches.patch"
         "${_lucjan}zram-cachyos-patches/0001-zram-cachyos-patches.patch"
         ##### Misc Patch
-        "${_cachy}0008-Implement-amd-pstate-epp-and-amd-pstate-guided.patch"
+        "${_cachy}0008-Implement-amd-pstate-epp-and-amd-pstate-guided-drive.patch"
         "${_lucjan}um-patches/0001-um-Support-LTO.patch"
         "${_tkg}0002-mm-Support-soft-dirty-flag-read-with-reset.patch"
         "${_lucjan}tar-patches/0001-package-add-tar-development-package-for-3rd-party-mo.patch"
@@ -173,8 +173,8 @@ prepare() {
   msg2 "Set HOSTNAME"
   scripts/config --set-val CONFIG_DEFAULT_HOSTNAME "XANMOD-X86_64-V3"
 
-  msg2 "ZRAM Entropy Calculation"
-  scripts/config  --enable ZRAM_ENTROPY
+  msg2 "AMD PSTATE"
+  scripts/config  --enable CONFIG_X86_AMD_PSTATE
 
   msg2 "Enable v4l2loopback support"
   scripts/config --enable CONFIG_V4L2_LOOPBACK
