@@ -102,7 +102,7 @@ prepare() {
     src="${src##*/}"
     [[ $src = *.patch ]] || continue
     msg2 "Applying patch $src..."
-    $OUT=(patch --reverse --unified -p1 -F2 --input="../$src" -r -) || echo "${OUT}" | grep "Skipping patch" -q || (echo "$OUT" && false);
+    OUT="$(patch --reverse --unified -p1 -F2 --input="../$src" -r -)" || echo "${OUT}" | grep "Skipping patch" -q || (echo "$OUT" && false);
 
   done
 
