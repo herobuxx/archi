@@ -102,7 +102,7 @@ prepare() {
     src="${src##*/}"
     [[ $src = *.patch ]] || continue
     msg2 "Applying patch $src..."
-    patch --forward --unified -p1 -F2 --input="../$src"
+    patch --forward --unified -p1 -F2 --input="../$src" -r -
 
   done
 
