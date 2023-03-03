@@ -58,6 +58,7 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}clang-patches-all/0001-clang-patches.patch"
         "${_lucjan}zram-cachyos-patches/0001-zram-cachyos-patches.patch"
         ##### Misc Patch
+        "${_lucjan}hwmon-patches-v2/0001-hwmon-6.2-merge-changes-from-dev-tree.patch"
         "${_cachy}0008-Implement-amd-pstate-epp-and-amd-pstate-guided-drive.patch"
         "${_lucjan}um-patches/0001-um-Support-LTO.patch"
         "${_tkg}0002-mm-Support-soft-dirty-flag-read-with-reset.patch"
