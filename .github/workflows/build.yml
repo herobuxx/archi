@@ -34,7 +34,7 @@ jobs:
     strategy:
       matrix:
         build: [
-          wine-ge-custom
+          mpc-qt-git
           ]
       fail-fast: false
     runs-on: ubuntu-latest
