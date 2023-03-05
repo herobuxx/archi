@@ -19,7 +19,7 @@ conflicts=('llvm' 'llvm-libs' 'llvm-ocaml' 'clang' 'clang-analyzer'
   'llvm-git' 'llvm-libs-git' 'llvm-ocaml-git' 'libc++'
   'libc++abi' 'libc++experimental')
 
-depends=('libelf' 'libffi' 'libedit' 'libxml2' 'ncurses', 'mimalloc')
+depends=('libelf' 'libffi' 'libedit' 'libxml2' 'ncurses')
 _ocaml_ver=4.14.0
 makedepends=(
   'git' 'ninja' 'cmake'
