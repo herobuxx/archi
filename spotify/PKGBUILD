@@ -40,7 +40,7 @@ sha512sums=(
 package() {
     cd "${srcdir}"
 
-    tar --use-compress-program=unzstd -xvf data.tar.zstd --no-same-owner -C "${pkgdir}"
+    tar --use-compress-program=unzstd -xvf data.tar.zst --no-same-owner -C "${pkgdir}"
 
     # Enable spotify to open URLs from the webapp
     sed -i 's/^Exec=.*/Exec=spotify --uri=%U/' "${pkgdir}"/usr/share/spotify/spotify.desktop
