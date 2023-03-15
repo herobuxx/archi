@@ -18,7 +18,7 @@ DLAGENTS=(
 depends=('libdrm' 'libxxf86vm' 'libxdamage' 'libxshmfence' 'libelf' 'systemd' 'systemd-libs'
   'libomxil-bellagio' 'libunwind' 'libglvnd' 'wayland' 'lm_sensors' 'libclc' 'vulkan-icd-loader' 'zstd' 'expat')
 optdepends=('opengl-man-pages: for the OpenGL API man pages')
-makedepends=('cmake' 'pkgconf')
+makedepends=('cmake' 'pkgconf' 'meson')
 provides=('mesa' "mesa=${pkgver}" 'opencl-mesa' 'vulkan-intel' 'vulkan-radeon' 'vulkan-mesa-layer' 'libva-mesa-driver' 'mesa-vdpau' 'vulkan-swrast' 'vulkan-driver' 'opengl-driver' 'opencl-driver' 'mesa-libgl')
 conflicts=('mesa' 'opencl-mesa' 'vulkan-intel' 'vulkan-radeon' 'vulkan-mesa-layer' 'libva-mesa-driver' 'mesa-vdpau' 'vulkan-swrast')
 url="https://www.mesa3d.org"
