@@ -45,7 +45,6 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "https://github.com/xanmod/linux/releases/download/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz"
         choose-gcc-optimization.sh
         "0001-Revert-XANMOD-fair-Remove-all-energy-efficiency-func.patch"
-        # "${_lucjan}fixes-miscellaneous-v12/0001-fixes-miscellaneous.patch"
         "${_cachy}sched/0001-tt.patch"
         "${_lucjan}bitmap-patches/0001-bitmap-switch-from-inline-to-__always_inline.patch"
         "${_lucjan}kbuild-cachyos-patches-v2/0001-kbuild-cachyos-patches.patch"
@@ -63,6 +62,7 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}objtool-patches-all/0001-objtool-patches.patch"
         "${_lucjan}clang-patches-v2-all/0001-clang-patches.patch"
         "${_lucjan}ext4-patches-v6-all/0001-ext4-patches.patch"
+        "${_lucjan}fixes-miscellaneous-v16/0001-fixes-miscellaneous.patch"
         ##### Misc Patch
         "${_lucjan}hwmon-patches-v3/0001-hwmon-6.2-merge-changes-from-dev-tree.patch"
         "${_cachy}0008-Implement-amd-pstate-epp-and-amd-pstate-guided-drive.patch"
