@@ -1,7 +1,7 @@
 # Maintainer: JPratama7 <josepratama080@gmail.com>
 
-pkgbase=thorium-browser
-pkgname=${pkgbase}-bin
+pkgbase=thorium
+pkgname=${pkgbase}-browser-bin
 pkgver=110.0.5481.178
 pkgrel=1
 pkgdesc="The web browser from Chromiumorg and The Thorium Authors. Thorium is a browser that combines a minimal design with sophisticated technology to make the web faster, safer, and easier."
