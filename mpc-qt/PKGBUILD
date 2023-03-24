@@ -1,4 +1,4 @@
-kgname=mpc-qt-git
+pkgname=mpc-qt-git
 pkgver=22.02.r25.g437e062
 pkgrel=1
 epoch=1
