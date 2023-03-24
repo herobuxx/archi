@@ -34,7 +34,7 @@ jobs:
     strategy:
       matrix:
         build: [
-          mpc-qt-git
+          mesa, llvm-all
           ]
       fail-fast: false
     runs-on: ubuntu-latest
@@ -51,8 +51,8 @@ jobs:
       # - run: 
       #     pacman -Syu --noconfirm --needed git
       #     cat /etc/makepkg.conf
-        # with:
-        #   repository: JPratama7/arch-builder
+        with:
+          repository: JPratama7/arch-builder
           
       # - uses: webiny/action-post-run@2.0.1
       #   id: post-run-command
@@ -78,7 +78,7 @@ jobs:
       #     cd ${{ matrix.build }} && sed -i 's/+clang//g' PKGBUILD
       # - run: ls -alR
       - id: makepkg
-        uses: JPratama7/pkgbuild-action@aur-clang
+        uses: JPratama7/pkgbuild-action@testing-clang
         with:
           namcapDisable: true
           makepkgArgs: "--skippgpcheck --skipchecksums"
