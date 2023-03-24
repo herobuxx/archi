@@ -34,7 +34,7 @@ jobs:
     strategy:
       matrix:
         build: [
-          mesa, llvm-all
+          mesa, llvm-runtime
           ]
       fail-fast: false
     runs-on: ubuntu-latest
@@ -51,8 +51,8 @@ jobs:
       # - run: 
       #     pacman -Syu --noconfirm --needed git
       #     cat /etc/makepkg.conf
-        with:
-          repository: JPratama7/arch-builder
+        # with:
+        #   repository: JPratama7/arch-builder
           
       # - uses: webiny/action-post-run@2.0.1
       #   id: post-run-command
