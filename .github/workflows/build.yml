@@ -34,7 +34,7 @@ jobs:
     strategy:
       matrix:
         build: [
-          mesa, llvm-runtime
+          mesa
           ]
       fail-fast: false
     runs-on: ubuntu-latest
