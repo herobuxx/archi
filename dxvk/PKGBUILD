@@ -1,10 +1,13 @@
+# Maintainer: Andrius Lukosevicius <niobium93@gmail.com>
+# Contributor: giantdwarf <17hoehbr@gmail.com>
+
 pkgbase=dxvk-async-git
 pkgname=('dxvk-async-git')
-pkgver=1.10.1.r956.gae764333
+pkgver=2.1.r19.g7f21a6c4
 pkgrel=1
 pkgdesc="A Vulkan-based compatibility layer for Direct3D 9/10/11 which allows running 3D applications on Linux using Wine. Windows DLL version)"
 arch=('x86_64')
-url="https://github.com/Sporif/dxvk-async.git"
+url="https://gitlab.com/Ph42oN/dxvk-gplasync/"
 license=('zlib/libpng')
 depends=('vulkan-icd-loader' 'wine>=4.0rc1' 'lib32-vulkan-icd-loader')
 provides=("dxvk" "d9vk" "dxvk=$pkgver")
@@ -15,14 +18,16 @@ source=("git+https://github.com/doitsujin/dxvk.git"
         "git+https://github.com/Joshua-Ashton/mingw-directx-headers.git"
         "git+https://github.com/KhronosGroup/Vulkan-Headers.git"
         "git+https://github.com/KhronosGroup/SPIRV-Headers.git"
-        "git+https://github.com/Sporif/dxvk-async.git"
-        "dxvk-async-env.conf")
+        "git+https://gitlab.com/Ph42oN/dxvk-gplasync.git"
+        "dxvk-async-env.conf"
+        "setup_dxvk.sh")
 sha256sums=('SKIP'
             'SKIP'
             'SKIP'
             'SKIP'
             'SKIP'
-            '5ea0fbf7fddb45a8575ff001793011a594d999aaeb66ef95378bca950c844300')
+            '5ea0fbf7fddb45a8575ff001793011a594d999aaeb66ef95378bca950c844300'
+            '0f688815530ab5e8cc89b9b45d9b1d66cd8cd5a7770fb8249339af555a30dfe7')
 
 pkgver() {
     cd dxvk
@@ -38,11 +43,11 @@ prepare() {
     git config submodule.include/spirv.url "$srcdir/SPIRV-Headers"
     git -c protocol.file.allow=always submodule update include/{native/directx,vulkan,spirv}
 
-    patch --forward --strip=1 --input="${srcdir}/dxvk-async/dxvk-async.patch"
+    patch --forward --strip=1 --input="${srcdir}/dxvk-gplasync/dxvk-gplasync.patch"
 }
 
 build() {
-    meson dxvk "build/x64" \
+    meson setup dxvk "build/x64" \
         --cross-file dxvk/build-win64.txt \
         --prefix "/usr/share/dxvk/x64" \
         --bindir "" --libdir "" \
@@ -50,12 +55,16 @@ build() {
         --strip
     ninja -C "build/x64"
 
-    meson dxvk "build/x32" \
+    meson setup dxvk "build/x32" \
         --cross-file dxvk/build-win32.txt \
         --prefix "/usr/share/dxvk/x32" \
         --bindir "" --libdir "" \
         --buildtype "release" \
-        --strip
+        --strip \
+        -Dc_args="$CFLAGS" \
+        -Dcpp_args="$CXXFLAGS"
+        
+
     ninja -C "build/x32"
 }
 
@@ -64,7 +73,7 @@ package_dxvk-async-git() {
         conflicts=("dxvk-bin" "dxvk-mingw-git")
         DESTDIR="$pkgdir" ninja -C "build/x32" install
         DESTDIR="$pkgdir" ninja -C "build/x64" install
-        install -Dm 644 dxvk/setup_dxvk.sh "$pkgdir/usr/share/dxvk/setup_dxvk.sh"
+        install -Dm 644 "$srcdir/setup_dxvk.sh" "$pkgdir/usr/share/dxvk/setup_dxvk.sh"
         mkdir -p "$pkgdir/usr/bin"
         ln -s /usr/share/dxvk/setup_dxvk.sh "$pkgdir/usr/bin/setup_dxvk"
         chmod +x "$pkgdir/usr/share/dxvk/setup_dxvk.sh"
