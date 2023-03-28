@@ -19,8 +19,8 @@ source=("git+https://github.com/doitsujin/dxvk.git"
         "git+https://github.com/KhronosGroup/Vulkan-Headers.git"
         "git+https://github.com/KhronosGroup/SPIRV-Headers.git"
         "git+https://gitlab.com/Ph42oN/dxvk-gplasync.git"
-        "dxvk-async-env.conf"
-        "setup_dxvk.sh")
+        "https://aur.archlinux.org/cgit/aur.git/plain/dxvk-async-env.conf?h=dxvk-async-git"
+        "https://aur.archlinux.org/cgit/aur.git/plain/setup_dxvk.sh?h=dxvk-async-git")
 sha256sums=('SKIP'
             'SKIP'
             'SKIP'
@@ -63,7 +63,7 @@ build() {
         --strip \
         -Dc_args="$CFLAGS" \
         -Dcpp_args="$CXXFLAGS"
-        
+
 
     ninja -C "build/x32"
 }
