@@ -63,7 +63,6 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}ext4-patches-v7-all/0001-ext4-patches.patch"
         "${_lucjan}fixes-miscellaneous-v19/0001-fixes-miscellaneous.patch"
         ##### Misc Patch
-        "${_lucjan}hwmon-patches-v4-all/0001-hwmon-patches.patch"
         "${_cachy}0008-Implement-amd-pstate-epp-and-amd-pstate-guided-drive.patch"
         "${_lucjan}um-patches/0001-um-Support-LTO.patch"
         "${_tkg}0002-mm-Support-soft-dirty-flag-read-with-reset.patch"
