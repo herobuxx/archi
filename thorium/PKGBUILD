@@ -17,7 +17,8 @@ optdepends=(
     "kwallet: support for storing passwords in KWallet on Plasma"
 )
 
-install=$pkgbase.install
+provides=('chromium')
+options=('!strip' '!emptydirs')
 source=("https://github.com/Alex313031/Thorium/releases/download/M${pkgver}/${pkgbase}_${pkgver}-1_amd64.deb"
 	"$pkgbase.sh")
 sha512sums=('b91554cc990241ed632c4a4abb14181b1598018716794ccf251d6baf77bca691722558cdcdbc5f88087ceb356a6cdfbf9095038189ecb7fa0777975a1ae13b4f'
