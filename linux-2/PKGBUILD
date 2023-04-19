@@ -49,7 +49,7 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}bitmap-patches/0001-bitmap-switch-from-inline-to-__always_inline.patch"
         "${_lucjan}kbuild-cachyos-patches-v3/0001-kbuild-cachyos-patches.patch"
         "${_lucjan}lrng-cachyos-patches-v6/0001-lrng-6.2-introduce-Linux-Random-Number-Generator.patch"
-        "${_lucjan}maple-lru-cachyos-patches-v18/0001-mm-6.2-add-maple-tree-and-mglru-fixes.patch"
+        "${_lucjan}maple-lru-cachyos-patches-v16/0001-mm-6.2-add-maple-tree-and-mglru-fixes.patch"
         "${_lucjan}cpu-cachyos-patches-v2/0001-cpu-cachyos-patches.patch"
         "${_lucjan}cpu-cachyos-patches-v2/0001-cpu-cachyos-patches.patch"
         "${_lucjan}hwmon-patches-v5-all/0001-hwmon-patches.patch"
