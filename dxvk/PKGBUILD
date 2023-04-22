@@ -10,7 +10,7 @@ depends=('vulkan-icd-loader' 'wine>=4.0rc1' 'lib32-vulkan-icd-loader')
 provides=("dxvk" "d9vk" "dxvk=$pkgver")
 makedepends=('ninja' 'meson>=0.43' 'glslang' 'mingw-w64-gcc' 'git' 'wine')
 conflicts=('d9vk-mingw-git' 'd9vk-bin' 'd9vk-winelib-git' "dxvk-bin" "dxvk-git" "dxvk-wine32-git" "dxvk-wine64-git" "dxvk-win32-git" "dxvk-win64-git" "dxvk-winelib-git" "dxvk-mingw-git")
-options=(!strip !buildflags staticlibs)
+options=(!strip staticlibs)
 source=("git+https://github.com/doitsujin/dxvk.git"
         "git+https://github.com/Joshua-Ashton/mingw-directx-headers.git"
         "git+https://github.com/KhronosGroup/Vulkan-Headers.git"
