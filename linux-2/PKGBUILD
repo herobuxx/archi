@@ -54,7 +54,7 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}x86-cachyos-patches/0001-x86-Avoid-relocation-information-in-final-vmlinux.patch"
         "${_lucjan}bfq-cachyos-patches/0001-bfq-cachyos-patches.patch"
         "${_lucjan}ksm-patches/0001-ksm-patches.patch"
-        "${_lucjan}cpu-cachyos-patches/0001-cpu-cachyos-patches.patch"
+        "${_lucjan}drm-patches/0001-drm-6.3-Add-HDR-patches.patch"
         "${_lucjan}zsmalloc-patches-v2/0001-zsmalloc-6.3-merge-changes-from-dev-tree.patch"
         "${_lucjan}zstd-cachyos-patches/0001-zstd-6.3-merge-changes-from-dev-tree.patch"
         "${_lucjan}v4l2loopback-patches/0001-media-v4l2-core-add-v4l2loopback.patch"
