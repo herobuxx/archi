@@ -33,7 +33,6 @@ source=(
   "llvm-project::git+https://github.com/llvm/llvm-project.git#commit=${_commit}"
   'llvm-config.h'
   'https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/clang/trunk/enable-fstack-protector-strong-by-default.patch'
-  ''
 )
 
 sha256sums=('SKIP'
@@ -43,7 +42,7 @@ options=('staticlibs' '!lto')
 
 _skip_build_test=y
 _skip_documentation=y
-_extra_build_flags=(-DLLVM_ENABLE_LTO=Thin -DCMAKE_EXE_LINKER_FLAGS=-Wl,--push-state,/usr/lib/libmimalloc.a,--pop-state)
+_extra_build_flags=(-DLLVM_ENABLE_LTO=Thin)
 _build_documentation=0
 _build_tests=0
 _build_bindings=0
