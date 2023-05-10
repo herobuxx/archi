@@ -41,7 +41,7 @@ options=('staticlibs' '!lto')
 
 _skip_build_test=y
 _skip_documentation=y
-_extra_build_flags=(-DLLVM_ENABLE_LTO=Thin)
+_extra_build_flags=(-DLLVM_ENABLE_LTO=Thin -DCMAKE_EXE_LINKER_FLAGS=-Wl,--push-state,/usr/lib/libmimalloc.a,--pop-state)
 _build_documentation=0
 _build_tests=0
 _build_bindings=0
@@ -86,7 +86,7 @@ build() {
   )
 
   export CFLAGS="$CFLAGS -fno-plt -fomit-frame-pointer"
-  export CXXFLAGS="$CFLAGS -fno-plt -fomit-frame-pointer"
+  export CXXFLAGS="$CXXFLAGS -fno-plt -fomit-frame-pointer"
 
   if ld.lld --version 2>/dev/null | grep -iq "LLD\s*[0-9]"; then
     export LD=ld.lld
