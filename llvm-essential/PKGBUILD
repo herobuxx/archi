@@ -47,17 +47,13 @@ _build_tests=0
 _build_bindings=0
 
 _rpatch() {
-
   echo -e "\E[1;33m Revert patch: ${1}\E[0m"
   patch --forward --reverse --strip=1 --input="${srcdir:?}/${1}"
-
 }
 
 _patch() {
-
   echo -e "\E[1;33m Apply patch: ${1}\E[0m"
   patch --forward --strip=1 --input="${srcdir:?}/${1}"
-
 }
 
 prepare() {
@@ -141,15 +137,15 @@ build() {
     -DLLVM_BINUTILS_INCDIR=/usr/include \
     -DLLVM_HOST_TRIPLE="${CHOST:?}" \
     -DLLVM_BUILD_RUNTIME=ON \
-    -DLLVM_BUILD_EXTERNAL_COMPILER_RT=ON \
     -DLLVM_BUILD_LLVM_DYLIB=ON \
     -DLLVM_LINK_LLVM_DYLIB=ON \
-    -DCLANG_LINK_CLANG_DYLIB=ON \
+    -DLLVM_POLLY_LINK_INTO_TOOLS=ON \
     -DLLVM_INSTALL_UTILS=ON \
     -DLLVM_ENABLE_RTTI=ON \
     -DLLVM_ENABLE_FFI=ON \
     -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;compiler-rt;lld;lldb;mlir;openmp;polly;pstl" \
     -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi" \
+    -DCLANG_LINK_CLANG_DYLIB=ON \
     -DCLANG_LINK_CLANG_DYLIB=ON \
     -DLLDB_USE_SYSTEM_SIX=1 \
     -DLIBOMP_INSTALL_ALIASES=OFF \
