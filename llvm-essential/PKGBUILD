@@ -143,7 +143,7 @@ build() {
     -DLLVM_INSTALL_UTILS=ON \
     -DLLVM_ENABLE_RTTI=ON \
     -DLLVM_ENABLE_FFI=ON \
-    -DLLVM_ENABLE_PROJECTS="clang" \
+    -DLLVM_ENABLE_PROJECTS="clang;libcxx;libcxxabi" \
     -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi" \
     -DCLANG_LINK_CLANG_DYLIB=ON \
     -DCLANG_LINK_CLANG_DYLIB=ON \
