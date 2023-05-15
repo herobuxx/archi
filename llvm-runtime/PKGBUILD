@@ -116,6 +116,7 @@ package() {
   )
 
   DESTDIR="${pkgdir:?}" ninja -C build install
+  DESTDIR="${pkgdir:?}" ninja -C runtimes install
   
   ls -alR ${pkgdir:?}/usr
 
