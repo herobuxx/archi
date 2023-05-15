@@ -109,7 +109,6 @@ _python_optimize() {
 }
 
 package() {
-t
   cd "${srcdir:?}/llvm-project" || (
     echo -e "\E[1;31mCan't cd to ${srcdir}/llvm-project directory! Package Failed! \E[0m"
     exit 1
