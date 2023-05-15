@@ -87,9 +87,9 @@ build() {
     -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi" \
     "${_extra_build_flags[@]}"
   
-  ninja --build build
+  ninja -C build
     
-  ninja --build build ocaml_doc
+  ninja -C build ocaml_doc
 
 
 }
@@ -109,13 +109,13 @@ _python_optimize() {
 }
 
 package() {
-
+t
   cd "${srcdir:?}/llvm-project" || (
     echo -e "\E[1;31mCan't cd to ${srcdir}/llvm-project directory! Package Failed! \E[0m"
     exit 1
   )
 
-  DESTDIR="${pkgdir:?}" ninja --build build --target install
+  DESTDIR="${pkgdir:?}" cmake --build build --target install
   
   ls -alR ${pkgdir:?}/usr
 
