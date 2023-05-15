@@ -84,12 +84,12 @@ build() {
     -DLLVM_ENABLE_DOXYGEN=OFF \
     -DSPHINX_WARNINGS_AS_ERRORS=OFF \
     -DLLVM_BINUTILS_INCDIR=/usr/include \
-    -DLLVM_ENABLE_PROJECTS="libcxx;libcxxabi" \
+    -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi" \
     "${_extra_build_flags[@]}"
   
-  ninja -C build
+  ninja --build build
     
-  ninja -C build ocaml_doc
+  ninja --build build ocaml_doc
 
 
 }
@@ -115,8 +115,7 @@ package() {
     exit 1
   )
 
-  DESTDIR="${pkgdir:?}" ninja -C build install
-  DESTDIR="${pkgdir:?}" ninja -C runtimes install
+  DESTDIR="${pkgdir:?}" ninja --build build --target install
   
   ls -alR ${pkgdir:?}/usr
 
