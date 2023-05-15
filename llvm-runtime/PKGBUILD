@@ -84,8 +84,7 @@ build() {
     -DLLVM_ENABLE_DOXYGEN=OFF \
     -DSPHINX_WARNINGS_AS_ERRORS=OFF \
     -DLLVM_BINUTILS_INCDIR=/usr/include \
-    -DLLVM_ENABLE_PROJECTS="libclc" \
-    -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi" \
+    -DLLVM_ENABLE_PROJECTS="libcxx;libcxxabi" \
     "${_extra_build_flags[@]}"
   
   ninja -C build
@@ -116,9 +115,9 @@ package() {
     exit 1
   )
 
-    ls -alR build
-
   DESTDIR="${pkgdir:?}" ninja -C build install
+  
+  ls -alR ${pkgdir:?}/usr
 
   pushd llvm/utils/lit || (
     echo -e "\E[1;31mpushd utils/lit - Package Failed! \E[0m"
