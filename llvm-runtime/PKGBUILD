@@ -34,7 +34,7 @@ sha256sums=('SKIP'
   '597dc5968c695bbdbb0eac9e8eb5117fcd2773bc91edf5ec103ecffffab8bc48')
 
 options=('staticlibs')
-_extra_build_flags=(-DLLVM_ENABLE_LTO=Thin -DCMAKE_C_COMPILER="$CC" -DCMAKE_CXX_COMPILER="$CXX" -DLLVM_USE_LINKER=lld)
+_extra_build_flags=(-DLLVM_ENABLE_LTO=Thin -DCMAKE_C_COMPILER="$CC" -DLLVM_RUNTIMES_LIBDIR_SUBDIR=/lib -DCMAKE_CXX_COMPILER="$CXX" -DLLVM_USE_LINKER=lld)
 
 _rpatch() {
 
@@ -84,10 +84,10 @@ build() {
     -DLLVM_ENABLE_DOXYGEN=OFF \
     -DSPHINX_WARNINGS_AS_ERRORS=OFF \
     -DLLVM_BINUTILS_INCDIR=/usr/include \
+    -DLLVM_ENABLE_PROJECTS="libclc" \
     -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi" \
     "${_extra_build_flags[@]}"
-  
-  ninja -C build
+    ninja -C build
     
   ninja -C build ocaml_doc
 
@@ -109,14 +109,13 @@ _python_optimize() {
 }
 
 package() {
+
   cd "${srcdir:?}/llvm-project" || (
     echo -e "\E[1;31mCan't cd to ${srcdir}/llvm-project directory! Package Failed! \E[0m"
     exit 1
   )
 
-  DESTDIR="${pkgdir:?}" cmake --build build --target install
-  
-  ls -alR ${pkgdir:?}/usr
+  DESTDIR="${pkgdir:?}" ninja -C build install
 
   pushd llvm/utils/lit || (
     echo -e "\E[1;31mpushd utils/lit - Package Failed! \E[0m"
@@ -138,6 +137,9 @@ package() {
   # https://bugs.archlinux.org/task/28479
   mkdir -p "${pkgdir:?}/usr/lib/bfd-plugins"
   ln -s ../LLVMgold.so "${pkgdir:?}/usr/lib/bfd-plugins/LLVMgold.so"
+
+  # Symlink all files inside x86_64-pc-linux-gnu to /usr/lib/
+  ln -s /usr/lib/x86_64-pc-linux-gnu/* /usr/lib
 
   _python_optimize "${pkgdir:?}/usr/share" "${pkgdir:?}/${site_packages}"
 
