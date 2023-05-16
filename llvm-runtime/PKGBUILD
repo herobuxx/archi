@@ -114,7 +114,7 @@ package() {
     echo -e "\E[1;31mCan't cd to ${srcdir}/llvm-project directory! Package Failed! \E[0m"
     exit 1
   )
-
+  DESTDIR="${pkgdir:?}" ninja -C build install-cxx install-cxxabi
   DESTDIR="${pkgdir:?}" ninja -C build install
 
   pushd llvm/utils/lit || (
