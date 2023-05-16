@@ -136,10 +136,10 @@ package() {
   # Symlink LLVMgold.so from /usr/lib/bfd-plugins
   # https://bugs.archlinux.org/task/28479
   mkdir -p "${pkgdir:?}/usr/lib/bfd-plugins"
-  ln -s ../LLVMgold.so "${pkgdir:?}/usr/lib/bfd-plugins/LLVMgold.so"
+  ln -s ../LLVMgold.so "${pkgdir:?}/usrlib/bfd-plugins/LLVMgold.so"
 
-  # Symlink all files inside x86_64-pc-linux-gnu to /usr/lib/
-  ln -s /usr/lib/x86_64-pc-linux-gnu/* /usr/lib
+  # Symlink all files inside x86_64-pc-linux-gnu to /usr/lib/x86_64-pc-linux-gnu/lib
+  ln -s ${pkgdir:?}/usr/lib/x86_64-pc-linux-gnu/* ${pkgdir:?}/usr/lib/x86_64-pc-linux-gnu/lib/
 
   _python_optimize "${pkgdir:?}/usr/share" "${pkgdir:?}/${site_packages}"
 
