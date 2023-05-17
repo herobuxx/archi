@@ -139,6 +139,7 @@ package() {
   ln -s ../LLVMgold.so "${pkgdir:?}/usr/lib/bfd-plugins/LLVMgold.so"
 
   # Symlink all files inside x86_64-pc-linux-gnu to /usr/lib/x86_64-pc-linux-gnu/lib
+  mkdir ${pkgdir:?}/usr/lib/x86_64-pc-linux-gnu/lib/
   ln -s ${pkgdir:?}/usr/lib/x86_64-pc-linux-gnu/* ${pkgdir:?}/usr/lib/x86_64-pc-linux-gnu/lib/
 
   _python_optimize "${pkgdir:?}/usr/share" "${pkgdir:?}/${site_packages}"
