@@ -142,6 +142,7 @@ package() {
   mkdir ${pkgdir:?}/usr/lib/x86_64-pc-linux-gnu/lib/
   pushd ${pkgdir:?}/usr/lib/x86_64-pc-linux-gnu/lib/
   ln -s .././* .
+  rm lib
   popd
 
   _python_optimize "${pkgdir:?}/usr/share" "${pkgdir:?}/${site_packages}"
