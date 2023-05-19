@@ -200,7 +200,7 @@ package() {
     mkdir -p "${srcdir:?}/llvm-project/build/docs/ocamldoc/html/"
   fi
 
-  DESTDIR="${pkgdir:?}" ninja -C build install
+  DESTDIR="${pkgdir:?}" cmake --build build --target install
 
   pushd llvm/utils/lit || (
     echo -e "\E[1;31mpushd utils/lit - Package Failed! \E[0m"
