@@ -163,6 +163,8 @@ build() {
     ninja -C build ocaml_doc
   fi
 
+  ls -al build
+
 }
 
 check() {
