@@ -41,7 +41,7 @@ options=('staticlibs')
 
 _skip_build_test=y
 _skip_documentation=y
-_extra_build_flags=(-DLLVM_ENABLE_LTO=Thin -DCMAKE_EXE_LINKER_FLAGS=-Wl,--push-state,/usr/lib/libmimalloc.a,--pop-state -DCMAKE_CXX_STANDARD=17)
+_extra_build_flags=(-DLLVM_ENABLE_LTO=Thin -DLLVM_ENABLE_LIBCXX=ON -DCMAKE_EXE_LINKER_FLAGS=-Wl,--push-state,/usr/lib/libmimalloc.a,--pop-state -DCMAKE_CXX_STANDARD=17)
 _build_documentation=0
 _build_tests=0
 _build_bindings=0
@@ -149,7 +149,7 @@ build() {
     -DLLVM_ENABLE_RTTI=ON \
     -DLLVM_ENABLE_FFI=ON \
     -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;compiler-rt;lld;lldb;mlir;polly;pstl" \
-    -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi" \
+    -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi;openmp" \
     -DCLANG_LINK_CLANG_DYLIB=ON \
     -DLLDB_USE_SYSTEM_SIX=1 \
     -DLIBOMP_INSTALL_ALIASES=OFF \
@@ -158,13 +158,11 @@ build() {
     -DCLANG_DEFAULT_PIE_ON_LINUX=ON \
     "${_extra_build_flags[@]}"
 
-  ninja -C build
+  cmake --build build
 
   if [[ _build_documentation -eq 1 && _build_bindings -ne 0 ]]; then
     ninja -C build ocaml_doc
   fi
-
-  ls -al build
 
 }
 
