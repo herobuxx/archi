@@ -8,16 +8,14 @@ license=('custom:Apache 2.0 with LLVM Exception')
 
 provides=('llvm' "llvm=${pkgver}" 'llvm-libs' 'llvm-ocaml' 'clang' "clang=${pkgver}"
   'clang-analyzer' 'clang-tools-extra' 'openmp' 'polly' 'compiler-rt'
-  'lld' 'lldb' 'libc++' 'libc++abi' 'libc++experimental')
+  'lld' )
 
 replaces=('llvm' 'llvm-libs' 'llvm-ocaml' 'clang' 'clang-analyzer'
-  'clang-tools-extra' 'openmp' 'polly' 'compiler-rt' 'lld' 'lldb'
-  'libc++' 'libc++abi' 'libc++experimental')
+  'clang-tools-extra' 'openmp' 'polly' 'compiler-rt' 'lld' 'lldb')
 
 conflicts=('llvm' 'llvm-libs' 'llvm-ocaml' 'clang' 'clang-analyzer'
   'clang-tools-extra' 'openmp' 'polly' 'compiler-rt' 'lld' 'lldb'
-  'llvm-git' 'llvm-libs-git' 'llvm-ocaml-git' 'libc++'
-  'libc++abi' 'libc++experimental')
+  'llvm-git' 'llvm-libs-git' 'llvm-ocaml-git')
 
 depends=('libelf' 'libffi' 'libedit' 'libxml2' 'ncurses')
 _ocaml_ver=4.14.0
@@ -25,13 +23,14 @@ makedepends=(
   'git' 'ninja' 'cmake'
   "ocaml>=${_ocaml_ver}" 'ocaml-ctypes' 'ocaml-findlib'
   'python-setuptools' 'python-psutil' 'python-sphinx'
-  'python-recommonmark' 'ocaml-stdlib-shims' 'mimalloc'
+  'python-recommonmark' 'ocaml-stdlib-shims' 'mimalloc' 'libc++' 'libc++abi'
 )
 makedepends_x86_64=('lib32-gcc-libs')
 _commit=8dfdcc7b7bf66834a761bd8de445840ef68e4d1a
 source=(
   "llvm-project::git+https://github.com/llvm/llvm-project.git#commit=${_commit}"
   'llvm-config.h'
+  "bitfield-value-capture.patch::https://github.com/llvm/llvm-project/commit/a1a71b7dc97b.patch"
 )
 
 sha256sums=('SKIP'
@@ -67,7 +66,7 @@ prepare() {
     exit 1
   )
 
-  ls /usr/lib/libmimalloc.a
+  _patch bitfield-value-capture.patch
 
   # Attempt to convert script to Python 3
   2to3 -wn --no-diffs \
@@ -149,7 +148,7 @@ build() {
     -DLLVM_ENABLE_RTTI=ON \
     -DLLVM_ENABLE_FFI=ON \
     -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;compiler-rt;lld;lldb;mlir;polly;pstl" \
-    -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi;openmp" \
+    -DLLVM_ENABLE_RUNTIMES="openmp" \
     -DCLANG_LINK_CLANG_DYLIB=ON \
     -DLLDB_USE_SYSTEM_SIX=1 \
     -DLIBOMP_INSTALL_ALIASES=OFF \
