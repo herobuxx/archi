@@ -8,14 +8,16 @@ license=('custom:Apache 2.0 with LLVM Exception')
 
 provides=('llvm' "llvm=${pkgver}" 'llvm-libs' 'llvm-ocaml' 'clang' "clang=${pkgver}"
   'clang-analyzer' 'clang-tools-extra' 'openmp' 'polly' 'compiler-rt'
-  'lld' )
+  'lld' 'libc++' 'libc++abi' 'libc++experimental')
 
 replaces=('llvm' 'llvm-libs' 'llvm-ocaml' 'clang' 'clang-analyzer'
-  'clang-tools-extra' 'openmp' 'polly' 'compiler-rt' 'lld' 'lldb')
+  'clang-tools-extra' 'openmp' 'polly' 'compiler-rt' 'lld' 'lldb'
+  'libc++' 'libc++abi' 'libc++experimental')
 
 conflicts=('llvm' 'llvm-libs' 'llvm-ocaml' 'clang' 'clang-analyzer'
   'clang-tools-extra' 'openmp' 'polly' 'compiler-rt' 'lld' 'lldb'
-  'llvm-git' 'llvm-libs-git' 'llvm-ocaml-git')
+  'llvm-git' 'llvm-libs-git' 'llvm-ocaml-git'
+  'libc++' 'libc++abi' 'libc++experimental')
 
 depends=('libelf' 'libffi' 'libedit' 'libxml2' 'ncurses')
 _ocaml_ver=4.14.0
@@ -147,7 +149,7 @@ build() {
     -DLLVM_ENABLE_RTTI=ON \
     -DLLVM_ENABLE_FFI=ON \
     -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;compiler-rt;lld;lldb;mlir;polly;pstl" \
-    -DLLVM_ENABLE_RUNTIMES="openmp" \
+    -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi;openmp" \
     -DCLANG_LINK_CLANG_DYLIB=ON \
     -DLLDB_USE_SYSTEM_SIX=1 \
     -DLIBOMP_INSTALL_ALIASES=OFF \
