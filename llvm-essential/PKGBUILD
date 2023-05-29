@@ -1,5 +1,5 @@
 pkgname=llvm-all
-pkgdesc="LLVM Toolchain with clang, clang-tools-extra, compiler-rt, polly, lldb, lld"
+pkgdesc="LLVM Toolchain with clang, clang-tools-extra, openmp, compiler-rt, polly, lldb, lld"
 pkgver=15.0.7
 pkgrel=3
 arch=('x86_64')
@@ -7,15 +7,15 @@ url="https://llvm.org/"
 license=('custom:Apache 2.0 with LLVM Exception')
 
 provides=('llvm' "llvm=${pkgver}" 'llvm-libs' 'llvm-ocaml' 'clang' "clang=${pkgver}"
-  'clang-analyzer' 'clang-tools-extra' 'polly' 'compiler-rt'
+  'clang-analyzer' 'clang-tools-extra' 'polly' 'openmp' 'compiler-rt'
   'lld' 'libc++' 'libc++abi' 'libc++experimental')
 
 replaces=('llvm' 'llvm-libs' 'llvm-ocaml' 'clang' 'clang-analyzer'
-  'clang-tools-extra' 'polly' 'compiler-rt' 'lld' 'lldb'
+  'clang-tools-extra' 'polly' 'openmp' 'compiler-rt' 'lld' 'lldb'
   'libc++' 'libc++abi' 'libc++experimental')
 
 conflicts=('llvm' 'llvm-libs' 'llvm-ocaml' 'clang' 'clang-analyzer'
-  'clang-tools-extra' 'polly' 'compiler-rt' 'lld' 'lldb'
+  'clang-tools-extra' 'polly' 'compiler-rt' 'openmp' 'lld' 'lldb'
   'llvm-git' 'llvm-libs-git' 'llvm-ocaml-git'
   'libc++' 'libc++abi' 'libc++experimental')
 
@@ -89,7 +89,7 @@ build() {
   )
 
   export CFLAGS="$CFLAGS -fno-plt -fomit-frame-pointer"
-  export CXXFLAGS="$CXXFLAGS -fno-plt -fomit-frame-pointer"
+  export CXXFLAGS="$CXXFLAGS -fno-plt -fomit-frame-pointer -stdlib=libc++"
   export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/:$LD_LIBRARY_PATH
 
   if ld.lld --version 2>/dev/null | grep -iq "LLD\s*[0-9]"; then
