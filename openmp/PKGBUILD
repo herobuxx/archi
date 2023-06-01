@@ -6,11 +6,11 @@ arch=('x86_64')
 url="https://llvm.org/"
 license=('custom:Apache 2.0 with LLVM Exception')
 
-provides=('openmp')
+provides=('clang' 'clang-analyzer' 'openmp')
 
-replaces=('openmp')
+replaces=('clang' 'clang-analyzer' 'openmp')
 
-conflicts=('openmp')
+conflicts=('clang' 'clang-analyzer' 'openmp')
 
 depends=('libelf' 'libffi' 'libedit' 'libxml2' 'ncurses')
 _ocaml_ver=4.14.0
@@ -130,7 +130,7 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_SKIP_RPATH=ON \
     -DCMAKE_CXX_STANDARD=17 \
-    -DLLVM_ENABLE_PROJECTS="openmp" \
+    -DLLVM_ENABLE_PROJECTS="openmp;clang" \
     -DLIBOMP_INSTALL_ALIASES=OFF \
     "${_extra_build_flags[@]}"
 
