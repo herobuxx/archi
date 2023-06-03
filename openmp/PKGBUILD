@@ -12,7 +12,7 @@ replaces=('clang' 'clang-analyzer' 'openmp')
 
 conflicts=('clang' 'clang-analyzer' 'openmp')
 
-depends=('libelf' 'libffi' 'libedit' 'libxml2' 'ncurses')
+depends=('libelf' 'libffi' 'libedit' 'libxml2' 'ncurses' 'libc++')
 _ocaml_ver=4.14.0
 makedepends=(
   'llvm' 'clang' 'cmake' 'ninja'
@@ -76,7 +76,7 @@ build() {
   )
 
   export CFLAGS="$CFLAGS -fno-plt -fomit-frame-pointer"
-  export CXXFLAGS="$CXXFLAGS -fno-plt -fomit-frame-pointer"
+  export CXXFLAGS="$CXXFLAGS -fno-plt -fomit-frame-pointer -stdlib=libc++"
   export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/:$LD_LIBRARY_PATH
   export LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/:$LIBRARY_PATH
 
