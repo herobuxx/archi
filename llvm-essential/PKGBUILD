@@ -88,9 +88,10 @@ build() {
     -DCMAKE_CXX_COMPILER="$CXX"
   )
 
-  export CFLAGS="$CFLAGS -fno-plt -fomit-frame-pointer"
-  export CXXFLAGS="$CXXFLAGS -fno-plt -fomit-frame-pointer -stdlib=libc++"
   export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/:$LD_LIBRARY_PATH
+  export LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/:$LIBRARY_PATH
+  export CFLAGS="$CFLAGS -fno-plt -fomit-frame-pointer"
+  export CXXFLAGS="$CXXFLAGS -fno-plt -fomit-frame-pointer -L /usr/lib/x86_64-linux-gnu/ -stdlib=libc++"
 
   if ld.lld --version 2>/dev/null | grep -iq "LLD\s*[0-9]"; then
     export LD=ld.lld
@@ -142,7 +143,6 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLLVM_BINUTILS_INCDIR=/usr/include \
     -DLLVM_BUILD_RUNTIME=ON \
-    -DLLVM_HOST_TRIPLE="${CHOST:?}" \
     -DLLVM_BUILD_EXTERNAL_COMPILER_RT=ON \
     -DLLVM_BUILD_LLVM_DYLIB=ON \
     -DLLVM_LINK_LLVM_DYLIB=ON \
@@ -150,7 +150,7 @@ build() {
     -DLLVM_INSTALL_UTILS=ON \
     -DLLVM_ENABLE_RTTI=ON \
     -DLLVM_ENABLE_FFI=ON \
-    -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;compiler-rt;lld;lldb;mlir;polly;pstl" \
+    -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;compiler-rt;lld;lldb;openmp;mlir;polly;pstl" \
     -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi" \
     -DCLANG_LINK_CLANG_DYLIB=ON \
     -DLLDB_USE_SYSTEM_SIX=1 \
