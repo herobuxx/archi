@@ -29,7 +29,6 @@ build() {
               --cc="clang"\
               --if-block-merge \
               --translation-backendopt-stack_optimization \
-              --clever-malloc-removal \
               --translation-split_gc_address_space \
               --translation-backendopt-storesink \
               --translation-backendopt-constfold \
