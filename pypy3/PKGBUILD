@@ -30,12 +30,14 @@ build() {
               --if-block-merge \
               --translation-backendopt-stack_optimization \
               --translation-backendopt-storesink \
-              --translation-backendopt-constfold \
+              --clever-malloc-removal \
+              --translation-split_gc_address_space \
               --shared \
               targetpypystandalone \
               --objspace-std-withprebuiltint \
+              --objspace-std-optimized_list_getitem \
+              --objspace-std-intshortcut \
               --hash=siphash24 \
-              --objspace-std-withsmalllong
 
   # Compile binary modules
   PYTHONPATH=../.. ./pypy${_pyversion}-c ../../lib_pypy/pypy_tools/build_cffi_imports.py
