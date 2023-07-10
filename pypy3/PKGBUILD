@@ -36,6 +36,8 @@ build() {
               --shared \
               targetpypystandalone \
               --objspace-std-withprebuiltint \
+              --objspace-std-intshortcut \
+              --objspace-std-optimized_list_getitem \
               --hash=siphash24 
 
   # --clever-malloc-removal \
