@@ -6,7 +6,7 @@ pkgdesc="A Python3 implementation written in Python, JIT enabled"
 url="https://pypy.org"
 arch=('x86_64')
 depends=('expat' 'bzip2' 'gdbm' 'openssl' 'libffi' 'zlib' 'ncurses')
-makedepends=('pypy3' 'sqlite' 'tk')
+makedepends=('pypy' 'sqlite' 'tk')
 optdepends=('sqlite: sqlite module'
             'tk: tk module')
 options=(!buildflags)
@@ -24,7 +24,7 @@ build() {
   export CFLAGS="$_polly $_default $_flags -flto=thin"
   export LDFLAGS="-flto=thin $LDFLAGS"
 
-  pypy3 ../../rpython/bin/rpython \
+  pypy ../../rpython/bin/rpython \
               -Ojit \
               --cc="clang"\
               --if-block-merge \
