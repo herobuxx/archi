@@ -35,9 +35,10 @@ build() {
               --shared \
               targetpypystandalone \
               --objspace-std-withprebuiltint \
-              # --objspace-std-optimized_list_getitem \
-              # --objspace-std-intshortcut \
-              --hash=siphash24 \
+              --hash=siphash24 
+  # --objspace-std-optimized_list_getitem \
+  # --objspace-std-intshortcut \
+
 
   # Compile binary modules
   PYTHONPATH=../.. ./pypy${_pyversion}-c ../../lib_pypy/pypy_tools/build_cffi_imports.py
