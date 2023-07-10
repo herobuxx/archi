@@ -32,19 +32,13 @@ build() {
               --translation-backendopt-storesink \
               --translation-backendopt-constfold \
               --listcompr \
-              --translation-split_gc_address_space \
+              --clever-malloc-removal \
               --shared \
               targetpypystandalone \
               --objspace-std-withprebuiltint \
               --objspace-std-intshortcut \
               --objspace-std-optimized_list_getitem \
               --hash=siphash24 
-
-  # --clever-malloc-removal \
-  # --translation-split_gc_address_space \
-  # --objspace-std-optimized_list_getitem \
-  # --objspace-std-intshortcut \
-
 
   # Compile binary modules
   PYTHONPATH=../.. ./pypy${_pyversion}-c ../../lib_pypy/pypy_tools/build_cffi_imports.py
