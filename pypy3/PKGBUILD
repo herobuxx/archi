@@ -35,8 +35,8 @@ build() {
               --shared \
               targetpypystandalone \
               --objspace-std-withprebuiltint \
-              --objspace-std-optimized_list_getitem \
-              --objspace-std-intshortcut \
+              # --objspace-std-optimized_list_getitem \
+              # --objspace-std-intshortcut \
               --hash=siphash24 \
 
   # Compile binary modules
