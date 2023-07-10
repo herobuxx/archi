@@ -32,6 +32,7 @@ build() {
               --translation-backendopt-storesink \
               --translation-backendopt-constfold \
               --listcompr \
+              --translation-split_gc_address_space \
               --shared \
               targetpypystandalone \
               --objspace-std-withprebuiltint \
