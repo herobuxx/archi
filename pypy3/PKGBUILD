@@ -38,7 +38,7 @@ build() {
               --objspace-std-withliststrategies
 
   # Compile binary modules
-  PYTHONPATH=../.. ./pypy${_pyver}-c ../../lib_pypy/pypy_tools/build_cffi_imports.py
+  PYTHONPATH=../.. ./pypy${_pyversion}-c ../../lib_pypy/pypy_tools/build_cffi_imports.py
 }
 
 package() {
