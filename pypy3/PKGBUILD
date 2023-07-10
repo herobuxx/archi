@@ -30,12 +30,15 @@ build() {
               --if-block-merge \
               --translation-backendopt-stack_optimization \
               --translation-backendopt-storesink \
+              --translation-backendopt-constfold \
+              --listcompr \
               --clever-malloc-removal \
-              --translation-split_gc_address_space \
               --shared \
               targetpypystandalone \
               --objspace-std-withprebuiltint \
               --hash=siphash24 
+
+  # --translation-split_gc_address_space \
   # --objspace-std-optimized_list_getitem \
   # --objspace-std-intshortcut \
 
