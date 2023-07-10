@@ -24,7 +24,7 @@ build() {
   export CFLAGS="$_polly $_default $_flags -flto=thin"
   export LDFLAGS="-flto=thin $LDFLAGS"
 
-  pypy ../../rpython/bin/rpython \
+  pypy3 ../../rpython/bin/rpython \
               -Ojit \
               --cc="clang"\
               --if-block-merge \
