@@ -32,10 +32,10 @@ build() {
               --translation-backendopt-storesink \
               --translation-backendopt-constfold \
               --listcompr \
-              --clever-malloc-removal \
               --shared \
               targetpypystandalone \
               --objspace-std-withprebuiltint \
+              --objspace-std-newshortcut \
               --objspace-std-intshortcut \
               --objspace-std-optimized_list_getitem \
               --hash=siphash24 
