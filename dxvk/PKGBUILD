@@ -18,10 +18,10 @@ source=(
     "git+https://github.com/KhronosGroup/SPIRV-Headers.git"
     "libdisplay-info-dxvk::git+https://gitlab.freedesktop.org/JoshuaAshton/libdisplay-info.git"
     "dxvk-async-$_asyncver.patch::https://gitlab.com/Ph42oN/dxvk-gplasync/-/raw/main/patches/dxvk-gplasync-$_asyncver.patch"
-    "dxvk-async-conf.patch"
-    "dxvk-extraopts.patch"
+    "dxvk-async-conf.patch::https://aur.archlinux.org/cgit/aur.git/tree/dxvk-async-conf.patch?h=dxvk-mingw"
+    "dxvk-extraopts.patch::https://aur.archlinux.org/cgit/aur.git/tree/dxvk-extraopts.patch?h=dxvk-mingw"
     "setup_dxvk.sh::https://raw.githubusercontent.com/doitsujin/dxvk/4f90d7bf5f9ad785660507e0cb459a14dab5ac75/setup_dxvk.sh"
-    "setup_dxvk"
+    "setup_dxvk::https://aur.archlinux.org/cgit/aur.git/tree/setup_dxvk?h=dxvk-mingw"
 )
 
 prepare() {
