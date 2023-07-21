@@ -52,7 +52,7 @@ prepare() {
     export _flags="-fstdarg-opt -fuse-linker-plugin -ftree-vectorize -fdata-sections -ffunction-sections -mfpmath=sse -fgraphite-identity"
     export _cxx="-fdeclone-ctor-dtor"
     export CPPFLAGS="-D_FORTIFY_SOURCE=2"
-    export CFLAGS="-fsched-pressure -march=znver1 -O3 -pipe -Wformat -Werror=format-security -fstack-clash-protection -fcf-protection $_limit $_smal $_isl $_loop $_flags"
+    export CFLAGS="-fsched-pressure -fipa-pta -march=znver1 -O3 -pipe -Wformat -Werror=format-security -fstack-clash-protection -fcf-protection $_limit $_smal $_isl $_loop $_flags"
     export CXXFLAGS="$CFLAGS $_cxx"
     export LDFLAGS="-Wl,-O4,--sort-common,--gc-sections,--no-as-needed,-z,relro,-z,now"
 
