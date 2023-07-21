@@ -44,17 +44,17 @@ prepare() {
     # This overrides FLAGS from makepkg.conf, if you comment these you are on your own
     # If you want the "best" possible optimizations for your system you can use
     # `-march=native` and remove the `-mtune=core-avx2` option.
-export _isl="-ftree-loop-linear -floop-strip-mine -floop-block" 
-export _smal="-fira-hoist-pressure -fira-loop-pressure -fmodulo-sched -fmodulo-sched-allow-regmoves" 
-export _virtual="-fdevirtualize-speculatively -fdevirtualize-at-ltrans" 
-export _limit="-fipa-strict-aliasing -flimit-function-alignment" 
-export _loop="-ftree-loop-ivcanon -ftree-loop-if-convert -floop-unroll-and-jam -fpredictive-commoning -fsplit-paths -fgcse-lm -fgcse-sm -fivopts -flive-range-shrinkage -ftree-loop-ivcanon -funswitch-loops -ftree-loop-im -floop-interchange -floop-nest-optimize -ftree-loop-distribution" 
-export _flags="-fstdarg-opt -fuse-linker-plugin -ftree-vectorize -fdata-sections -ffunction-sections -mfpmath=sse -fgraphite-identity"
-export _cxx="-fdeclone-ctor-dtor"
-export CPPFLAGS="-D_FORTIFY_SOURCE=2"
-export CFLAGS="-fsched-pressure -march=x86-64-v3 -O2 -pipe -Wformat -Werror=format-security -fstack-clash-protection -fcf-protection $_limit $_smal $_isl $_loop $_flags"
-export CXXFLAGS="$CFLAGS $_cxx"
-export LDFLAGS="-Wl,-O4,--sort-common,--gc-sections,--no-as-needed,-z,relro,-z,now"
+    export _isl="-ftree-loop-linear -floop-strip-mine -floop-block" 
+    export _smal="-fira-hoist-pressure -fira-loop-pressure -fmodulo-sched -fmodulo-sched-allow-regmoves" 
+    export _virtual="-fdevirtualize-speculatively -fdevirtualize-at-ltrans" 
+    export _limit="-fipa-strict-aliasing -flimit-function-alignment" 
+    export _loop="-ftree-loop-ivcanon -ftree-loop-if-convert -floop-unroll-and-jam -fpredictive-commoning -fsplit-paths -fgcse-lm -fgcse-sm -fivopts -flive-range-shrinkage -ftree-loop-ivcanon -funswitch-loops -ftree-loop-im -floop-interchange -floop-nest-optimize -ftree-loop-distribution" 
+    export _flags="-fstdarg-opt -fuse-linker-plugin -ftree-vectorize -fdata-sections -ffunction-sections -mfpmath=sse -fgraphite-identity"
+    export _cxx="-fdeclone-ctor-dtor"
+    export CPPFLAGS="-D_FORTIFY_SOURCE=2"
+    export CFLAGS="-fsched-pressure -O3 -pipe -Wformat -Werror=format-security -fstack-clash-protection -fcf-protection $_limit $_smal $_isl $_loop $_flags"
+    export CXXFLAGS="$CFLAGS $_cxx"
+    export LDFLAGS="-Wl,-O4,--sort-common,--gc-sections,--no-as-needed,-z,relro,-z,now"
 
     # These flags are taken from Proton
     CFLAGS+=" -mfpmath=sse -fwrapv -fno-strict-aliasing"
