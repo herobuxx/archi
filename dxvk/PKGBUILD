@@ -40,7 +40,7 @@ prepare() {
     git config submodule.include/spirv.url "$srcdir/SPIRV-Headers"
     git -c protocol.file.allow=always submodule update include/{native/directx,vulkan,spirv}
 
-    patch --forward --strip=1 --input="${srcdir}/dxvk-gplasync/dxvk-gplasync-2.2-2.patch"
+    patch --forward --strip=1 --input="${srcdir}/dxvk-gplasync/patches/dxvk-gplasync-2.2-4.patch"
 }
 
 build() {
