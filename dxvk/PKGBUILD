@@ -54,7 +54,7 @@ prepare() {
     export CPPFLAGS="-D_FORTIFY_SOURCE=2"
     export CFLAGS="-fsched-pressure -fipa-pta -march=x86-64-v3 -ffat-lto-objects -flto -O3 -pipe -Wformat -Werror=format-security $_limit $_smal $_isl $_loop $_flags"
     export CXXFLAGS="$CFLAGS $_cxx $_virtual"
-    export LDFLAGS="-Wl,-O4 -Wl,--sort-common -Wl,--gc-sections, -Wl,--no-as-needed -Wl,-z,relro -Wl,-z,now"
+    export LDFLAGS="-Wl,-O4 -Wl,--sort-common -Wl,--gc-sections -Wl,--no-as-needed -Wl,-z,relro -Wl,-z,now"
 
     # These flags are taken from Proton
     CFLAGS+=" -mfpmath=sse -fwrapv -fno-strict-aliasing"
