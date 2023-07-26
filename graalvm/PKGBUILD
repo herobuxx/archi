@@ -28,7 +28,7 @@ package() {
 	cd "graalvm-jdk-${pkgver}${_java_minor}"
 	mkdir -p "$pkgdir/usr/lib/jvm/java-${_java}-graalvm-ee/"
 	cp -a -t "$pkgdir/usr/lib/jvm/java-${_java}-graalvm-ee/" *
-    $pkgdir/usr/lib/jvm/java-${_java}-graalvm-ee/bin/gu rebuild libpolyglot'
+    $pkgdir/usr/lib/jvm/java-${_java}-graalvm-ee/bin/gu rebuild libpolyglot
 	install -DTm644 LICENSE.txt "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 	sed "s/JAVA/${_java}/g" <"../graalvm-ee-rebuild-libpolyglot.hook" >"graalvm-ee-jdk${_java}-rebuild-libpolyglot.hook"
 	install -DTm644 "graalvm-ee-jdk${_java}-rebuild-libpolyglot.hook" "$pkgdir/usr/share/libalpm/hooks/graalvm-ee-jdk${_java}-rebuild-libpolyglot.hook"
