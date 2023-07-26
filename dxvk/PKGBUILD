@@ -51,7 +51,7 @@ prepare() {
     export _loop="-ftree-loop-ivcanon -freschedule-modulo-scheduled-loops -ftree-loop-if-convert -floop-unroll-and-jam -fpredictive-commoning -fsplit-paths -fgcse-lm -fgcse-sm -fivopts -flive-range-shrinkage -ftree-loop-ivcanon -funswitch-loops -ftree-loop-im -floop-interchange -floop-nest-optimize -ftree-loop-distribution" 
     export _flags="-fstdarg-opt -fuse-linker-plugin -ftree-vectorize -fdata-sections -ffunction-sections -mfpmath=sse -fgraphite-identity"
     export _cxx="-fdeclone-ctor-dtor"
-    export CPPFLAGS="-D_FORTIFY_SOURCE=2"
+    export CPPFLAGS="-D_FORTIFY_SOURCE=0"
     export CFLAGS="-fsched-pressure -fipa-pta -march=x86-64-v3 -O3 -pipe -Wformat -Werror=format-security $_limit $_smal $_isl $_loop $_flags"
     export CXXFLAGS="$CFLAGS $_cxx $_virtual"
     export LDFLAGS="-Wl,-O4 -Wl,--sort-common -Wl,--gc-sections -Wl,--no-as-needed"
