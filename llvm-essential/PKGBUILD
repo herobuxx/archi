@@ -1,4 +1,4 @@
-pkgname=llvm-all
+pkgname=llvm-bootstrap
 pkgdesc="LLVM Toolchain with clang, clang-tools-extra, openmp, compiler-rt, polly, lldb, lld"
 pkgver=16.0.6
 pkgrel=1
@@ -150,7 +150,7 @@ build() {
     -DLLVM_INSTALL_UTILS=ON \
     -DLLVM_ENABLE_RTTI=ON \
     -DLLVM_ENABLE_FFI=ON \
-    -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;compiler-rt;lld;lldb;openmp;mlir;polly;pstl" \
+    -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;compiler-rt;lld;lldb;openmp;polly" \
     -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi" \
     -DCLANG_LINK_CLANG_DYLIB=ON \
     -DLLDB_USE_SYSTEM_SIX=1 \
