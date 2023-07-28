@@ -11,7 +11,7 @@ license=('zlib/libpng')
 makedepends=('ninja' 'meson>=0.43' 'glslang' 'git' 'mingw-w64-gcc' 'wine')
 provides=('dxvk' 'd9vk' "dxvk=$pkgver")
 conflicts=('dxvk' 'd9vk')
-options=(!lto !staticlibs)
+options=(!lto staticlibs)
 source=(
     "git+https://github.com/doitsujin/dxvk.git"
     "git+https://github.com/KhronosGroup/Vulkan-Headers.git"

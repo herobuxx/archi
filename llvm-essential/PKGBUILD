@@ -146,7 +146,6 @@ build() {
     -DLLVM_BUILD_EXTERNAL_COMPILER_RT=ON \
     -DLLVM_BUILD_LLVM_DYLIB=ON \
     -DLLVM_LINK_LLVM_DYLIB=ON \
-    -DCLANG_LINK_CLANG_DYLIB=ON \
     -DLLVM_INSTALL_UTILS=ON \
     -DLLVM_ENABLE_RTTI=ON \
     -DLLVM_ENABLE_FFI=ON \
@@ -239,7 +238,7 @@ package() {
   # Clang
   site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   install -d "${pkgdir:?}/${site_packages}"
-  mv "${pkgdir:?}/usr/lib/"{libear,libscanbuild} "${pkgdir:?}/${site_packages}/"
+  mv "${pkgdir:?}/usr/lib64/"{libear,libscanbuild} "${pkgdir:?}/${site_packages}/"
   cp -a llvm/bindings/python/llvm "${pkgdir:?}/${site_packages}/"
   cp -a clang/bindings/python/clang "${pkgdir:?}/${site_packages}/"
 
