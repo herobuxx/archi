@@ -11,11 +11,11 @@ provides=('llvm' "llvm=${pkgver}" 'llvm-libs' 'llvm-ocaml' 'clang' "clang=${pkgv
   'lld' 'libc++' 'libc++abi' 'libc++experimental')
 
 replaces=('llvm' 'llvm-libs' 'llvm-ocaml' 'clang' 'clang-analyzer'
-  'clang-tools-extra' 'polly' 'openmp' 'compiler-rt' 'lld' 'lldb'
+  'clang-tools-extra' 'polly' 'openmp' 'compiler-rt' 'lld'
   'libc++' 'libc++abi' 'libc++experimental')
 
 conflicts=('llvm' 'llvm-libs' 'llvm-ocaml' 'clang' 'clang-analyzer'
-  'clang-tools-extra' 'polly' 'compiler-rt' 'openmp' 'lld' 'lldb'
+  'clang-tools-extra' 'polly' 'compiler-rt' 'openmp' 'lld'
   'llvm-git' 'llvm-libs-git' 'llvm-ocaml-git'
   'libc++' 'libc++abi' 'libc++experimental')
 
