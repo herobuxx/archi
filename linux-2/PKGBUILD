@@ -18,7 +18,7 @@ fi
 
 pkgbase=linux-xanmod-custom
 _major=6.4
-pkgver=${_major}.5
+pkgver=${_major}.7
 _branch=6.x
 xanmod=1
 pkgrel=${xanmod}
@@ -51,7 +51,7 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}kbuild-cachyos-patches/0001-kbuild-cachyos-patches.patch"
         "${_lucjan}btrfs-patches-v3/0001-btrfs-6.4-merge-changes-from-dev-tree.patch"
         "${_lucjan}lrng-ddcci-patches-all/0001-lrng-ddcci-patches.patch"
-        "${_lucjan}maple-lru-patches-v8/0001-mm-6.4-add-maple-tree-and-mglru-fixes.patch"
+        "${_lucjan}maple-lru-patches-v9/0001-mm-6.4-add-maple-tree-and-mglru-fixes.patch"
         "${_lucjan}x86-cachyos-patches-v2/0001-x86-build-Avoid-relocation-information-in-final-vmli.patch"
         "${_lucjan}bfq-cachyos-patches/0001-bfq-cachyos-patches.patch"
         "${_lucjan}ksm-patches/0001-ksm-6.4-merge-changes-from-dev-tree.patch"
