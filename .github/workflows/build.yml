@@ -34,7 +34,7 @@ jobs:
     strategy:
       matrix:
         build: [
-          linux-2
+          llvm-essential
           ]
       fail-fast: false
     runs-on: ubuntu-latest
@@ -78,7 +78,7 @@ jobs:
       #     cd ${{ matrix.build }} && sed -i 's/+clang//g' PKGBUILD
       # - run: ls -alR
       - id: makepkg
-        uses: JPratama7/pkgbuild-action@clang
+        uses: JPratama7/pkgbuild-action@bootstraptool
         with:
           namcapDisable: true
           makepkgArgs: "--skippgpcheck --skipchecksums"

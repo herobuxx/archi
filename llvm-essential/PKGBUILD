@@ -228,8 +228,8 @@ package() {
   ln -s ../LLVMgold.so "${pkgdir:?}/usr/lib/bfd-plugins/LLVMgold.so"
 
   # Symlink all files inside x86_64-pc-linux-gnu to /usr/lib/
-  pushd ${pkgdir:?}/usr/lib/x86_64-pc-linux-gnu/
-  ln -s .././* .
+  pushd ${pkgdir:?}/usr/lib/
+  ln -s x86_64-pc-linux-gnu/* .
   popd
 
   # Clang
