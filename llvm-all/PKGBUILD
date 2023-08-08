@@ -90,8 +90,8 @@ build() {
     -DCMAKE_CXX_COMPILER="$CXX"
   )
 
-  export CFLAGS="$CFLAGS -fno-plt -fomit-frame-pointer"
-  export CXXFLAGS="$CXXFLAGS -fno-plt -fomit-frame-pointer"
+  export CFLAGS="$CFLAGS -fomit-frame-pointer"
+  export CXXFLAGS="$CXXFLAGS -fomit-frame-pointer"
 
   if ld.lld --version 2>/dev/null | grep -iq "LLD\s*[0-9]"; then
     export LD=ld.lld
