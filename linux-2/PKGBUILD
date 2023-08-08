@@ -49,7 +49,7 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_cachy}sched/0001-tt-cachy.patch"
         "${_lucjan}kbuild-patches-v5/0001-kbuild-6.4-merge-changes-from-dev-tree.patch"
         "${_lucjan}kbuild-cachyos-patches/0001-kbuild-cachyos-patches.patch"
-        "${_lucjan}btrfs-patches-v3/0001-btrfs-6.4-merge-changes-from-dev-tree.patch"
+        "${_lucjan}btrfs-patches-v5/0001-btrfs-6.4-merge-changes-from-dev-tree.patch"
         "${_lucjan}lrng-ddcci-patches-all/0001-lrng-ddcci-patches.patch"
         "${_lucjan}maple-lru-patches-v10/0001-mm-6.4-add-maple-tree-and-mglru-fixes.patch"
         "${_lucjan}x86-cachyos-patches-v2/0001-x86-build-Avoid-relocation-information-in-final-vmli.patch"
