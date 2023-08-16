@@ -42,7 +42,7 @@ _srcname="linux-${pkgver}-xanmod${xanmod}"
 
 
 source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar."{xz,sign}
-        "https://github.com/xanmod/linux/releases/download/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz"
+        "https://gitlab.com/xanmod/linux/-/archive/${pkgver}-xanmod1/linux-${pkgver}-xanmod${xanmod}.tar"
         choose-gcc-optimization.sh
         "0001-Revert-XANMOD-fair-Remove-all-energy-efficiency-func.patch"
         "${_lucjan}vma-patches-v20/0001-vma-6.4-merge-changes-from-dev-tree.patch"
