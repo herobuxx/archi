@@ -62,7 +62,7 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}clang-patches-v2/0001-clang-6.4-add-miscellaneous-fixes-for-clang.patch"
         "${_lucjan}fixes-miscellaneous-v12/0001-fixes-miscellaneous.patch"
         ##### Misc Patch
-        "${_lucjan}amd-pstate-patches-v7/0001-amd-6.4-merge-changes-from-dev-tree.patch"
+        "${_lucjan}amd-pstate-patches-v5/0001-amd-6.4-merge-changes-from-dev-tree.patch"
         "${_lucjan}cpupower-patches/0001-cpupower-6.4-Add-various-feature-control-support-for.patch"
         "${_lucjan}block-cachyos-patches/0001-block-set-rq_affinity-to-force-full-multithreading-I.patch"
         # "${_lucjan}ext4-patches-v6/0001-ext4-6.3-merge-changes-from-dev-tree.patch"
