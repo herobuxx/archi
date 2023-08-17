@@ -1,8 +1,8 @@
 pkgname=mesa
 pkgdesc="Mesa open-source implementation of the OpenGL specification"
-pkgver=23.0.1
+pkgver=23.1.6
 _pkgver=${pkgver//_/-}
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 makedepends=('python-mako' 'xorgproto' 'cmake' 'pkgconf' 'directx-headers'
   'libxml2' 'libx11' 'libvdpau' 'libva' 'elfutils' 'libxrandr'
@@ -24,9 +24,6 @@ url="https://www.mesa3d.org"
 license=('custom')
 source=(
   "https://archive.mesa3d.org/mesa-${_pkgver}.tar.xz"{,.sig}
-  "https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/mesa/trunk/0001-anv-force-MEDIA_INTERFACE_DESCRIPTOR_LOAD-reemit-aft.patch"
-  "https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/mesa/trunk/0002-iris-Retry-DRM_IOCTL_I915_GEM_EXECBUFFER2-on-ENOMEM.patch"
-  "https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/mesa/trunk/0003-Revert-iris-Avoid-abort-if-kernel-can-t-allocate-mem.patch"
   'LICENSE'
 )
 
@@ -39,7 +36,7 @@ validpgpkeys=(
   '71C4B75620BC75708B4BDB254C95FAAB3EB073EC' # Dylan Baker <dylan@pnwbakers.com>
 )
 
-GALLIUM_DRIVERS="r300,r600,radeonsi,nouveau,virgl,svga,swrast,i915,iris,crocus,zink"
+GALLIUM_DRIVERS="r300,r600,radeonsi,nouveau,virgl,svga,swrast,i915,iris,crocus,zink,d3d12"
 VULKAN_DRIVERS="amd,intel,intel_hasvk,swrast,virtio-experimental"
 VULKAN_LAYERS="device-select,intel-nullhw,overlay"
 
@@ -114,6 +111,7 @@ build() {
     -D opengl=true \
     -D zstd=auto \
     -D valgrind=disabled \
+    -D android-libbacktrace=disabled \
     -D video-codecs=vc1dec,h264dec,h264enc,h265dec,h265enc \
     -D c_args="$CFLAGS" \
     -D c_link_args="$LDFLAGS" \
