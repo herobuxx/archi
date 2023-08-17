@@ -70,6 +70,8 @@ prepare() {
 
 build() {
 
+  export MESON_FORCE_BACKTRACE=1
+  
   meson setup mesa-${_pkgver} build-clang \
     --prefix /usr \
     --libexecdir lib \
