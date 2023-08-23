@@ -67,57 +67,63 @@ prepare() {
 build() {
 
   export MESON_FORCE_BACKTRACE=1
-  
-  meson setup mesa-${_pkgver} build-clang \
-    --prefix /usr \
-    --libexecdir lib \
-    --sbindir bin \
-    --auto-features enabled \
-    --wrap-mode nodownload \
-    -D debug=false \
-    -D optimization=2 \
-    -D b_ndebug=true \
-    -D b_lto=true \
-    -D b_pie=true \
-    -D sysconfdir=/etc \
-    -D platforms=x11,wayland \
-    -D gallium-drivers="${GALLIUM_DRIVERS}" \
-    -D vulkan-drivers="${VULKAN_DRIVERS}" \
-    -D vulkan-layers="${VULKAN_LAYERS}" \
-    -D dri3=enabled \
-    -D egl=enabled \
-    -D gallium-extra-hud=true \
-    -D gallium-nine=true \
-    -D gallium-omx=bellagio \
-    -D gallium-opencl=icd \
-    -D gallium-va=enabled \
-    -D gallium-vdpau=enabled \
-    -D gallium-xa=enabled \
-	  -D gallium-rusticl=true \
-    -D rust_std=2021 \
-    -D gbm=enabled \
-    -D gles1=disabled \
-    -D gles2=enabled \
-    -D glvnd=true \
-    -D glx=dri \
-    -D libunwind=disabled \
-    -D llvm=enabled \
-    -D lmsensors=enabled \
-    -D osmesa=true \
-    -D shared-glapi=enabled \
-    -D microsoft-clc=disabled \
-    -D opengl=true \
-    -D zstd=auto \
-    -D valgrind=disabled \
-    -D android-libbacktrace=disabled \
-    -D video-codecs=vc1dec,h264dec,h264enc,h265dec,h265enc \
-    -D c_args="$CFLAGS" \
-    -D c_link_args="$LDFLAGS" \
-    -D cpp_args="$CXXFLAGS" \
-    -D cpp_link_args="$LDFLAGS" \
-    --strip
 
-  meson compile -C build-clang
+  local meson_options=(
+    --prefix /usr 
+    --libexecdir lib 
+    --sbindir bin 
+    --auto-features enabled 
+    --wrap-mode nodownload 
+    -D debug=false 
+    -D optimization=2 
+    -D b_ndebug=true 
+    -D b_lto=true 
+    -D b_pie=true 
+    -D sysconfdir=/etc 
+    -D platforms=x11,wayland 
+    -D gallium-drivers="${GALLIUM_DRIVERS}" 
+    -D vulkan-drivers="${VULKAN_DRIVERS}" 
+    -D vulkan-layers="${VULKAN_LAYERS}" 
+    -D dri3=enabled 
+    -D egl=enabled 
+    -D gallium-extra-hud=true 
+    -D gallium-nine=true 
+    -D gallium-omx=bellagio 
+    -D gallium-opencl=icd 
+    -D gallium-va=enabled 
+    -D gallium-vdpau=enabled 
+    -D gallium-xa=enabled 
+	  -D gallium-rusticl=true 
+    -D rust_std=2021 
+    -D gbm=enabled 
+    -D gles1=disabled 
+    -D gles2=enabled 
+    -D glvnd=true 
+    -D glx=dri 
+    -D libunwind=disabled 
+    -D llvm=enabled 
+    -D lmsensors=enabled 
+    -D osmesa=true 
+    -D shared-glapi=enabled 
+    -D microsoft-clc=disabled 
+    -D opengl=true 
+    -D zstd=auto 
+    -D valgrind=disabled 
+    -D android-libbacktrace=disabled 
+    -D video-codecs=vc1dec,h264dec,h264enc,h265dec,h265enc 
+    -D c_args="$CFLAGS" 
+    -D c_link_args="$LDFLAGS" 
+    -D cpp_args="$CXXFLAGS" 
+    -D cpp_link_args="$LDFLAGS" 
+    --strip
+  )
+  
+  arch-meson mesa-$pkgver build "${meson_options[@]}"
+
+  meson configure build
+  meson compile -C build
+
+
 
 }
 
