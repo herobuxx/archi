@@ -118,12 +118,10 @@ build() {
     --strip
   )
   
-  arch-meson mesa-$pkgver build "${meson_options[@]}"
+  arch-meson mesa-$pkgver build-clang "${meson_options[@]}"
 
-  meson configure build
-  meson compile -C build
-
-
+  meson configure build-clang
+  meson compile -C build-clang
 
 }
 
