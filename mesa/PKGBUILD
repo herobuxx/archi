@@ -75,7 +75,8 @@ build() {
     --auto-features enabled 
     --wrap-mode nodownload 
     -D debug=false 
-    -D optimization=2 
+    -D optimization=2
+    -D b_lto_mode=thin
     -D b_ndebug=true 
     -D b_lto=true 
     -D b_pie=true 
