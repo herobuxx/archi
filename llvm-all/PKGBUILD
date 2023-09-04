@@ -28,7 +28,7 @@ makedepends=(
   'python-recommonmark' 'ocaml-stdlib-shims' 'mimalloc'
 )
 makedepends_x86_64=('lib32-gcc-libs')
-_commit=7cbf1a2591520c2491aa35339f227775f4d3adf6
+_commit=8dfdcc7b7bf66834a761bd8de445840ef68e4d1a
 source=(
   "https://github.com/llvm/llvm-project/archive/refs/tags/llvmorg-${pkgver}.zip"
   'llvm-config.h'
@@ -43,9 +43,9 @@ _skip_build_test=y
 _skip_documentation=y
 _extra_build_flags=(
   -DLLVM_ENABLE_LTO=Thin 
-  -DCMAKE_EXE_LINKER_FLAGS=-Wl,--push-state,/usr/lib/libmimalloc.a,--pop-state 
-  -DCMAKE_CXX_STANDARD=17
-  -DLLVM_ENABLE_LIBCXX=ON
+  -DCMAKE_EXE_LINKER_FLAGS=-Wl,--push-state,/usr/lib/libmimalloc.a,--pop-state -DCMAKE_CXX_STANDARD=17
+  -DCMAKE_SKIP_RPATH=ON
+  -DENABLE_LINKER_BUILD_ID=ON
   )
 _build_documentation=0
 _build_tests=0
@@ -67,7 +67,10 @@ _patch() {
 
 prepare() {
 
-  mv llvm-project-llvmorg-${pkgver} llvm-project
+  mv "${srcdir:?}/llvm-project-llvmorg-${pkgver}" llvm-project || (
+    echo -e "\E[1;31mCan't cd to ${srcdir}/llvm-project directory! Prepare Failed! \E[0m"
+    exit 1
+  )
 
   cd "${srcdir:?}/llvm-project" || (
     echo -e "\E[1;31mCan't cd to ${srcdir}/llvm-project directory! Prepare Failed! \E[0m"
@@ -92,9 +95,10 @@ build() {
     -DCMAKE_CXX_COMPILER="$CXX"
   )
 
-  export CFLAGS="$CFLAGS -fPIC -fno-semantic-interposition -fomit-frame-pointer"
-  export CXXFLAGS="$CXXFLAGS -fPIC -fno-semantic-interposition -fomit-frame-pointer"
+  export CFLAGS="$CFLAGS -fno-semantic-interposition -fomit-frame-pointer"
+  export CXXFLAGS="$CXXFLAGS -fno-semantic-interposition -fomit-frame-pointer"
   export LDFLAGS="$LDFLAGS -Wl,-Bsymbolic-functions"
+
 
   if ld.lld --version 2>/dev/null | grep -iq "LLD\s*[0-9]"; then
     export LD=ld.lld
@@ -231,6 +235,11 @@ package() {
   mkdir -p "${pkgdir:?}/usr/lib/bfd-plugins"
   ln -s ../LLVMgold.so "${pkgdir:?}/usr/lib/bfd-plugins/LLVMgold.so"
 
+  # Symlink all files inside x86_64-pc-linux-gnu to /usr/lib/
+  pushd ${pkgdir:?}/usr/lib/
+  ln -s x86_64-pc-linux-gnu/* .
+  popd
+
   # Clang
   site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   install -d "${pkgdir:?}/${site_packages}"
@@ -261,8 +270,8 @@ package() {
   install -Dm644 "${srcdir:?}/llvm-project/polly/LICENSE.TXT" "${pkgdir:?}/usr/share/licenses/${pkgname}/polly-LICENSE"
   install -Dm644 "${srcdir:?}/llvm-project/openmp/LICENSE.TXT" "${pkgdir:?}/usr/share/licenses/${pkgname}/openmp-LICENSE"
 
-  # Fallback for llvm 13
-  # _llvm_libs=(libLLVM-13.so libLTO.so.13 libRemarks.so.13 libclang.so.13.0.1 libclang-cpp.so.13)
+  # Fallback for llvm 15
+  # _llvm_libs=(libLLVM-15.so libLTO.so.15 libRemarks.so.15 libclang.so.15.0.1 libclang-cpp.so.15)
   # for lib in "${_llvm_libs[@]}"; do
   #   if [[ ! -e "${pkgdir:?}/usr/lib/${lib:?}" ]]; then
   #     echo "- Copy ${lib:?}"
@@ -278,5 +287,4 @@ package() {
   # else
   #   echo "- libLLVM-13.0.1.so exist"
   # fi
-
 }
