@@ -43,7 +43,8 @@ _skip_build_test=y
 _skip_documentation=y
 _extra_build_flags=(
   -DLLVM_ENABLE_LTO=Thin 
-  -DCMAKE_EXE_LINKER_FLAGS=-Wl,--push-state,/usr/lib/libmimalloc.a,--pop-state -DCMAKE_CXX_STANDARD=17
+  -DCMAKE_EXE_LINKER_FLAGS=-Wl,--push-state,/usr/lib/libmimalloc.a,--pop-state 
+  -DCMAKE_CXX_STANDARD=17
   -DCMAKE_SKIP_RPATH=ON
   -DENABLE_LINKER_BUILD_ID=ON
   )
@@ -91,8 +92,7 @@ build() {
   )
 
   _extra_build_flags+=(
-    -DCMAKE_C_COMPILER="$CC"
-    -DCMAKE_CXX_COMPILER="$CXX"
+    
   )
 
   export CFLAGS="$CFLAGS -fno-semantic-interposition -fomit-frame-pointer"
