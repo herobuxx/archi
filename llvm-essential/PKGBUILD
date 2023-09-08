@@ -22,7 +22,7 @@ conflicts=('llvm' 'llvm-libs' 'llvm-ocaml' 'clang' 'clang-analyzer'
 depends=('libelf' 'libffi' 'libedit' 'libxml2' 'ncurses')
 _ocaml_ver=4.14.0
 makedepends=(
-  'git' 'ninja' 'cmake'
+  'git' 'ninja' 'cmake' 'llvm' 'clang'
   "ocaml>=${_ocaml_ver}" 'ocaml-ctypes' 'ocaml-findlib'
   'python-setuptools' 'python-psutil' 'python-sphinx'
   'python-recommonmark' 'ocaml-stdlib-shims' 'mimalloc' 'libc++' 'libc++abi'
@@ -42,7 +42,6 @@ options=('staticlibs' '!lto' '!debug')
 _skip_build_test=y
 _skip_documentation=y
 _extra_build_flags=(
-  -DLLVM_ENABLE_LTO=Thin 
   -DCMAKE_EXE_LINKER_FLAGS=-Wl,--push-state,/usr/lib/libmimalloc.a,--pop-state 
   -DCMAKE_CXX_STANDARD=17
 )
