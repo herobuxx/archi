@@ -34,7 +34,7 @@ jobs:
     strategy:
       matrix:
         build: [
-         jdk21-jetbrains-bin
+         linux-2
           ]
       fail-fast: false
     runs-on: ubuntu-latest
