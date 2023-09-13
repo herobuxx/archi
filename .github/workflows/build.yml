@@ -34,7 +34,7 @@ jobs:
     strategy:
       matrix:
         build: [
-         jre21-jetbrains-imfix
+         java21-jetbrains-imfix
           ]
       fail-fast: false
     runs-on: ubuntu-latest
