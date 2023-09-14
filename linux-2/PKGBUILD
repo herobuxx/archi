@@ -51,7 +51,7 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}kbuild-cachyos-patches/0001-kbuild-cachyos-patches.patch"
         "${_lucjan}btrfs-patches-v2/0001-btrfs-6.5-merge-changes-from-dev-tree.patch"
         "${_lucjan}lrng-ddcci-patches-v3/0001-lrng-6.5-introduce-Linux-Random-Number-Generator-wit.patch"
-        "${_lucjan}maple-lru-patches-v5/0001-mm-6.5-add-maple-tree-and-mglru-fixes.patch"
+        "${_lucjan}maple-lru-patches/0001-mm-6.5-add-maple-tree-and-mglru-fixes.patch"
         # "${_lucjan}x86-cachyos-patches-v2/0001-x86-build-Avoid-relocation-information-in-final-vmli.patch"
         # "${_lucjan}bfq-cachyos-patches/0001-bfq-cachyos-patches.patch"
         "${_lucjan}ksm-cachyos-patches-v2/0001-ksm-6.5-merge-changes-from-dev-tree.patch"
