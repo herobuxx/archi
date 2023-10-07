@@ -56,7 +56,7 @@ prepare() {
   cd mesa-$_pkgver
 
   if clang --version 2>/dev/null | grep -iq "clang\s*version\s*[0-9]" && ld.lld --version 2>/dev/null | grep -iq "LLD\s*[0-9]"; then
-    _extra_lto_flag='-D b_lto_mode=thin'
+    _extra_lto_flag='-D b_lto_mode=full'
   fi
 
   local src
