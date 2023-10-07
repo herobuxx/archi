@@ -1,23 +1,22 @@
 pkgname=mesa
 pkgdesc="Mesa open-source implementation of the OpenGL specification"
-pkgver=23.1.6
+pkgver=23.2.1
 _pkgver=${pkgver//_/-}
-pkgrel=2
+pkgrel=1
+epoch=1
 arch=('x86_64')
 makedepends=('python-mako' 'xorgproto' 'cmake' 'pkgconf' 'directx-headers'
   'libxml2' 'libx11' 'libvdpau' 'libva' 'elfutils' 'libxrandr'
-  'wayland-protocols' 'meson' 'ninja' 'glslang' 'libclc' 'wget'
-  'cargo' 'rust-bindgen' 'spirv-tools' 'spirv-llvm-translator'
-  )
+  'wayland-protocols' 'meson' 'ninja' 'glslang' 'libclc')
   
-# makedepends+=() # rusticl dependencies
+makedepends+=('rust' 'rust-bindgen' 'spirv-tools' 'spirv-llvm-translator') # rusticl dependencies
 
 DLAGENTS=(
   'http::/usr/bin/wget -q --show-progress -t 3 --waitretry=3 -O %o %u'
   'https::/usr/bin/wget -q --show-progress -t 3 --waitretry=3 -O %o %u'
 )
 
-depends=('libdrm' 'libxxf86vm' 'libxdamage' 'libxshmfence' 'libelf' 'systemd' 'systemd-libs'
+depends=('libdrm' 'libxxf86vm' 'libxdamage' 'libxshmfence' 'libelf' 'systemd' 'systemd-libs' 'xcb-util-keysyms'
   'libomxil-bellagio' 'libunwind' 'libglvnd' 'wayland' 'lm_sensors' 'libclc' 'vulkan-icd-loader' 'zstd' 'expat')
 optdepends=('opengl-man-pages: for the OpenGL API man pages')
 provides=('mesa' "mesa=${pkgver}" 'opencl-mesa' 'vulkan-intel' 'vulkan-radeon' 'vulkan-mesa-layer' 'libva-mesa-driver' 'mesa-vdpau' 'vulkan-swrast' 'vulkan-driver' 'opengl-driver' 'opencl-driver' 'mesa-libgl')
@@ -26,6 +25,7 @@ url="https://www.mesa3d.org"
 license=('custom')
 source=(
   "https://archive.mesa3d.org/mesa-${_pkgver}.tar.xz"{,.sig}
+  "https://gitlab.archlinux.org/archlinux/packaging/packages/mesa/-/raw/main/0001-radeonsi-prefix-function-with-si_-to-prevent-name-co.patch?ref_type=heads"
   'LICENSE'
 )
 
@@ -39,8 +39,10 @@ validpgpkeys=(
 )
 
 GALLIUM_DRIVERS="r300,r600,radeonsi,nouveau,virgl,svga,swrast,i915,iris,crocus,zink,d3d12"
-VULKAN_DRIVERS="amd,intel,intel_hasvk,swrast,virtio-experimental"
+VULKAN_DRIVERS="amd,intel,intel_hasvk,swrast,virtio"
 VULKAN_LAYERS="device-select,intel-nullhw,overlay"
+
+_extra_lto_flag=""
 
 _patch() {
 
@@ -53,6 +55,10 @@ prepare() {
 
   cd mesa-$_pkgver
 
+  if clang --version 2>/dev/null | grep -iq "clang\s*version\s*[0-9]" && ld.lld --version 2>/dev/null | grep -iq "LLD\s*[0-9]"; then
+    _extra_lto_flag='-D b_lto_mode=thin'
+  fi
+
   local src
   for src in "${source[@]}"; do
     src="${src%%::*}"
@@ -62,66 +68,61 @@ prepare() {
     _patch $src
   done
 
+  echo "$pkgver-arch$epoch.$pkgrel" >VERSION
+
 }
 
 build() {
 
-  export MESON_FORCE_BACKTRACE=1
-
-  local meson_options=(
-    --prefix /usr 
-    --libexecdir lib 
-    --sbindir bin 
-    --auto-features enabled 
-    --wrap-mode nodownload 
-    -D debug=false 
-    -D optimization=2
-    -D b_lto_mode=thin
-    -D b_ndebug=true 
-    -D b_lto=true 
-    -D b_pie=true 
-    -D sysconfdir=/etc 
-    -D platforms=x11,wayland 
-    -D gallium-drivers="${GALLIUM_DRIVERS}" 
-    -D vulkan-drivers="${VULKAN_DRIVERS}" 
-    -D vulkan-layers="${VULKAN_LAYERS}" 
-    -D dri3=enabled 
-    -D egl=enabled 
-    -D gallium-extra-hud=true 
-    -D gallium-nine=true 
-    -D gallium-omx=bellagio 
-    -D gallium-opencl=icd 
-    -D gallium-va=enabled 
-    -D gallium-vdpau=enabled 
-    -D gallium-xa=enabled 
-	  -D gallium-rusticl=true 
-    -D rust_std=2021 
-    -D gbm=enabled 
-    -D gles1=disabled 
-    -D gles2=enabled 
-    -D glvnd=true 
-    -D glx=dri 
-    -D libunwind=disabled 
-    -D llvm=enabled 
-    -D lmsensors=enabled 
-    -D osmesa=true 
-    -D shared-glapi=enabled 
-    -D microsoft-clc=disabled 
-    -D opengl=true 
-    -D zstd=auto 
-    -D valgrind=disabled 
-    -D android-libbacktrace=disabled 
-    -D video-codecs=vc1dec,h264dec,h264enc,h265dec,h265enc 
-    -D c_args="$CFLAGS" 
-    -D c_link_args="$LDFLAGS" 
-    -D cpp_args="$CXXFLAGS" 
-    -D cpp_link_args="$LDFLAGS" 
+  meson setup mesa-${_pkgver} build-clang \
+    --prefix /usr \
+    --libexecdir lib \
+    --sbindir bin \
+    --auto-features enabled \
+    --wrap-mode nodownload \
+    -D debug=false \
+    -D optimization=2 \
+    -D b_ndebug=true \
+    -D b_lto=true ${_extra_lto_flag} \
+    -D b_pie=true \
+    -D sysconfdir=/etc \
+    -D platforms=x11,wayland \
+    -D gallium-drivers="${GALLIUM_DRIVERS}" \
+    -D vulkan-drivers="${VULKAN_DRIVERS}" \
+    -D vulkan-layers="${VULKAN_LAYERS}" \
+    -D dri3=enabled \
+    -D egl=enabled \
+    -D gallium-extra-hud=true \
+    -D gallium-nine=true \
+    -D gallium-omx=bellagio \
+    -D gallium-opencl=icd \
+    -D gallium-va=enabled \
+    -D gallium-vdpau=enabled \
+    -D gallium-xa=enabled \
+	  -D gallium-rusticl=true \
+    -D rust_std=2021 \
+    -D gbm=enabled \
+    -D gles1=disabled \
+    -D gles2=enabled \
+    -D glvnd=true \
+    -D glx=dri \
+    -D libunwind=disabled \
+    -D llvm=enabled \
+    -D lmsensors=enabled \
+    -D osmesa=true \
+    -D shared-glapi=enabled \
+    -D microsoft-clc=disabled \
+    -D opengl=true \
+    -D zstd=auto \
+    -D valgrind=disabled \
+    -D android-libbacktrace=disabled \
+    -D video-codecs=vc1dec,h264dec,h264enc,h265dec,h265enc \
+    -D c_args="$CFLAGS" \
+    -D c_link_args="$LDFLAGS" \
+    -D cpp_args="$CXXFLAGS" \
+    -D cpp_link_args="$LDFLAGS" \
     --strip
-  )
-  
-  arch-meson mesa-$pkgver build-clang "${meson_options[@]}"
 
-  meson configure build-clang
   meson compile -C build-clang
 
 }
