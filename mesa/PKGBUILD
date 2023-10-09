@@ -5,9 +5,11 @@ _pkgver=${pkgver//_/-}
 pkgrel=1
 epoch=1
 arch=('x86_64')
-makedepends=('python-mako' 'xorgproto' 'cmake' 'pkgconf' 'directx-headers'
+makedepends=(
+  'python-mako' 'xorgproto' 'cmake' 'pkgconf' 'directx-headers'
   'libxml2' 'libx11' 'libvdpau' 'libva' 'elfutils' 'libxrandr'
-  'wayland-protocols' 'meson' 'ninja' 'glslang' 'libclc')
+  'wayland-protocols' 'meson' 'ninja' 'glslang' 'libclc'
+  )
   
 makedepends+=('rust' 'rust-bindgen' 'spirv-tools' 'spirv-llvm-translator') # rusticl dependencies
 
@@ -74,7 +76,7 @@ prepare() {
 
 build() {
 
-  meson setup mesa-${_pkgver} build-clang \
+  arch-meson mesa-${_pkgver} build-clang \
     --prefix /usr \
     --libexecdir lib \
     --sbindir bin \
@@ -122,6 +124,8 @@ build() {
     -D cpp_args="$CXXFLAGS" \
     -D cpp_link_args="$LDFLAGS" \
     --strip
+
+  meson configure build-clang
 
   meson compile -C build-clang
 
