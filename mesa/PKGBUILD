@@ -70,8 +70,6 @@ prepare() {
     _patch $src
   done
 
-  patch -Np1 -i ../0001-radeonsi-prefix-function-with-si_-to-prevent-name-co.patch
-
   echo "$pkgver-arch$epoch.$pkgrel" >VERSION
 
 }
