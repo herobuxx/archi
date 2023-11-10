@@ -17,8 +17,8 @@ if [ "${_compiler}" = "clang" ]; then
 fi
 
 pkgbase=linux-xanmod-custom
-_major=6.5
-pkgver=${_major}.2
+_major=6.6
+pkgver=${_major}.1
 _branch=6.x
 xanmod=1
 pkgrel=${xanmod}
@@ -28,7 +28,7 @@ arch=(x86_64)
 _lucjan="https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/${_major}/"
 _cachy="https://raw.githubusercontent.com/CachyOS/kernel-patches/master/${_major}/"
 _tkg="https://raw.githubusercontent.com/Frogging-Family/linux-tkg/master/linux-tkg-patches/${_major}/"
-_commit_ck=6ef0e9ff5db0ed380f98cc8c7436ca9c44ea32c9
+_commit_ck=c83f27ce602a96d481678dca05fe6fd267b2ea44
 
 license=(GPL2)
 makedepends=(
@@ -44,29 +44,29 @@ _srcname="linux-${pkgver}-xanmod${xanmod}"
 source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar."{xz,sign}
         "https://master.dl.sourceforge.net/project/xanmod/releases/edge/$pkgver-xanmod$xanmod/patch-$pkgver-xanmod$xanmod.xz"
         choose-gcc-optimization.sh
-        "0001-Revert-XANMOD-fair-Remove-all-energy-efficiency-func.patch"
+        # "0001-Revert-XANMOD-fair-Remove-all-energy-efficiency-func.patch"
         # "${_lucjan}vma-patches/0001-vma-6.5-merge-changes-from-dev-tree.patch"
         "${_cachy}sched/0001-tt-cachy.patch"
         # "${_lucjan}kbuild-patches-all/0001-kbuild-patches.patch"
-        "${_lucjan}kbuild-cachyos-patches/0001-kbuild-cachyos-patches.patch"
-        "${_lucjan}btrfs-patches-v2/0001-btrfs-6.5-merge-changes-from-dev-tree.patch"
-        "${_lucjan}lrng-ddcci-patches-v3-all/0001-lrng-ddcci-patches.patch"
-        "${_lucjan}maple-lru-patches-v5/0001-mm-6.5-add-maple-tree-and-mglru-fixes.patch"
-        # "${_lucjan}x86-cachyos-patches-v2/0001-x86-build-Avoid-relocation-information-in-final-vmli.patch"
+        "${_lucjan}kbuild-cachyos-patches/0001-Cachy-Allow-O3.patch"
+        "${_lucjan}btrfs-patches/0001-btrfs-6.6-merge-changes-from-dev-tree.patch"
+        "${_lucjan}lrng-ddcci-patches/0001-lrng-6.6-introduce-Linux-Random-Number-Generator-wit.patch"
+        "${_lucjan}maple-lru-patches-v5/0001-mm-6.6-add-maple-tree-and-mglru-fixes.patch"
+        "${_lucjan}x86-patches/0001-x86-6.6-merge-changes-from-dev-tree.patch"
         # "${_lucjan}bfq-cachyos-patches/0001-bfq-cachyos-patches.patch"
-        "${_lucjan}ksm-cachyos-patches-v2/0001-ksm-6.5-merge-changes-from-dev-tree.patch"
-        "${_lucjan}drm-patches/0001-drm-6.5-Add-HDR-patches.patch"
-        "${_lucjan}zstd-cachyos-patches/0001-lib-zstd-import-v1.5.5.patch"
-        "${_lucjan}v4l2loopback-patches/0001-media-v4l2-core-add-v4l2loopback.patch"
-        "${_lucjan}uksmd-cachyos-patches/0001-mm-expose-per-process-KSM-control-via-syscalls.patch"
-        "${_lucjan}clang-patches/0001-clang-6.5-add-miscellaneous-fixes-for-clang.patch"
-        "${_lucjan}fixes-miscellaneous-v8/0001-fixes-miscellaneous.patch"
+        "${_lucjan}ksm-patches/0001-ksm-6.6-merge-changes-from-dev-tree.patch"
+        "${_lucjan}drm-patches/0001-drm-6.6-Add-HDR-patches.patch"
+        "${_lucjan}zstd-cachyos-patches/0001-zstd-cachyos-patches.patch"
+        # "${_lucjan}v4l2loopback-patches/0001-media-v4l2-core-add-v4l2loopback.patch"
+        "${_lucjan}uksmd-patches/0001-mm-expose-per-process-KSM-control-via-syscalls.patch"
+        # "${_lucjan}clang-patches/0001-clang-6.5-add-miscellaneous-fixes-for-clang.patch"
+        "${_lucjan}fixes-miscellaneous/0001-fixes-miscellaneous.patch"
         ##### Misc Patch
-        "${_lucjan}gcc-lto-patches/0001-gcc-LTO-support-for-the-kernel.patch"
-        "${_lucjan}decompress-patches/0001-x86-6.5-Avoid-bare-metal-decompressor-during-EFI-boo.patch"
-        "${_lucjan}userfaultfd-patches/0001-userfaultfd-patches.patch"
-        "${_lucjan}amd-pstate-patches-v5/0001-amd-6.5-merge-changes-from-dev-tree.patch"
-        "${_lucjan}cpupower-patches/0001-cpupower-6.5-Add-various-feature-control-support-for.patch"
+        # "${_lucjan}gcc-lto-patches/0001-gcc-LTO-support-for-the-kernel.patch"
+        # "${_lucjan}decompress-patches/0001-x86-6.5-Avoid-bare-metal-decompressor-during-EFI-boo.patch"
+        "${_lucjan}userfaultfd-patches/0001-mm-6.6-add-userfaultfd-remap-option.patch"
+        "${_lucjan}amd-pstate-patches-v2/0001-amd-6.6-merge-changes-from-dev-tree.patch"
+        # "${_lucjan}cpupower-patches/0001-cpupower-6.5-Add-various-feature-control-support-for.patch"
         # "${_lucjan}block-cachyos-patches/0001-block-set-rq_affinity-to-force-full-multithreading-I.patch"
         # "${_lucjan}ext4-patches-v6/0001-ext4-6.3-merge-changes-from-dev-tree.patch"
         "ck-hrtimer-$_commit_ck.tar.gz::https://github.com/graysky2/linux-patches/archive/$_commit_ck.tar.gz"
@@ -379,8 +379,7 @@ _package() {
             V4L2LOOPBACK-MODULE)
 
   cd linux-${_major}
-  local kernver="$(<version)"
-  local modulesdir="$pkgdir/usr/lib/modules/$kernver"
+  local modulesdir="$pkgdir/usr/lib/modules/$(<version)"
 
   msg2 "Installing boot image..."
   # systemd expects to find the kernel here to allow hibernation
@@ -391,10 +390,11 @@ _package() {
   echo "$pkgbase" | install -Dm644 /dev/stdin "$modulesdir/pkgbase"
 
   msg2 "Installing modules..."
-  make INSTALL_MOD_PATH="$pkgdir/usr" INSTALL_MOD_STRIP=1 modules_install
+  ZSTD_CLEVEL=19 make INSTALL_MOD_PATH="$pkgdir/usr" INSTALL_MOD_STRIP=1 \
+    DEPMOD=/doesnt/exist modules_install  # Suppress depmod
 
-  # remove build and source links
-  rm "$modulesdir"/{source,build}
+  # remove build link
+  rm "$modulesdir"/build
 }
 
 _package-headers() {
@@ -459,7 +459,7 @@ _package-headers() {
   msg2 "Stripping build tools..."
   local file
   while read -rd '' file; do
-    case "$(file -bi "$file")" in
+    case "$(file -Sib "$file")" in
       application/x-sharedlib\;*)      # Libraries (.so)
         strip -v $STRIP_SHARED "$file" ;;
       application/x-archive\;*)        # Libraries (.a)
@@ -473,7 +473,7 @@ _package-headers() {
 
   msg2 "Stripping vmlinux..."
   strip -v $STRIP_STATIC "$builddir/vmlinux"
-  
+
   msg2 "Adding symlink..."
   mkdir -p "$pkgdir/usr/src"
   ln -sr "$builddir" "$pkgdir/usr/src/$pkgbase"
