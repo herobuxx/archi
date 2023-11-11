@@ -9,6 +9,7 @@ use_numa=y
 use_tracers=y
 _compiler=clang
 _revision=
+_sf_branch=edge
 _compress_modules=y
 _localmodcfg=n
 _makenconfig=n
