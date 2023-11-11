@@ -46,7 +46,7 @@ _srcname="linux-${pkgver}-xanmod${xanmod}"
 source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar."{xz,sign}
         "patch-${pkgver}-xanmod${xanmod}${_revision}.xz::https://sourceforge.net/projects/xanmod/files/releases/${_sf_branch}/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz/download"
         choose-gcc-optimization.sh
-        # "0001-Revert-XANMOD-fair-Remove-all-energy-efficiency-func.patch"
+        "0001-Revert-XANMOD-fair-Remove-all-energy-efficiency-func.patch"
         # "${_lucjan}vma-patches/0001-vma-6.5-merge-changes-from-dev-tree.patch"
         "https://github.com/firelzrd/bore-scheduler/raw/main/patches/linux-6.6-bore/0001-linux6.6.y-bore3.2.9.patch"
         # "${_lucjan}kbuild-patches-all/0001-kbuild-patches.patch"
