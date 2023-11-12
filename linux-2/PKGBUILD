@@ -44,6 +44,7 @@ _srcname="linux-${pkgver}-xanmod${xanmod}"
 
 
 source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar."{xz,sign}
+        ""${_lucjan}bore-sched-ext-patches-v3/0001-bore-6.6-introduce-BORE-Scheduler-with-BPF-extensibl.patch"
         "patch-${pkgver}-xanmod${xanmod}${_revision}.xz::https://sourceforge.net/projects/xanmod/files/releases/${_sf_branch}/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz/download"
         choose-gcc-optimization.sh
         "0001-Revert-XANMOD-fair-Remove-all-energy-efficiency-func.patch"
