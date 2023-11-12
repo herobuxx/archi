@@ -47,6 +47,8 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "patch-${pkgver}-xanmod${xanmod}${_revision}.xz::https://sourceforge.net/projects/xanmod/files/releases/${_sf_branch}/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz/download"
         choose-gcc-optimization.sh
         "0001-Revert-XANMOD-fair-Remove-all-energy-efficiency-func.patch"
+        "${_lucjan}eevdf-patches-v2/0001-sched-6.6-merge-changes-from-dev-tree.patch"
+        "${_lucjan}mm-cachyos-patches/0001-mm-6.6-merge-changes-from-dev-tree.patch "
         # "${_lucjan}vma-patches/0001-vma-6.5-merge-changes-from-dev-tree.patch"
         # "${_lucjan}kbuild-patches-all/0001-kbuild-patches.patch"
         "${_lucjan}kbuild-cachyos-patches/0001-Cachy-Allow-O3.patch"
@@ -62,7 +64,7 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}uksmd-patches/0001-mm-expose-per-process-KSM-control-via-syscalls.patch"
         # "${_lucjan}clang-patches/0001-clang-6.5-add-miscellaneous-fixes-for-clang.patch"
         "${_lucjan}fixes-miscellaneous/0001-fixes-miscellaneous.patch"
-        "${_cachy}sched/0001-bore-cachy-ext.patch"
+        # "${_cachy}sched/0001-bore-cachy-ext.patch"
         ##### Misc Patch
         # "${_lucjan}gcc-lto-patches/0001-gcc-LTO-support-for-the-kernel.patch"
         # "${_lucjan}decompress-patches/0001-x86-6.5-Avoid-bare-metal-decompressor-during-EFI-boo.patch"
