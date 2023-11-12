@@ -47,7 +47,6 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "patch-${pkgver}-xanmod${xanmod}${_revision}.xz::https://sourceforge.net/projects/xanmod/files/releases/${_sf_branch}/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz/download"
         choose-gcc-optimization.sh
         "0001-Revert-XANMOD-fair-Remove-all-energy-efficiency-func.patch"
-        "https://raw.githubusercontent.com/firelzrd/bore-scheduler/main/patches/linux-6.6-bore/0001-linux6.6.y-bore3.3.0.patch"
         "${_lucjan}eevdf-patches-v2/0001-sched-6.6-merge-changes-from-dev-tree.patch"
         "${_lucjan}mm-cachyos-patches/0001-mm-6.6-merge-changes-from-dev-tree.patch"
         # "${_lucjan}vma-patches/0001-vma-6.5-merge-changes-from-dev-tree.patch"
@@ -97,7 +96,12 @@ export KBUILD_BUILD_USER=${KBUILD_BUILD_USER:-makepkg}
 export KBUILD_BUILD_TIMESTAMP=${KBUILD_BUILD_TIMESTAMP:-$(date -Ru${SOURCE_DATE_EPOCH:+d @$SOURCE_DATE_EPOCH})}
 
 prepare() {
+  wget https://raw.githubusercontent.com/firelzrd/bore-scheduler/main/patches/linux-6.6-bore/0001-linux6.6.y-bore3.3.0.patch
+
   cd linux-${_major}
+
+  msg2 "Apply Bore Patch"
+  patch -Np1 -i -F2 ../0001-linux6.6.y-bore3.3.0.patch
 
   msg2 "Apply Xanmod patch"
   patch -Np1 -i ../patch-${pkgver}-xanmod${xanmod}
