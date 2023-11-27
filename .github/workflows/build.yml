@@ -34,7 +34,7 @@ jobs:
     strategy:
       matrix:
         build: [
-          xbindkeys_config-gtk2
+          nekoray
           ]
       fail-fast: false
     runs-on: ubuntu-latest
