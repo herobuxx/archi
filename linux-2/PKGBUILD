@@ -19,15 +19,15 @@ if [ "${_compiler}" = "clang" ]; then
 fi
 
 pkgbase=linux-xanmod-custom
-_major=6.6
-pkgver=${_major}.1
+_major=6.7
+pkgver=${_major}.0
 _branch=6.x
 xanmod=1
 pkgrel=${xanmod}
 pkgdesc='Linux Xanmod - Edge with Custom Patches'
 url="http://www.xanmod.org/"
 arch=(x86_64)
-_lucjan="https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/${_major}/"
+_lucjan="https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/${_major}-rc/"
 _cachy="https://raw.githubusercontent.com/CachyOS/kernel-patches/master/${_major}/"
 _tkg="https://raw.githubusercontent.com/Frogging-Family/linux-tkg/master/linux-tkg-patches/${_major}/"
 _commit_ck=c83f27ce602a96d481678dca05fe6fd267b2ea44
@@ -46,36 +46,44 @@ _srcname="linux-${pkgver}-xanmod${xanmod}"
 source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar."{xz,sign}
         "patch-${pkgver}-xanmod${xanmod}${_revision}.xz::https://sourceforge.net/projects/xanmod/files/releases/${_sf_branch}/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz/download"
         choose-gcc-optimization.sh
-        "0001-Revert-XANMOD-fair-Remove-all-energy-efficiency-func.patch"
-        "${_lucjan}eevdf-patches-v2/0001-sched-6.6-merge-changes-from-dev-tree.patch"
-        "https://raw.githubusercontent.com/firelzrd/bore-scheduler/main/patches/linux-6.6-bore/0001-linux6.6.y-bore3.4.0.patch"
-        "${_lucjan}mm-cachyos-patches/0001-mm-6.6-merge-changes-from-dev-tree.patch"
+        "bore-sched-ext-patches-v25/0001-bore-6.7-introduce-BORE-Scheduler-with-BPF-extensibl.patch"
+        "mm-mitigate-cachyos-patches/0001-mm-Mitigate-a-vmap-lock-contention-v3.patch"
+        "drm-patches-v2/0001-drm-6.7-Add-HDR-patches.patch"
+        "sound-patches/0001-sound-6.7-merge-changes-from-dev-tree.patch"
+        "uksmd-cachyos-patches/0001-mm-expose-per-process-KSM-control-via-syscalls.patch"
+        "maple-lru-patches-v7/0001-mm-6.7-add-maple-tree-and-mglru-fixes.patch"
+        "ksm-patches-v4/0001-ksm-6.7-merge-changes-from-dev-tree.patch"
+        "zstd-cachyos-patches-v4/0001-zstd-cachyos-patches.patch"
+        # "0001-Revert-XANMOD-fair-Remove-all-energy-efficiency-func.patch"
+        # "${_lucjan}eevdf-patches-v2/0001-sched-6.6-merge-changes-from-dev-tree.patch"
+        # "https://raw.githubusercontent.com/firelzrd/bore-scheduler/main/patches/linux-6.6-bore/0001-linux6.6.y-bore3.4.0.patch"
+        # "${_lucjan}mm-cachyos-patches/0001-mm-6.6-merge-changes-from-dev-tree.patch"
         # "${_lucjan}vma-patches/0001-vma-6.5-merge-changes-from-dev-tree.patch"
         # "${_lucjan}kbuild-patches-all/0001-kbuild-patches.patch"
-        "${_lucjan}kbuild-cachyos-patches/0001-Cachy-Allow-O3.patch"
-        "${_lucjan}btrfs-patches/0001-btrfs-6.6-merge-changes-from-dev-tree.patch"
-        "${_lucjan}lrng-ddcci-patches/0001-lrng-6.6-introduce-Linux-Random-Number-Generator-wit.patch"
-        "${_lucjan}maple-lru-patches-v5/0001-mm-6.6-add-maple-tree-and-mglru-fixes.patch"
-        "${_lucjan}x86-patches/0001-x86-6.6-merge-changes-from-dev-tree.patch"
+        # "${_lucjan}kbuild-cachyos-patches/0001-Cachy-Allow-O3.patch"
+        # "${_lucjan}btrfs-patches/0001-btrfs-6.6-merge-changes-from-dev-tree.patch"
+        # "${_lucjan}lrng-ddcci-patches/0001-lrng-6.6-introduce-Linux-Random-Number-Generator-wit.patch"
+        # "${_lucjan}maple-lru-patches-v5/0001-mm-6.6-add-maple-tree-and-mglru-fixes.patch"
+        # "${_lucjan}x86-patches/0001-x86-6.6-merge-changes-from-dev-tree.patch"
         # "${_lucjan}bfq-cachyos-patches/0001-bfq-cachyos-patches.patch"
-        "${_lucjan}ksm-patches/0001-ksm-6.6-merge-changes-from-dev-tree.patch"
-        "${_lucjan}drm-patches/0001-drm-6.6-Add-HDR-patches.patch"
-        "${_lucjan}zstd-cachyos-patches/0001-zstd-cachyos-patches.patch"
+        # "${_lucjan}ksm-patches/0001-ksm-6.6-merge-changes-from-dev-tree.patch"
+        # "${_lucjan}drm-patches/0001-drm-6.6-Add-HDR-patches.patch"
+        # "${_lucjan}zstd-cachyos-patches/0001-zstd-cachyos-patches.patch"
         # "${_lucjan}v4l2loopback-patches/0001-media-v4l2-core-add-v4l2loopback.patch"
-        "${_lucjan}uksmd-patches/0001-mm-expose-per-process-KSM-control-via-syscalls.patch"
+        # "${_lucjan}uksmd-patches/0001-mm-expose-per-process-KSM-control-via-syscalls.patch"
         # "${_lucjan}clang-patches/0001-clang-6.5-add-miscellaneous-fixes-for-clang.patch"
-        "${_lucjan}fixes-miscellaneous/0001-fixes-miscellaneous.patch"
+        # "${_lucjan}fixes-miscellaneous/0001-fixes-miscellaneous.patch"
         # "${_cachy}sched/0001-bore-cachy-ext.patch"
         ##### Misc Patch
         # "${_lucjan}gcc-lto-patches/0001-gcc-LTO-support-for-the-kernel.patch"
         # "${_lucjan}decompress-patches/0001-x86-6.5-Avoid-bare-metal-decompressor-during-EFI-boo.patch"
-        "${_lucjan}userfaultfd-patches/0001-mm-6.6-add-userfaultfd-remap-option.patch"
-        "${_lucjan}amd-pstate-patches-v2/0001-amd-6.6-merge-changes-from-dev-tree.patch"
+        # "${_lucjan}userfaultfd-patches/0001-mm-6.6-add-userfaultfd-remap-option.patch"
+        # "${_lucjan}amd-pstate-patches-v2/0001-amd-6.6-merge-changes-from-dev-tree.patch"
         # "${_lucjan}cpupower-patches/0001-cpupower-6.5-Add-various-feature-control-support-for.patch"
         # "${_lucjan}block-cachyos-patches/0001-block-set-rq_affinity-to-force-full-multithreading-I.patch"
         # "${_lucjan}ext4-patches-v6/0001-ext4-6.3-merge-changes-from-dev-tree.patch"
-        "ck-hrtimer-$_commit_ck.tar.gz::https://github.com/graysky2/linux-patches/archive/$_commit_ck.tar.gz"
-        "https://raw.githubusercontent.com/zhmars/cjktty-patches/master/v${_branch}/cjktty-${_major}.patch"
+        # "ck-hrtimer-$_commit_ck.tar.gz::https://github.com/graysky2/linux-patches/archive/$_commit_ck.tar.gz"
+        # "https://raw.githubusercontent.com/zhmars/cjktty-patches/master/v${_branch}/cjktty-${_major}.patch"
         )
         #"patch-${pkgver}-xanmod${xanmod}.xz::https://sourceforge.net/projects/xanmod/files/releases/stable/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz/download"
 
