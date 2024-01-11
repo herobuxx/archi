@@ -34,7 +34,7 @@ jobs:
     strategy:
       matrix:
         build: [
-          linux-2
+          aircrack-ng
           ]
       fail-fast: false
     runs-on: ubuntu-latest
@@ -44,7 +44,7 @@ jobs:
         uses: actions/checkout@v3
         # with:
           # repository: h0tc0d3/arch-packages
-          # repository: JPratama7/arch-builder
+          repository: JPratama7/arch-builder
           # repository: sarcasticadmin/empty-repo
           # repository: archlinux/svntogit-packages
           # ref: packages/${{ matrix.build }}
