@@ -178,6 +178,7 @@ check() {
 
 
   ninja -C build check-llvm-unit
+  ninja -C build check-all
   ninja -C build check-llvm
   ninja -C build check-clang
   ninja -C build check-clang-tools
