@@ -7,7 +7,6 @@ _jdkname="java-${_java}-zulu-prime"
 _pkgver_major="24"
 _pkgver_minor="01.0.0"
 
-https://cdn.azul.com/zing-zvm/ZVM24.01.0.0/zing24.01.0.0-4-jdk21.0.2-linux_x64.tar.gz
 
 pkgname="jdk${_java}-zulu-prime-bin"
 pkgver="${_pkgver_major}.${_pkgver_minor}"
