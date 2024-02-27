@@ -5,7 +5,7 @@ _java=21
 _jdk=${_java}.0.2
 _jdkname="java-${_java}-zulu-prime"
 _pkgver_major="24"
-_pkgver_minor="01.0.0_4"
+_pkgver_minor="01.0.0"
 
 https://cdn.azul.com/zing-zvm/ZVM24.01.0.0/zing24.01.0.0-4-jdk21.0.2-linux_x64.tar.gz
 https://cdn.azul.com/zing-zvm/ZVM24.01.0.0/zing24.01.0.0-4-jdk21.0.2-linux_x64.tar.gz
@@ -36,8 +36,8 @@ provides=(
   "java-environment=${_java}"
 )
 install="$pkgname.install"
-source_x86_64=("https://cdn.azul.com/zing-zvm/ZVM${_pkgver_major}.${_pkgver_minor}/zing${pkgver//_/-}-jdk${_jdk}-linux_x64.tar.gz")
-source_aarch64=("https://cdn.azul.com/zing-zvm/ZVM${_pkgver_major}.${_pkgver_minor}/zing${pkgver//_/-}-jdk${_jdk}-linux_aarch64.tar.gz")
+source_x86_64=("https://cdn.azul.com/zing-zvm/ZVM${_pkgver_major}.${_pkgver_minor}/zing${pkgver}_4-jdk${_jdk}-linux_x64.tar.gz")
+source_aarch64=("https://cdn.azul.com/zing-zvm/ZVM${_pkgver_major}.${_pkgver_minor}/zing${pkgver}_4-jdk${_jdk}-linux_aarch64.tar.gz")
 sha256sums_x86_64=('af875e10c6ebdc4bcfe5917df0d00f887e4f095339167ebbfa07d49b8c9f709e')
 sha256sums_aarch64=('3633a54a229de7dfcda688a29258e9204c43321d3c931015ce8f96d7e1db1678')
 
