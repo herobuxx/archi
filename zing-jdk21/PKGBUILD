@@ -5,12 +5,12 @@ _java=21
 _jdk=${_java}.0.2
 _jdkname="java-${_java}-zulu-prime"
 _pkgver_major="24"
-_pkgver_minor="01.0.0_4"
-
+_pkgver_minor="01.0.0"
+_pkgver_build="4"
 
 
 pkgname="jdk${_java}-zulu-prime-bin"
-pkgver="${_pkgver_major}.${_pkgver_minor}"
+pkgver="${_pkgver_major}.${_pkgver_minor}_${_pkgver_build}"
 pkgrel=1
 pkgdesc="Azul Platform Prime Stream Build of OpenJDK 17. TCK compliant, free for development."
 arch=(
