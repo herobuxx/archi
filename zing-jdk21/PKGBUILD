@@ -2,7 +2,7 @@
 # Contributor: Tommaso Dordoni <t dot dordoni dot aur at outlook dot com>
 
 _java=21
-_jdk=${_java}.0.10
+_jdk=${_java}.0.2
 _jdkname="java-${_java}-zulu-prime"
 _pkgver_major="24"
 _pkgver_minor="01.0.0"
