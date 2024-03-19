@@ -1,8 +1,8 @@
 pkgname=mesa
 pkgdesc="Mesa open-source implementation of the OpenGL specification"
-pkgver=23.2.1
+pkgver=24.0.3
 _pkgver=${pkgver//_/-}
-pkgrel=1
+pkgrel=2
 epoch=1
 arch=('x86_64')
 makedepends=(
@@ -27,7 +27,7 @@ url="https://www.mesa3d.org"
 license=('custom')
 source=(
   "https://archive.mesa3d.org/mesa-${_pkgver}.tar.xz"{,.sig}
-  "https://gitlab.archlinux.org/archlinux/packaging/packages/mesa/-/raw/main/0001-radeonsi-prefix-function-with-si_-to-prevent-name-co.patch"
+  "radeon_bo_can_reclaim_slab.patch"
   'LICENSE'
 )
 
@@ -118,7 +118,7 @@ build() {
     -D zstd=auto \
     -D valgrind=disabled \
     -D android-libbacktrace=disabled \
-    -D video-codecs=vc1dec,h264dec,h264enc,h265dec,h265enc \
+    -D video-codecs=all \
     -D c_args="$CFLAGS" \
     -D c_link_args="$LDFLAGS" \
     -D cpp_args="$CXXFLAGS" \
