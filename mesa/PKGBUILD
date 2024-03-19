@@ -123,7 +123,7 @@ build() {
     -D c_link_args="$LDFLAGS -Wl,--undefined-version" \
     -D cpp_args="$CXXFLAGS" \
     -D cpp_link_args="$LDFLAGS -Wl,--undefined-version" \
-    -D shared-llvm=enabled \
+    -D shared-llvm=disabled \
     --strip
 
   meson configure build-clang
