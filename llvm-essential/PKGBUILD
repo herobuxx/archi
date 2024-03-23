@@ -7,17 +7,17 @@ url="https://llvm.org/"
 license=('custom:Apache 2.0 with LLVM Exception')
 
 provides=('llvm' "llvm=${pkgver}" 'llvm-libs' 'llvm-ocaml' 'clang' "clang=${pkgver}"
-  'clang-analyzer' 'clang-tools-extra' 'polly' 'openmp' 'compiler-rt'
-  'lld' 'libc++' 'libc++abi' 'libc++experimental')
+  'clang-analyzer' 'clang-tools-extra' 'polly' 'openmp'
+  'lld')
 
 replaces=('llvm' 'llvm-libs' 'llvm-ocaml' 'clang' 'clang-analyzer'
-  'clang-tools-extra' 'polly' 'openmp' 'compiler-rt' 'lld'
-  'libc++' 'libc++abi' 'libc++experimental')
+  'clang-tools-extra' 'polly' 'openmp' 'lld'
+)
 
 conflicts=('llvm' 'llvm-libs' 'llvm-ocaml' 'clang' 'clang-analyzer'
-  'clang-tools-extra' 'polly' 'compiler-rt' 'openmp' 'lld'
+  'clang-tools-extra' 'polly' 'openmp' 'lld'
   'llvm-git' 'llvm-libs-git' 'llvm-ocaml-git'
-  'libc++' 'libc++abi' 'libc++experimental')
+)
 
 depends=('libelf' 'libffi' 'libedit' 'libxml2' 'ncurses' 'compiler-rt')
 _ocaml_ver=4.14.0
