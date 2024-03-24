@@ -85,11 +85,9 @@ build() {
     exit 1
   )
 
-  _extra_build_flags+=(
-  )
+  _extra_build_flags+=()
 
-  export LD_LIBRARY_PATH=/usr/lib/x86_64-pc-linux-gnu/:$LD_LIBRARY_PATH
-  export LIBRARY_PATH=/usr/lib/x86_64-pc-linux-gnu/:$LIBRARY_PATH
+
   export CFLAGS="$CFLAGS -fno-plt -fomit-frame-pointer -fno-semantic-interposition"
   export CXXFLAGS="$CXXFLAGS -fno-plt -fomit-frame-pointer -fno-semantic-interposition"
 
