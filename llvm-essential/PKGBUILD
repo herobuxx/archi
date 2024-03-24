@@ -253,9 +253,7 @@ package() {
   install -Dm644 "${srcdir:?}/llvm-project/llvm/LICENSE.TXT" "${pkgdir:?}/usr/share/licenses/${pkgname}/llvm-LICENSE"
   install -Dm644 "${srcdir:?}/llvm-project/clang/LICENSE.TXT" "${pkgdir:?}/usr/share/licenses/${pkgname}/clang-LICENSE"
   install -Dm644 "${srcdir:?}/llvm-project/clang-tools-extra/LICENSE.TXT" "${pkgdir:?}/usr/share/licenses/${pkgname}/clang-tools-extra-LICENSE"
-  install -Dm644 "${srcdir:?}/llvm-project/compiler-rt/LICENSE.TXT" "${pkgdir:?}/usr/share/licenses/${pkgname}/compiler-rt-LICENSE"
   install -Dm644 "${srcdir:?}/llvm-project/lld/LICENSE.TXT" "${pkgdir:?}/usr/share/licenses/${pkgname}/lld-LICENSE"
-  install -Dm644 "${srcdir:?}/llvm-project/lldb/LICENSE.TXT" "${pkgdir:?}/usr/share/licenses/${pkgname}/lldb-LICENSE"
   install -Dm644 "${srcdir:?}/llvm-project/polly/LICENSE.TXT" "${pkgdir:?}/usr/share/licenses/${pkgname}/polly-LICENSE"
   install -Dm644 "${srcdir:?}/llvm-project/openmp/LICENSE.TXT" "${pkgdir:?}/usr/share/licenses/${pkgname}/openmp-LICENSE"
 
