@@ -34,7 +34,7 @@ jobs:
     strategy:
       matrix:
         build: [
-          mesa
+          llvm-essential
           ]
       fail-fast: false
     runs-on: ubuntu-latest
