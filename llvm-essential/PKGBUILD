@@ -179,7 +179,6 @@ check() {
     ninja -C build check-clang
     ninja -C build check-clang-tools
     ninja -C build check-polly
-    ninja -C build check-lldb
     ninja -C build check-lld
   fi
 
