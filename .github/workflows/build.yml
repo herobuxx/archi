@@ -34,7 +34,7 @@ jobs:
     strategy:
       matrix:
         build: [
-          JDSP4Linux, coppwr
+          wayfire
           ]
       fail-fast: false
     runs-on: ubuntu-latest
