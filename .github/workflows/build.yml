@@ -34,7 +34,7 @@ jobs:
     strategy:
       matrix:
         build: [
-          wayfire
+          wf-config
           ]
       fail-fast: false
     runs-on: ubuntu-latest
