@@ -88,7 +88,7 @@ build() {
 
 check() {
     cd "${srcdir}/build"
-    meson test -C build --print-errorlogs --no-rebuild --suite waybar
+    meson test --print-errorlogs --no-rebuild --suite waybar
 }
 
 package() {
