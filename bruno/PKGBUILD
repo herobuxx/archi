@@ -47,7 +47,7 @@ build() {
     npm run build:bruno-common
     npm run build:web
 
-    electronDist="/usr/lib/${_electron}"
+    electronDist="/usr/lib/electron"
     electronVer="$(cat ${electronDist}/version)"
     sed -i -e "s~\"dist:linux\":.*~\"dist:linux\": \"electron-builder --linux --x64 --dir --config electron-builder-config.js -c.electronDist=${electronDist} -c.electronVersion=${electronVer}\",~g" packages/bruno-electron/package.json
 
@@ -62,7 +62,7 @@ package() {
     install -Dm0755 /dev/null "${pkgdir}/usr/bin/${pkgname}"
     cat >> "${pkgdir}/usr/bin/${pkgname}" <<EOD
 #! /usr/bin/sh
-ELECTRON_IS_DEV=0 exec ${_electron} /usr/lib/bruno "\$@"
+ELECTRON_IS_DEV=0 exec electron /usr/lib/bruno "\$@"
 EOD
 
     install -Dm0644 license.md "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
