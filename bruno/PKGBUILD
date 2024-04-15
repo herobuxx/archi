@@ -34,7 +34,7 @@ prepare() {
     # disabling husky however I can since I'm not in a git repository
     sed -i -e 's/"husky":.*//g' -e 's/"husky install"/"true"/g' package.json
 
-    nnpm install --cache "${srcdir/npm-cache}" --legacy-peer-deps
+    npm install --cache "${srcdir/npm-cache}" --legacy-peer-deps
 }
 
 build() {
