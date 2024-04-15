@@ -34,7 +34,7 @@ prepare() {
     # disabling husky however I can since I'm not in a git repository
     sed -i -e 's/"husky":.*//g' -e 's/"husky install"/"true"/g' package.json
 
-    npm install --cache "${srcdir}/npm-cache"
+    nnpm install --cache "${srcdir/npm-cache}" --legacy-peer-deps
 }
 
 build() {
@@ -42,9 +42,9 @@ build() {
 
     cd "${pkgname}-${pkgver}"
 
+    npm run build:graphql-docs
     npm run build:bruno-query
     npm run build:bruno-common
-    npm run build:graphql-docs
     npm run build:web
 
     electronDist="/usr/lib/${_electron}"
