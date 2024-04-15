@@ -2,19 +2,20 @@
 
 pkgname=bruno
 pkgdesc="Opensource API Client for Exploring and Testing APIs"
-pkgver=1.12.3
+pkgver=1.13.0
 pkgrel=1
 arch=('x86_64')
 url="https://www.usebruno.com/"
 license=('MIT')
-_electron=electron29
 depends=(
-    "${_electron}"
-    'alsa-lib'
+    "electron>=21.0.0"
+    "nodejs>=18.13.0"
 )
+
 makedepends=(
-    'nodejs-lts-iron'
+    'nodejs'
     'asar'
+    'npm'
 )
 
 source=(
@@ -27,22 +28,8 @@ sha256sums=(
     '7bad0d66e67fdaaf99d1b7b32ba2f119b7d6dba12ecfdb398c39ee3c81bbe051'
 )
 
-_ensure_local_nvm() {
-  # lets be sure we are starting clean
-  which nvm >/dev/null 2>&1 && nvm deactivate && nvm unload
-
-  export NVM_DIR="${srcdir}/${pkgname}-${pkgver}/.nvm"
-  # The init script returns 3 if version
-  #   specified in ./.nvrc is not (yet) installed in $NVM_DIR
-  #   but nvm itself still gets loaded ok
-  source /usr/share/nvm/init-nvm.sh || [[ $? != 1 ]]
-}
-
 prepare() {
-    _ensure_local_nvm
     cd "${pkgname}-${pkgver}"
-
-    nvm install
 
     # disabling husky however I can since I'm not in a git repository
     sed -i -e 's/"husky":.*//g' -e 's/"husky install"/"true"/g' package.json
@@ -51,9 +38,7 @@ prepare() {
 }
 
 build() {
-    _ensure_local_nvm
     export NODE_ENV=production
-    export NODE_OPTIONS=--openssl-legacy-provider
 
     cd "${pkgname}-${pkgver}"
 
