@@ -115,7 +115,6 @@ build() {
     -D sysconfdir=/etc \
     \
     -D platforms=x11,wayland \
-    -D egl-native-platform=x11,wayland, \
     \
     -D gallium-drivers="${GALLIUM_DRIVERS}" \
     -D vulkan-drivers="${VULKAN_DRIVERS}" \
