@@ -1,6 +1,6 @@
 pkgname=pypy3
 _pyversion=3.10
-pkgver=7.3.13
+pkgver=7.3.16
 pkgrel=1
 pkgdesc="A Python3 implementation written in Python, JIT enabled"
 url="https://pypy.org"
