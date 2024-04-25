@@ -78,6 +78,7 @@ build() {
           --buildtype=plain \
           --auto-features=enabled \
           -Dcpp_std=c++20 \
+          -Dlibcxx=true \
           -Dexperimental=true \
           -Dcava=disabled \
           -Dtests=enabled \
