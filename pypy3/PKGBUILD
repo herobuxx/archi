@@ -23,9 +23,8 @@ build() {
   
   pypy ../../rpython/bin/rpython \
               -Ojit \
-              --cc="clang"\
+              --lto \
               --if-block-merge \
-              --translation-backendopt-stack_optimization \
               --translation-backendopt-storesink \
               --translation-backendopt-constfold \
               --listcompr \
