@@ -98,7 +98,8 @@ prepare() {
 
 build() {
 
-  python -c '''try:
+  python -c '''
+  try:
     from packaging.version import Version
   except:
     from distutils.version import StrictVersion as Version
