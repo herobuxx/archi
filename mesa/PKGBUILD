@@ -8,7 +8,7 @@ arch=('x86_64')
 makedepends=(
   'python-mako' 'xorgproto' 'cmake' 'pkgconf' 'directx-headers'
   'libxml2' 'libx11' 'libvdpau' 'libva' 'elfutils' 'libxrandr'
-  'wayland-protocols' 'meson' 'ninja' 'glslang'
+  'wayland-protocols' 'meson' 'ninja' 'glslang' 'python-ply'
   )
   
 makedepends+=('rust' 'rust-bindgen') # rusticl dependencies
