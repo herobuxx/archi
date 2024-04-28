@@ -99,10 +99,7 @@ prepare() {
 build() {
 
   python -c '''
-  try:
-    from packaging.version import Version
-  except:
-    from distutils.version import StrictVersion as Version
+  from packaging.version import Version
   import mako
   assert Version(mako.__version__) >= Version("0.8.0")
   '''
