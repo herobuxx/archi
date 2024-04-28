@@ -98,11 +98,7 @@ prepare() {
 
 build() {
 
-  python -c '''
-  from packaging.version import Version
-  import mako
-  assert Version(mako.__version__) >= Version("0.8.0")
-  '''
+  python -c 'from packaging.version import Version; import mako; assert Version(mako.__version__) >= Version("0.8.0")'
 
   # Inject subproject packages
   export MESON_PACKAGE_CACHE_DIR="$srcdir"
