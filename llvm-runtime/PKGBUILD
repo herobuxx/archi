@@ -8,7 +8,7 @@ pkgdesc="Collection of modular and reusable runtime for LLVM technology"
 
 provides=(
     'llvm' "llvm=${pkgver}" 'llvm-libs' 'llvm-ocaml' 'libclc' 'compiler-rt'
-    'libc++' 'libc++abi' 'libc++experimental', 'openmp' 'libunwind'
+    'libc++' 'libc++abi' 'libc++experimental' 'openmp' 'libunwind'
    )
 
 replaces=(
