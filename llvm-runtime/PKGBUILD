@@ -181,7 +181,7 @@ check() {
   )
 
   if [[ _build_tests -eq 1 ]]; then
-    LD_LIBRARY_PATH=$PWD/lib ninja check
+    LD_LIBRARY_PATH=$PWD/lib ninja -C build check
   fi
 
 }
