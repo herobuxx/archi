@@ -8,16 +8,16 @@ pkgdesc="Collection of modular and reusable runtime for LLVM technology"
 
 provides=(
     'llvm' "llvm=${pkgver}" 'llvm-libs' 'llvm-ocaml' 'libclc' 'compiler-rt'
-    'libc++' 'libc++abi' 'libc++experimental' 'openmp' 'libunwind'
+    'libc++' 'libc++abi' 'libc++experimental' 'openmp' 'libunwind' 'clang'
    )
 
 replaces=(
     'llvm' 'llvm-libs' 'llvm-ocaml' 'openmp' 'libunwind' 'compiler-rt'
-    'libc++' 'libc++abi' 'libc++experimental' 'libclc'
+    'libc++' 'libc++abi' 'libc++experimental' 'libclc' 'clang'
   )
 
 conflicts=(
-    'llvm' 'llvm-libs' 'llvm-ocaml' 'openmp' 'libclc'
+    'llvm' 'llvm-libs' 'llvm-ocaml' 'openmp' 'libclc' 'clang'
     'llvm-git' 'llvm-libs-git' 'llvm-ocaml-git' 'libc++'
     'libc++abi' 'libc++experimental' 'libunwind' 'compiler-rt'
   )
@@ -160,9 +160,8 @@ build() {
     -DLLVM_INSTALL_UTILS=ON \
     -DLLVM_ENABLE_RTTI=ON \
     -DLLVM_ENABLE_FFI=ON \
-    -DLLVM_ENABLE_PROJECTS="libclc;libcxx;libcxxabi;openmp;libunwind;compiler-rt" \
+    -DLLVM_ENABLE_PROJECTS="clang;libclc;libcxx;libcxxabi;openmp;libunwind;compiler-rt" \
     -DLIBOMP_INSTALL_ALIASES=OFF \
-    -DLLVM_INSTALL_TOOLCHAIN_ONLY=OFF \
     "${_extra_build_flags[@]}"
 
   ninja -C build
