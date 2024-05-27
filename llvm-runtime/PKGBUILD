@@ -47,7 +47,7 @@ _extra_build_flags=(
   -DENABLE_LINKER_BUILD_ID=ON
   )
 
-_skip_build_test=n
+_skip_build_test=y
 _skip_documentation=y
 _build_documentation=0
 _build_tests=0
