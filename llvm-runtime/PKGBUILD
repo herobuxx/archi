@@ -39,7 +39,7 @@ source=(
 sha256sums=('SKIP'
   '597dc5968c695bbdbb0eac9e8eb5117fcd2773bc91edf5ec103ecffffab8bc48')
 
-options=('staticlibs')
+options=('staticlibs' '!lto')
 _extra_build_flags=(
   -DLLVM_ENABLE_LTO=Thin 
   -DCMAKE_CXX_STANDARD=17
@@ -99,7 +99,7 @@ build() {
 
   export CFLAGS="$CFLAGS -fno-plt -fomit-frame-pointer -fno-semantic-interposition"
   export CXXFLAGS="$CXXFLAGS -fno-plt -fomit-frame-pointer -fno-semantic-interposition"
-  export LDFLAGS="$LDFLAGS -Wl,-Bsymbolic-functions"
+  export LDFLAGS="-Wl,-mllvm,--load=/usr/lib/LLVMPolly.so -Wl,-O4 -Wl,-z,now -Wl,-z,relro -Wl,--as-needed -Wl,--gc-sections -Wl,--lto-O3 -Wl,--hash-style=gnu -Wl,-Bsymbolic-functions $_llvm_lld $_polly_lld"
 
 
   if ld.lld --version 2>/dev/null | grep -iq "LLD\s*[0-9]"; then
