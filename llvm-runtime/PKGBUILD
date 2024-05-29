@@ -41,7 +41,7 @@ sha256sums=('SKIP'
 
 options=('staticlibs' '!lto')
 _extra_build_flags=(
-  -DLLVM_ENABLE_LTO=Thin 
+  # -DLLVM_ENABLE_LTO=Thin 
   -DCMAKE_CXX_STANDARD=17
   -DCMAKE_SKIP_RPATH=ON
   -DENABLE_LINKER_BUILD_ID=ON
