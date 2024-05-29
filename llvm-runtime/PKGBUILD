@@ -25,7 +25,7 @@ conflicts=(
 depends=('libelf' 'libffi' 'libedit' 'libxml2' 'ncurses')
 _ocaml_ver=4.14.0
 makedepends=(
-  'git' 'ninja' 'cmake'
+  'git' 'ninja' 'cmake' 'llvm' 'llvm-libs'
   "ocaml>=${_ocaml_ver}" 'ocaml-ctypes' 'ocaml-findlib'
   'python-setuptools' 'python-psutil' 'python-sphinx'
   'python-recommonmark' 'ocaml-stdlib-shims'
@@ -92,10 +92,10 @@ build() {
     exit 1
   )
 
-  _extra_build_flags+=(
-    -DCMAKE_C_COMPILER="$CC"
-    -DCMAKE_CXX_COMPILER="$CXX"
-  )
+  # _extra_build_flags+=(
+  #   -DCMAKE_C_COMPILER="$CC"
+  #   -DCMAKE_CXX_COMPILER="$CXX"
+  # )
 
   # export CFLAGS="$CFLAGS -fno-plt -fomit-frame-pointer -fno-semantic-interposition"
   # export CXXFLAGS="$CXXFLAGS -fno-plt -fomit-frame-pointer -fno-semantic-interposition"
@@ -106,13 +106,13 @@ build() {
   # export LDFLAGS="-Wl,-O4 -Wl,-z,now -Wl,-z,relro -Wl,--as-needed -Wl,--lto-O3"
 
 
-  if ld.lld --version 2>/dev/null | grep -iq "LLD\s*[0-9]"; then
-    export LD=ld.lld
-    export CC_LD=lld
-    export CXX_LD=lld
-    export HOSTLD=ld.lld
-    _extra_build_flags+=(-DLLVM_USE_LINKER=lld)
-  fi
+  # if ld.lld --version 2>/dev/null | grep -iq "LLD\s*[0-9]"; then
+  #   export LD=ld.lld
+  #   export CC_LD=lld
+  #   export CXX_LD=lld
+  #   export HOSTLD=ld.lld
+  #   _extra_build_flags+=(-DLLVM_USE_LINKER=lld)
+  # fi
 
   while true; do
     case ${_skip_build_test} in
