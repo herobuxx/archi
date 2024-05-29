@@ -101,9 +101,9 @@ build() {
   # export CXXFLAGS="$CXXFLAGS -fno-plt -fomit-frame-pointer -fno-semantic-interposition"
   # export LDFLAGS="-Wl,-mllvm,--load=/usr/lib/LLVMPolly.so -Wl,-O4 -Wl,-z,now -Wl,-z,relro -Wl,--as-needed -Wl,--gc-sections -Wl,--lto-O3 -Wl,--hash-style=gnu -Wl,-Bsymbolic-functions $_llvm_lld $_polly_lld"
 
-  export CFLAGS=" -fno-plt -fomit-frame-pointer -fno-semantic-interposition -march=x86-64-v3 -Qunused-arguments -fslp-vectorize -fvectorize -mfpmath=sse -O3 -ffunction-sections -fdata-sections -fdiagnostics-color=always -pipe -fstack-protector --param ssp-buffer-size=4 -fstack-clash-protection"
+  export CFLAGS=" -fno-plt -fomit-frame-pointer -fno-semantic-interposition -march=x86-64-v3 -Qunused-arguments -fslp-vectorize -fvectorize -mfpmath=sse -O3 -fdiagnostics-color=always -pipe -fstack-protector --param ssp-buffer-size=4 -fstack-clash-protection"
   export CXXFLAGS="$CFLAGS"
-  export LDFLAGS="-Wl,-O4 -Wl,-z,now -Wl,-z,relro -Wl,--as-needed -Wl,--gc-sections -Wl,--lto-O3"
+  export LDFLAGS="-Wl,-O4 -Wl,-z,now -Wl,-z,relro -Wl,--as-needed -Wl,--lto-O3"
 
 
   if ld.lld --version 2>/dev/null | grep -iq "LLD\s*[0-9]"; then
