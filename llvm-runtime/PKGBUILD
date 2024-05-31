@@ -110,6 +110,7 @@ build() {
         -fstack-clash-protection -fcf-protection \
         -fomit-frame-pointer"
   export CXXFLAGS="$CFLAGS"
+  export LD_LIBRARY_PATH=$PWD/build/lib 
 
 
   # if ld.lld --version 2>/dev/null | grep -iq "LLD\s*[0-9]"; then
@@ -191,7 +192,7 @@ check() {
   )
 
   if [[ _build_tests -eq 1 ]]; then
-    LD_LIBRARY_PATH=$PWD/lib ninja -C build check
+    ninja -C build check
   fi
 
 }
