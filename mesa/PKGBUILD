@@ -103,6 +103,8 @@ build() {
 
   # Inject subproject packages
   export MESON_PACKAGE_CACHE_DIR="$srcdir"
+  export CFLAGS="$CFLAGS -mllvm --load=usr/lib/LLVMPolly.so"
+  export CXXFLAGS="$CXXFLAGS -mllvm --load=usr/lib/LLVMPolly.so"
 
   arch-meson mesa-${_pkgver} build-clang \
     --prefix /usr \
