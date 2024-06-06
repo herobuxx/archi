@@ -34,7 +34,7 @@ jobs:
     strategy:
       matrix:
         build: [
-          mesa, wayfire-git, mimalloc
+          mesa, waybar-git, mimalloc
           ]
       fail-fast: false
     runs-on: ubuntu-latest
