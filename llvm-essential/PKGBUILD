@@ -42,7 +42,7 @@ options=('staticlibs' '!lto' '!debug')
 _skip_build_test=n
 _skip_documentation=y
 _extra_build_flags=(
-  -DCMAKE_EXE_LINKER_FLAGS=-Wl,--push-state,/usr/lib/libmimalloc.a,--pop-state 
+  # -DCMAKE_EXE_LINKER_FLAGS=-Wl,--push-state,/usr/lib/libmimalloc.a,--pop-state 
   # -DCMAKE_CXX_STANDARD=17
 )
 _build_documentation=0
