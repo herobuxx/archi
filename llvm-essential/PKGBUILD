@@ -136,6 +136,11 @@ build() {
     esac
   done
 
+
+  echo "CFLAGS $CFLAGS"
+  echo "CXXFLAGS $CXXFLAGS"
+  echo "LDFLAGS $LDFLAGS"
+
   cmake -S llvm -B build -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
