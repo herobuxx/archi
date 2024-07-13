@@ -101,6 +101,7 @@ build() {
   export CFLAGS="$CFLAGS -fno-plt -fomit-frame-pointer -fno-semantic-interposition"
   export CXXFLAGS="$CXXFLAGS -fno-plt -fomit-frame-pointer -fno-semantic-interposition"
 
+  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$BASEDIR/src/llvm-project/build/lib/
 
   if ld.lld --version 2>/dev/null | grep -iq "LLD\s*[0-9]"; then
     export LD=ld.lld
@@ -171,7 +172,7 @@ build() {
     -DCLANG_DEFAULT_PIE_ON_LINUX=ON \
     "${_extra_build_flags[@]}"
 
-  ninja -C build
+  LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/src/llvm-project/build" ninja -C build
 
   if [[ _build_documentation -eq 1 && _build_bindings -ne 0 ]]; then
     ninja -C build ocaml_doc
