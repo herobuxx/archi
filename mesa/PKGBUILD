@@ -1,15 +1,15 @@
 pkgname=mesa
 pkgdesc="Mesa open-source implementation of the OpenGL specification"
-pkgver=24.1.0
+pkgver=24.1.4
 _pkgver=${pkgver//_/-}
-pkgrel=1
+pkgrel=3
 epoch=1
 arch=('x86_64')
 makedepends=(
   'python-mako' 'xorgproto' 'cmake' 'pkgconf' 'directx-headers'
   'libxml2' 'libx11' 'libvdpau' 'libva' 'elfutils' 'libxrandr'
   'wayland-protocols' 'meson' 'ninja' 'glslang' 'python-ply'
-  'python-setuptools' 'cbindgen'
+  'python-setuptools'
   )
   
 makedepends+=('rust' 'rust-bindgen') # rusticl dependencies
@@ -23,7 +23,7 @@ depends=(
   'libdrm' 'libxxf86vm' 'libxdamage' 'libxshmfence' 'libelf' 
   'systemd' 'systemd-libs' 'xcb-util-keysyms' 'libomxil-bellagio' 
   'libglvnd' 'wayland' 'lm_sensors' 'libclc' 'vulkan-icd-loader' 'zstd' 'expat'
-  'spirv-llvm-translator' 'spirv-tools' 'python'
+  'spirv-llvm-translator' 'spirv-tools' 'python' 'cbindgen'
 )
 optdepends=('opengl-man-pages: for the OpenGL API man pages')
 provides=('mesa' "mesa=${pkgver}" 'opencl-mesa' 'vulkan-intel' 'vulkan-radeon' 'vulkan-mesa-layer' 'libva-mesa-driver' 'mesa-vdpau' 'vulkan-swrast' 'vulkan-driver' 'opengl-driver' 'opencl-driver' 'mesa-libgl')
@@ -32,6 +32,7 @@ url="https://www.mesa3d.org"
 license=('custom')
 source=(
   "https://archive.mesa3d.org/mesa-${_pkgver}.tar.xz"{,.sig}
+  0001-Revert-frontends-va-Fix-AV1-slice_data_offset-with-m.patch::"https://gitlab.archlinux.org/archlinux/packaging/packages/mesa/-/raw/main/0001-Revert-frontends-va-Fix-AV1-slice_data_offset-with-m.patch?ref_type=heads&inline=false"
 )
 
 sha256sums=('0079beac0a33f45e7e0aec59e6913eafbc4268a3f1e2e330017440494f91b13c'
@@ -103,8 +104,6 @@ build() {
 
   # Inject subproject packages
   export MESON_PACKAGE_CACHE_DIR="$srcdir"
-  export CFLAGS="$CFLAGS -mllvm --load=usr/lib/LLVMPolly.so"
-  export CXXFLAGS="$CXXFLAGS -mllvm --load=usr/lib/LLVMPolly.so"
 
   arch-meson mesa-${_pkgver} build-clang \
     --prefix /usr \
