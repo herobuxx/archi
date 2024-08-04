@@ -3,17 +3,17 @@
 # Contributor: René Wagner < rwagner at rw-net dot de >
 # Contributor: Diab Neiroukh <lazerl0rd@thezest.dev>
 
-pkgname=mimalloc
-pkgver=2.0.9
+pkgname=snmalloc
+pkgver=0.6.2
 pkgrel=1
 pkgdesc='General-purpose allocator with excellent performance characteristics'
 arch=('x86_64')
-url='https://github.com/microsoft/mimalloc'
+url='https://github.com/microsoft/snmalloc'
 license=('MIT')
 depends=('glibc')
 makedepends=('git' 'cmake')
 options=('!lto' 'staticlibs')
-_commit='28cf67e5b64c704cad993c71f29a24e781bee544'
+_commit='dc1268886a5d49d38a54e5d1402b5924a71fee0b'
 source=("$pkgname::git+$url#commit=$_commit")
 b2sums=('SKIP')
 
@@ -25,11 +25,9 @@ pkgver() {
 
 build() {
   cmake \
+    --config Release \
     -B build \
-    -S "$pkgname" \
-    -D CMAKE_INSTALL_PREFIX=/usr \
-    -D MI_BUILD_OBJECT=OFF \
-    -D MI_INSTALL_TOPLEVEL=ON
+    -S "$pkgname"
 
   cmake --build build
 }
