@@ -1,31 +1,31 @@
 pkgname=llvm-runtime
-pkgver=17.0.6
-pkgrel=5
+pkgver=18.1.8
+pkgrel=3
 arch=('x86_64')
 url="https://llvm.org/"
 license=('custom:Apache 2.0 with LLVM Exception')
-pkgdesc="Collection of modular and reusable runtime for LLVM technology"
+pkgdesc="Collection of modular and reusable compiler and toolchain technologies"
 
 provides=(
-    'llvm' "llvm=${pkgver}" 'llvm-libs' 'llvm-ocaml' 'libclc' 'compiler-rt'
-    'libc++' 'libc++abi' 'libc++experimental' 'openmp' 'libunwind' 'clang'
-   )
+  'llvm' "llvm=${pkgver}" 'llvm-libs' 'libclc' 'clang' 'clang-tools-extra'
+  'llvm-ocaml' 'libc++' 'libc++abi' 'libc++experimental'
+)
 
 replaces=(
-    'llvm' 'llvm-libs' 'llvm-ocaml' 'openmp' 'libunwind' 'compiler-rt'
-    'libc++' 'libc++abi' 'libc++experimental' 'libclc' 'clang'
-  )
+  'llvm' 'llvm-libs' 'llvm-ocaml' 'libunwind' 'libclc'
+  'libc++' 'libc++abi' 'libc++experimental' 'clang' 'clang-tools-extra'
+)
 
 conflicts=(
-    'llvm' 'llvm-libs' 'llvm-ocaml' 'openmp' 'libclc' 'clang'
-    'llvm-git' 'llvm-libs-git' 'llvm-ocaml-git' 'libc++'
-    'libc++abi' 'libc++experimental' 'libunwind' 'compiler-rt'
-  )
+  'llvm' 'llvm-libs' 'llvm-ocaml' 'libunwind' 'clang' 'clang-tools-extra'
+  'llvm-git' 'llvm-libs-git' 'llvm-ocaml-git' 'libc++'
+  'libc++abi' 'libc++experimental' 'libclc'
+)
 
-depends=('libelf' 'libffi' 'libedit' 'libxml2' 'ncurses')
+depends=('libelf' 'libffi' 'libedit' 'libxml2' 'ncurses' 'xz' 'zlib' 'gcc-libs')
 _ocaml_ver=4.14.0
 makedepends=(
-  'git' 'ninja' 'cmake' 'llvm' 'llvm-libs'
+  'git' 'ninja' 'cmake' 'llvm-libs' 'clang'
   "ocaml>=${_ocaml_ver}" 'ocaml-ctypes' 'ocaml-findlib'
   'python-setuptools' 'python-psutil' 'python-sphinx'
   'python-recommonmark' 'ocaml-stdlib-shims'
@@ -34,24 +34,23 @@ makedepends_x86_64=('lib32-gcc-libs')
 source=(
   "https://github.com/llvm/llvm-project/releases/download/llvmorg-${pkgver}/llvm-project-${pkgver}.src.tar.xz"
   'llvm-config.h'
+  clangd-handle-missing-ending-brace.patch::https://github.com/llvm/llvm-project/commit/9d1dada57741.patch
+  SelectionDAG.patch::https://github.com/llvm/llvm-project/commit/46505b3cbfc5.patch
 )
 
-sha256sums=('SKIP'
-  '597dc5968c695bbdbb0eac9e8eb5117fcd2773bc91edf5ec103ecffffab8bc48')
+sha256sums=(
+  'SKIP'
+  '597dc5968c695bbdbb0eac9e8eb5117fcd2773bc91edf5ec103ecffffab8bc48'
+  '0d4dc477f5a28f9f16639dc094b6d9bc14228d5de771547394799d2d5f8cd1df'
+)
 
-options=('staticlibs' '!lto')
+options=('staticlibs' '!lto' '!debug')
+
 _extra_build_flags=(
-  # -DLLVM_ENABLE_LTO=Thin 
-  -DCMAKE_CXX_STANDARD=17
+  -DCMAKE_CXX_STANDARD=17 
   -DCMAKE_SKIP_RPATH=ON
   -DENABLE_LINKER_BUILD_ID=ON
-  )
-
-_skip_build_test=y
-_skip_documentation=y
-_build_documentation=0
-_build_tests=0
-_build_bindings=0
+)
 
 _rpatch() {
 
@@ -79,9 +78,24 @@ prepare() {
     exit 1
   )
 
+  # https://github.com/llvm/llvm-project/issues/82431
+  sed '/^diff.*inline-asm-memop.ll/,$d' ../$pkgname-SelectionDAG.patch | patch -Np2
+
+
+  # https://github.com/clangd/clangd/issues/1559
+  sed 's|clang-tools-extra|clang/tools/extra|' \
+    clangd-handle-missing-ending-brace.patch | patch -Np2
+
   # Attempt to convert script to Python 3
   2to3 -wn --no-diffs \
     clang-tools-extra/clang-include-fixer/find-all-symbols/tool/run-find-all-symbols.py
+
+  if [ -n "$CC" ] && [ -n "$CXX" ]; then
+    _extra_build_flags+=(
+      -DCMAKE_C_COMPILER="$CC"
+      -DCMAKE_CXX_COMPILER="$CXX"
+    )
+  fi
 
 }
 
@@ -92,95 +106,39 @@ build() {
     exit 1
   )
 
-  _extra_build_flags+=(
-    -DCMAKE_C_COMPILER="$CC"
-    -DCMAKE_CXX_COMPILER="$CXX"
-  )
-
-  # export CFLAGS="$CFLAGS -fno-plt -fomit-frame-pointer -fno-semantic-interposition"
-  # export CXXFLAGS="$CXXFLAGS -fno-plt -fomit-frame-pointer -fno-semantic-interposition"
-  # export LDFLAGS="-Wl,-mllvm,--load=/usr/lib/LLVMPolly.so -Wl,-O4 -Wl,-z,now -Wl,-z,relro -Wl,--as-needed -Wl,--gc-sections -Wl,--lto-O3 -Wl,--hash-style=gnu -Wl,-Bsymbolic-functions $_llvm_lld $_polly_lld"
-
-  # export CFLAGS=" -fno-plt -fomit-frame-pointer -fno-semantic-interposition -march=x86-64-v3 -Qunused-arguments -fslp-vectorize -fvectorize -mfpmath=sse -O3 -fdiagnostics-color=always -pipe -fstack-protector --param ssp-buffer-size=4 -fstack-clash-protection"
-  # export CXXFLAGS="$CFLAGS"
-  # export LDFLAGS="-Wl,-O4 -Wl,-z,now -Wl,-z,relro -Wl,--as-needed -Wl,--lto-O3"
-
-  export CFLAGS="-march=x86-64 -mtune=generic -O2 -pipe -fno-plt -fexceptions \
-        -Wformat -Werror=format-security \
-        -fstack-clash-protection -fcf-protection \
-        -fomit-frame-pointer"
-  export CXXFLAGS="$CFLAGS"
-  export LD_LIBRARY_PATH=$PWD/build/lib 
-
-
-  if ld.lld --version 2>/dev/null | grep -iq "LLD\s*[0-9]"; then
-    export LD=ld.lld
-    export CC_LD=lld
-    export CXX_LD=lld
-    export HOSTLD=ld.lld
-    _extra_build_flags+=(-DLLVM_USE_LINKER=lld)
-  fi
-
-  while true; do
-    case ${_skip_build_test} in
-    [Yy] | "")
-      _build_tests=0
-      _extra_build_flags+=(-DLLVM_BUILD_TESTS=OFF)
-      break
-      ;;
-    [Nn])
-      _build_tests=1
-      _extra_build_flags+=(-DLLVM_BUILD_TESTS=ON)
-      break
-      ;;
-    *) echo -e "\E[1;31mPlease answer Y or N! \E[0m" ;;
-    esac
-  done
-
-  while true; do
-    case ${_skip_documentation} in
-    [Yy] | "")
-      _build_documentation=0
-      _extra_build_flags+=(-DLLVM_BUILD_DOCS=OFF)
-      break
-      ;;
-    [Nn])
-      _build_documentation=1
-      _extra_build_flags+=(
-        -DLLVM_BUILD_DOCS=ON
-        -DLLVM_ENABLE_SPHINX=ON
-        -DLLVM_ENABLE_DOXYGEN=OFF
-        -DSPHINX_WARNINGS_AS_ERRORS=OFF
-      )
-      break
-      ;;
-    *) echo -e "\E[1;31mPlease answer Y or N! \E[0m" ;;
-    esac
-  done
+  export CFLAGS="$CFLAGS -fno-plt -fomit-frame-pointer -fno-semantic-interposition"
+  export CXXFLAGS="$CFLAGS -fno-plt -fomit-frame-pointer -fno-semantic-interposition"
 
   cmake -S llvm -B build -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLLVM_BINUTILS_INCDIR=/usr/include \
-    -DLLVM_BUILD_RUNTIME=ON \
-    -DLLVM_BUILD_EXTERNAL_COMPILER_RT=ON \
-    -DLLVM_HOST_TRIPLE="${CHOST:?}" \
-    -DLLVM_BUILD_EXTERNAL_COMPILER_RT=ON \
+    -DCMAKE_SKIP_RPATH=ON \
     -DLLVM_BUILD_LLVM_DYLIB=ON \
     -DLLVM_LINK_LLVM_DYLIB=ON \
     -DLLVM_INSTALL_UTILS=ON \
     -DLLVM_ENABLE_RTTI=ON \
+    -DCLANG_LINK_CLANG_DYLIB=ON \
+    -DCLANG_DEFAULT_PIE_ON_LINUX=ON \
     -DLLVM_ENABLE_FFI=ON \
-    -DLLVM_ENABLE_PROJECTS="clang;libclc" \
-    -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi;openmp;libunwind;compiler-rt" \
-    -DLIBOMP_INSTALL_ALIASES=OFF \
+    -DLLVM_BUILD_TESTS=OFF \
+    -DLLVM_BUILD_DOCS=OFF \
+    -DFFI_INCLUDE_DIR="$(pkg-config --variable=includedir libffi)" \
+    -DLLVM_ENABLE_SPHINX=OFF \
+    -DLLVM_ENABLE_PIC=ON \
+    -DLLVM_ENABLE_DOXYGEN=OFF \
+    -DSPHINX_WARNINGS_AS_ERRORS=OFF \
+    -DLLVM_BINUTILS_INCDIR=/usr/include \
+    -DLLVM_ENABLE_PROJECTS='clang;clang-tools-extra;libclc' \
+    -DLIBCLC_TARGETS_TO_BUILD="all" \
     "${_extra_build_flags[@]}"
 
-  ninja -C build
+  cmake --build build
+    
+  cmake --build build ocaml_doc
 
-  if [[ _build_documentation -eq 1 && _build_bindings -ne 0 ]]; then
-    ninja -C build ocaml_doc
-  fi
+    # -DLLVM_ENABLE_RUNTIMES="libunwind;libcxxabi;pstl;libcxx;compiler-rt;openmp" \
+    # -DCOMPILER_RT_INSTALL_PATH=/usr/lib/clang/${pkgver%%.*} \
+    # -DLIBCXX_INSTALL_MODULES=ON \
 
 }
 
@@ -192,9 +150,8 @@ check() {
   )
 
   if [[ _build_tests -eq 1 ]]; then
-    ninja -C build check
+    ninja -C build check-llvm
   fi
-
 }
 
 _python_optimize() {
@@ -210,75 +167,58 @@ package() {
     exit 1
   )
 
-  if [[ _build_documentation -eq 0 ]]; then
-    mkdir -p "${srcdir:?}/llvm-project/build/docs/ocamldoc/html/"
-  fi
-
-  DESTDIR="${pkgdir:?}" ninja -C build install
+  DESTDIR="${pkgdir}" cmake --install build
 
   pushd llvm/utils/lit || (
     echo -e "\E[1;31mpushd utils/lit - Package Failed! \E[0m"
     exit 1
   )
 
-  python setup.py install --root="${pkgdir:?}" -O1
+  python setup.py install --root="${pkgdir}" -O1
   popd || (
     echo -e "\E[1;31mpopd - Package Failed!  \E[0m"
     exit 1
   )
 
   if [[ "${CARCH:?}" == "x86_64" ]]; then
-    mv "${pkgdir:?}/usr/include/llvm/Config/llvm-config"{,-64}.h
-    cp "${srcdir:?}/llvm-config.h" "${pkgdir:?}/usr/include/llvm/Config/llvm-config.h"
+    mv "${pkgdir}/usr/include/llvm/Config/llvm-config"{,-64}.h
+    cp "${srcdir:?}/llvm-config.h" "${pkgdir}/usr/include/llvm/Config/llvm-config.h"
   fi
 
   # Symlink LLVMgold.so from /usr/lib/bfd-plugins
   # https://bugs.archlinux.org/task/28479
-  mkdir -p "${pkgdir:?}/usr/lib/bfd-plugins"
-  ln -s ../LLVMgold.so "${pkgdir:?}/usr/lib/bfd-plugins/LLVMgold.so"
+  mkdir -p "${pkgdir}/usr/lib/bfd-plugins"
+  ln -s ../LLVMgold.so "${pkgdir}/usr/lib/bfd-plugins/LLVMgold.so"
+  cp -a clang/bindings/python/clang "${pkgdir}/${site_packages}/"
 
   # Symlink all files inside x86_64-pc-linux-gnu to /usr/lib/
-  pushd ${pkgdir:?}/usr/lib/
+  pushd ${pkgdir}/usr/lib/
   ln -s x86_64-pc-linux-gnu/* .
   popd
 
-  # Clang
-  site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-  install -d "${pkgdir:?}/${site_packages}"
-  mv "${pkgdir:?}/usr/lib/"{libear,libscanbuild} "${pkgdir:?}/${site_packages}/"
-  cp -a clang/bindings/python/clang "${pkgdir:?}/${site_packages}/"
-
-  mv "${pkgdir:?}"/usr/libexec/* "${pkgdir:?}/usr/lib/clang/"
-  rm -fr "${pkgdir:?}/usr/libexec"
-  sed -i 's|libexec|lib/clang|' \
-    "${pkgdir:?}/usr/bin/scan-build" \
-    "${pkgdir:?}/${site_packages}/libscanbuild/analyze.py"
-
-  _python_optimize "${pkgdir:?}/usr/share" "${pkgdir:?}/${site_packages}"
-
-  # Remove html documentation
-  if [[ _build_documentation -eq 0 ]]; then
-    rm -fr "${pkgdir:?}/usr/share/doc"
-  fi
+  _python_optimize "${pkgdir}/usr/share" "${pkgdir}/${site_packages}"
 
   # Licenses
-  install -Dm644 "${srcdir:?}/llvm-project/llvm/LICENSE.TXT" "${pkgdir:?}/usr/share/licenses/${pkgname}/llvm-LICENSE"
-  install -Dm644 "${srcdir:?}/llvm-project/openmp/LICENSE.TXT" "${pkgdir:?}/usr/share/licenses/${pkgname}/openmp-LICENSE"
-
+  install -Dm644 "${srcdir:?}/llvm-project/llvm/LICENSE.TXT" "${pkgdir}/usr/share/licenses/${pkgname}/llvm-LICENSE"
+  install -Dm644 "${srcdir:?}/llvm-project/clang/LICENSE.TXT" "${pkgdir}/usr/share/licenses/${pkgname}/clang-LICENSE"
+  install -Dm644 "${srcdir:?}/llvm-project/clang-tools-extra/LICENSE.TXT" "${pkgdir}/usr/share/licenses/${pkgname}/clang-tools-extra-LICENSE"
+  install -Dm644 "${srcdir:?}/llvm-project/compiler-rt/LICENSE.TXT" "${pkgdir}/usr/share/licenses/${pkgname}/compiler-rt-LICENSE"
+  install -Dm644 "${srcdir:?}/llvm-project/openmp/LICENSE.TXT" "${pkgdir}/usr/share/licenses/${pkgname}/openmp-LICENSE"
+  install -Dm644 "$srcdir"/llvm-project/libclc/LICENSE.TXT "${pkgdir}/usr/share/licenses/${pkgname}/libclc-LICENSE"
   # Fallback for llvm 16
-  # _llvm_libs=(libLLVM-16.so libLTO.so.16 libRemarks.so.16 libclang.so.16.0.6 liblldb.so.16.0.6 libclang-cpp.so.16)
+  # _llvm_libs=(libLLVM-16.so libLTO.so.16 libRemarks.so.16 libclang.so.16.0.6 libclang-cpp.so.16)
   # for lib in "${_llvm_libs[@]}"; do
-  #   if [[ ! -e "${pkgdir:?}/usr/lib/${lib:?}" ]]; then
+  #   if [[ ! -e "${pkgdir}/usr/lib/${lib:?}" ]]; then
   #     echo "- Copy ${lib:?}"
-  #     install -Dm644 "/usr/lib/${lib:?}" "${pkgdir:?}/usr/lib/${lib:?}"
+  #     install -Dm644 "/usr/lib/${lib:?}" "${pkgdir}/usr/lib/${lib:?}"
   #   else
   #     echo "- ${lib:?} exist"
   #   fi
   # done
 
-  # if [[ ! -e "${pkgdir:?}/usr/lib/libLLVM-16.0.6.so" ]]; then
-  #   echo "- Copy libLLVM-16.0.6.so"
-  #   ln -s /usr/lib/libLLVM-16.so "${pkgdir:?}/usr/lib/libLLVM-16.0.6.so"
+  # if [[ ! -e "${pkgdir}/usr/lib/libLLVM-16.0.6.so" ]]; then
+  #   echo "- Copy libLLVM-16.0.1.so"
+  #   ln -s /usr/lib/libLLVM-16.so "${pkgdir}/usr/lib/libLLVM-16.0.6.so"
   # else
   #   echo "- libLLVM-16.0.6.so exist"
   # fi
