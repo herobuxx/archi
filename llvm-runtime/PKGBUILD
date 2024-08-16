@@ -132,7 +132,7 @@ build() {
 
   cmake --build build
     
-  cmake --build build ocaml_doc
+  # cmake --build build -- ocaml_doc
 
   ls ${pkgdir}/usr/include/clc
   ls ${pkgdir}/usr/lib/clc
