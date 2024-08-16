@@ -134,7 +134,7 @@ build() {
     
   # cmake --build build -- ocaml_doc
 
-  ls -lRa ${pkgdir}/build
+  ls -lRa build
 
 }
 
