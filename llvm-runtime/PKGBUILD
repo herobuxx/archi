@@ -137,7 +137,7 @@ build() {
   echo "Building libclc....."
   mkdir build-clc
 
-  cmake -S liclc -B build-clc -G Ninja \
+  cmake -S libclc -B build-clc -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr
 
