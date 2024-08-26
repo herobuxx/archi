@@ -1,15 +1,15 @@
 pkgname=mesa
 pkgdesc="Mesa open-source implementation of the OpenGL specification"
-pkgver=24.1.4
+pkgver=24.2.0
 _pkgver=${pkgver//_/-}
-pkgrel=3
+pkgrel=2
 epoch=1
 arch=('x86_64')
 makedepends=(
   'python-mako' 'xorgproto' 'cmake' 'pkgconf' 'directx-headers'
   'libxml2' 'libx11' 'libvdpau' 'libva' 'elfutils' 'libxrandr'
   'wayland-protocols' 'meson' 'ninja' 'glslang' 'python-ply'
-  'python-setuptools'
+  'python-setuptools' 'python-packaging' 'python-yaml' 'clang'
   )
   
 makedepends+=('rust' 'rust-bindgen') # rusticl dependencies
@@ -32,7 +32,6 @@ url="https://www.mesa3d.org"
 license=('custom')
 source=(
   "https://archive.mesa3d.org/mesa-${_pkgver}.tar.xz"{,.sig}
-  0001-Revert-frontends-va-Fix-AV1-slice_data_offset-with-m.patch::"https://gitlab.archlinux.org/archlinux/packaging/packages/mesa/-/raw/main/0001-Revert-frontends-va-Fix-AV1-slice_data_offset-with-m.patch?ref_type=heads&inline=false"
 )
 
 sha256sums=('0079beac0a33f45e7e0aec59e6913eafbc4268a3f1e2e330017440494f91b13c'
@@ -52,12 +51,23 @@ validpgpkeys=(
 
 # Rust crates for NVK, used as Meson subprojects
 declare -A _crates=(
-   paste          1.0.14
-   proc-macro2    1.0.70
-   quote          1.0.33
-   syn            2.0.39
-   unicode-ident  1.0.12
+   equivalent      1.0.1
+   hashbrown       0.14.1
+   indexmap        2.2.6
+   once_cell       1.8.0
+   paste           1.0.14
+   pest            2.7.11
+   pest_derive     2.7.11
+   pest_generator  2.7.11
+   pest_meta       2.7.11
+   proc-macro2     1.0.86
+   quote           1.0.33
+   roxmltree       0.20.0
+   syn             2.0.68
+   ucd-trie        0.1.6
+   unicode-ident   1.0.12
 )
+
 
 for _crate in "${!_crates[@]}"; do
   source+=($_crate-${_crates[$_crate]}.tar.gz::https://crates.io/api/v1/crates/$_crate/${_crates[$_crate]}/download)
@@ -94,7 +104,7 @@ prepare() {
     _patch $src
   done
 
-  echo "$pkgver-arch$epoch.$pkgrel" >VERSION
+  echo "$pkgver-arch$epoch.$pkgrel" > VERSION
 
 }
 
@@ -105,7 +115,7 @@ build() {
   # Inject subproject packages
   export MESON_PACKAGE_CACHE_DIR="$srcdir"
 
-  arch-meson mesa-${_pkgver} build-clang \
+  meson mesa-${_pkgver} build-clang \
     --prefix /usr \
     --libexecdir lib \
     --sbindir bin \
@@ -116,7 +126,7 @@ build() {
     -D b_ndebug=true \
     -D b_lto=true ${_extra_lto_flag} \
     -D b_pie=true \
-    -D b_lundef=true \
+    -D b_lundef=false \
     -D sysconfdir=/etc \
     \
     -D platforms=x11,wayland \
@@ -155,6 +165,8 @@ build() {
     -D zstd=auto \
     -D valgrind=disabled \
     -D android-libbacktrace=disabled \
+    -D intel-clc=enabled \
+    -D intel-rt=enabled \
     -D video-codecs=all \
     \
     -D c_args="$CFLAGS -Wno-format-truncation" \
