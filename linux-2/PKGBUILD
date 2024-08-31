@@ -44,7 +44,7 @@ _srcname="linux-${pkgver}-xanmod${xanmod}"
 source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar."{xz,sign}
         "https://master.dl.sourceforge.net/project/xanmod/releases/main/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz"
         choose-gcc-optimization.sh
-        "${_cachy}sched/0001-echo.patch"
+        "${_cachy}sched/0001-echo-cachy.patch"
         "${_lucjan}amd-pstate-patches-v5-all/0001-amd-pstate-patches.patch"
         "${_lucjan}intel-pstate-patches-v3/0001-intel-6.10-merge-changes-from-dev-tree.patch"
         "${_lucjan}iosched-patches-all/0001-iosched-patches.patch"
