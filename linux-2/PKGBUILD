@@ -44,9 +44,9 @@ _srcname="linux-${pkgver}-xanmod${xanmod}"
 source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar."{xz,sign}
         "https://master.dl.sourceforge.net/project/xanmod/releases/main/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz"
         
-        choose-gcc-optimization.sh
-        0001-Revert-XANMOD-kconfig-add-500Hz-timer-interrupt-kern.patch
-        0001-Revert-XANMOD-fair-Remove-all-energy-efficiency-func.patch
+        "choose-gcc-optimization.sh"
+        "0001-Revert-XANMOD-kconfig-add-500Hz-timer-interrupt-kern.patch"
+        "0001-Revert-XANMOD-fair-Remove-all-energy-efficiency-func.patch"
         
         "${_cachy}sched/0001-echo.patch"
 
@@ -65,7 +65,6 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
 
         # Fixes
         "${_lucjan}arch-patches-v3-sep/0006-x86-apic-Remove-logical-destination-mode-for-64-bit.patch"
-
         )
         #"patch-${pkgver}-xanmod${xanmod}.xz::https://sourceforge.net/projects/xanmod/files/releases/stable/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz/download"
 
