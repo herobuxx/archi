@@ -114,8 +114,7 @@ prepare() {
 
 
   # enable ECHO Scheduler
-  scripts/config -e SCHED_BORE --set-val MIN_BASE_SLICE_NS 1000000;
-  # scripts/config -e ECHO_SCHED
+  scripts/config -e ECHO_SCHED
 
   # enable LTO_CLANG_THIN
   if [ "${_compiler}" = "clang" ]; then
