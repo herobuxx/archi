@@ -45,10 +45,10 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "https://master.dl.sourceforge.net/project/xanmod/releases/main/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz"
         
         "choose-gcc-optimization.sh"
-        # "0001-Revert-XANMOD-kconfig-add-500Hz-timer-interrupt-kern.patch"
-        # "0001-Revert-XANMOD-fair-Remove-all-energy-efficiency-func.patch"
+        "0001-Revert-XANMOD-kconfig-add-500Hz-timer-interrupt-kern.patch"
+        "0001-Revert-XANMOD-fair-Remove-all-energy-efficiency-func.patch"
         
-        "${_cachy}sched/0001-echo.patch"
+        "${_cachy}sched/0001-echo"
 
         "${_lucjan}amd-pstate-patches-v5-all/0001-amd-pstate-patches.patch"
         "${_lucjan}intel-pstate-patches-v3/0001-intel-6.10-merge-changes-from-dev-tree.patch"
@@ -88,8 +88,11 @@ export KBUILD_BUILD_TIMESTAMP=${KBUILD_BUILD_TIMESTAMP:-$(date -Ru${SOURCE_DATE_
 prepare() {
   cd linux-${_major}
 
-  # msg2 "Apply Xanmod patch"
-  # patch -Np1 -i ../patch-${pkgver}-xanmod${xanmod}
+  msg2 "Apply Scheduler patch"
+  patch -Np1 -i ../0001-echo
+
+  msg2 "Apply Xanmod patch"
+  patch -Np1 -i ../patch-${pkgver}-xanmod${xanmod}
 
   msg2 "Setting version..."
   echo "-$pkgrel" > localversion.10-pkgrel
