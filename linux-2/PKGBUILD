@@ -48,7 +48,7 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "0001-Revert-XANMOD-kconfig-add-500Hz-timer-interrupt-kern.patch"
         "0001-Revert-XANMOD-fair-Remove-all-energy-efficiency-func.patch"
         
-        "0001-echo::${_cachy}sched/0001-echo.patch"
+        "0001-echo.patch"
 
         "${_lucjan}amd-pstate-patches-v5-all/0001-amd-pstate-patches.patch"
         "${_lucjan}intel-pstate-patches-v3/0001-intel-6.10-merge-changes-from-dev-tree.patch"
