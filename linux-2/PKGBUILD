@@ -46,7 +46,7 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         choose-gcc-optimization.sh
 
         # "${_cachy}sched/0001-echo-cachy.patch"
-        "${_cachy}sched/0001-bore-cachy-ext.patch"
+        "${_lucjan}bore-sched-ext-patches-v9/0001-bore-sched-ext-patches.patch"
 
         "${_lucjan}amd-pstate-patches-v5-all/0001-amd-pstate-patches.patch"
         "${_lucjan}intel-pstate-patches-v3/0001-intel-6.10-merge-changes-from-dev-tree.patch"
@@ -59,6 +59,10 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}crypto-patches/0001-crypto-patches.patch"
         "${_lucjan}cachyos-fixes-patches/0001-x86-amd_nb-Add-new-PCI-IDs-for-AMD-family-1Ah-model-.patch"
         "${_lucjan}cachyos-patches/0001-cachyos-patches.patch"
+
+
+        # Fixes
+        "${_lucjan}arch-patches-v3-sep/0006-x86-apic-Remove-logical-destination-mode-for-64-bit.patch"
 
         )
         #"patch-${pkgver}-xanmod${xanmod}.xz::https://sourceforge.net/projects/xanmod/files/releases/stable/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz/download"
