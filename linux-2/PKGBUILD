@@ -59,7 +59,6 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}crypto-patches/0001-crypto-patches.patch"
         "${_lucjan}cachyos-fixes-patches/0001-x86-amd_nb-Add-new-PCI-IDs-for-AMD-family-1Ah-model-.patch"
         "${_lucjan}cachyos-patches/0001-cachyos-patches.patch"
-        "${_lucjan}arch-patches-v3/0001-arch-patches.patch"
 
         )
         #"patch-${pkgver}-xanmod${xanmod}.xz::https://sourceforge.net/projects/xanmod/files/releases/stable/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz/download"
