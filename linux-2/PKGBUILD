@@ -42,7 +42,7 @@ _srcname="linux-${pkgver}-xanmod${xanmod}"
 
 
 source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar."{xz,sign}
-        # "https://master.dl.sourceforge.net/project/xanmod/releases/main/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz"
+        "https://master.dl.sourceforge.net/project/xanmod/releases/main/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz"
         
         "choose-gcc-optimization.sh"
         # "0001-Revert-XANMOD-kconfig-add-500Hz-timer-interrupt-kern.patch"
@@ -88,8 +88,8 @@ export KBUILD_BUILD_TIMESTAMP=${KBUILD_BUILD_TIMESTAMP:-$(date -Ru${SOURCE_DATE_
 prepare() {
   cd linux-${_major}
 
-  msg2 "Apply Xanmod patch"
-  patch -Np1 -i ../patch-${pkgver}-xanmod${xanmod}
+  # msg2 "Apply Xanmod patch"
+  # patch -Np1 -i ../patch-${pkgver}-xanmod${xanmod}
 
   msg2 "Setting version..."
   echo "-$pkgrel" > localversion.10-pkgrel
