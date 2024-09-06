@@ -117,8 +117,8 @@ diff --git a/kernel/Kconfig.hz b/kernel/Kconfig.hz
 index 38ef6d06888e..80861d9044e3 100644
 --- a/kernel/Kconfig.hz
 +++ b/kernel/Kconfig.hz
-@@ -5,7 +5,7 @@
- 
+@@ -4,7 +4,7 @@
+ #
  choice
  	prompt "Timer frequency"
 -	default HZ_250
@@ -126,9 +126,9 @@ index 38ef6d06888e..80861d9044e3 100644
  	help
  	 Allows the configuration of the timer frequency. It is customary
  	 to have the timer interrupt run at 1000 Hz but 100 Hz may be more
-@@ -40,6 +40,13 @@ choice
- 	 on SMP and NUMA systems and exactly dividing by both PAL and
- 	 NTSC frame rates for video and multimedia work.
+@@ -46,6 +46,13 @@
+ 	 on desktops with great smoothness without increasing CPU power
+ 	 consumption and sacrificing the battery life on laptops.
  
 +	config HZ_625
 +		bool "625 HZ"
@@ -140,10 +140,10 @@ index 38ef6d06888e..80861d9044e3 100644
  	config HZ_1000
  		bool "1000 HZ"
  	help
-@@ -58,6 +65,7 @@ config HZ
- 	default 100 if HZ_100
+@@ -60,6 +67,7 @@
  	default 250 if HZ_250
  	default 300 if HZ_300
+ 	default 500 if HZ_500
 +	default 625 if HZ_625
  	default 1000 if HZ_1000
  
