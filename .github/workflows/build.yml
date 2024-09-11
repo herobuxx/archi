@@ -78,11 +78,12 @@ jobs:
       #     cd ${{ matrix.build }} && sed -i 's/+clang//g' PKGBUILD
       # - run: ls -alR
       - id: makepkg
-        uses: JPratama7/pkgbuild-action@clanged
+        uses: JPratama7/pkgbuild-action@clanged-test
         with:
           namcapDisable: true
           makepkgArgs: "--skippgpcheck --skipchecksums"
           pkgdir:  ${{ matrix.build }}
+          ldflags: "-Wl,-O4 -Wl,-z,now -Wl,-z,relro -Wl,-z,nostart-stop-gc -Wl,--as-needed -Wl,--no-copy-dt-needed-entries -Wl,--gc-sections -Wl,--lto-O3 -Wl,--icf=safe -Wl,--hash-style=gnu"
         # uses: JPratama7/pkgbuild-action@test-toolchain
         # with:
         #   namcapDisable: true
