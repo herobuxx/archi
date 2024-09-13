@@ -101,9 +101,6 @@ jobs:
           tag: "ok"
           artifacts: "*/*.zst"
           token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/upload-artifact@v2
-        with:
-          path: "*/*.tar.zst"
       
   # create_db_file:
   #   runs-on: ubuntu-latest
