@@ -84,6 +84,8 @@ jobs:
           makepkgArgs: "--skippgpcheck --skipchecksums"
           pkgdir:  ${{ matrix.build }}
           ldflags: "-Wl,-z,nostart-stop-gc"
+          cxxflags: "-fstrict-vtable-pointers"
+          cflags: "-funified-lto"
         # uses: JPratama7/pkgbuild-action@test-toolchain
         # with:
         #   namcapDisable: true
