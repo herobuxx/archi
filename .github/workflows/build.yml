@@ -86,6 +86,7 @@ jobs:
           ldflags: "-Wl,-z,nostart-stop-gc"
           cxxflags: "-fstrict-vtable-pointers"
           cflags: "-funified-lto"
+          rustcflags: "-C link-arg=-Wl,-z,nostart-stop-gc"
         # uses: JPratama7/pkgbuild-action@test-toolchain
         # with:
         #   namcapDisable: true
