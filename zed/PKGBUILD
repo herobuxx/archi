@@ -43,6 +43,12 @@ _binname=zeditor
 _appid=dev.zed.Zed
 
 prepare() {
+
+    echo $CFLAGS
+    echo $CXXFLAGS
+    echo $LDFLAGS
+    echo $RUSTFLAGS
+
 	cd "$pkgname"
 	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 	export DO_STARTUP_NOTIFY="true"
@@ -76,11 +82,6 @@ build() {
 	_srcenv
 	export ZED_UPDATE_EXPLANATION='Updates are handled by pacman'
 	export RELEASE_VERSION="$pkgver"
-
-    echo $CFLAGS
-    echo $CXXFLAGS
-    echo $LDFLAGS
-    echo $RUSTFLAGS
 
 	cargo build --release --frozen --package zed --package cli
 }
