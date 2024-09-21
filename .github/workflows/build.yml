@@ -34,7 +34,7 @@ jobs:
     strategy:
       matrix:
         build: [
-           zed-git 
+           zed 
           ]
       fail-fast: false
     runs-on: ubuntu-latest
