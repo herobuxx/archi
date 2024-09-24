@@ -49,7 +49,7 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "0001-Revert-XANMOD-kconfig-add-500Hz-timer-interrupt-kern.patch"
         "0001-Revert-XANMOD-fair-Remove-all-energy-efficiency-func.patch"
         
-        "${_cachy}sched/0001-bore.patch"
+        "0000-echo.patch"
         )
         #"patch-${pkgver}-xanmod${xanmod}.xz::https://sourceforge.net/projects/xanmod/files/releases/stable/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz/download"
 
