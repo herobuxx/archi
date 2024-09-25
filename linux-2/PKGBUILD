@@ -46,7 +46,6 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "https://master.dl.sourceforge.net/project/xanmod/releases/edge/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz"
         
         "choose-gcc-optimization.sh"
-        "0001-Revert-XANMOD-fair-Remove-all-energy-efficiency-func.patch"
         
         "0001-bore.patch"
         
