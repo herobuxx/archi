@@ -51,7 +51,6 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}amd-pstate-patches-v2/0001-amd-6.11-merge-changes-from-dev-tree.patch"
         "${_lucjan}intel-pstate-patches-all/0001-intel-pstate-patches.patch"
 
-        "${_lucjan}cpu-isa-patches-v2/0001-cpu-isa-patches.patch"
         "${_lucjan}le9uo-patches/0001-mm-6.11-add-le9uo.patch"
         "${_lucjan}cachyos-fixes-patches/0001-x86-amd_nb-Add-new-PCI-IDs-for-AMD-family-1Ah-model-.patch"
 
