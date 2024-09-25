@@ -48,7 +48,19 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "choose-gcc-optimization.sh"
         
         "0001-bore.patch"
+        "${_lucjan}amd-pstate-patches-v2/0001-amd-6.11-merge-changes-from-dev-tree.patch"
+        "${_lucjan}intel-pstate-patches-all/0001-intel-pstate-patches.patch"
+
+        "${_lucjan}kbuild-patches/0001-kbuild-patches.patch"
+        "${_lucjan}mm-patches/0001-mm-patches.patch"
+        "${_lucjan}uksmd-patches/0001-mm-expose-per-process-KSM-control-via-syscalls.patch"
+        "${_lucjan}powercap-patches/0001-powercap-intel_rapl-Add-support-for-AMD-family-1Ah.patch"
+        "${_lucjan}v4l2loopback-patches/0001-media-v4l2-core-add-v4l2loopback-driver.patch"
+        "${_lucjan}zstd-cachyos-patches/0001-zstd-cachyos-patches.patch"
         
+        "${_tkg}0003-glitched-cfs.patch"
+        "${_tkg}0003-glitched-eevdf-additions.patch"
+
         )
         #"patch-${pkgver}-xanmod${xanmod}.xz::https://sourceforge.net/projects/xanmod/files/releases/stable/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz/download"
 
