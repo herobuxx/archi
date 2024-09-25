@@ -46,10 +46,9 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "https://master.dl.sourceforge.net/project/xanmod/releases/edge/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz"
         
         "choose-gcc-optimization.sh"
-        "0001-Revert-XANMOD-kconfig-add-500Hz-timer-interrupt-kern.patch"
         "0001-Revert-XANMOD-fair-Remove-all-energy-efficiency-func.patch"
         
-        "https://github.com/firelzrd/bore-scheduler/raw/refs/heads/main/patches/stable/linux-6.11-bore/0001-linux6.11.y-bore5.3.0.patch"
+        "0001-bore.patch"
         
         )
         #"patch-${pkgver}-xanmod${xanmod}.xz::https://sourceforge.net/projects/xanmod/files/releases/stable/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz/download"
