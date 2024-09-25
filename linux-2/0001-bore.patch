@@ -65,24 +65,24 @@ index 5783a0b875..b648ed538c 100644
 +++ b/init/Kconfig
 @@ -1297,6 +1297,23 @@ config CHECKPOINT_RESTORE
 
- 	 If unsure, say N here.
+ 	  If unsure, say N here.
 
 +config SCHED_BORE
 +	bool "Burst-Oriented Response Enhancer"
 +	default y
 +	help
-+	 In Desktop and Mobile computing, one might prefer interactive
-+	 tasks to keep responsive no matter what they run in the background.
++	  In Desktop and Mobile computing, one might prefer interactive
++	  tasks to keep responsive no matter what they run in the background.
 +
-+	 Enabling this kernel feature modifies the scheduler to discriminate
-+	 tasks by their burst time (runtime since it last went sleeping or
-+	 yielding state) and prioritize those that run less bursty.
-+	 Such tasks usually include window compositor, widgets backend,
-+	 terminal emulator, video playback, games and so on.
-+	 With a little impact to scheduling fairness, it may improve
-+	 responsiveness especially under heavy background workload.
++	  Enabling this kernel feature modifies the scheduler to discriminate
++	  tasks by their burst time (runtime since it last went sleeping or
++	  yielding state) and prioritize those that run less bursty.
++	  Such tasks usually include window compositor, widgets backend,
++	  terminal emulator, video playback, games and so on.
++	  With a little impact to scheduling fairness, it may improve
++	  responsiveness especially under heavy background workload.
 +
-+	 If unsure, say Y here.
++	  If unsure, say Y here.
 +
  config SCHED_AUTOGROUP
  	bool "Automatic process group scheduling"
@@ -99,17 +99,17 @@ index 38ef6d0688..5f6eecd1e6 100644
 +	int "Default value for min_base_slice_ns"
 +	default 2000000
 +	help
-+	The BORE Scheduler automatically calculates the optimal base
-+	slice for the configured HZ using the following equation:
++	 The BORE Scheduler automatically calculates the optimal base
++	 slice for the configured HZ using the following equation:
 +
-+	base_slice_ns = max(min_base_slice_ns, 1000000000/HZ)
++	 base_slice_ns = max(min_base_slice_ns, 1000000000/HZ)
 +
-+	This option sets the default lower bound limit of the base slice
-+	to prevent the loss of task throughput due to overscheduling.
++	 This option sets the default lower bound limit of the base slice
++	 to prevent the loss of task throughput due to overscheduling.
 +
-+	Setting this value too high can cause the system to boot with
-+	an unnecessarily large base slice, resulting in high scheduling
-+	latency and poor system responsiveness.
++	 Setting this value too high can cause the system to boot with
++	 an unnecessarily large base slice, resulting in high scheduling
++	 latency and poor system responsiveness.
 +
  config SCHED_HRTICK
  	def_bool HIGH_RES_TIMERS
@@ -287,7 +287,7 @@ index c1eb9a1afd..e2da8d7738 100644
  #ifdef CONFIG_SMP
 +#ifdef CONFIG_SCHED_BORE
 +static ssize_t sched_min_base_slice_write(struct file *filp, const char __user *ubuf,
-+				  size_t cnt, loff_t *ppos)
++				   size_t cnt, loff_t *ppos)
 +{
 +	char buf[16];
 +	unsigned int value;
@@ -332,7 +332,7 @@ index c1eb9a1afd..e2da8d7738 100644
 +};
 +#else // !CONFIG_SCHED_BORE
  static ssize_t sched_scaling_write(struct file *filp, const char __user *ubuf,
- 				  size_t cnt, loff_t *ppos)
+ 				   size_t cnt, loff_t *ppos)
  {
 @@ -213,7 +258,7 @@ static const struct file_operations sched_scaling_fops = {
  	.llseek		= seq_lseek,
@@ -704,8 +704,8 @@ index 9057584ec0..c921ac062b 100644
  	return clamp(vlag, -limit, limit);
  }
 @@ -896,6 +1153,10 @@ static struct sched_entity *pick_eevdf(struct cfs_rq *cfs_rq)
- 	* until it gets a new slice. See the HACK in set_next_entity().
- 	*/
+ 	 * until it gets a new slice. See the HACK in set_next_entity().
+ 	 */
  	if (sched_feat(RUN_TO_PARITY) && curr && curr->vlag == curr->deadline)
 +#ifdef CONFIG_SCHED_BORE
 +		if (!(likely(sched_bore) && likely(sched_burst_parity_threshold) &&
@@ -742,9 +742,9 @@ index 9057584ec0..c921ac062b 100644
  	update_deadline(cfs_rq, curr);
  	update_min_vruntime(cfs_rq);
 @@ -5189,6 +5456,9 @@ place_entity(struct cfs_rq *cfs_rq, struct sched_entity *se, int flags)
- 	*
- 	* EEVDF: placement strategy #1 / #2
- 	*/
+ 	 *
+ 	 * EEVDF: placement strategy #1 / #2
+ 	 */
 +#ifdef CONFIG_SCHED_BORE
 +	if (se->vlag)
 +#endif // CONFIG_SCHED_BORE
@@ -768,8 +768,8 @@ index 9057584ec0..c921ac062b 100644
 +	else
 +#endif // CONFIG_SCHED_BORE
  	/*
- 	* When joining the competition; the existing tasks will be,
- 	* on average, halfway through their slice, as such start tasks
+ 	 * When joining the competition; the existing tasks will be,
+ 	 * on average, halfway through their slice, as such start tasks
 @@ -5368,6 +5650,7 @@ static __always_inline void return_cfs_rq_runtime(struct cfs_rq *cfs_rq);
  static void
  dequeue_entity(struct cfs_rq *cfs_rq, struct sched_entity *se, int flags)
@@ -807,8 +807,8 @@ index 9057584ec0..c921ac062b 100644
  		cfs_rq = cfs_rq_of(se);
 @@ -8632,16 +8928,25 @@ static void yield_task_fair(struct rq *rq)
  	/*
- 	* Are we the only task in the tree?
- 	*/
+ 	 * Are we the only task in the tree?
+ 	 */
 +#if !defined(CONFIG_SCHED_BORE)
  	if (unlikely(rq->nr_running == 1))
  		return;
@@ -818,8 +818,8 @@ index 9057584ec0..c921ac062b 100644
 
  	update_rq_clock(rq);
  	/*
- 	* Update run-time statistics of the 'current'.
- 	*/
+ 	 * Update run-time statistics of the 'current'.
+ 	 */
  	update_curr(cfs_rq);
 +#ifdef CONFIG_SCHED_BORE
 +	restart_burst_rescale_deadline(se);
@@ -829,8 +829,8 @@ index 9057584ec0..c921ac062b 100644
 +	clear_buddies(cfs_rq, se);
 +#endif // CONFIG_SCHED_BORE
  	/*
- 	* Tell update_rq_clock() that we've just updated,
- 	* so we don't do microscopic update in schedule()
+ 	 * Tell update_rq_clock() that we've just updated,
+ 	 * so we don't do microscopic update in schedule()
 @@ -12716,6 +13021,9 @@ static void task_fork_fair(struct task_struct *p)
  	curr = cfs_rq->curr;
  	if (curr)
