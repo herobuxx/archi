@@ -406,7 +406,7 @@ index 9057584ec0..c921ac062b 100644
 + * (BORE  default SCHED_TUNABLESCALING_NONE = *1 constant)
 + * (EEVDF default SCHED_TUNABLESCALING_LOG  = *(1+ilog(ncpus))
   */
-+#ifdef !CONFIG_SCHED_BORE
++#ifndef CONFIG_SCHED_BORE
 +unsigned int sysctl_sched_tunable_scaling = SCHED_TUNABLESCALING_LOG;
 +#else // CONFIG_SCHED_BORE
  unsigned int sysctl_sched_tunable_scaling = SCHED_TUNABLESCALING_NONE;
