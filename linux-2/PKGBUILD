@@ -287,7 +287,9 @@ prepare() {
     fi
   fi
 
+  msg2 "make ${_compiler_flags} olddefconfig"
   make ${_compiler_flags} olddefconfig
+  #diff -u CONFIGS/xanmod/gcc/${_config} .config || :
 
   make -s kernelrelease > version
   msg2 "Prepared %s version %s" "$pkgbase" "$(<version)"
@@ -303,6 +305,7 @@ prepare() {
 build() {
   cd linux-${_major}
   make ${_compiler_flags} all
+  make -C tools/bpf/bpftool vmlinux.h feature-clang-bpf-co-re=1
 }
 
 _package() {
