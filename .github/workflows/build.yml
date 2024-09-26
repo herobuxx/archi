@@ -40,11 +40,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Maximize build space
-        uses: easimon/maximize-build-space@master
+        uses: AdityaGarg8/remove-unwanted-software@v4.1
         with:
-          root-reserve-mb: 512
-          swap-size-mb: 1024
+          remove-android: 'true'
           remove-dotnet: 'true'
+          remove-haskell: 'true'
       - name: Build
         run: |
           echo "Free space:"
