@@ -62,10 +62,13 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}zstd-cachyos-patches/0001-zstd-cachyos-patches.patch"
 
         "${_lucjan}perf-patches/0001-perf-6.11-merge-changes-from-dev-tree.patch"
-
         "${_lucjan}cpu-cachyos-patches-v4/0001-cpu-cachyos-patches.patch"
 
-        "${_lucjan}cpu-cachyos-patches-v4/0001-cpu-cachyos-patches.patch"
+        "${_tkg}0013-optimize_harder_O3.patch"
+        "${_tkg}0006-add-acs-overrides_iommu.patch"
+        "${_tkg}0002-clear-patches.patch"
+        "${_tkg}0006-add-acs-overrides_iommu.patch"
+        "${_tkg}0013-suse-additions.patch"
         
         "${_cachy}0010-t2.patch"
         "${_cachy}misc/0001-acpi-call.patch"
