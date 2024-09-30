@@ -1,25 +1,28 @@
 pkgname=llvm-all
 pkgdesc="LLVM Toolchain with clang, clang-tools-extra, compiler-rt, polly, lldb, lld"
-pkgver=18.1.8
-pkgrel=5
+pkgver=19.1.0
+pkgrel=1
 arch=('x86_64')
 url="https://llvm.org/"
 license=('custom:Apache 2.0 with LLVM Exception')
 
-provides=('llvm' "llvm=${pkgver}" 'llvm-libs' 'llvm-ocaml' 'clang' "clang=${pkgver}"
-  'clang-analyzer' 'clang-tools-extra' 'polly' 'compiler-rt' 'openmp' 'libunwind'
-  'lld' 'lldb' 'libc++' 'libc++abi' 'libc++experimental'
+provides=(
+  'llvm' "llvm=${pkgver}" 'llvm-libs' 'llvm-ocaml' 'clang' "clang=${pkgver}"
+  'clang-analyzer' 'clang-tools-extra' 'polly' 'compiler-rt' 'openmp'
+  'lld' 'lldb' 'libc++' 'libc++abi' 'libc++experimental' 'bolt' 'mlir'
   )
 
-replaces=('llvm' 'llvm-libs' 'llvm-ocaml' 'clang' 'clang-analyzer'
-  'clang-tools-extra' 'polly' 'compiler-rt' 'lld' 'lldb' 'openmp'
-  'libc++' 'libc++abi' 'libc++experimental' 'libunwind'
+replaces=(
+  'llvm' 'llvm-libs' 'llvm-ocaml' 'clang' 'clang-analyzer'
+  'clang-tools-extra' 'polly' 'compiler-rt' 'lld' 'lldb' 'openmp' 'mlir'
+  'libc++' 'libc++abi' 'libc++experimental' 'bolt'
   )
 
-conflicts=('llvm' 'llvm-libs' 'llvm-ocaml' 'clang' 'clang-analyzer'
+conflicts=(
+  'llvm' 'llvm-libs' 'llvm-ocaml' 'clang' 'clang-analyzer'
   'clang-tools-extra' 'polly' 'compiler-rt' 'lld' 'lldb' 'openmp'
-  'llvm-git' 'llvm-libs-git' 'llvm-ocaml-git' 'libc++' 'libunwind'
-  'libc++abi' 'libc++experimental'
+  'llvm-git' 'llvm-libs-git' 'llvm-ocaml-git' 'libc++'
+  'libc++abi' 'libc++experimental' 'bolt' 'mlir'
   )
 
 depends=('libelf' 'libffi' 'libedit' 'libxml2' 'ncurses' 'xz' 'zlib' 'gcc-libs')
@@ -34,7 +37,6 @@ makedepends_x86_64=('lib32-gcc-libs')
 source=(
   "https://github.com/llvm/llvm-project/releases/download/llvmorg-${pkgver}/llvm-project-${pkgver}.src.tar.xz"
   'llvm-config.h'
-  clangd-handle-missing-ending-brace.patch::https://github.com/llvm/llvm-project/commit/9d1dada57741.patch
 )
 
 sha256sums=(
@@ -78,6 +80,9 @@ prepare() {
     echo -e "\E[1;31mCan't cd to ${srcdir}/llvm-project directory! Prepare Failed! \E[0m"
     exit 1
   )
+
+  # https://github.com/llvm/llvm-project/issues/82431
+  sed '/^diff.*inline-asm-memop.ll/,$d' ../$pkgname-SelectionDAG.patch | patch -Np2
 
   # https://github.com/clangd/clangd/issues/1559
   sed 's|clang-tools-extra|clang/tools/extra|' \
@@ -160,15 +165,18 @@ build() {
     -DLLVM_BUILD_EXTERNAL_COMPILER_RT=ON \
     -DLLVM_BUILD_LLVM_DYLIB=ON \
     -DLLVM_LINK_LLVM_DYLIB=ON \
+    -DLLVM_ENABLE_CURL=ON \
     -DCLANG_LINK_CLANG_DYLIB=ON \
+    -DLLVM_USE_PERF=ON  \
     -DLLVM_INSTALL_UTILS=ON \
     -DLLVM_ENABLE_RTTI=ON \
     -DLLVM_ENABLE_FFI=ON \
     -DLLVM_ENABLE_PIC=ON \
+    -DLIBCXXABI_USE_LLVM_UNWINDER=OFF \
     -DLIBCXX_INSTALL_MODULES=ON \
     -DFFI_INCLUDE_DIR="$(pkg-config --variable=includedir libffi)" \
-    -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;compiler-rt;lld;lldb;mlir;polly;pstl" \
-    -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi;openmp;libunwind" \
+    -DLLVM_ENABLE_PROJECTS="bolt;clang;clang-tools-extra;cross-project-tests;libclc;lld;lldb;compiler-rt;mlir;polly" \
+    -DLLVM_ENABLE_RUNTIMES="libcxxabi;pstl;libcxx;openmp" \
     -DLLDB_USE_SYSTEM_SIX=1 \
     -DLIBOMP_INSTALL_ALIASES=OFF \
     -DCOMPILER_RT_INSTALL_PATH=/usr/lib/clang/${pkgver%%.*} \
@@ -277,22 +285,77 @@ package() {
   install -Dm644 "${srcdir:?}/llvm-project/lldb/LICENSE.TXT" "${pkgdir:?}/usr/share/licenses/${pkgname}/lldb-LICENSE"
   install -Dm644 "${srcdir:?}/llvm-project/polly/LICENSE.TXT" "${pkgdir:?}/usr/share/licenses/${pkgname}/polly-LICENSE"
   install -Dm644 "${srcdir:?}/llvm-project/openmp/LICENSE.TXT" "${pkgdir:?}/usr/share/licenses/${pkgname}/openmp-LICENSE"
+  install -Dm644 "$srcdir"/llvm-project/libclc/LICENSE.TXT "${pkgdir:?}/usr/share/licenses/${pkgname}/libclc-LICENSE"
 
   # Fallback for llvm 16
-  # _llvm_libs=(libLLVM-16.so libLTO.so.16 libRemarks.so.16 libclang.so.16.0.6 liblldb.so.16.0.6 libclang-cpp.so.16)
-  # for lib in "${_llvm_libs[@]}"; do
-  #   if [[ ! -e "${pkgdir:?}/usr/lib/${lib:?}" ]]; then
-  #     echo "- Copy ${lib:?}"
-  #     install -Dm644 "/usr/lib/${lib:?}" "${pkgdir:?}/usr/lib/${lib:?}"
-  #   else
-  #     echo "- ${lib:?} exist"
-  #   fi
-  # done
 
-  # if [[ ! -e "${pkgdir:?}/usr/lib/libLLVM-16.0.6.so" ]]; then
-  #   echo "- Copy libLLVM-16.0.6.so"
-  #   ln -s /usr/lib/libLLVM-16.so "${pkgdir:?}/usr/lib/libLLVM-16.0.6.so"
-  # else
-  #   echo "- libLLVM-16.0.6.so exist"
-  # fi
+  # Array of actual files
+  _llvm_libs=(
+    libclang-cpp.so.18.1
+    libclang.so.18.1.8
+    liblldb.so.18.1.8
+    liblldbIntelFeatures.so.18.1
+    libLLVM.so.18.1
+    libLLVMSPIRVLib.so.18.1
+    libLTO.so.18.1
+    libMLIR.so.18.1
+    libmlir_arm_runner_utils.so.18.1
+    libmlir_arm_sme_abi_stubs.so.18.1
+    libmlir_async_runtime.so.18.1
+    libmlir_c_runner_utils.so.18.1
+    libmlir_float16_utils.so.18.1
+    libmlir_runner_utils.so.18.1
+    libomptarget.rtl.amdgpu.so.18.1
+    libomptarget.rtl.cuda.so.18.1
+    libomptarget.rtl.x86_64.so.18.1
+    libomptarget.so.18.1
+    libRemarks.so.18.1
+  )
+
+  # Array of symlinks and their targets
+  declare -A _llvm_symlinks=(
+    ["libclang-cpp.so"]="libclang-cpp.so.18.1"
+    ["libclang.so"]="libclang.so.18.1"
+    ["libclang.so.18.1"]="libclang.so.18.1.8"
+    ["liblldb.so"]="liblldb.so.18.1"
+    ["liblldb.so.18.1"]="liblldb.so.18.1.8"
+    ["liblldbIntelFeatures.so"]="liblldbIntelFeatures.so.18.1"
+    ["libLLVM-18.so"]="libLLVM.so.18.1"
+    ["libLLVM.so"]="libLLVM.so.18.1"
+    ["libLLVMSPIRVLib.so"]="libLLVMSPIRVLib.so.18.1"
+    ["libLTO.so"]="libLTO.so.18.1"
+    ["libMLIR.so"]="libMLIR.so.18.1"
+    ["libmlir_arm_runner_utils.so"]="libmlir_arm_runner_utils.so.18.1"
+    ["libmlir_arm_sme_abi_stubs.so"]="libmlir_arm_sme_abi_stubs.so.18.1"
+    ["libmlir_async_runtime.so"]="libmlir_async_runtime.so.18.1"
+    ["libmlir_c_runner_utils.so"]="libmlir_c_runner_utils.so.18.1"
+    ["libmlir_float16_utils.so"]="libmlir_float16_utils.so.18.1"
+    ["libmlir_runner_utils.so"]="libmlir_runner_utils.so.18.1"
+    ["libomptarget.rtl.amdgpu.so"]="libomptarget.rtl.amdgpu.so.18.1"
+    ["libomptarget.rtl.cuda.so"]="libomptarget.rtl.cuda.so.18.1"
+    ["libomptarget.rtl.x86_64.so"]="libomptarget.rtl.x86_64.so.18.1"
+    ["libomptarget.so"]="libomptarget.so.18.1"
+    ["libRemarks.so"]="libRemarks.so.18.1"
+  )
+
+  # Copy actual library files
+  for lib in "${_llvm_libs[@]}"; do
+    if [[ ! -e "${pkgdir:?}/usr/lib/${lib:?}" ]]; then
+      echo "- Copy ${lib:?}"
+      install -Dm644 "/usr/lib/${lib:?}" "${pkgdir:?}/usr/lib/${lib:?}"
+    else
+      echo "- ${lib:?} exists"
+    fi
+  done
+
+  # Create symlinks
+  for symlink in "${!_llvm_symlinks[@]}"; do
+    target="${_llvm_symlinks[$symlink]}"
+    if [[ ! -L "${pkgdir:?}/usr/lib/${symlink:?}" ]]; then
+      echo "- Create symlink ${symlink:?} -> ${target:?}"
+      ln -s "${target:?}" "${pkgdir:?}/usr/lib/${symlink:?}"
+    else
+      echo "- Symlink ${symlink:?} exists"
+    fi
+  done
 }
