@@ -18,7 +18,7 @@ fi
 
 pkgbase=linux-xanmod-custom
 _major=6.11
-pkgver=${_major}.0
+pkgver=${_major}.1
 _branch=6.x
 xanmod=1
 pkgrel=${xanmod}
@@ -61,17 +61,12 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}v4l2loopback-patches/0001-media-v4l2-core-add-v4l2loopback-driver.patch"
         "${_lucjan}zstd-cachyos-patches/0001-zstd-cachyos-patches.patch"
 
+        "${_lucjan}openvpn-patches-v2-all/0001-openvpn-patches.patch"
         "${_lucjan}perf-patches/0001-perf-6.11-merge-changes-from-dev-tree.patch"
-        "${_lucjan}cpu-cachyos-patches-v4/0001-cpu-cachyos-patches.patch"
+        "${_lucjan}cpu-cachyos-patches-v6/0001-cpu-cachyos-patches.patch"
 
         "${_tkg}0013-optimize_harder_O3.patch"
-        "${_tkg}0006-add-acs-overrides_iommu.patch"
-        "${_tkg}0002-clear-patches.patch"
-        
-        "${_cachy}0010-t2.patch"
         "${_cachy}misc/0001-acpi-call.patch"
-        "${_cachy}0003-block.patch"
-
         "${_tkg}0003-glitched-base.patch"
         )
         #"patch-${pkgver}-xanmod${xanmod}.xz::https://sourceforge.net/projects/xanmod/files/releases/stable/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz/download"
