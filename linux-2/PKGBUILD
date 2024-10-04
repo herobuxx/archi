@@ -67,7 +67,6 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_tkg}0013-optimize_harder_O3.patch"
         "${_tkg}0006-add-acs-overrides_iommu.patch"
         "${_tkg}0002-clear-patches.patch"
-        "${_tkg}0006-add-acs-overrides_iommu.patch"
         
         "${_cachy}0010-t2.patch"
         "${_cachy}misc/0001-acpi-call.patch"
