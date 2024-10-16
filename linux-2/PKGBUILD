@@ -45,6 +45,9 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
 
         "choose-gcc-optimization.sh"
 
+        "${_lucjan}amd-pstate-patches-v3/0001-amd-6.11-merge-changes-from-dev-tree.patch"
+        "${_lucjan}intel-pstate-patches-all/0001-intel-pstate-patches.patch"
+
         # Xanmod Feature
         "${_xanmod}binder/0001-binder-turn-into-module.patch"
         "${_xanmod}binder/0002-binder-give-binder_alloc-its-own-debug-mask-file.patch"
@@ -62,9 +65,6 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_xanmod}userns/0001-sysctl-add-sysctl-to-disallow-unprivileged-CLONE_NEW.patch"
         "${_lucjan}bbr3-patches/0001-tcp-bbr3-initial-import.patch"
         "${_lucjan}ntsync-patches-all/0001-ntsync-patches.patch"
-
-        "${_lucjan}amd-pstate-patches-v3/0001-amd-6.11-merge-changes-from-dev-tree.patch"
-        "${_lucjan}intel-pstate-patches-all/0001-intel-pstate-patches.patch"
 
         "${_cachy}sched/0001-bore-cachy-rt.patch"
         "${_cachy}misc/0001-rt.patch"
