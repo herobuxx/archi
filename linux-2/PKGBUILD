@@ -139,7 +139,7 @@ apply_patch() {
 
 
 prepare() {
-  cd linux-${_major}
+  cd linux-${pkgver}
 
   msg2 "Setting version..."
   echo "-$pkgrel" > localversion.10-pkgrel
@@ -361,7 +361,7 @@ prepare() {
 }
 
 build() {
-  cd linux-${_major}
+  cd linux-${pkgver}
   make ${_compiler_flags} all
   make -C tools/bpf/bpftool vmlinux.h feature-clang-bpf-co-re=1
 }
@@ -377,7 +377,7 @@ _package() {
             NTFS3-MODULE
             V4L2LOOPBACK-MODULE)
 
-  cd linux-${_major}
+  cd linux-${pkgver}
   local modulesdir="$pkgdir/usr/lib/modules/$(<version)"
 
   msg2 "Installing boot image..."
@@ -400,7 +400,7 @@ _package-headers() {
   pkgdesc="Headers and scripts for building modules for the $pkgdesc kernel"
   depends=(pahole)
 
-  cd linux-${_major}
+  cd linux-${pkgver}
   local builddir="$pkgdir/usr/lib/modules/$(<version)/build"
 
   msg2 "Installing build files..."
