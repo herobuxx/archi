@@ -69,6 +69,7 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
 
         "${_cachy}misc/0001-amd-hfi.patch"
 
+        "${_lucjan}amd-pstate-patches-v4-all/0001-amd-pstate-patches.patch"
         "${_lucjan}intel-pstate-patches-all/0001-intel-pstate-patches.patch"
         "${_lucjan}le9uo-patches/0001-mm-6.11-add-le9uo.patch"
         "${_lucjan}cachyos-fixes-patches-v6/0001-cachyos-fixes-patches.patch"
