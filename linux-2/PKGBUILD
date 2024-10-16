@@ -63,8 +63,7 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}bbr3-patches/0001-tcp-bbr3-initial-import.patch"
         "${_lucjan}ntsync-patches-all/0001-ntsync-patches.patch"
 
-        "${_lucjan}amd-cache-optimizer-patches/0001-amd-cache-optimizer-patches.patch"
-        "${_lucjan}amd-pstate-patches-v4/0001-amd-6.11-merge-changes-from-dev-tree.patch"
+        "${_lucjan}amd-pstate-patches-v3/0001-amd-6.11-merge-changes-from-dev-tree.patch"
         "${_lucjan}intel-pstate-patches-all/0001-intel-pstate-patches.patch"
 
         "${_cachy}sched/0001-bore-cachy-rt.patch"
@@ -82,6 +81,7 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
 
         "${_lucjan}openvpn-patches-v2-all/0001-openvpn-patches.patch"
         "${_lucjan}perf-patches/0001-perf-6.11-merge-changes-from-dev-tree.patch"
+        "${_lucjan}amd-cache-optimizer-patches/0001-amd-cache-optimizer-patches.patch"
         "${_lucjan}cpu-cachyos-patches-v6/0001-cpu-cachyos-patches.patch"
         "${_lucjan}cpu-isa-patches-v4/0001-cpu-isa-patches.patch"
 
