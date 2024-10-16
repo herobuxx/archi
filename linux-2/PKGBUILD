@@ -16,18 +16,19 @@ if [ "${_compiler}" = "clang" ]; then
   _compiler_flags="CC=clang HOSTCC=clang LLVM=1 LLVM_IAS=1"
 fi
 
-pkgbase=linux-xanmod-custom
+pkgbase=linux-custorizer
 _major=6.11
-pkgver=${_major}.1
+pkgver=${_major}.3
 _branch=6.x
 xanmod=1
 pkgrel=${xanmod}
-pkgdesc='Linux Xanmod - Current Stable (CURRENT) with Custom Patches'
+pkgdesc='Linux Kernel - Current Stable (CURRENT) with Custom Patches'
 url="http://www.xanmod.org/"
 arch=(x86_64)
 _lucjan="https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/${_major}/"
 _cachy="https://raw.githubusercontent.com/CachyOS/kernel-patches/master/${_major}/"
 _tkg="https://raw.githubusercontent.com/Frogging-Family/linux-tkg/master/linux-tkg-patches/${_major}/"
+_xanmod="https://gitlab.com/xanmod/linux-patches/-/raw/master/linux-6.11.y-xanmod/"
 _commit_ck=2870d6ac146aa658af60bb18a9c7503efe5992d4
 
 license=(GPL2)
@@ -40,19 +41,36 @@ fi
 options=('!strip')
 _srcname="linux-${pkgver}-xanmod${xanmod}"
 
-
 source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar."{xz,sign}
 
-        "https://master.dl.sourceforge.net/project/xanmod/releases/edge/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz"
-        
         "choose-gcc-optimization.sh"
-        
-        "0001-bore.patch"
-        "${_lucjan}amd-pstate-patches-v2/0001-amd-6.11-merge-changes-from-dev-tree.patch"
+
+        # Xanmod Feature
+        "${_xanmod}binder/0001-binder-turn-into-module.patch"
+        "${_xanmod}binder/0002-binder-give-binder_alloc-its-own-debug-mask-file.patch"
+        "${_xanmod}binder/0003-wait-allow-to-use-__wake_up_pollfree-from-GPL-module.patch"
+        "${_xanmod}binder/0004-file-export-file_close_fd-instead-of-close_fd_get_fi.patch"
+        "${_xanmod}clearlinux/0001-sched-wait-Do-accept-in-LIFO-order-for-cache-efficie.patch"
+        "${_xanmod}clearlinux/0002-firmware-Enable-stateless-firmware-loading.patch"
+        "${_xanmod}clearlinux/0003-locking-rwsem-spin-faster.patch"
+        "${_xanmod}clearlinux/0004-drivers-initialize-ata-before-graphics.patch"
+        "${_xanmod}net/mac80221/0001-mac80211-ignore-AP-power-level-when-tx-power-type-is.patch"
+        "${_xanmod}net/netfilter/0001-netfilter-Add-netfilter-nf_tables-fullcone-support.patch"
+        "${_xanmod}net/netfilter/0002-netfilter-add-xt_FLOWOFFLOAD-target.patch"
+        "${_xanmod}net/tcp/cloudflare/0001-tcp-Add-a-sysctl-to-skip-tcp-collapse-processing-whe.patch"
+        "${_xanmod}pci_acso/0001-PCI-Enable-overrides-for-missing-ACS-capabilities.patch"
+        "${_xanmod}userns/0001-sysctl-add-sysctl-to-disallow-unprivileged-CLONE_NEW.patch"
+        "${_lucjan}bbr3-patches/0001-tcp-bbr3-initial-import.patch"
+        "${_lucjan}ntsync-patches-all/0001-ntsync-patches.patch"
+
+        "${_lucjan}amd-pstate-patches-v4/0001-amd-6.11-merge-changes-from-dev-tree.patch"
         "${_lucjan}intel-pstate-patches-all/0001-intel-pstate-patches.patch"
 
+        "${_cachy}sched/0001-bore-cachy-rt.patch"
+        "${_cachy}misc/0001-rt.patch"
+
         "${_lucjan}le9uo-patches/0001-mm-6.11-add-le9uo.patch"
-        "${_lucjan}cachyos-fixes-patches-v2/0001-cachyos-fixes-patches.patch"
+        "${_lucjan}cachyos-fixes-patches-v6/0001-cachyos-fixes-patches.patch"
 
         "${_lucjan}kbuild-patches/0001-kbuild-patches.patch"
         "${_lucjan}mm-patches/0001-mm-patches.patch"
@@ -64,6 +82,8 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}openvpn-patches-v2-all/0001-openvpn-patches.patch"
         "${_lucjan}perf-patches/0001-perf-6.11-merge-changes-from-dev-tree.patch"
         "${_lucjan}cpu-cachyos-patches-v6/0001-cpu-cachyos-patches.patch"
+        "${_lucjan}amd-cache-optimizer-patches/0001-amd-cache-optimizer-patches.patch"
+        "${_lucjan}cpu-isa-patches-v4/0001-cpu-isa-patches.patch"
 
         "${_tkg}0013-optimize_harder_O3.patch"
         "${_cachy}misc/0001-acpi-call.patch"
@@ -91,9 +111,6 @@ export KBUILD_BUILD_TIMESTAMP=${KBUILD_BUILD_TIMESTAMP:-$(date -Ru${SOURCE_DATE_
 prepare() {
   cd linux-${_major}
 
-  msg2 "Apply Xanmod patch"
-  patch -Np1 -i ../patch-${pkgver}-xanmod${xanmod}
-
   msg2 "Setting version..."
   echo "-$pkgrel" > localversion.10-pkgrel
   echo "${pkgbase#linux-xanmod}" > localversion.20-pkgname
@@ -111,10 +128,8 @@ prepare() {
   done
 
   # Applying configuration
-  # cp -vf CONFIGS/xanmod/${_compiler}/config_x86-64-v2 .config
   msg2 "Copy configuration"
-  cp -vf CONFIGS/xanmod/gcc/config_x86-64-v3 .config
-
+  echo "Setting config..."
 
   # enable BORE Scheduler
   scripts/config -e CONFIG_SCHED_BORE
