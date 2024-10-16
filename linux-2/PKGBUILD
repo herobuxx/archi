@@ -84,8 +84,8 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}openvpn-patches-v2-all/0001-openvpn-patches.patch"
         "${_lucjan}perf-patches/0001-perf-6.11-merge-changes-from-dev-tree.patch"
         "${_lucjan}amd-cache-optimizer-patches/0001-amd-cache-optimizer-patches.patch"
-        "${_lucjan}cpu-cachyos-patches-v6/0001-cpu-cachyos-patches.patch"
         "${_lucjan}cpu-isa-patches-v4/0001-cpu-isa-patches.patch"
+        "${_lucjan}cpu-cachyos-patches-v6/0001-cpu-cachyos-patches.patch"
 
         "${_tkg}0013-optimize_harder_O3.patch"
         "${_cachy}misc/0001-acpi-call.patch"
