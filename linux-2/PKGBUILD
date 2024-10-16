@@ -45,9 +45,6 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
 
         "choose-gcc-optimization.sh"
 
-        "${_lucjan}amd-pstate-patches-v3/0001-amd-6.11-merge-changes-from-dev-tree.patch"
-        "${_lucjan}intel-pstate-patches-all/0001-intel-pstate-patches.patch"
-
         # Xanmod Feature
         "${_xanmod}binder/0001-binder-turn-into-module.patch"
         "${_xanmod}binder/0002-binder-give-binder_alloc-its-own-debug-mask-file.patch"
@@ -68,7 +65,9 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
 
         "${_cachy}sched/0001-bore-cachy-rt.patch"
         "${_cachy}misc/0001-rt.patch"
+        "${_cachy}misc/0001-amd-hfi.patch"
 
+        "${_lucjan}intel-pstate-patches-all/0001-intel-pstate-patches.patch"
         "${_lucjan}le9uo-patches/0001-mm-6.11-add-le9uo.patch"
         "${_lucjan}cachyos-fixes-patches-v6/0001-cachyos-fixes-patches.patch"
 
@@ -134,7 +133,7 @@ prepare() {
   # enable BORE Scheduler
   scripts/config -e CONFIG_SCHED_BORE
 
-  scripts/config  --set-val X86_64_VERSION 3
+  scripts/config  --set-val X86_64_VERSION 1
 
   # enable LTO_CLANG_THIN
   if [ "${_compiler}" = "clang" ]; then
