@@ -121,7 +121,7 @@ apply_patch() {
     echo "Applying $src"
 
     set +e
-    output=$(patch -Np1 -r - -F2 --input="../$src" 2>&1)
+    output=$( { patch -Np1 -r - -F2 --input="../$src"; } 2>&1 )
     exit_code=$?
     set -e
 
