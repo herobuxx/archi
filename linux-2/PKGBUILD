@@ -118,25 +118,30 @@ apply_patch() {
     local output
     local exit_code
 
-    echo "Applying $src"
+    echo "Applying patch: $src"
 
     set +e
-    output=$( { patch -Np1 -r - -F2 --input="../$src"; } 2>&1 )
+    output=$(patch -Np1 -r - -F2 --input="../$src" 2>&1)
     exit_code=$?
     set -e
 
-    echo $output
+    echo "$output"
 
-    # Memeriksa exit code
+    # Check the exit code of the patch command
     if [ $exit_code -ne 0 ]; then
-        # Memeriksa apakah output mengandung "Skipping patch"
+        # Check if the output contains "Skipping patch"
         if echo "$output" | grep -q "Skipping patch"; then
+            echo "Patch already applied: $src"
             return 0
         else
+            echo "Error applying patch: $src"
+            echo "Patch command output:"
+            echo "$output"
             return $exit_code
         fi
     fi
 
+    echo "Patch applied successfully: $src"
     return 0
 }
 
