@@ -114,24 +114,22 @@ export KBUILD_BUILD_USER=${KBUILD_BUILD_USER:-makepkg}
 export KBUILD_BUILD_TIMESTAMP=${KBUILD_BUILD_TIMESTAMP:-$(date -Ru${SOURCE_DATE_EPOCH:+d @$SOURCE_DATE_EPOCH})}
 
 _patch() {
-    output=$(patch -Np1 -F3 --input="../${1}" -r - 2>&1)
+    output=$(patch -Np1 -r - -F3 --input="../${1}" 2>&1)
     exit_code=$?
-    checker=$(echo $output | grep  "Skipping patch")
+    checker=$(echo "$output" | grep "Skipping patch")
+    echo "$output"
 
-    # Jika patch gagal (exit code bukan 0), kembalikan exit code tetapi tidak exit dari script
+    # Jika patch gagal (exit code bukan 0), kembalikan exit code tetapi tidak keluar dari script
     if [ $exit_code -ne 0 ]; then
         if [ -n "$checker" ]; then 
-          echo $output
-          return 0
+            return 0
         fi
 
-        echo "Patch command failed with exit code $exit_code"
         return $exit_code
     fi
-
-    echo $output
     return 0
 }
+
 
 
 prepare() {
