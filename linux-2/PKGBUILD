@@ -63,8 +63,8 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}bbr3-patches/0001-tcp-bbr3-initial-import.patch"
         "${_lucjan}ntsync-patches-all/0001-ntsync-patches.patch"
 
-        "${_cachy}sched/0001-bore-cachy-rt.patch"
         "${_cachy}misc/0001-rt.patch"
+        "${_cachy}sched/0001-bore-cachy-rt.patch"
         "${_cachy}misc/0001-amd-hfi.patch"
 
         "${_lucjan}intel-pstate-patches-all/0001-intel-pstate-patches.patch"
@@ -75,6 +75,7 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}mm-patches/0001-mm-patches.patch"
         "${_lucjan}uksmd-patches-v2/0001-uksmd-patches.patch"
         "${_lucjan}powercap-patches/0001-powercap-intel_rapl-Add-support-for-AMD-family-1Ah.patch"
+        "${_lucjan}arch-patches/0001-arch-patches.patch"
         "${_lucjan}v4l2loopback-patches/0001-media-v4l2-core-add-v4l2loopback-driver.patch"
         "${_lucjan}zstd-cachyos-patches/0001-zstd-cachyos-patches.patch"
 
