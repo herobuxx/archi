@@ -31,6 +31,8 @@ _tkg="https://raw.githubusercontent.com/Frogging-Family/linux-tkg/master/linux-t
 _xanmod="https://gitlab.com/xanmod/linux-patches/-/raw/master/linux-6.11.y-xanmod/"
 _commit_ck=2870d6ac146aa658af60bb18a9c7503efe5992d4
 
+_bore=5.6.1
+
 license=(GPL2)
 makedepends=(
   bc cpio kmod libelf perl tar xz
@@ -42,10 +44,10 @@ options=('!strip')
 _srcname="linux-${pkgver}-xanmod${xanmod}"
 
 source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar."{xz,sign}
+        "https://cdn.kernel.org/pub/linux/kernel/projects/rt/$_major/patch-$_major-rt7.patch."{xz,sign}
         "choose-gcc-optimization.sh"
 
-        "${_cachy}misc/0001-rt.patch"
-        "${_cachy}sched/0001-bore-cachy-rt.patch"
+        "https://github.com/firelzrd/bore-scheduler/raw/refs/heads/main/patches/stable/linux-$_major-bore/0001-linux$_major.y-bore$_bore.patch"
         
         # Xanmod Feature
         "${_xanmod}binder/0001-binder-turn-into-module.patch"
@@ -115,6 +117,9 @@ prepare() {
   echo "-$pkgrel" > localversion.10-pkgrel
   echo "${pkgbase#linux-xanmod}" > localversion.20-pkgname
 
+  msg2 "Applying RT patch"
+  patch -Np1 -F3 --input="../patch-6.11-rt7.patch"
+
   # Archlinux patches
   local src
   for src in "${source[@]}"; do
@@ -122,7 +127,7 @@ prepare() {
     src="${src##*/}"
     [[ $src = *.patch ]] || continue
     msg2 "Applying patch $src..."
-    patch -Np1 -F2 --input="../$src" -r -
+    patch -Np1 -F3 --input="../$src" -r -
     # OUT="$(patch -Np1 -F2 --input="../$src" -r -)" || echo "${OUT}" | grep "Skipping patch" -q || (echo "$OUT" && false);
 
   done
