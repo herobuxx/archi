@@ -66,6 +66,7 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_xanmod}userns/0001-sysctl-add-sysctl-to-disallow-unprivileged-CLONE_NEW.patch"
         "${_lucjan}bbr3-patches/0001-tcp-bbr3-initial-import.patch"
         "${_lucjan}ntsync-patches-all/0001-ntsync-patches.patch"
+        "${_lucjan}futex-patches/0001-futex-6.11-Add-entry-point-for-FUTEX_WAIT_MULTIPLE-o.patch"
 
         "${_cachy}misc/0001-amd-hfi.patch"
 
@@ -73,6 +74,8 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}intel-pstate-patches-all/0001-intel-pstate-patches.patch"
         "${_lucjan}le9uo-patches/0001-mm-6.11-add-le9uo.patch"
         "${_lucjan}cachyos-fixes-patches-v6/0001-cachyos-fixes-patches.patch"
+        "${_lucjan}eevdf-patches-v6/0001-sched-6.11-merge-changes-from-dev-tree.patch"
+        "${_lucjan}schedutil-patches/0001-schedutil-6.11-merge-changes-from-dev-tree.patch"
 
         "${_lucjan}kbuild-patches/0001-kbuild-patches.patch"
         "${_lucjan}mm-patches/0001-mm-patches.patch"
@@ -85,7 +88,6 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "${_lucjan}openvpn-patches-v2-all/0001-openvpn-patches.patch"
         "${_lucjan}perf-patches/0001-perf-6.11-merge-changes-from-dev-tree.patch"
         "${_lucjan}amd-cache-optimizer-patches/0001-amd-cache-optimizer-patches.patch"
-        "${_lucjan}cpu-isa-patches-v4/0001-cpu-isa-patches.patch"
         "${_lucjan}cpu-cachyos-patches-v6/0001-cpu-cachyos-patches.patch"
 
         "${_tkg}0013-optimize_harder_O3.patch"
@@ -130,12 +132,14 @@ prepare() {
     msg2 "Applying patch $src..."
     patch -Np1 -F3 --input="../$src" -r -
     # OUT="$(patch -Np1 -F2 --input="../$src" -r -)" || echo "${OUT}" | grep "Skipping patch" -q || (echo "$OUT" && false);
-
   done
 
   # Applying configuration
   msg2 "Copy configuration"
   echo "Setting config..."
+
+  # EROFS as module
+  scripts/config --module CONFIG_EROFS_FS
 
   # enable BORE Scheduler
   scripts/config -e CONFIG_SCHED_BORE
@@ -201,7 +205,7 @@ prepare() {
   fi
 
   msg2 "Set HOSTNAME"
-  scripts/config --set-val CONFIG_DEFAULT_HOSTNAME "XANMOD-X86_64-V3"
+  scripts/config --set-val CONFIG_DEFAULT_HOSTNAME "CUSTORIZER"
 
   msg2 "AMD PSTATE"
   scripts/config  -e CONFIG_X86_AMD_PSTATE
@@ -214,7 +218,7 @@ prepare() {
 
   msg2 "Enabling FULLCONENAT..."
   scripts/config --module IP_NF_TARGET_FULLCONENAT \
-                  --module NETFILTER_XT_TARGET_FULLCONENAT
+                 --module NETFILTER_XT_TARGET_FULLCONENAT
   
 
   msg2 "Enabling KBUILD_CFLAGS -O3..."
